@@ -1,0 +1,16 @@
+  {
+    "name": "Impuesteam - Calculador de impuestos argentinos en STEAM",
+    "version": "1.0",
+    "description": "Calculador y visualizador de impuestos automatizado para todos los artículos de Steam - Argentina 2020",
+    "manifest_version": 2,
+
+
+	 "content_scripts": [
+	   {
+	     "matches": ["https://store.steampowered.com/*"],
+	     "run_at": "document_idle",
+	     "js": ["test.js"]
+	   }
+	 ]
+
+  }

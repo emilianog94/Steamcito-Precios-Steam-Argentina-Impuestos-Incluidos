@@ -69,7 +69,10 @@ function displayAppPrices(price){
     } else if(price.classList.contains('discount_final_price')){
         let newElement = `<div class="discount_final_price price" data-original-price="none">${priceToDisplay}</div>`;
         price.insertAdjacentHTML('afterend',newElement);    
-    }
+    } else if(price.classList.contains('game_area_dlc_price')){
+        price.innerText += ` ${priceToDisplay}`;
+  
+    } 
 }
 
 

@@ -9,7 +9,8 @@
 	   {
 	     "matches": ["https://store.steampowered.com/*"],
 	     "run_at": "document_idle",
-	     "js": ["test.js"]
+		 "js": ["test.js"],
+		 "css": ["styles.css"]
 	   }
 	 ]
 

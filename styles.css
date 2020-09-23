@@ -1,0 +1,61 @@
+.discount_prices .discount_final_price:not([data-original-price=none]) {
+  text-decoration: line-through;
+  font-size: 11px;
+  color: #577180 !important;
+}
+
+.home_content_items .discount_block_inline .discount_prices .discount_final_price[data-original-price=none], .app_impression_tracked .discount_block_inline .discount_prices .discount_final_price[data-original-price=none] {
+  margin-left: 0.45em;
+}
+
+.discount_block_large .discount_pct, .discount_block_large .bundle_base_discount {
+  line-height: 47px !important;
+}
+
+.game_purchase_action {
+  bottom: -30px !important;
+}
+
+.game_purchase_action .game_purchase_action_bg {
+  height: 46px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_price:first-child {
+  text-decoration: line-through;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount {
+  height: 46px;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_pct {
+  line-height: 46px;
+  height: 100%;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price[data-original-price=none] {
+  padding-top: 0;
+}
+
+.game_purchase_action .game_purchase_action_bg .btn_addtocart span {
+  line-height: 44px;
+}
+
+#dlc_purchase_action.game_purchase_action_bg .game_purchase_price:first-child {
+  text-decoration: line-through;
+}
+
+.game_area_dlc_price .oldprice {
+  text-decoration: line-through;
+}
+/*# sourceMappingURL=styles.css.map */

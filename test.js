@@ -61,17 +61,18 @@ function convertNumberToString(price){
 }
 
 function displayAppPrices(price){
-    let priceToDisplay = convertNumberToString(price.dataset.argentinaPrice);
+    let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
+    let originalPrice = convertNumberToString(price.dataset.originalPrice);
+
 
     if(price.classList.contains('game_purchase_price')){
-        let newElement = `<div class="game_purchase_price price" data-original-price="none">${priceToDisplay}</div>`;
+        let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);
     } else if(price.classList.contains('discount_final_price')){
-        let newElement = `<div class="discount_final_price price" data-original-price="none">${priceToDisplay}</div>`;
+        let newElement = `<div class="discount_final_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);    
     } else if(price.classList.contains('game_area_dlc_price')){
-        price.innerText += ` ${priceToDisplay}`;
-  
+        price.innerHTML = `<span class="oldprice">${originalPrice}</span> <span class="finalprice">${argentinaPrice}</span>`;
     } 
 }
 

@@ -6,12 +6,20 @@
 
 
 	 "content_scripts": [
-	   {
-	     "matches": ["https://store.steampowered.com/*"],
-	     "run_at": "document_idle",
-		 "js": ["test.js"],
-		 "css": ["styles.css"]
-	   }
+		{
+			"matches": ["https://store.steampowered.com/sale/*"],
+			"run_at": "document_idle",
+			"js": ["test_sale.js"],
+			"css": ["styles.css"]
+		},
+
+		{
+			"matches": ["https://store.steampowered.com/*"],
+			"exclude_matches":["https://store.steampowered.com/sale/*"],
+			"run_at": "document_idle",
+			"js": ["test.js"],
+			"css": ["styles.css"]
+		}
 	 ]
 
   }

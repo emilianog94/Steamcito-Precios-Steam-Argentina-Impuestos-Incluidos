@@ -3,10 +3,9 @@ Extensión para Google Chrome que te permite visualizar el precio final de todos
 
 
 ### Funcionalidades planeadas
-- Cálculo automático de los precios finales de todos los artículos.
-- Posibilidad de discriminar el valor de los impuestos si el usuario posee saldo en su Steam Wallet.
-- Detalle de todos los impuestos que van a llegar a tu resumen bancario.
-- ¡Todo actualizado al 2020!
+- Cálculo automático de los precios finales de todos los artículos en todas las vistas de Steam
+- Posibilidad de discriminar el valor de los impuestos en el carrito si el usuario posee saldo en la Steam Wallet.
+- Evaluar si el saldo de tu Steam Wallet te permite comprar un juego. Si se da el caso, mostrar el precio normal (sin tachar).
 
 <br>
 
@@ -16,3 +15,4 @@ Extensión para Google Chrome que te permite visualizar el precio final de todos
 - Buscador con autocompletado
 - Explorador de categorías
 - Carrito y Checkout
+- Evento Sale

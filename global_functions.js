@@ -21,6 +21,7 @@ const taxes = {
 
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
+    walletBalanceContainer.style.color="#a4d007";
     return convertStringToNumber(walletBalanceContainer,5);
 }
 
@@ -37,6 +38,10 @@ function setArgentinaPrice(price){
         let baseNumericPrice = convertStringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
+
+        // Verifico si alcanza con el saldo actual de la wallet
+        price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : "";
+
         displayAppPrices(price);
     }
     else{
@@ -55,7 +60,6 @@ function convertNumberToString(price){
 function displayAppPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
-
 
     if(price.classList.contains('game_purchase_price')){
         let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;

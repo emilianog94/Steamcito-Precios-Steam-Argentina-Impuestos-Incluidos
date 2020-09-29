@@ -2,7 +2,11 @@
             .discount_final_price:not([data-original-price=none]){
                 text-decoration:line-through;
                 font-size:11px;
-                color:#577180 !important;
+                color:#577180;
+
+                &.wallet-available{
+                    font-size:13px;
+                }
             }
 }
 
@@ -11,6 +15,11 @@
         .discount_prices{
             .discount_final_price[data-original-price=none]{
                 margin-left:0.45em;
+                font-size:11px !important;
+            }
+            
+            .discount_final_price:not([data-original-price=none]){
+                font-size:11px !important;
             }
         }
 }
@@ -23,7 +32,7 @@
 
 
 .game_purchase_action{
-    bottom:-30px !important;
+    bottom:-20px !important;
     .game_purchase_action_bg{
         height:46px;
         display:flex;
@@ -48,6 +57,10 @@
                     padding-top:0;
                 }
             }
+
+            .bundle_base_discount{
+                line-height: normal;
+            }
         }
 
         .btn_addtocart{
@@ -67,7 +80,23 @@
 }
 
 .game_area_dlc_price{
+    background-color:#000;
+    padding:5px 8px;
+    font-size:11px;
+    position:absolute;
+    right:10px;
+    top:0;
+
     .oldprice{
         text-decoration:line-through;
+        margin-right:10px;
+        color:#626366 !important;
+
     }
+}
+
+.wallet-available{
+    text-decoration:none !important;
+    color:#a4d007 !important;
+
 }

@@ -9,20 +9,20 @@
 		{ 
 			"matches": ["https://store.steampowered.com/*"],
 			"run_at": "document_idle",
-			"js": ["global_functions.js"],
-			"css": ["styles.css"]
+			"js": ["js/global_functions.js"],
+			"css": ["css/styles.css"]
 		},		 
 		{
 			"matches": ["https://store.steampowered.com/sale/*"],
 			"run_at": "document_idle",
-			"js": ["test_sale.js"]
+			"js": ["js/test_sale.js"]
 		},
 
 		{
 			"matches": ["https://store.steampowered.com/*"],
 			"exclude_matches":["https://store.steampowered.com/sale/*"],
 			"run_at": "document_idle",
-			"js": ["test.js"]
+			"js": ["js/test.js"]
 		}
 	 ]
 

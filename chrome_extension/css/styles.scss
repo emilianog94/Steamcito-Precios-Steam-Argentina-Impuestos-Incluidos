@@ -22,14 +22,52 @@
                 font-size:11px !important;
             }
         }
+    }
 }
+
+.marketingmessage_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+
+    .home_marketing_message{
+        height:235px;
+    
+        .discount_block{
+            height:auto;
+    
+            .discount_prices{
+                display: flex;
+                flex-direction: column;
+            }
+    
+        }
+    
+    }
 }
+
 
 
 .discount_block_large .discount_pct, .discount_block_large .bundle_base_discount{
     line-height:47px !important;
 }
 
+
+
+.discount_block{
+    display:flex;
+
+    .discount_pct{
+        display:flex !important;
+        align-items:center;
+    }
+
+    > .discount_prices{
+        background-color:#000;
+        display:flex !important;
+        flex-direction:column;
+    }
+} 
 
 .game_purchase_action{
     bottom:-20px !important;
@@ -53,8 +91,16 @@
             }
 
             .discount_prices{
+
+                .discount_final_price{
+                    .your_price_label{
+                        display:none;
+                    }
+                }
+
                 .discount_final_price[data-original-price=none]{
                     padding-top:0;
+                    line-height:normal;
                 }
             }
 
@@ -98,5 +144,84 @@
 .wallet-available{
     text-decoration:none !important;
     color:#a4d007 !important;
+}
+
+.tab_content,.tab_content_ctn{
+    .tab_item{
+        .tab_item_discount{
+            width:auto;
+            margin-top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;       
+            
+            .discount_pct{
+                margin-right:10px;
+            }
+
+        }
+    }
+}
+
+#search_result_container{
+    .search_result_row{
+        display:flex;
+        height:auto;
+
+        .search_capsule{
+            display: flex;
+            align-items: center;
+        }
+
+        .responsive_search_name_combined{
+            display:flex;
+            flex-direction:row;
+            align-items:center;
+        }
+
+        .search_price_discount_combined{
+            text-align:right;
+
+            .responsive_secondrow{
+                padding-top:9px;
+
+                &[data-original-price]{
+                    text-decoration:line-through;
+                }
+            }
+        }
+
+        .search_price[data-original-price=none]{
+            padding-bottom:9px;
+        }
+        
+        .col{
+            height:auto;
+            line-height:normal !important;
+        }
+    }
+}
+
+.carousel_container{
+
+    .carousel_thumbs{
+        margin-top:30px;
+    }
+
+    .carousel_items{
+
+        .focus{
+            display:flex;
+        }
+
+        &.store_capsule_container{
+            overflow-x:visible !important;
+            overflow-y:visible !important;
+        }
 
 }
+
+
+
+
+}  

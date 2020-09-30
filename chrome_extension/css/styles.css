@@ -17,8 +17,63 @@
   font-size: 11px !important;
 }
 
+.marketingmessage_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.marketingmessage_container .home_marketing_message {
+  height: 235px;
+}
+
+.marketingmessage_container .home_marketing_message .discount_block {
+  height: auto;
+}
+
+.marketingmessage_container .home_marketing_message .discount_block .discount_prices {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .discount_block_large .discount_pct, .discount_block_large .bundle_base_discount {
   line-height: 47px !important;
+}
+
+.discount_block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.discount_block .discount_pct {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.discount_block > .discount_prices {
+  background-color: #000;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .game_purchase_action {
@@ -52,8 +107,13 @@
   height: 100%;
 }
 
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price .your_price_label {
+  display: none;
+}
+
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price[data-original-price=none] {
   padding-top: 0;
+  line-height: normal;
 }
 
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .bundle_base_discount {
@@ -86,5 +146,86 @@
 .wallet-available {
   text-decoration: none !important;
   color: #a4d007 !important;
+}
+
+.tab_content .tab_item .tab_item_discount, .tab_content_ctn .tab_item .tab_item_discount {
+  width: auto;
+  margin-top: 0;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.tab_content .tab_item .tab_item_discount .discount_pct, .tab_content_ctn .tab_item .tab_item_discount .discount_pct {
+  margin-right: 10px;
+}
+
+#search_result_container .search_result_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+}
+
+#search_result_container .search_result_row .search_capsule {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#search_result_container .search_result_row .responsive_search_name_combined {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#search_result_container .search_result_row .search_price_discount_combined {
+  text-align: right;
+}
+
+#search_result_container .search_result_row .search_price_discount_combined .responsive_secondrow {
+  padding-top: 9px;
+}
+
+#search_result_container .search_result_row .search_price_discount_combined .responsive_secondrow[data-original-price] {
+  text-decoration: line-through;
+}
+
+#search_result_container .search_result_row .search_price[data-original-price=none] {
+  padding-bottom: 9px;
+}
+
+#search_result_container .search_result_row .col {
+  height: auto;
+  line-height: normal !important;
+}
+
+.carousel_container .carousel_thumbs {
+  margin-top: 30px;
+}
+
+.carousel_container .carousel_items .focus {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.carousel_container .carousel_items.store_capsule_container {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
 }
 /*# sourceMappingURL=styles.css.map */

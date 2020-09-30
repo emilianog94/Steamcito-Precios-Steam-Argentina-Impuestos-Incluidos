@@ -27,7 +27,7 @@ function getBalance(){
 
 function getAppPrices(){
     // Get all current non-converted prices
-    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]`);
+    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox], .search_price:not([${attributeName}])`);
     prices.forEach(price => setArgentinaPrice(price));
 }
 
@@ -69,6 +69,9 @@ function displayAppPrices(price){
         price.insertAdjacentHTML('afterend',newElement);    
     } else if(price.classList.contains('game_area_dlc_price')){
         price.innerHTML = `<span class="oldprice">${originalPrice}</span> <span class="finalprice">${argentinaPrice}</span>`;
-    } 
+    } else if(price.classList.contains('search_price')){
+        let newElement = `<div class="search_price price" data-original-price="none">${argentinaPrice}</div>`;
+        price.insertAdjacentHTML('afterend',newElement);   
+    }
 }
 

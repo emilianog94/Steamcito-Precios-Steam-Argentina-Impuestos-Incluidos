@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .discount_prices .discount_final_price:not([data-original-price=none]) {
   text-decoration: line-through;
   font-size: 11px;
@@ -51,9 +52,9 @@
 }
 
 .discount_block {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 
 .discount_block .discount_pct {
@@ -148,22 +149,24 @@
   color: #a4d007 !important;
 }
 
-.tab_content .tab_item .tab_item_discount, .tab_content_ctn .tab_item .tab_item_discount {
-  width: auto;
-  margin-top: 0;
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
+/* Este código rompe muchas cosas!
+.tab_content,.tab_content_ctn{
+    .tab_item{
+        .tab_item_discount{
+            width:auto;
+            margin-top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;       
+            
+            .discount_pct{
+                margin-right:10px;
+            }
 
-.tab_content .tab_item .tab_item_discount .discount_pct, .tab_content_ctn .tab_item .tab_item_discount .discount_pct {
-  margin-right: 10px;
+        }
+    }
 }
-
+*/
 #search_result_container .search_result_row {
   display: -webkit-box;
   display: -ms-flexbox;

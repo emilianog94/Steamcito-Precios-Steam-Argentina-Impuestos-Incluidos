@@ -55,7 +55,7 @@
 
 
 .discount_block{
-    display:flex;
+    display:flex !important;
 
     .discount_pct{
         display:flex !important;
@@ -146,6 +146,8 @@
     color:#a4d007 !important;
 }
 
+
+/* Este código rompe muchas cosas!
 .tab_content,.tab_content_ctn{
     .tab_item{
         .tab_item_discount{
@@ -162,6 +164,7 @@
         }
     }
 }
+*/ 
 
 #search_result_container{
     .search_result_row{

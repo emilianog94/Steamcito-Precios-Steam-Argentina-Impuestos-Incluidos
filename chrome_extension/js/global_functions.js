@@ -27,7 +27,7 @@ function getBalance(){
 
 function getAppPrices(){
     // Get all current non-converted prices
-    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox], .search_price:not([${attributeName}])`);
+    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}])`);
     prices.forEach(price => setArgentinaPrice(price));
 }
 
@@ -71,6 +71,12 @@ function displayAppPrices(price){
         price.innerHTML = `<span class="oldprice">${originalPrice}</span> <span class="finalprice">${argentinaPrice}</span>`;
     } else if(price.classList.contains('search_price')){
         let newElement = `<div class="search_price price" data-original-price="none">${argentinaPrice}</div>`;
+        price.insertAdjacentHTML('afterend',newElement);   
+    }  else if(price.classList.contains('regular_price')){
+        let newElement = `<div class="regular_price price" data-original-price="none">${argentinaPrice}</div>`;
+        price.insertAdjacentHTML('afterend',newElement);   
+    }  else if(price.classList.contains('match_price')){
+        let newElement = `<div class="match_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);   
     }
 }

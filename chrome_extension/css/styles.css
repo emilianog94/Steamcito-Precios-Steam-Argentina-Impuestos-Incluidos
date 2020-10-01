@@ -95,7 +95,7 @@
   margin-left: auto;
 }
 
-.game_purchase_action .game_purchase_action_bg .game_purchase_price:first-child {
+.game_purchase_action .game_purchase_action_bg .game_purchase_price:not([data-original-price=none]):first-child {
   text-decoration: line-through;
 }
 
@@ -106,6 +106,25 @@
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_pct {
   line-height: 46px;
   height: 100%;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices {
+  height: 100%;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price {
+  line-height: normal;
+  padding-bottom: 0 !important;
 }
 
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price .your_price_label {
@@ -129,6 +148,24 @@
   text-decoration: line-through;
 }
 
+#searchterm_options .match_price {
+  position: relative;
+  display: inline;
+}
+
+#searchterm_options .match_price.wallet-available {
+  color: #577180;
+}
+
+#searchterm_options .match_price.price {
+  margin-left: 12px;
+  text-decoration: none;
+}
+
+#searchterm_options .match_price:not([data-original-price=none]) {
+  text-decoration: line-through;
+}
+
 .game_area_dlc_price {
   background-color: #000;
   padding: 5px 8px;
@@ -147,6 +184,27 @@
 .wallet-available {
   text-decoration: none !important;
   color: #a4d007 !important;
+}
+
+.tab_content .tab_item.focus .wallet-available, .tab_content_ctn .tab_item.focus .wallet-available {
+  color: #4c6b22 !important;
+}
+
+.tab_content .tab_item .tab_item_discount, .tab_content_ctn .tab_item .tab_item_discount {
+  width: auto;
+}
+
+.tab_content .tab_item .tab_item_discount .discount_pct, .tab_content_ctn .tab_item .tab_item_discount .discount_pct {
+  margin-right: 12px;
+  margin-top: 0;
+}
+
+.similar_grid_price .regular_price:first-child {
+  text-decoration: line-through;
+}
+
+.similar_grid_price .regular_price[data-original-price=none] {
+  text-decoration: none;
 }
 
 /* Este código rompe muchas cosas!

@@ -78,7 +78,7 @@
         width:fit-content;
         margin-left:auto;
 
-        .game_purchase_price:first-child{
+        .game_purchase_price:not([data-original-price=none]):first-child{
             text-decoration:line-through;
         }
 
@@ -91,8 +91,15 @@
             }
 
             .discount_prices{
+                height: 100%;
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
 
                 .discount_final_price{
+                    line-height:normal;
+                    padding-bottom:0 !important;
+
                     .your_price_label{
                         display:none;
                     }
@@ -125,6 +132,27 @@
     }
 }
 
+#searchterm_options{
+    .match_price{
+        position:relative;
+        display:inline;
+
+        &.wallet-available{
+            color:#577180;
+        }
+
+        &.price{
+            margin-left:12px;
+            text-decoration:none;
+        }
+
+        &:not([data-original-price=none]){
+            text-decoration:line-through;
+        }
+    }
+    
+}
+
 .game_area_dlc_price{
     background-color:#000;
     padding:5px 8px;
@@ -146,6 +174,37 @@
     color:#a4d007 !important;
 }
 
+
+.tab_content,.tab_content_ctn{
+    .tab_item{
+
+        &.focus{
+            .wallet-available{
+                color:#4c6b22 !important;
+            }
+        }
+
+        .tab_item_discount{
+            width:auto;
+
+            .discount_pct{
+                margin-right:12px;
+                margin-top:0;
+            }
+        }
+    }
+}
+
+.similar_grid_price{
+    .regular_price{
+        &:first-child{
+            text-decoration:line-through;
+        }
+        &[data-original-price=none]{
+            text-decoration:none;
+        }
+    }
+}
 
 /* Este código rompe muchas cosas!
 .tab_content,.tab_content_ctn{

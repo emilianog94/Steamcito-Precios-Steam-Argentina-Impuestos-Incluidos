@@ -12,15 +12,9 @@
 			"js": ["js/global_functions.js"],
 			"css": ["css/styles.css"]
 		},		 
-		{
-			"matches": ["https://store.steampowered.com/sale/*"],
-			"run_at": "document_idle",
-			"js": ["js/test_sale.js"]
-		},
 
 		{
 			"matches": ["https://store.steampowered.com/*"],
-			"exclude_matches":["https://store.steampowered.com/sale/*"],
 			"run_at": "document_idle",
 			"js": ["js/test.js"]
 		}

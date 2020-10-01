@@ -17,3 +17,4 @@ Extensión para Google Chrome que te permite visualizar el precio final de todos
 - Carrito y Checkout
 - Sale Event
 - Search Box
+- Steam Community

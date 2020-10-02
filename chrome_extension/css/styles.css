@@ -95,6 +95,10 @@
   height: auto !important;
 }
 
+.highlight_description .regular_price:not([data-original-price=none]) {
+  text-decoration: line-through;
+}
+
 .highlight_description .game_purchase_discount {
   height: 100%;
   overflow: visible;
@@ -173,6 +177,13 @@
 
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .bundle_base_discount {
   line-height: normal;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .game_purchase_action .game_purchase_action_bg .btn_addtocart span {

@@ -82,7 +82,7 @@
 
     .block_content{
         display:flex; 
-        
+
         a{
             height:auto !important;
         }
@@ -90,6 +90,11 @@
 }
 
 .highlight_description{
+
+    .regular_price:not([data-original-price=none]){
+        text-decoration:line-through;
+    }
+
     .game_purchase_discount{
         height:100%;
         overflow:visible;
@@ -152,6 +157,9 @@
 
             .bundle_base_discount{
                 line-height: normal;
+                height: 100%;
+                display: flex;
+                align-items: center;
             }
         }
 

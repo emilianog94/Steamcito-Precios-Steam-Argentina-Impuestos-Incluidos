@@ -77,6 +77,41 @@
           flex-direction: column;
 }
 
+.game_page_autocollapse .game_area_description iframe {
+  display: none;
+}
+
+.store_horizontal_autoslider_ctn {
+  height: 160px !important;
+}
+
+.store_horizontal_autoslider_ctn .block_content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.store_horizontal_autoslider_ctn .block_content a {
+  height: auto !important;
+}
+
+.highlight_description .game_purchase_discount {
+  height: 100%;
+  overflow: visible;
+}
+
+.highlight_description .game_purchase_discount .discount_prices {
+  height: 100%;
+}
+
+.highlight_description .game_purchase_discount .discount_prices .discount_final_price[data-original-price=none] {
+  padding-top: 0;
+}
+
+.highlight_description .game_purchase_discount .discount_pct {
+  height: auto;
+}
+
 .game_purchase_action {
   bottom: -20px !important;
 }

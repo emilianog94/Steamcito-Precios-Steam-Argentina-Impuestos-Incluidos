@@ -69,6 +69,45 @@
     }
 } 
 
+.game_page_autocollapse{
+    .game_area_description{
+        iframe{
+            display:none;
+        }
+    }
+}
+
+.store_horizontal_autoslider_ctn{
+    height:160px !important;
+
+    .block_content{
+        display:flex; 
+        
+        a{
+            height:auto !important;
+        }
+    }
+}
+
+.highlight_description{
+    .game_purchase_discount{
+        height:100%;
+        overflow:visible;
+
+        .discount_prices{
+            height:100%;
+
+            .discount_final_price[data-original-price=none]{
+                padding-top:0;
+            }
+        }
+
+        .discount_pct{
+            height: auto;
+        }
+    }
+}
+
 .game_purchase_action{
     bottom:-20px !important;
     .game_purchase_action_bg{

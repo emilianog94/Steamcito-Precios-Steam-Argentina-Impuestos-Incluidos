@@ -21,8 +21,13 @@ const taxes = {
 
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
-    walletBalanceContainer.style.color="#a4d007";
-    return convertStringToNumber(walletBalanceContainer,5);
+    if(walletBalanceContainer){
+        walletBalanceContainer.style.color="#a4d007";
+        return convertStringToNumber(walletBalanceContainer,5)
+    } else{
+        return 0;
+    }
+
 }
 
 function getAppPrices(){

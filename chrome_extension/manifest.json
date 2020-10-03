@@ -16,7 +16,7 @@
 		{
 			"matches": ["https://store.steampowered.com/*"],
 			"run_at": "document_idle",
-			"js": ["js/test.js"]
+			"js": ["js/trigger.js"]
 		}
 	 ]
 

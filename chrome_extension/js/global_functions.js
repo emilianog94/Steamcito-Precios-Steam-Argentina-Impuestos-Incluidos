@@ -75,7 +75,6 @@ function displayAppPrices(price){
     } else if(price.classList.contains('game_area_dlc_price')){
         let newElement = `<div class="game_area_dlc_price dlc_price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('beforebegin',newElement);    
-        // price.innerHTML = `<span class="oldprice">${originalPrice}</span> <span class="finalprice">${argentinaPrice}</span>`;
     } else if(price.classList.contains('search_price')){
         let newElement = `<div class="search_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);   

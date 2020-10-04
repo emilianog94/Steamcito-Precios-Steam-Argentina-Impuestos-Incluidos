@@ -10,6 +10,11 @@
             }
 }
 
+.wallet-unavailable{
+    text-decoration:line-through;
+    color:#577180;
+}
+
 .home_content_items,.app_impression_tracked{
     .discount_block_inline{
         .discount_prices{
@@ -220,6 +225,23 @@
     
 }
 
+
+div[class*=salepreviewwidgets_OuterCapsuleContainer]{
+    div[class*=salepreviewwidgets_CapsuleContainer]{
+        div[class*=salepreviewwidgets_CapsuleBottomBar]{
+            height:auto !important;
+
+            div[class*=salepreviewwidgets_Discounted]{
+                align-items:stretch;
+
+                span[class*=salepreviewwidgets_BaseDiscount]{
+                    display:none;
+                }
+            }
+        }
+    }
+}
+
 .gameDlcBlocks,#game_area_dlc_expanded{
     .game_area_dlc_row{
         display:flex;
@@ -236,7 +258,7 @@
             padding:5px 8px;
             font-size:11px;
             position:relative;
-            right:10px;
+            right:0;
             top:0;
 
             &.dlc_price{
@@ -271,7 +293,11 @@
     }
 }
 
-
+.contenthub_dailydeal_container{
+    .dailydeal_ctn{
+        height:205px;
+    }
+}
 
 
 
@@ -315,6 +341,10 @@
         .tab_item_discount{
             width:auto;
 
+            .discount_final_price[data-original-price=none]{
+                color:#acdbf5;
+            }
+
             .discount_pct{
                 margin-right:12px;
                 margin-top:0;
@@ -333,25 +363,6 @@
         }
     }
 }
-
-/* Este código rompe muchas cosas!
-.tab_content,.tab_content_ctn{
-    .tab_item{
-        .tab_item_discount{
-            width:auto;
-            margin-top: 0;
-            height: 100%;
-            display: flex;
-            align-items: center;       
-            
-            .discount_pct{
-                margin-right:10px;
-            }
-
-        }
-    }
-}
-*/ 
 
 #search_result_container{
     .search_result_row{
@@ -397,7 +408,10 @@
 .carousel_container{
 
     .carousel_thumbs{
+        position:relative;
+        z-index:1;
         margin-top:30px;
+        
     }
 
     .carousel_items{

@@ -45,7 +45,7 @@ function setArgentinaPrice(price){
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
 
         // Verifico si alcanza con el saldo actual de la wallet
-        price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : "";
+        price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
 
         displayAppPrices(price);
     }
@@ -66,6 +66,7 @@ function displayAppPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
 
+
     if(price.classList.contains('game_purchase_price')){
         let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);
@@ -83,6 +84,9 @@ function displayAppPrices(price){
         price.insertAdjacentHTML('afterend',newElement);   
     }  else if(price.classList.contains('match_price')){
         let newElement = `<div class="match_price price" data-original-price="none">${argentinaPrice}</div>`;
+        price.insertAdjacentHTML('afterend',newElement);   
+    } else if((price.classList.toString()).indexOf('salepreviewwidgets_StoreSalePriceBox') > -1 ){
+        let newElement = `<div class="salepreviewwidgets_StoreSalePriceBox" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);   
     }
 }

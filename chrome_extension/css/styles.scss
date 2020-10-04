@@ -83,7 +83,23 @@
 }
 
 .store_horizontal_autoslider_ctn{
-    height:160px !important;
+    height:fit-content !important;
+
+    .home_specials_grid,.store_horizontal_autoslider{
+        overflow-x:hidden !important; 
+
+        .store_capsule{
+            height:auto;
+
+            .discount_block{
+                min-height:51px;
+            }
+        }
+
+        .special{
+            height:auto;
+        }
+    }
 
     .block_content{
         display:flex; 
@@ -93,6 +109,22 @@
         }
     }
 }
+
+.curator{
+    #RecommendationsRows{
+        .store_capsule.price_inline{
+            .discount_block{
+                width:100%;
+
+                .discount_prices{
+                    display:flex;
+                    flex-direction:row;
+                }
+            }
+        }
+    }
+}   
+
 
 .highlight_description{
 
@@ -336,6 +368,13 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
             .wallet-available{
                 color:#4c6b22 !important;
             }
+
+            .tab_item_discount{
+                .discount_final_price[data-original-price=none]{
+                    color:#263645;
+                }
+            }
+
         }
 
         .tab_item_discount{

@@ -86,7 +86,25 @@
 }
 
 .store_horizontal_autoslider_ctn {
-  height: 160px !important;
+  height: -webkit-fit-content !important;
+  height: -moz-fit-content !important;
+  height: fit-content !important;
+}
+
+.store_horizontal_autoslider_ctn .home_specials_grid, .store_horizontal_autoslider_ctn .store_horizontal_autoslider {
+  overflow-x: hidden !important;
+}
+
+.store_horizontal_autoslider_ctn .home_specials_grid .store_capsule, .store_horizontal_autoslider_ctn .store_horizontal_autoslider .store_capsule {
+  height: auto;
+}
+
+.store_horizontal_autoslider_ctn .home_specials_grid .store_capsule .discount_block, .store_horizontal_autoslider_ctn .store_horizontal_autoslider .store_capsule .discount_block {
+  min-height: 51px;
+}
+
+.store_horizontal_autoslider_ctn .home_specials_grid .special, .store_horizontal_autoslider_ctn .store_horizontal_autoslider .special {
+  height: auto;
 }
 
 .store_horizontal_autoslider_ctn .block_content {
@@ -97,6 +115,20 @@
 
 .store_horizontal_autoslider_ctn .block_content a {
   height: auto !important;
+}
+
+.curator #RecommendationsRows .store_capsule.price_inline .discount_block {
+  width: 100%;
+}
+
+.curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .highlight_description .regular_price:not([data-original-price=none]) {
@@ -335,6 +367,10 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidge
 
 .tab_content .tab_item.focus .wallet-available, .tab_content_ctn .tab_item.focus .wallet-available {
   color: #4c6b22 !important;
+}
+
+.tab_content .tab_item.focus .tab_item_discount .discount_final_price[data-original-price=none], .tab_content_ctn .tab_item.focus .tab_item_discount .discount_final_price[data-original-price=none] {
+  color: #263645;
 }
 
 .tab_content .tab_item .tab_item_discount, .tab_content_ctn .tab_item .tab_item_discount {

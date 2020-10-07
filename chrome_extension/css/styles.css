@@ -10,7 +10,7 @@
 
 .wallet-unavailable {
   text-decoration: line-through;
-  color: #577180;
+  color: #577180 !important;
 }
 
 .home_content_items .discount_block_inline .discount_prices .discount_final_price[data-original-price=none], .app_impression_tracked .discount_block_inline .discount_prices .discount_final_price[data-original-price=none] {
@@ -20,6 +20,28 @@
 
 .home_content_items .discount_block_inline .discount_prices .discount_final_price:not([data-original-price=none]), .app_impression_tracked .discount_block_inline .discount_prices .discount_final_price:not([data-original-price=none]) {
   font-size: 11px !important;
+}
+
+.cart_area_body .cart_item {
+  min-height: 90px;
+}
+
+.cart_area_body #cart_estimated_total_text {
+  opacity: 0;
+}
+
+.cart_area_body .estimated_total_extension > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cart_area_body .estimated_total_extension > div span {
+  font-weight: 700;
 }
 
 .marketingmessage_container {

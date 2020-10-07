@@ -17,6 +17,12 @@
 			"matches": ["https://store.steampowered.com/*"],
 			"run_at": "document_idle",
 			"js": ["js/trigger.js"]
+		},
+
+		{
+			"matches": ["https://store.steampowered.com/cart*"],
+			"run_at": "document_idle",
+			"js": ["js/cart_functions.js"]
 		}
 	 ]
 

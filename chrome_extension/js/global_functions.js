@@ -1,5 +1,5 @@
 const attributeName = "data-original-price";
-const walletBalance = getBalance();
+const walletBalance = 800;
 const totalTaxes = 1.64;
 const taxes = {
     tax1 : {
@@ -32,7 +32,7 @@ function getBalance(){
 
 function getAppPrices(){
     // Get all current non-converted prices
-    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}])`);
+    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}]), .cart_item .price:not([${attributeName}]):not([class*=original_price])`);
     prices.forEach(price => setArgentinaPrice(price));
 }
 
@@ -88,6 +88,9 @@ function displayAppPrices(price){
     } else if((price.classList.toString()).indexOf('salepreviewwidgets_StoreSalePriceBox') > -1 ){
         let newElement = `<div class="salepreviewwidgets_StoreSalePriceBox" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);   
+    } else if(price.classList.contains('price')){
+        let newElement = `<div class="pricee" data-original-price="none">${argentinaPrice}</div>`;
+        price.insertAdjacentHTML('afterend',newElement);     
     }
 }
 

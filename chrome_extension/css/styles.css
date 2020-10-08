@@ -49,6 +49,10 @@
   display: none;
 }
 
+.cart_area_body .tax-container {
+  padding: 16px;
+}
+
 .marketingmessage_container {
   display: -webkit-box;
   display: -ms-flexbox;

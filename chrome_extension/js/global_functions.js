@@ -32,16 +32,6 @@ function getTotalTaxes(){
     return totalTaxes;
 }
 
-
-
-/*taxes.forEach(tax => showFullInfo(tax));
-
-function showFullInfo(tax){
-    console.log(tax.name);
-    console.log(tax.percentage);
-}
-*/
-
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
@@ -50,7 +40,6 @@ function getBalance(){
     } else{
         return 0;
     }
-
 }
 
 function getAppPrices(){

@@ -1,3 +1,7 @@
+.green {
+  color: #a4d007;
+}
+
 .discount_prices .discount_final_price:not([data-original-price=none]) {
   text-decoration: line-through;
   font-size: 11px;
@@ -37,11 +41,12 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
 }
 
-.cart_area_body .estimated_total_extension > div span {
-  font-weight: 700;
+.cart_area_body .estimated_total_extension > div.hide {
+  display: none;
 }
 
 .marketingmessage_container {

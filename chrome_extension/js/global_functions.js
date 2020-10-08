@@ -1,5 +1,5 @@
 const attributeName = "data-original-price";
-const walletBalance = 800;
+const walletBalance = 850; // getBalance();
 const totalTaxes = 1.64;
 const taxes = {
     tax1 : {

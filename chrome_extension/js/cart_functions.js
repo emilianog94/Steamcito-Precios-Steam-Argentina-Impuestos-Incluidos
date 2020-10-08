@@ -14,12 +14,15 @@ function setMixedCartTotal(cartValue){
 }
 
 function showCart(){
+    let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
+    let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
+
     let oldCart = document.querySelector(".estimated_total_box");
     let newCart = 
     `<div class="estimated_total_extension">
-        <div class="total_wallet"> 
+        <div class="total_wallet ${estimatedTotalDisplay}"> 
             <p>Total Final pagando con Steam Wallet</p>
-            <span>${convertNumberToString(cartTotal)}</span>
+            <span class="green">${convertNumberToString(cartTotal)}</span>
         </div>
 
         <div class="total_cc">
@@ -27,13 +30,17 @@ function showCart(){
             <span>${convertNumberToString(cartTotalCreditCard)}</span>        
         </div>
 
-        <div class="total_mixed">
-            <p>Total Final pagando con Tarjeta y gastando los $${walletBalance} de tu Steam Wallet</p>
-            <span>${convertNumberToString(cartTotalMixed)}</span>        
+        <div class="total_mixed ${totalMixedDisplay}">
+            <p>Total Final pagando con Steam Wallet + Tarjeta</p>
+            <span> <span class="green">${convertNumberToString(walletBalance)} WALLET </span> + ${convertNumberToString(cartTotalMixed)}</span>        
         </div>
 
     </div>`;
     oldCart.insertAdjacentHTML('afterbegin',newCart);
+}
+
+function showTaxes(){
+    
 }
 
 let cartTotal = getCartTotal();

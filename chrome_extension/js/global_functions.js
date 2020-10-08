@@ -1,23 +1,46 @@
-const attributeName = "data-original-price";
-const walletBalance = 850; // getBalance();
-const totalTaxes = 1.64;
-const taxes = {
-    tax1 : {
+const taxes = [
+    {
         name : "IVA Servicios Digitales",
-        percentage : 0.21,
+        value : 21,
         moreInfo: "https://www.afip.gob.ar/iva/servicios-digitales/obligados.asp"
     },
-    tax2 : {
+    {
         name : "Impuesto PAIS",
-        percentage : 0.8,
+        value : 8,
         moreInfo: "https://www.afip.gob.ar/impuesto-pais/caracteristicas/definicion.asp"
     },
-    tax3 : {
+    {
         name : "Retención de Impuesto a las ganancias",
-        percentage : 0.35,
+        value : 35,
         moreInfo: "https://www.afip.gob.ar/impuesto-pais/caracteristicas/definicion.asp"
     }
-};
+];
+
+const attributeName = "data-original-price";
+const walletBalance = 850; // getBalance();
+const totalTaxes = getTotalTaxes();
+
+
+function getTotalTaxes(){
+
+    function reducer(total,num){
+        return total+num;
+    }
+
+    let taxesValues = taxes.map(tax => tax.value);
+    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100)).toFixed(2);
+    return totalTaxes;
+}
+
+
+
+/*taxes.forEach(tax => showFullInfo(tax));
+
+function showFullInfo(tax){
+    console.log(tax.name);
+    console.log(tax.percentage);
+}
+*/
 
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");

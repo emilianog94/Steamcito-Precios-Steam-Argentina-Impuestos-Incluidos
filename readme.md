@@ -10,11 +10,13 @@ Extensión para Google Chrome que te permite visualizar el precio final de todos
 <br>
 
 ### Componentes a modificar
-- Frontpage de Steam
-- App/Bundle particular
+- Frontpage
+- App/Bundle
 - Buscador con autocompletado
 - Explorador de categorías
 - Carrito y Checkout
 - Sale Event
 - Search Box
 - Steam Community
+- Wishlist
+- Developer Page

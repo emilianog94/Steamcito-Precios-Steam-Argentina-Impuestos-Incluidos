@@ -195,6 +195,29 @@
   position: static !important;
 }
 
+#wishlist_ctn .wishlist_row .purchase_area {
+  height: auto;
+}
+
+#wishlist_ctn .wishlist_row .purchase_area .discount_block .discount_pct, #wishlist_ctn .wishlist_row .purchase_area .discount_block_large .discount_pct {
+  height: 100%;
+}
+
+#wishlist_ctn .wishlist_row .purchase_area .btn_green_steamui, #wishlist_ctn .wishlist_row .purchase_area .btn_blue_steamui {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#wishlist_ctn .wishlist_row .purchase_area .btn_green_steamui span, #wishlist_ctn .wishlist_row .purchase_area .btn_blue_steamui span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .game_purchase_action {
   display: -webkit-box;
   display: -ms-flexbox;

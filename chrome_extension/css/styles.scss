@@ -197,6 +197,28 @@
     }
 }
 
+#wishlist_ctn{
+    .wishlist_row{
+        .purchase_area{
+            height:auto;
+
+            .discount_block, .discount_block_large{
+                .discount_pct{
+                    height:100%;
+                }
+            }
+
+            .btn_green_steamui,.btn_blue_steamui{
+                display:flex;
+
+                span{
+                    display:flex;
+                    align-items:center;
+                }
+            }
+        }
+    }
+}
 
 
 .game_purchase_action{

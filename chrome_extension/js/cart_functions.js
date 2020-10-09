@@ -44,7 +44,12 @@ function showCart(){
 }
 
 function showTaxes(){
-    let taxesContainer = `<div class="tax-container"><ul></ul></div>`;
+    let taxesContainer = 
+    `<div class="tax-container">
+        <h3>¿Qué impuestos estoy pagando?</h3>
+        <ul></ul>
+        <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(0)}%</span>
+    </div>`;
     oldCart.insertAdjacentHTML('afterend',taxesContainer);
 
     taxes.forEach(tax => showFullInfo(tax));
@@ -52,12 +57,14 @@ function showTaxes(){
     function showFullInfo(tax){
         let taxList = `
         <li>
-        <p>${tax.name}</p>
-        <p>${tax.value}</p>
-        <p>${tax.moreInfo}</p>
+            <p>${tax.name}</p>
+            <a href="${tax.moreInfo}" target="_blank">
+                <span>(Ver más)</span>
+            </a>
+            <p class="value">${tax.value}%</p>
         </li>
         `
-        document.querySelector(".tax-container").insertAdjacentHTML('afterbegin',taxList);
+        document.querySelector(".tax-container ul").insertAdjacentHTML('afterbegin',taxList);
     }
 }
 

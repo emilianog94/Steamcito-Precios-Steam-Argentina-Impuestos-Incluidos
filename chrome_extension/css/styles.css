@@ -123,10 +123,6 @@
           flex-direction: column;
 }
 
-.discount_block_large .discount_pct, .discount_block_large .bundle_base_discount {
-  line-height: 47px !important;
-}
-
 .discount_block {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
@@ -224,26 +220,6 @@
   height: auto;
 }
 
-.recommended_creators_ctn .discount_block {
-  height: 50px;
-}
-
-.recommended_creators_ctn .recommended_creators_container {
-  height: auto !important;
-}
-
-.recommended_creators_ctn .recommended_creators_container .avatars {
-  position: static !important;
-}
-
-#wishlist_ctn .wishlist_row .purchase_area {
-  height: auto;
-}
-
-#wishlist_ctn .wishlist_row .purchase_area .discount_block .discount_pct, #wishlist_ctn .wishlist_row .purchase_area .discount_block_large .discount_pct {
-  height: 100%;
-}
-
 #wishlist_ctn .wishlist_row .purchase_area .btn_green_steamui, #wishlist_ctn .wishlist_row .purchase_area .btn_blue_steamui {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -268,26 +244,12 @@
 }
 
 .game_purchase_action .game_purchase_action_bg {
-  height: 46px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0;
-}
-
-.game_purchase_action .game_purchase_action_bg .game_purchase_discount {
-  height: 46px;
-}
-
-.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_pct {
-  line-height: 46px;
-  height: 100%;
 }
 
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices {
@@ -302,11 +264,6 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price {
-  line-height: normal;
-  padding-bottom: 0 !important;
 }
 
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount .discount_prices .discount_final_price .your_price_label {
@@ -327,10 +284,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.game_purchase_action .game_purchase_action_bg .btn_addtocart span {
-  line-height: 44px;
 }
 
 #dlc_purchase_action.game_purchase_action_bg .game_purchase_price:first-child {

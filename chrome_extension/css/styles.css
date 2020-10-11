@@ -3,20 +3,23 @@
 }
 
 .discount_prices .discount_final_price:not([data-original-price=none]) {
-  text-decoration: line-through;
-  font-size: 11px;
-  color: #577180;
+  /*
+                text-decoration:line-through;
+                font-size:11px;
+                color:#577180;
+                */
 }
 
 .discount_prices .discount_final_price:not([data-original-price=none]).wallet-available {
   font-size: 13px;
 }
 
-.wallet-unavailable {
-  text-decoration: line-through;
-  color: #577180 !important;
+/*
+.wallet-unavailable{
+    text-decoration:line-through;
+    color:#577180 !important;
 }
-
+*/
 .home_content_items .discount_block_inline .discount_prices .discount_final_price[data-original-price=none], .app_impression_tracked .discount_block_inline .discount_prices .discount_final_price[data-original-price=none] {
   margin-left: 0.45em;
   font-size: 11px !important;
@@ -278,10 +281,6 @@
   margin: 0;
 }
 
-.game_purchase_action .game_purchase_action_bg .game_purchase_price:not([data-original-price=none]):first-child {
-  text-decoration: line-through;
-}
-
 .game_purchase_action .game_purchase_action_bg .game_purchase_discount {
   height: 46px;
 }
@@ -352,10 +351,6 @@
   text-decoration: none;
 }
 
-#searchterm_options .match_price:not([data-original-price=none]) {
-  text-decoration: line-through;
-}
-
 div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidgets_CapsuleContainer] div[class*=salepreviewwidgets_CapsuleBottomBar] {
   height: auto !important;
 }
@@ -397,11 +392,12 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidge
   position: relative;
   right: 0;
   top: 0;
-}
-
-.gameDlcBlocks .game_area_dlc_row .game_area_dlc_price:not([data-original-price=none]), #game_area_dlc_expanded .game_area_dlc_row .game_area_dlc_price:not([data-original-price=none]) {
-  text-decoration: line-through;
-  color: #577180;
+  /*
+            &:not([data-original-price=none]){
+                text-decoration:line-through;
+                color:#577180;
+            }
+            */
 }
 
 .gameDlcBlocks .game_area_dlc_row .game_area_dlc_price .discount_block .discount_prices, #game_area_dlc_expanded .game_area_dlc_row .game_area_dlc_price .discount_block .discount_prices {
@@ -476,10 +472,6 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidge
 .tab_content .tab_item .tab_item_discount .discount_pct, .tab_content_ctn .tab_item .tab_item_discount .discount_pct {
   margin-right: 12px;
   margin-top: 0;
-}
-
-.similar_grid_price .regular_price:first-child {
-  text-decoration: line-through;
 }
 
 .similar_grid_price .regular_price[data-original-price=none] {

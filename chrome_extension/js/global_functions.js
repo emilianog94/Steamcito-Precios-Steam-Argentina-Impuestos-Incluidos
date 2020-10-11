@@ -26,13 +26,15 @@ function getBalance(){
 
 function getAppPrices(){
     // Get all current non-converted prices
-    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}]), .cart_item .price:not([${attributeName}]):not([class*=original_price])`);
+    let prices = document.querySelectorAll(`.discount_original_price:not([${attributeName}]), .discount_final_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}]), .cart_item .price:not([${attributeName}]):not([class*=original_price])`);
     prices.forEach(price => setArgentinaPrice(price));
 }
 
 function setArgentinaPrice(price){
+
     // Verificar si el producto realmente tiene un precio.
-    if(price.innerText.includes("ARS$")){
+    if(price.innerText.includes("ARS$") && price.hasChildNodes()){
+        console.log(price.innerText);
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = convertStringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
@@ -60,10 +62,25 @@ function displayAppPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
 
+    price.innerText = argentinaPrice;
+    // price.dataset.originalPrice="none";
 
+    /*
     if(price.classList.contains('game_purchase_price')){
-        let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);
+        price.innerText = argentinaPrice;
+        console.log("hola");
+    }
+    else if(price.classList.contains('discount_final_price')){
+        price.innerText = argentinaPrice;
+        console.log("hola");
+    } 
+    */
+
+        //let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
+        //price.insertAdjacentHTML('afterend',newElement);
+
+    /*
+
     } else if(price.classList.contains('discount_final_price')){
         let newElement = `<div class="discount_final_price price" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);    
@@ -86,5 +103,6 @@ function displayAppPrices(price){
         let newElement = `<div class="pricee" data-original-price="none">${argentinaPrice}</div>`;
         price.insertAdjacentHTML('afterend',newElement);     
     }
+    */
 }
 

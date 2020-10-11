@@ -9,16 +9,9 @@
 		{ 
 			"matches": ["https://store.steampowered.com/*"],
 			"run_at": "document_idle",
-			"js": ["js/data.js","js/global_functions.js"],
+			"js": ["js/data.js","js/global_functions.js","js/trigger.js"],
 			"css": ["css/styles.css"]
 		},		 
-
-		{
-			"matches": ["https://store.steampowered.com/*"],
-			"run_at": "document_idle",
-			"js": ["js/trigger.js"]
-		},
-
 		{
 			"matches": ["https://store.steampowered.com/cart*"],
 			"run_at": "document_idle",

@@ -1,5 +1,5 @@
 const attributeName = "data-original-price";
-const walletBalance = 400; //getBalance();
+const walletBalance = 6000; //getBalance();
 const totalTaxes = getTotalTaxes();
 
 
@@ -65,51 +65,15 @@ function displayAppPrices(price){
     if(price.dataset.originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
         let parent = price.closest('div:not([data-original-price])');
         let pipi = parent.cloneNode(true);
-        (pipi.querySelector(".discount_original_price")).innerText = convertNumberToString(pipi.querySelector(".discount_original_price").dataset.originalPrice);
-        (pipi.querySelector(".discount_final_price")).innerText = convertNumberToString(pipi.querySelector(".discount_final_price").dataset.originalPrice);
+        if(pipi.querySelector(".discount_original_price")){
+            pipi.querySelector(".discount_original_price").innerText = convertNumberToString(pipi.querySelector(".discount_original_price").dataset.originalPrice);
+        }
+        if(pipi.querySelector(".discount_final_price")){
+            pipi.querySelector(".discount_final_price").innerText = convertNumberToString(pipi.querySelector(".discount_final_price").dataset.originalPrice);
+        }
         parent.insertAdjacentElement('afterend',pipi);
     }
 
     // price.dataset.originalPrice="none";
-
-    /*
-    if(price.classList.contains('game_purchase_price')){
-        price.innerText = argentinaPrice;
-        console.log("hola");
-    }
-    else if(price.classList.contains('discount_final_price')){
-        price.innerText = argentinaPrice;
-        console.log("hola");
-    } 
-    */
-
-        //let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
-        //price.insertAdjacentHTML('afterend',newElement);
-
-    /*
-
-    } else if(price.classList.contains('discount_final_price')){
-        let newElement = `<div class="discount_final_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);    
-    } else if(price.classList.contains('game_area_dlc_price')){
-        let newElement = `<div class="game_area_dlc_price dlc_price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('beforebegin',newElement);    
-    } else if(price.classList.contains('search_price')){
-        let newElement = `<div class="search_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    }  else if(price.classList.contains('regular_price')){
-        let newElement = `<div class="regular_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    }  else if(price.classList.contains('match_price')){
-        let newElement = `<div class="match_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    } else if((price.classList.toString()).indexOf('salepreviewwidgets_StoreSalePriceBox') > -1 ){
-        let newElement = `<div class="salepreviewwidgets_StoreSalePriceBox" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    } else if(price.classList.contains('price')){
-        let newElement = `<div class="pricee" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);     
-    }
-    */
 }
 

@@ -1,14 +1,18 @@
-const attributeName = "data-original-price";
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
+function convertStringToNumber(number,positionArs = 5){
+    return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
+}
+
+function convertNumberToString(number){
+    return `ARS$ ${number}`.replace('.',',');
+}
 
 function getTotalTaxes(){
-
     function reducer(total,num){
         return total+num;
     }
-
     let taxesValues = taxes.map(tax => tax.value);
     let totalTaxes = (1 + (taxesValues.reduce(reducer)/100)).toFixed(2);
     return totalTaxes;
@@ -18,73 +22,46 @@ function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
         walletBalanceContainer.style.color="#a4d007";
-        return convertStringToNumber(walletBalanceContainer,5)
-    } else{
-        return 0;
+        return convertStringToNumber(walletBalanceContainer);
     }
+    return 0;
 }
 
-function getAppPrices(){
-    // Get all current non-converted prices
-    let prices = document.querySelectorAll(`.discount_final_price:not([${attributeName}]), .game_area_dlc_price:not([${attributeName}]), .game_purchase_price:not([${attributeName}]), [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), .match_price:not([${attributeName}]), .cart_item .price:not([${attributeName}]):not([class*=original_price])`);
+function getPrices(){
+    let prices = document.querySelectorAll(priceContainers);
     prices.forEach(price => setArgentinaPrice(price));
 }
 
 function setArgentinaPrice(price){
-    // Verificar si el producto realmente tiene un precio.
-    if(price.innerText.includes("ARS$")){
+    if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = convertStringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
-
         // Verifico si alcanza con el saldo actual de la wallet
-        price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
-
-        displayAppPrices(price);
+        //price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
+        renderPrices(price);
     }
     else{
         price.dataset.originalPrice = "none";
     }
 }
 
-function convertStringToNumber(price,positionArs){
-    return parseFloat(price.innerText.slice(positionArs).replace(".","").replace(",","."));
-}
-
-function convertNumberToString(price){
-    return `ARS$ ${price}`.replace('.',',');
-}
-
-function displayAppPrices(price){
+function renderPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
+    price.innerText = argentinaPrice;
 
-
-    if(price.classList.contains('game_purchase_price')){
-        let newElement = `<div class="game_purchase_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);
-    } else if(price.classList.contains('discount_final_price')){
-        let newElement = `<div class="discount_final_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);    
-    } else if(price.classList.contains('game_area_dlc_price')){
-        let newElement = `<div class="game_area_dlc_price dlc_price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('beforebegin',newElement);    
-    } else if(price.classList.contains('search_price')){
-        let newElement = `<div class="search_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    }  else if(price.classList.contains('regular_price')){
-        let newElement = `<div class="regular_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    }  else if(price.classList.contains('match_price')){
-        let newElement = `<div class="match_price price" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    } else if((price.classList.toString()).indexOf('salepreviewwidgets_StoreSalePriceBox') > -1 ){
-        let newElement = `<div class="salepreviewwidgets_StoreSalePriceBox" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);   
-    } else if(price.classList.contains('price')){
-        let newElement = `<div class="pricee" data-original-price="none">${argentinaPrice}</div>`;
-        price.insertAdjacentHTML('afterend',newElement);     
+    // Verificar si es necesario mostrar el precio con Steam Wallet
+    if(price.dataset.originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
+        let parent = price.closest('div:not([data-original-price])');
+        let newContainer = parent.cloneNode(true);
+        let newContainerFirstPrice = newContainer.querySelector(".discount_original_price");
+        let newContainerSecondPrice = newContainer.querySelector(".discount_final_price");
+        newContainerFirstPrice ? newContainerFirstPrice.innerText = convertNumberToString(newContainerFirstPrice.dataset.originalPrice) : "";
+        newContainerSecondPrice ? newContainerSecondPrice.innerText = convertNumberToString(newContainerSecondPrice.dataset.originalPrice) : "";
+        parent.insertAdjacentElement('afterend',newContainer);
     }
+    // price.dataset.originalPrice="none";
 }
 

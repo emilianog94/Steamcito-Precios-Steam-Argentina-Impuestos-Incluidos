@@ -4,9 +4,11 @@
 
 .discount_prices{
             .discount_final_price:not([data-original-price=none]){
+                /*
                 text-decoration:line-through;
                 font-size:11px;
                 color:#577180;
+                */
 
                 &.wallet-available{
                     font-size:13px;
@@ -14,10 +16,12 @@
             }
 }
 
+/*
 .wallet-unavailable{
     text-decoration:line-through;
     color:#577180 !important;
 }
+*/
 
 .home_content_items,.app_impression_tracked{
     .discount_block_inline{
@@ -121,13 +125,6 @@
 }
 
 
-
-.discount_block_large .discount_pct, .discount_block_large .bundle_base_discount{
-    line-height:47px !important;
-}
-
-
-
 .discount_block{
     display:flex !important;
 
@@ -222,14 +219,11 @@
 
 .recommended_creators_ctn{
     .discount_block{
-        height:50px;
     }
 
     .recommended_creators_container{
-        height:auto !important;
         
         .avatars{
-            position:static !important;
         }
     }
 }
@@ -237,11 +231,9 @@
 #wishlist_ctn{
     .wishlist_row{
         .purchase_area{
-            height:auto;
 
             .discount_block, .discount_block_large{
                 .discount_pct{
-                    height:100%;
                 }
             }
 
@@ -264,22 +256,18 @@
     left:auto !important;
 
     .game_purchase_action_bg{
-        height:46px;
         display:flex;
         align-items:center;
-        width:fit-content;
-        margin:0;
+
 
         .game_purchase_price:not([data-original-price=none]):first-child{
-            text-decoration:line-through;
+            // text-decoration:line-through;
         }
 
         .game_purchase_discount{
-            height:46px;
 
             .discount_pct{
-                line-height: 46px;
-                height:100%;
+
             }
 
             .discount_prices{
@@ -289,8 +277,7 @@
                 justify-content: center;
 
                 .discount_final_price{
-                    line-height:normal;
-                    padding-bottom:0 !important;
+
 
                     .your_price_label{
                         display:none;
@@ -313,7 +300,6 @@
 
         .btn_addtocart{
             span{
-                line-height:44px;
             }
         }
     }
@@ -342,7 +328,7 @@
         }
 
         &:not([data-original-price=none]){
-            text-decoration:line-through;
+           // text-decoration:line-through;
         }
     }
     
@@ -387,11 +373,12 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
             &.dlc_price{
             }
 
-
+            /*
             &:not([data-original-price=none]){
                 text-decoration:line-through;
                 color:#577180;
             }
+            */
 
 
         
@@ -486,7 +473,7 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
 .similar_grid_price{
     .regular_price{
         &:first-child{
-            text-decoration:line-through;
+            // text-decoration:line-through;
         }
         &[data-original-price=none]{
             text-decoration:none;

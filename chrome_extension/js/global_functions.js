@@ -1,5 +1,5 @@
 const attributeName = "data-original-price";
-const walletBalance = getBalance();
+const walletBalance = 400; //getBalance();
 const totalTaxes = getTotalTaxes();
 
 
@@ -34,14 +34,13 @@ function setArgentinaPrice(price){
 
     // Verificar si el producto realmente tiene un precio.
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
-        console.log(price.innerText);
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = convertStringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
 
         // Verifico si alcanza con el saldo actual de la wallet
-        price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
+        //price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
 
         displayAppPrices(price);
     }
@@ -61,8 +60,16 @@ function convertNumberToString(price){
 function displayAppPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
-
     price.innerText = argentinaPrice;
+
+    if(price.dataset.originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
+        let parent = price.closest('div:not([data-original-price])');
+        let pipi = parent.cloneNode(true);
+        (pipi.querySelector(".discount_original_price")).innerText = convertNumberToString(pipi.querySelector(".discount_original_price").dataset.originalPrice);
+        (pipi.querySelector(".discount_final_price")).innerText = convertNumberToString(pipi.querySelector(".discount_final_price").dataset.originalPrice);
+        parent.insertAdjacentElement('afterend',pipi);
+    }
+
     // price.dataset.originalPrice="none";
 
     /*

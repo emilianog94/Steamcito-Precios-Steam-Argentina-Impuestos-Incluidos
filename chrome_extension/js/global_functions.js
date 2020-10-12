@@ -1,4 +1,4 @@
-const walletBalance = getBalance();
+const walletBalance = 2500; //getBalance();
 const totalTaxes = getTotalTaxes();
 
 function convertStringToNumber(number,positionArs = 5){
@@ -58,6 +58,7 @@ function renderPrices(price){
         let newContainer = parent.cloneNode(true);
         let newContainerFirstPrice = newContainer.querySelector(".discount_original_price");
         let newContainerSecondPrice = newContainer.querySelector(".discount_final_price");
+        newContainer.classList.add("jej");
         newContainerFirstPrice ? newContainerFirstPrice.innerText = convertNumberToString(newContainerFirstPrice.dataset.originalPrice) : "";
         newContainerSecondPrice ? newContainerSecondPrice.innerText = convertNumberToString(newContainerSecondPrice.dataset.originalPrice) : "";
         parent.insertAdjacentElement('afterend',newContainer);

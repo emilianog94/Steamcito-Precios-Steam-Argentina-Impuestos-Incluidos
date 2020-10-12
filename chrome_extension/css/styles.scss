@@ -2,7 +2,30 @@
     color:#a4d007;
 }
 
+.discount_prices:not(.jej):after {
+    content: "🧉";
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 16px;
+    position: absolute;
+    right: -0.8em;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5000;
+    //background-color: rgba(20,31,44,1);
+    
+}
+
+.discount_prices.jej{
+    padding-left:20px !important
+}
+
+
 .discount_prices{
+    position:relative;
+
             .discount_final_price:not([data-original-price=none]){
                 /*
                 text-decoration:line-through;

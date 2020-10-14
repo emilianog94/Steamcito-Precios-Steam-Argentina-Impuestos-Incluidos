@@ -3,7 +3,11 @@
   color: #a4d007;
 }
 
-.discount_prices:not(.jej):after {
+.mate {
+  margin: 0 12px;
+}
+
+.mate:after {
   content: "🧉";
   font-size: 1.2em;
   display: -webkit-box;
@@ -15,39 +19,48 @@
   height: 100%;
   width: 16px;
   position: absolute;
-  right: -0.8em;
+  right: -0.9em;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  z-index: 5000;
+  z-index: 5;
 }
 
-.discount_prices.jej {
-  padding-left: 20px !important;
+.game_purchase_action_bg.mate:after {
+  display: none;
+}
+
+.game_purchase_action_bg.mate .game_purchase_price {
+  margin-right: 20px;
+}
+
+.game_purchase_action_bg.mate .game_purchase_price:after {
+  content: "🧉";
+  font-size: 1.2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  width: 16px;
+  position: absolute;
+  right: -0.9em;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  z-index: 5;
 }
 
 .discount_prices {
   position: relative;
 }
 
-.discount_prices .discount_final_price:not([data-original-price=none]) {
-  /*
-                text-decoration:line-through;
-                font-size:11px;
-                color:#577180;
-                */
-}
-
 .discount_prices .discount_final_price:not([data-original-price=none]).wallet-available {
   font-size: 13px;
 }
 
-/*
-.wallet-unavailable{
-    text-decoration:line-through;
-    color:#577180 !important;
-}
-*/
 .home_content_items .discount_block_inline .discount_prices .discount_final_price[data-original-price=none], .app_impression_tracked .discount_block_inline .discount_prices .discount_final_price[data-original-price=none] {
   margin-left: 0.45em;
   font-size: 11px !important;
@@ -164,6 +177,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  font-size: 20px !important;
 }
 
 .discount_block > .discount_prices {
@@ -248,6 +262,17 @@
   height: auto;
 }
 
+#wishlist_ctn .wishlist_row .purchase_area .discount_block .discount_prices div, #wishlist_ctn .wishlist_row .purchase_area .discount_block_large .discount_prices div {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 0;
+}
+
 #wishlist_ctn .wishlist_row .purchase_area .btn_green_steamui, #wishlist_ctn .wishlist_row .purchase_area .btn_blue_steamui {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -267,6 +292,11 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   bottom: -24px !important;
   left: auto !important;
 }
@@ -434,6 +464,10 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidge
   min-width: 90px;
 }
 
+.tab_content .tab_item .discount_prices.mate:after, .tab_content_ctn .tab_item .discount_prices.mate:after {
+  right: -1.3em !important;
+}
+
 .tab_content .tab_item.focus .wallet-available, .tab_content_ctn .tab_item.focus .wallet-available {
   color: #4c6b22 !important;
 }
@@ -524,5 +558,9 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer] div[class*=salepreviewwidge
 .carousel_container .carousel_items.store_capsule_container {
   overflow-x: visible !important;
   overflow-y: visible !important;
+}
+
+.carousel_container .carousel_items .daily_deal_discount {
+  float: left;
 }
 /*# sourceMappingURL=styles.css.map */

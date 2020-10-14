@@ -2,7 +2,7 @@
     color:#a4d007;
 }
 
-.discount_prices:not(.jej):after {
+@mixin mate{
     content: "🧉";
     font-size: 1.2em;
     display: flex;
@@ -10,28 +10,42 @@
     height: 100%;
     width: 16px;
     position: absolute;
-    right: -0.8em;
+    right: -0.9em;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 5000;
-    //background-color: rgba(20,31,44,1);
-    
+    z-index: 5;
 }
 
-.discount_prices.jej{
-    padding-left:20px !important
+.mate{
+    margin:0 12px;
+    &:after{
+        @include mate;
+    }
 }
+
+.game_purchase_action_bg.mate{
+    &:after{
+        display:none;
+    }
+
+    .game_purchase_price{
+        margin-right:20px;
+    }
+
+    .game_purchase_price:after{
+        @include mate;
+    }
+
+
+}
+
 
 
 .discount_prices{
     position:relative;
 
             .discount_final_price:not([data-original-price=none]){
-                /*
-                text-decoration:line-through;
-                font-size:11px;
-                color:#577180;
-                */
+
 
                 &.wallet-available{
                     font-size:13px;
@@ -39,13 +53,8 @@
             }
 }
 
-/*
-.wallet-unavailable{
-    text-decoration:line-through;
-    color:#577180 !important;
-}
-*/
 
+// HOME ITEMS
 .home_content_items,.app_impression_tracked{
     .discount_block_inline{
         .discount_prices{
@@ -61,6 +70,7 @@
     }
 }
 
+// CART 
 .cart_area_body{
     .cart_item{
         min-height:90px;
@@ -126,6 +136,7 @@
 }
 
 
+
 .marketingmessage_container{
     display: flex;
     flex-wrap: wrap;
@@ -154,6 +165,7 @@
     .discount_pct{
         display:flex !important;
         align-items:center;
+        font-size:20px !important;
     }
 
     > .discount_prices{
@@ -171,6 +183,7 @@
     }
 }
 
+// CARRUSEL DENTRO DE UN JUEGO
 .store_horizontal_autoslider_ctn{
     height:fit-content !important;
 
@@ -199,6 +212,8 @@
     }
 }
 
+
+// CURADORES DE CONTENIDO
 .curator{
     #RecommendationsRows{
         .store_capsule.price_inline{
@@ -239,23 +254,22 @@
     }
 }
 
-
-.recommended_creators_ctn{
-    .discount_block{
-    }
-
-    .recommended_creators_container{
-        
-        .avatars{
-        }
-    }
-}
-
+// WISHLIST
 #wishlist_ctn{
     .wishlist_row{
         .purchase_area{
 
             .discount_block, .discount_block_large{
+
+                .discount_prices{
+                    div{
+                        height:100%;
+                        display:flex;
+                        align-items:center;
+                        margin-top:0;
+                    }
+                }
+
                 .discount_pct{
                 }
             }
@@ -273,8 +287,11 @@
 }
 
 
+// FICHA DE COMPRA
 .game_purchase_action{
     display:flex;
+    flex-wrap:wrap;
+    justify-content:flex-end;
     bottom:-24px !important;
     left:auto !important;
 
@@ -328,6 +345,8 @@
     }
 }
 
+
+// DLCS
 #dlc_purchase_action{
     &.game_purchase_action_bg{
         .game_purchase_price:first-child{
@@ -336,6 +355,8 @@
     }
 }
 
+
+// BUSCADOR
 #searchterm_options{
     .match_price{
         position:relative;
@@ -358,6 +379,7 @@
 }
 
 
+// MICROSITIO SALE
 div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     div[class*=salepreviewwidgets_CapsuleContainer]{
         div[class*=salepreviewwidgets_CapsuleBottomBar]{
@@ -374,6 +396,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     }
 }
 
+
+// DLCs
 .gameDlcBlocks,#game_area_dlc_expanded{
     .game_area_dlc_row{
         display:flex;
@@ -426,6 +450,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     }
 }
 
+
+// DAILY DEALS
 .contenthub_dailydeal_container{
     .dailydeal_ctn{
         height:205px;
@@ -439,6 +465,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     color:#a4d007 !important;
 }
 
+
+// BUNDLES
 .bundle_package_item{
     .tab_item{
         display:flex;
@@ -459,11 +487,19 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
                 min-width:90px;
             }
         }
+
     }
 }
 
+
+// TABS
 .tab_content,.tab_content_ctn{
     .tab_item{
+
+        .discount_prices.mate:after{
+            right:-1.3em !important;
+        }
+
 
         &.focus{
             .wallet-available{
@@ -504,6 +540,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     }
 }
 
+
+// RESULTADOS DE BUSQUEDA
 #search_result_container{
     .search_result_row{
         display:flex;
@@ -545,6 +583,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
     }
 }
 
+
+
 .carousel_container{
 
     .carousel_thumbs{
@@ -563,6 +603,10 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
         &.store_capsule_container{
             overflow-x:visible !important;
             overflow-y:visible !important;
+        }
+
+        .daily_deal_discount{
+            float:left;
         }
 
 }

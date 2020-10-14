@@ -1,4 +1,4 @@
-const walletBalance = 2500; //getBalance();
+const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
 function convertStringToNumber(number,positionArs = 5){
@@ -38,8 +38,6 @@ function setArgentinaPrice(price){
         let baseNumericPrice = convertStringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
-        // Verifico si alcanza con el saldo actual de la wallet
-        //price.dataset.originalPrice <= walletBalance ? price.classList.add("wallet-available") : price.classList.add("wallet-unavailable");
         renderPrices(price);
     }
     else{
@@ -53,16 +51,30 @@ function renderPrices(price){
     price.innerText = argentinaPrice;
 
     // Verificar si es necesario mostrar el precio con Steam Wallet
-    if(price.dataset.originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
-        let parent = price.closest('div:not([data-original-price])');
-        let newContainer = parent.cloneNode(true);
-        let newContainerFirstPrice = newContainer.querySelector(".discount_original_price");
-        let newContainerSecondPrice = newContainer.querySelector(".discount_final_price");
-        newContainer.classList.add("jej");
-        newContainerFirstPrice ? newContainerFirstPrice.innerText = convertNumberToString(newContainerFirstPrice.dataset.originalPrice) : "";
-        newContainerSecondPrice ? newContainerSecondPrice.innerText = convertNumberToString(newContainerSecondPrice.dataset.originalPrice) : "";
-        parent.insertAdjacentElement('afterend',newContainer);
+    if(originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
+        renderWalletPrices(price);
+    }
+    else{
+        let originalContainer = price.closest('div:not([data-original-price])');
+        originalContainer.classList.add("mate");
     }
     // price.dataset.originalPrice="none";
+}
+
+function renderWalletPrices(price){
+    let originalContainer = price.closest('div:not([data-original-price])');
+    let newContainer = originalContainer.cloneNode(true);
+
+    // Quito los childs que no son precios
+    let extraDivs = newContainer.querySelectorAll('div:not([data-original-price])')
+    extraDivs.forEach(div => div.remove());
+
+    newContainer.classList.remove("mate");
+    originalContainer.classList.add("mate");
+
+    let newContainerPrices = newContainer.querySelectorAll(".discount_original_price,.game_purchase_price,.discount_final_price");
+    newContainerPrices.forEach(container => container.innerText = convertNumberToString(container.dataset.originalPrice));
+    originalContainer.insertAdjacentElement('beforebegin',newContainer);
+
 }
 

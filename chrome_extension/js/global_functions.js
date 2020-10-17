@@ -1,4 +1,5 @@
-const walletBalance = getBalance();
+const walletBalance =  getBalance();
+// const walletBalance = 800;
 const totalTaxes = getTotalTaxes();
 
 function convertStringToNumber(number,positionArs = 5){
@@ -48,19 +49,18 @@ function setArgentinaPrice(price){
 function renderPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
-    price.innerText = argentinaPrice;
-
-    // Verificar si es necesario mostrar el precio con Steam Wallet
-    if(originalPrice < walletBalance && !price.classList.contains('discount_original_price')){
-        renderWalletPrices(price);
+    
+    if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
+        price.innerText = originalPrice + "💲";
+        price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice) : ""; 
+        
+    } else{
+        price.innerText = argentinaPrice + "🧉";
+        price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice) : ""; 
     }
-    else{
-        let originalContainer = price.closest('div:not([data-original-price])');
-        originalContainer.classList.add("mate");
-    }
-    // price.dataset.originalPrice="none";
 }
 
+/*
 function renderWalletPrices(price){
     let originalContainer = price.closest('div:not([data-original-price])');
     let newContainer = originalContainer.cloneNode(true);
@@ -75,6 +75,6 @@ function renderWalletPrices(price){
     let newContainerPrices = newContainer.querySelectorAll(".discount_original_price,.game_purchase_price,.discount_final_price");
     newContainerPrices.forEach(container => container.innerText = convertNumberToString(container.dataset.originalPrice));
     originalContainer.insertAdjacentElement('beforebegin',newContainer);
-
 }
+*/
 

@@ -22,6 +22,7 @@ const priceContainers = `
         .discount_original_price:not([${attributeName}]), 
         .discount_final_price:not([${attributeName}]), 
         .game_purchase_price:not([${attributeName}]), 
+        .game_area_dlc_price:not([${attributeName}]),
         [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), 
         .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), 
         .match_price:not([${attributeName}]), 

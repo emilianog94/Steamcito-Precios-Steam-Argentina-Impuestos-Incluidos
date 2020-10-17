@@ -51,30 +51,12 @@ function renderPrices(price){
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
     
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
-        price.innerText = originalPrice + "💲";
+        price.innerText = originalPrice + " 💲";
         price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice) : ""; 
         
     } else{
-        price.innerText = argentinaPrice + "🧉";
+        price.innerText = argentinaPrice + " 🧉";
         price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice) : ""; 
     }
 }
-
-/*
-function renderWalletPrices(price){
-    let originalContainer = price.closest('div:not([data-original-price])');
-    let newContainer = originalContainer.cloneNode(true);
-
-    // Quito los childs que no son precios
-    let extraDivs = newContainer.querySelectorAll('div:not([data-original-price])')
-    extraDivs.forEach(div => div.remove());
-
-    newContainer.classList.remove("mate");
-    originalContainer.classList.add("mate");
-
-    let newContainerPrices = newContainer.querySelectorAll(".discount_original_price,.game_purchase_price,.discount_final_price");
-    newContainerPrices.forEach(container => container.innerText = convertNumberToString(container.dataset.originalPrice));
-    originalContainer.insertAdjacentElement('beforebegin',newContainer);
-}
-*/
 

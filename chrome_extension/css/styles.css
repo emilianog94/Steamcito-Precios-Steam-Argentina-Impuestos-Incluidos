@@ -64,6 +64,49 @@
   color: #263645;
 }
 
+.tab_content .tab_item .tab_item_discount, .tab_content_ctn .tab_item .tab_item_discount {
+  width: auto;
+}
+
+.tab_content .tab_item .tab_item_discount .discount_prices, .tab_content_ctn .tab_item .tab_item_discount .discount_prices {
+  margin-left: 12px;
+}
+
+.curator #RecommendationsRows .store_capsule.price_inline .discount_block {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  min-width: -webkit-fit-content !important;
+  min-width: -moz-fit-content !important;
+  min-width: fit-content !important;
+}
+
+.curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.contenthub_specials_ctn .discount_prices {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.game_purchase_action_bg .discount_prices div {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 /*
 .green{
     color:#a4d007;
@@ -217,21 +260,7 @@
 }
 
 
-// CURADORES DE CONTENIDO
-.curator{
-    #RecommendationsRows{
-        .store_capsule.price_inline{
-            .discount_block{
-                width:100%;
 
-                .discount_prices{
-                    display:flex;
-                    flex-direction:row;
-                }
-            }
-        }
-    }
-}   
 
 
 .highlight_description{
@@ -489,6 +518,8 @@ div[class*=salepreviewwidgets_OuterCapsuleContainer]{
 
     }
 }
+
+
 
 
 // TABS

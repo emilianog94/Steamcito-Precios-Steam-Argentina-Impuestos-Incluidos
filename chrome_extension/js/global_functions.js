@@ -36,15 +36,24 @@ function getPrices(){
 function showSecondaryPrice(e){
     e.preventDefault();
     let selectedPrice = e.currentTarget;
+    let originalxd = e.currentTarget.innerText;
+    selectedPrice.style.transition= "all 0.5s ease";
+    selectedPrice.style.opacity = 0;
     if(selectedPrice.classList.contains("argentina")){
-        selectedPrice.classList.remove('argentina');
-        selectedPrice.classList.add("original");
-        selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.originalPrice + " 💲");
+        setTimeout(function(){
+            selectedPrice.style.opacity=1;
+            selectedPrice.classList.remove('argentina');
+            selectedPrice.classList.add("original");
+            selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.originalPrice + " 💲")
+        },500);
     }
     else if(selectedPrice.classList.contains("original")){
-        selectedPrice.classList.remove('original');
-        selectedPrice.classList.add("argentina");
-        selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.argentinaPrice + " 🧉");
+        setTimeout(function(){
+            selectedPrice.style.opacity=1;
+            selectedPrice.classList.remove('original');
+            selectedPrice.classList.add("argentina");
+            selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.argentinaPrice + " 🧉");
+        },500);
     }
 }
 

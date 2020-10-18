@@ -27,5 +27,5 @@ const priceContainers = `
         [class*=salepreviewwidgets_StoreOrignalPrice]:not([${attributeName}]), 
         .search_price:not([${attributeName}]), .regular_price:not([${attributeName}]), 
         .match_price:not([${attributeName}]), 
-        .cart_item .price:not([${attributeName}]):not([class*=original_price])
+        .cart_item .price:not([${attributeName}])
 `;

@@ -97,16 +97,17 @@
           flex-direction: column;
 }
 
-.game_purchase_action_bg .discount_prices div {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+/*
+.game_purchase_action_bg{
+    .discount_prices{
+        div{
+            height:100%;
+            display:flex;
+            align-items:center;
+        }
+    }
 }
-
+*/
 /*
 .green{
     color:#a4d007;

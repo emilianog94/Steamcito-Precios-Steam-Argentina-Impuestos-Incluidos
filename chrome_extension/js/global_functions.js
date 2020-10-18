@@ -31,6 +31,22 @@ function getBalance(){
 function getPrices(){
     let prices = document.querySelectorAll(priceContainers);
     prices.forEach(price => setArgentinaPrice(price));
+    prices.forEach(price => price.addEventListener('click',showSecondaryPrice));
+}
+
+function showSecondaryPrice(e){
+    e.preventDefault();
+    let selectedPrice = e.currentTarget;
+    if(selectedPrice.classList.contains("argentina")){
+        selectedPrice.classList.remove('argentina');
+        selectedPrice.classList.add("usa");
+        selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.originalPrice + " 💲");
+    }
+    else if(selectedPrice.classList.contains("usa")){
+        selectedPrice.classList.remove('usa');
+        selectedPrice.classList.add("argentina");
+        selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.argentinaPrice + " 🧉");
+    }
 }
 
 function setArgentinaPrice(price){
@@ -51,11 +67,13 @@ function renderPrices(price){
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
     
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
-        price.innerText = originalPrice + " 💲";
+        price.innerText = originalPrice + " 💲";     
+        price.classList.add("usa");
         price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice) : ""; 
         
     } else{
         price.innerText = argentinaPrice + " 🧉";
+        price.classList.add("argentina");
         price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice) : ""; 
     }
 }

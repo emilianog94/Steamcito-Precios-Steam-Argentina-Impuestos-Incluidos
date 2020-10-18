@@ -22,7 +22,7 @@ function getTotalTaxes(){
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
-        walletBalanceContainer.style.color="#a4d007";
+        walletBalanceContainer.innerText += " 💲";
         return convertStringToNumber(walletBalanceContainer);
     }
     return 0;
@@ -31,7 +31,6 @@ function getBalance(){
 function getPrices(){
     let prices = document.querySelectorAll(priceContainers);
     prices.forEach(price => setArgentinaPrice(price));
-    prices.forEach(price => price.addEventListener('click',showSecondaryPrice));
 }
 
 function showSecondaryPrice(e){
@@ -39,11 +38,11 @@ function showSecondaryPrice(e){
     let selectedPrice = e.currentTarget;
     if(selectedPrice.classList.contains("argentina")){
         selectedPrice.classList.remove('argentina');
-        selectedPrice.classList.add("usa");
+        selectedPrice.classList.add("original");
         selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.originalPrice + " 💲");
     }
-    else if(selectedPrice.classList.contains("usa")){
-        selectedPrice.classList.remove('usa');
+    else if(selectedPrice.classList.contains("original")){
+        selectedPrice.classList.remove('original');
         selectedPrice.classList.add("argentina");
         selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.argentinaPrice + " 🧉");
     }
@@ -56,6 +55,7 @@ function setArgentinaPrice(price){
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
         renderPrices(price);
+
     }
     else{
         price.dataset.originalPrice = "none";
@@ -66,11 +66,16 @@ function renderPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
     
+    // Agrego Listener para switchear precios
+    if(!price.classList.contains('discount_original_price')){
+        price.addEventListener('click',showSecondaryPrice); 
+        price.style.cursor="pointer";
+    }
+
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
         price.innerText = originalPrice + " 💲";     
-        price.classList.add("usa");
+        price.classList.add("original");
         price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice) : ""; 
-        
     } else{
         price.innerText = argentinaPrice + " 🧉";
         price.classList.add("argentina");

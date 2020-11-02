@@ -46,7 +46,7 @@ function showCart(){
 function showTaxes(){
     let taxesContainer = 
     `<div class="tax-container">
-        <h3>¿Qué impuestos estoy pagando?</h3>
+        <h3>¿Qué impuestos aplican pagando con tarjeta?</h3>
         <ul></ul>
         <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(0)}%</span>
     </div>`;

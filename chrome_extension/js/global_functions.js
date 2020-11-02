@@ -78,7 +78,6 @@ function renderPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
     
-    console.log(price);
     // Agrego Listener para switchear precios con click
     if(!price.classList.contains('discount_original_price') || !price.classList.contains('responsive_secondrow')){
         price.addEventListener('click',showSecondaryPrice); 

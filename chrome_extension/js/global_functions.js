@@ -9,6 +9,10 @@ function convertNumberToString(number){
     return `ARS$ ${number}`.replace('.',',');
 }
 
+function isInsideString(element,string){
+    return element.innerText.indexOf(string) != -1 ? true : false;
+}
+
 function getTotalTaxes(){
     function reducer(total,num){
         return total+num;
@@ -74,20 +78,33 @@ function renderPrices(price){
     let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
     let originalPrice = convertNumberToString(price.dataset.originalPrice);
     
-    // Agrego Listener para switchear precios
-    if(!price.classList.contains('discount_original_price')){
+    console.log(price);
+    // Agrego Listener para switchear precios con click
+    if(!price.classList.contains('discount_original_price') || !price.classList.contains('responsive_secondrow')){
         price.addEventListener('click',showSecondaryPrice); 
         price.style.cursor="pointer";
     }
-
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
         price.innerText = originalPrice + " 💲";     
         price.classList.add("original");
-        price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice) : ""; 
+        if(price.previousElementSibling){
+            if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice); 
+        }
     } else{
-        price.innerText = argentinaPrice + " 🧉";
-        price.classList.add("argentina");
-        price.previousElementSibling ? price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice) : ""; 
+        // Fix para Search View
+        if(price.classList.contains('responsive_secondrow')){
+            let precioTachado = price.querySelector("strike");
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${argentinaPrice} 🧉`; 
+            price.removeEventListener('click',showSecondaryPrice); 
+
+        } else{
+            price.innerText = argentinaPrice + " 🧉";
+            price.classList.add("argentina");
+            if(price.previousElementSibling){
+                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice); 
+            }
+        }
+
     }
 }
 

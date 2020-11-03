@@ -100,4 +100,9 @@
   min-width: 120px;
   width: auto;
 }
+
+.transition-effect {
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
 /*# sourceMappingURL=styles.css.map */

@@ -1,11 +1,11 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function convertStringToNumber(number,positionArs = 5){
+function stringToNumber(number,positionArs = 5){
     return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
 }
 
-function convertNumberToString(number){
+function numberToString(number){
     return `ARS$ ${number}`.replace('.',',');
 }
 
@@ -26,7 +26,7 @@ function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
         walletBalanceContainer.innerText += " 💲";
-        return convertStringToNumber(walletBalanceContainer);
+        return stringToNumber(walletBalanceContainer);
     }
     return 0;
 }
@@ -36,38 +36,13 @@ function getPrices(){
     prices.forEach(price => setArgentinaPrice(price));
 }
 
-function showSecondaryPrice(e){
-    e.preventDefault();
-    let selectedPrice = e.currentTarget;
-    let originalxd = e.currentTarget.innerText;
-    selectedPrice.style.transition= "all 0.5s ease";
-    selectedPrice.style.opacity = 0;
-    if(selectedPrice.classList.contains("argentina")){
-        setTimeout(function(){
-            selectedPrice.style.opacity=1;
-            selectedPrice.classList.remove('argentina');
-            selectedPrice.classList.add("original");
-            selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.originalPrice + " 💲")
-        },500);
-    }
-    else if(selectedPrice.classList.contains("original")){
-        setTimeout(function(){
-            selectedPrice.style.opacity=1;
-            selectedPrice.classList.remove('original');
-            selectedPrice.classList.add("argentina");
-            selectedPrice.innerText = convertNumberToString(selectedPrice.dataset.argentinaPrice + " 🧉");
-        },500);
-    }
-}
-
 function setArgentinaPrice(price){
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
-        let baseNumericPrice = convertStringToNumber(price,positionArs);
+        let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
         renderPrices(price);
-
     }
     else{
         price.dataset.originalPrice = "none";
@@ -75,8 +50,8 @@ function setArgentinaPrice(price){
 }
 
 function renderPrices(price){
-    let argentinaPrice = convertNumberToString(price.dataset.argentinaPrice);
-    let originalPrice = convertNumberToString(price.dataset.originalPrice);
+    let argentinaPrice = numberToString(price.dataset.argentinaPrice);
+    let originalPrice = numberToString(price.dataset.originalPrice);
     
     // Agrego Listener para switchear precios con click
     if(!price.classList.contains('discount_original_price') || !price.classList.contains('responsive_secondrow')){
@@ -87,11 +62,11 @@ function renderPrices(price){
         price.innerText = originalPrice + " 💲";     
         price.classList.add("original");
         if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.originalPrice); 
+            if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
         }
     } else{
         // Fix para Search View
-        if(price.classList.contains('responsive_secondrow')){
+        if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
             if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${argentinaPrice} 🧉`; 
             price.removeEventListener('click',showSecondaryPrice); 
@@ -100,10 +75,33 @@ function renderPrices(price){
             price.innerText = argentinaPrice + " 🧉";
             price.classList.add("argentina");
             if(price.previousElementSibling){
-                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = convertNumberToString(price.previousElementSibling.dataset.argentinaPrice); 
+                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
             }
         }
-
     }
 }
+
+function showSecondaryPrice(e){
+    e.preventDefault();
+    let selectedPrice = e.currentTarget;
+    selectedPrice.classList.add("transition-effect");
+    selectedPrice.style.opacity = 0;
+    if(selectedPrice.classList.contains("argentina")){
+        switchPrices(selectedPrice,"argentina","original"," 💲");
+    }
+    else if(selectedPrice.classList.contains("original")){
+        switchPrices(selectedPrice,"original","argentina"," 🧉");
+    }
+}
+
+function switchPrices(selector,first,second,symbol){
+    setTimeout(function(){
+        selector.style.opacity=1;
+        selector.classList.remove(first);
+        selector.classList.add(second);
+        selector.innerText = numberToString(selector.dataset[second+"Price"] + symbol);
+    },250);
+}
+
+
 

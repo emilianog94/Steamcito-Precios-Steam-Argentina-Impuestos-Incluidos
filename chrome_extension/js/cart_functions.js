@@ -5,7 +5,7 @@ let cartTotalMixed = setMixedCartTotal(cartTotal);
 
 function getCartTotal(){
     let totalWallet = document.querySelector("#cart_estimated_total");
-    return convertStringToNumber(totalWallet,5);
+    return stringToNumber(totalWallet,5);
 }
 
 function setCartTotalCC(cartValue){
@@ -26,17 +26,17 @@ function showCart(){
     `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
             <p>Total Final pagando con Steam Wallet</p>
-            <span class="green">${convertNumberToString(cartTotal)}</span>
+            <span class="green">${numberToString(cartTotal)}</span>
         </div>
 
         <div class="total_cc">
             <p>Total Final pagando con Tarjeta</p>
-            <span>${convertNumberToString(cartTotalCreditCard)}</span>        
+            <span>${numberToString(cartTotalCreditCard)}</span>        
         </div>
 
         <div class="total_mixed ${totalMixedDisplay}">
             <p>Total Final pagando con Steam Wallet + Tarjeta</p>
-            <span> <span class="green">${convertNumberToString(walletBalance)} WALLET </span> + ${convertNumberToString(cartTotalMixed)}</span>        
+            <span> <span class="green">${numberToString(walletBalance)} WALLET </span> + ${numberToString(cartTotalMixed)}</span>        
         </div>
 
     </div>`;
@@ -46,7 +46,7 @@ function showCart(){
 function showTaxes(){
     let taxesContainer = 
     `<div class="tax-container">
-        <h3>¿Qué impuestos aplican pagando con tarjeta?</h3>
+        <h3>¿Qué impuestos me cobran pagando con tarjeta?</h3>
         <ul></ul>
         <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(0)}%</span>
     </div>`;

@@ -1,5 +1,8 @@
-## Steam Tax Calculator Argentina - Calculador de Precios Finales Steam Argentina 2020
-Extensión para Google Chrome que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos<br><br>
+![Portada](cover.jpg)
+
+
+## Steam Argentinizer - Calculador de Precios Finales Steam Argentina 2020
+Extensión para Google Chrome que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos.<br><br>
 
 
 ### Funcionalidades planeadas

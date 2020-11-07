@@ -40,7 +40,7 @@ function setArgentinaPrice(price){
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = stringToNumber(price,positionArs);
-        price.dataset.originalPrice = baseNumericPrice;
+        price.dataset.originalPrice = baseNumericPrice.toFixed(2);
         price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
         renderPrices(price);
     }

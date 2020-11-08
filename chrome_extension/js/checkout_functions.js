@@ -15,13 +15,23 @@ function PaymentMethod(div,type){
     this.newAmount = this.type == "cc" ? numberToString((stringToNumber(this.originalAmountDiv) * totalTaxes).toFixed(2)) : this.originalAmountDiv.innerText; 
 
     PaymentMethod.prototype.setPrice = function(){
-        console.log("corri");
-        this.originalAmountDiv.innerText = this.newAmount;
+        console.log("corri el seteo de precios");
+        this.div.insertAdjacentHTML('beforeend',`<span class="new-amount">${this.newAmount}</span>`)
     }
 }
 
 // Arreglar porque se rompe en el refresh cuando le ponés modify. 
 // Debería almacenar en el objeto el precio original, y siempre hacer el cálculo sobre el precio original.
+
+
+/* Plantearlo mas sencillo 
+
+Caso 1) Si no se encuentra ninguno que diga Visa o Mastercard, entonces lo único que ocurre es que se agregan signos pesos al final de cada precio. 
+
+Caso 2) Si hay sólo un método de pago que dice Visa o Mastercard, entonces mostrar todos los precios con tax y mate 
+
+Caso 3) Si hay más de un método de pago, eso significa que es compra parcial. Entonces agregar un css after o algo por el estilo que muestre el precio final al lado de la tarjeta.
+*/
 function isReviewTab(){
     let reviewTab = document.querySelector("#review_tab:not(.modified)");
     if(reviewTab){
@@ -44,7 +54,9 @@ function isReviewTab(){
 
             function resetReviewTab(){
                 reviewTab.classList.remove("modified");
-                console.log("borré modified");
+                let newAmounts = document.querySelectorAll(".new-amount");
+                newAmounts.forEach(amount => amount.remove());
+                console.log("borré todo lo viejo");
             }
         } 
     }

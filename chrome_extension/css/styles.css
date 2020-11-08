@@ -101,23 +101,12 @@
   width: auto;
 }
 
-#review_tab .payment_method_review_row {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
 #review_tab .payment_method_review_row .payment_method_review_method_label {
   margin-right: 1em;
 }
 
 #review_tab .payment_method_review_row .payment_method_total {
-  position: static;
-  margin-left: 1em;
+  margin-right: 0 !important;
 }
 
 .transition-effect {

@@ -1,64 +1,67 @@
+
+// Observo cambios en atributos Display de #review_tab
+let reviewTab = document.querySelector("#review_tab");
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-const observerCart = new MutationObserver(function(mutations, observer) {
-    isReviewTab();
+const observerCheckout = new MutationObserver(function(mutations, observer) {
+    changeReviewTab();
 });
 
-observerCart.observe(document, {
-  subtree: true,
-  attributes: true
+observerCheckout.observe(reviewTab, {
+  subtree: false,
+  attributes: true,
 });
 
-function PaymentMethod(div,type){
-    this.div = div;
-    this.type = type;
-    this.originalAmountDiv = div.querySelector(".payment_method_total");
-    this.newAmount = this.type == "cc" ? numberToString((stringToNumber(this.originalAmountDiv) * totalTaxes).toFixed(2)) : this.originalAmountDiv.innerText; 
 
-    PaymentMethod.prototype.setPrice = function(){
-        console.log("corri el seteo de precios");
-        this.div.insertAdjacentHTML('beforeend',`<span class="new-amount">${this.newAmount}</span>`)
-    }
+function convertTotals(paymentType){
+    let totals = document.querySelectorAll('.cart_totals_area #cart_price_summary, .cart_totals_area #cart_price_total');
+
+    totals.forEach(total => {
+        let totalAmount = total.querySelector(".price");
+        totalAmount.dataset.originalPrice =  totalAmount.innerText;    
+        if(paymentType == "cc") {
+            let newAmount = numberToString((stringToNumber(totalAmount) * totalTaxes).toFixed(2));
+            totalAmount.insertAdjacentHTML('afterend',`<span class="new-amount">${newAmount} 🧉</span>`);
+        }    
+        else if (paymentType == "wallet"){
+            totalAmount.innerText = totalAmount.innerText + " 💲";
+        }
+    })
 }
 
-// Arreglar porque se rompe en el refresh cuando le ponés modify. 
-// Debería almacenar en el objeto el precio original, y siempre hacer el cálculo sobre el precio original.
+function resetReviewTab(){
+    let newAmounts = document.querySelectorAll(".new-amount");
+    newAmounts.forEach(amount => amount.remove());
+}
 
+function changeReviewTab(){
 
-/* Plantearlo mas sencillo 
-
-Caso 1) Si no se encuentra ninguno que diga Visa o Mastercard, entonces lo único que ocurre es que se agregan signos pesos al final de cada precio. 
-
-Caso 2) Si hay sólo un método de pago que dice Visa o Mastercard, entonces mostrar todos los precios con tax y mate 
-
-Caso 3) Si hay más de un método de pago, eso significa que es compra parcial. Entonces agregar un css after o algo por el estilo que muestre el precio final al lado de la tarjeta.
-*/
-function isReviewTab(){
-    let reviewTab = document.querySelector("#review_tab:not(.modified)");
-    if(reviewTab){
+    console.log("Cambio algo dentro");
+    let reviewTab = document.querySelector("#review_tab");
+        // Si entramos a la review tab
         if(reviewTab.style.display == "block"){
-            console.log("Estamos en ultimostep");
-    
-            let currentMethods = Array.from(document.querySelectorAll(".checkout_review_payment_method_area .payment_method_review_row"));
-            currentMethods = currentMethods.map(method => {
-                if(method.innerText.includes("Visa") || method.innerText.includes("MasterCard")){
-                    return new PaymentMethod(method,"cc");
-                }
-                return new PaymentMethod(method,"wallet");
-            });
-            console.log(currentMethods);
-            currentMethods.forEach(method => method.setPrice());
-            reviewTab.classList.add("modified");
+            let creditCardPayment = reviewTab.querySelector("#payment_method_review_row_provider");
+            let walletPayment = reviewTab.querySelector("#payment_method_review_row_steam_account");
 
-            let returnButtons = reviewTab.querySelectorAll("a");
-            returnButtons.forEach(button => button.addEventListener('click',resetReviewTab));
+            // Caso 1: Pago Mixto
+            if(creditCardPayment.style.display == "block" && walletPayment.style.display == "block"){
+                let ccAmount = numberToString((stringToNumber(creditCardPayment.querySelector(".payment_method_total")) * totalTaxes).toFixed(2));
+                creditCardPayment.insertAdjacentHTML('beforeend',`<span class="new-amount">${ccAmount} 🧉</span>`);
+            } 
 
-            function resetReviewTab(){
-                reviewTab.classList.remove("modified");
-                let newAmounts = document.querySelectorAll(".new-amount");
-                newAmounts.forEach(amount => amount.remove());
-                console.log("borré todo lo viejo");
+            // Caso 2: Pago con Tarjeta
+            else if(creditCardPayment.style.display == "block"){
+                convertTotals("cc");
+            }
+
+            // Caso 3: Pago con Wallet
+            else if (walletPayment.style.display == "block"){
+                convertTotals("wallet");
             }
         } 
-    }
+
+        else if (reviewTab.style.display == "none"){
+            resetReviewTab();
+            console.log("reseteo las tabs");
+        }
 }
 

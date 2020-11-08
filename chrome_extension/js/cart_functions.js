@@ -5,7 +5,7 @@ let cartTotalMixed = setMixedCartTotal(cartTotal);
 
 function getCartTotal(){
     let totalWallet = document.querySelector("#cart_estimated_total");
-    return stringToNumber(totalWallet,5);
+    return stringToNumber(totalWallet,5).toFixed(2);
 }
 
 function setCartTotalCC(cartValue){
@@ -25,12 +25,12 @@ function showCart(){
     let newCart = 
     `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
-            <p>Total Final pagando con Steam Wallet</p>
+            <p>Total Final pagando con Steam Wallet 💲</p>
             <span class="green">${numberToString(cartTotal)}</span>
         </div>
 
         <div class="total_cc">
-            <p>Total Final pagando con Tarjeta</p>
+            <p>Total Final pagando con Tarjeta 🧉</p>
             <span>${numberToString(cartTotalCreditCard)}</span>        
         </div>
 

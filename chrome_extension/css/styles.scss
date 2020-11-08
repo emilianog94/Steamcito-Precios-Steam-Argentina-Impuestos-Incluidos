@@ -115,12 +115,34 @@
 #review_tab{
     .payment_method_review_row{
 
+        .new-amount{
+            position:absolute;
+            right:0;
+        }
+
+        .new-amount + .payment_method_total{
+            display:none !important;
+        }
+
         .payment_method_review_method_label{
             margin-right:1em;
         }
 
         .payment_method_total{
             margin-right:0 !important;
+            right:0 !important;
+        }
+    }
+
+    .cart_totals_area{
+        .new-amount{
+            position:absolute;
+            right:0;
+            color:#c6d4df;
+        }
+
+        .new-amount + .price{
+            display:none;
         }
     }
 }

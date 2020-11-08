@@ -20,7 +20,7 @@ function convertTotals(paymentType){
         totalAmount.dataset.originalPrice =  totalAmount.innerText;    
         if(paymentType == "cc") {
             let newAmount = numberToString((stringToNumber(totalAmount) * totalTaxes).toFixed(2));
-            totalAmount.insertAdjacentHTML('afterend',`<span class="new-amount">${newAmount} 🧉</span>`);
+            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${newAmount} 🧉</span>`);
         }    
         else if (paymentType == "wallet"){
             totalAmount.innerText = totalAmount.innerText + " 💲";
@@ -45,7 +45,9 @@ function changeReviewTab(){
             // Caso 1: Pago Mixto
             if(creditCardPayment.style.display == "block" && walletPayment.style.display == "block"){
                 let ccAmount = numberToString((stringToNumber(creditCardPayment.querySelector(".payment_method_total")) * totalTaxes).toFixed(2));
-                creditCardPayment.insertAdjacentHTML('beforeend',`<span class="new-amount">${ccAmount} 🧉</span>`);
+                creditCardPayment.querySelector(".payment_method_total").insertAdjacentHTML('beforebegin',`<span class="new-amount">${ccAmount} 🧉</span>`);
+                let walletAmount = walletPayment.querySelector(".payment_method_total");
+                walletAmount.innerText = walletAmount.innerText + " 💲";
             } 
 
             // Caso 2: Pago con Tarjeta

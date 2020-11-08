@@ -12,7 +12,7 @@ observerCheckout.observe(reviewTab, {
 });
 
 
-function convertTotals(paymentType){
+function convertTotals(paymentType, walletAmount = "", ccAmount = ""){
     let totals = document.querySelectorAll('.cart_totals_area #cart_price_summary, .cart_totals_area #cart_price_total');
 
     totals.forEach(total => {
@@ -25,6 +25,10 @@ function convertTotals(paymentType){
         else if (paymentType == "wallet"){
             totalAmount.innerText = totalAmount.innerText + " 💲";
         }
+
+        else if (paymentType == "mixto"){
+            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${walletAmount.innerText} + ${ccAmount} 🧉 </span>`);
+        }
     })
 }
 
@@ -34,8 +38,6 @@ function resetReviewTab(){
 }
 
 function changeReviewTab(){
-
-    console.log("Cambio algo dentro");
     let reviewTab = document.querySelector("#review_tab");
         // Si entramos a la review tab
         if(reviewTab.style.display == "block"){
@@ -48,6 +50,7 @@ function changeReviewTab(){
                 creditCardPayment.querySelector(".payment_method_total").insertAdjacentHTML('beforebegin',`<span class="new-amount">${ccAmount} 🧉</span>`);
                 let walletAmount = walletPayment.querySelector(".payment_method_total");
                 walletAmount.innerText = walletAmount.innerText + " 💲";
+                convertTotals("mixto",walletAmount,ccAmount);
             } 
 
             // Caso 2: Pago con Tarjeta
@@ -63,7 +66,6 @@ function changeReviewTab(){
 
         else if (reviewTab.style.display == "none"){
             resetReviewTab();
-            console.log("reseteo las tabs");
         }
 }
 

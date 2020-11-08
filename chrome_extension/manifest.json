@@ -1,7 +1,8 @@
-  {
-    "name": "Calculador de impuestos argentinos en STEAM",
-    "version": "1.0",
-    "description": "Calculador y visualizador de impuestos automatizado para todos los artículos de Steam - Argentina 2020",
+ 
+ {
+    "name": "Steamcito - Convertí Steam a pesos argentinos",
+    "version": "0.1",
+    "description": "Calculador y visualizador de impuestos automatizado para todos los artículos de Steam para Argentina",
 	"manifest_version": 2,
 	"icons": { 
 		"128": "icon128.png" 

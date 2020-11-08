@@ -110,6 +110,25 @@
     }
 }
 
+// Checkout (Last Step)
+
+#review_tab{
+    .payment_method_review_row{
+        display:flex !important;
+        flex-direction:row;
+
+        .payment_method_review_method_label{
+            margin-right:1em;
+        }
+
+        .payment_method_total{
+            position:static;
+            margin-left:1em;
+        }
+    }
+}
+
 .transition-effect{
     transition:all 0.25s ease;
 }
+

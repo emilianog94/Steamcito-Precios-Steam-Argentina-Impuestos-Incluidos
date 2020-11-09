@@ -1,0 +1,72 @@
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  font-family: 'Poppins',sans-serif;
+}
+
+.vh-1000 {
+  min-height: 100vh;
+}
+
+.hero {
+  background-image: url("../img/steamcito-hero.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-position: right;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-image: none;
+    min-height: auto;
+    height: auto;
+  }
+}
+
+.hero .discover {
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  -webkit-transform: translatex(-50%);
+          transform: translatex(-50%);
+  color: #212529;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.hero .discover:hover {
+  text-decoration: none;
+  -webkit-transform: translatex(-50%) scale(1.1);
+          transform: translatex(-50%) scale(1.1);
+  font-weight: bold;
+}
+
+.features img, .features video {
+  border-radius: 20px;
+}
+
+.faq {
+  background-color: #f7f7f9;
+}
+
+.faq .card-header h5 button {
+  width: 100%;
+  text-align: left;
+  color: #212529;
+}
+
+h1 {
+  font-size: 5em;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3em;
+  }
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steamcito - Convertí la tienda de Steam a pesos argentinos en serio</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+</head>
+<body class="animate__animated animate__fadeIn">
+    <div class="container-fluid hero">
+        <div class="row">
+            <div class="container">
+                <div class="row align-items-center vh-1000">
+                    <div class="col-lg-6 col-md-8">
+                        <h1>Steamcito</h1>
+                        <h2 class="mb-5">Convertí toda la tienda de Steam a pesos argentinos en serio.</h2>
+                        <a href="https://chrome.google.com"  class="btn btn-dark btn-lg disabled"><i class="fab fa-chrome"></i> &nbsp;AÑADIR A GOOGLE CHROME (Pronto)</a>
+                        <br>
+                        <!-- small>Pronto en Firefox y Opera</small> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#features" class="discover">VER FUNCIONALIDADES <br> <i class="fas fa-angle-down"></i></a>
+    </div>
+    
+    <div class="container my-5 features" id="features">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h3 class="text-success font-weight-bold">Lista de Funcionalidades</h3>
+            </div>
+        </div>
+
+        <div class="row align-items-center pb-5">
+            <div class="col-md-5">
+                <h4 class>Conversión automática de todos los precios de Steam</h4>
+                <p class="text-muted">Apenas cargás una página en Steam, Steamcito detecta todos los contenedores de precios y los convierte a pesos argentinos agregándoles el emoji del mate 🧉. 
+                <br><br>
+                Inclusive si scrolleás una misma página y aparecen más juegos, Steamcito se va a encargar de convertir asincrónicamente los precios.</p>
+            </div>
+
+            <div class="col-md-7">
+                <img class="w-100" src="img/feature-1.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+            <div class="col-md-5">
+                <h4 class>Conversión de precios en el buscador de Steam</h4>
+                <p class="text-muted">¡Steamcito carga al instante! Inclusive funciona en el buscador predictivo de Steam.</p>
+            </div>
+
+            <div class="col-md-7">
+                <video autoplay controls muted loop class="w-100 shadow">
+                    <source src="video/feature-2.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+            <div class="col-md-5">
+                <h4 class>Detección de Saldo de tu Steam Wallet</h4>
+                <p class="text-muted">Aún si tenés saldo en tu Steam Wallet, Steamcito es ideal para vos.
+                <br><br>
+                Si iniciaste sesión en Steam, Steamcito detecta el saldo que figura arriba a la derecha, y en base a eso te dice si podés comprar el juego con el saldo de tu Steam Wallet.
+                <br><br>
+                💲 : Podés comprarlo con tu saldo de Steam Wallet <br>
+                🧉: No podés comprarlo con tu saldo de Steam Wallet        
+                </p>
+            </div>
+
+            <div class="col-md-7">
+                <img class="w-100 shadow" src="img/feature-3bis.png" alt="">
+                <small class="mt-2 d-block">Ejemplo tomado en una cuenta con $100 de saldo en Steam Wallet</small>
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+            <div class="col-md-5">
+                <h4 class>Cálculo e información sobre todos los impuestos actuales</h4>
+                <p class="text-muted">Los impuestos en la Argentina pueden cambiar de un día para el otro. Por eso es que, para tu comodidad, Steamcito muestra en tu carrito un resumen con todos los impuestos que te van a llegar a la tarjeta e información sobre cada uno de ellos. 
+                <br><br>
+                Si sale un nuevo impuesto, Steamcito lo va a tener.   
+                </p>
+            </div>
+
+            <div class="col-md-7">
+                <img class="w-100 shadow" src="img/feature-4.png" alt="">
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+            <div class="col-md-5">
+                <h4 class>Compatibilidad para compras parciales</h4>
+                <p class="text-muted">Hay momentos en los cuáles tenés saldo en tu Steam Wallet (ej: 100 pesos), y querés comprar un juego que excede tu saldo.
+                <br><br>
+                Por esta razón es que Steamcito te dará todas tus opciones de compra disponibles para que puedas saber cuál es la mejor opción.
+                </p>
+            </div>
+
+            <div class="col-md-7">
+                <img class="w-100 shadow" src="img/feature-5.png" alt="">
+            </div>
+        </div>
+
+        <div class="row align-items-center py-5">
+          <div class="col-md-5">
+              <h4 class>Consistencia durante todo el proceso de compra</h4>
+              <p class="text-muted">Steamcito funciona incluso en el checkout cuando seleccionás tu método de pago, para saber cuánto pagás con el o los métodos seleccionados.
+              <br><br>
+
+              </p>
+          </div>
+
+          <div class="col-md-7">
+              <img class="w-100 shadow" src="img/feature-6.png" alt="">
+              <small class="mt-2 d-block">Ejemplo tomado en una cuenta con $100 de saldo en Steam Wallet</small>
+          </div>
+      </div>        
+
+
+    </div>
+
+    <div class="container-fluid my-5 faq py-5">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-success">Preguntas Frecuentes</h3>
+
+                        <div id="accordion" class="mt-4">
+                            <div class="card">
+                              <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    ¿Cómo instalo Steamcito?
+                                  </button>
+                                </h5>
+                              </div>
+                          
+                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    Steamcito es una extensión para navegador, y como tal estará disponible de forma gratuita en las diferentes stores de navegadores. 
+                                    Vas a poder encontrarla muy pronto en la Chrome Store, y en el futuro en las stores de Firefox y Opera.
+                          
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    ¿Puedo utilizar Steamcito directamente desde la aplicación de Steam para PC?
+                                  </button>
+                                </h5>
+                              </div>
+                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    Lamentablemente no es posible, ya que la aplicación de Steam usa su propia versión de Chromium y, por cuestiones de seguridad, no admite extensiones de terceros.
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                              <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    ¿Steamcito es seguro?
+                                  </button>
+                                </h5>
+                              </div>
+                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                    ¡Así es! Podés usarlo estando logueado o deslogueado. La detección de saldo es realizada leyendo el texto con tu saldo total que muestra Steam arriba a la derecha.
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                  <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        ¿Steamcito recopila información mía o de mi cuenta de Steam?
+                                    </button>
+                                  </h5>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                  <div class="card-body">
+                                    ¡Jamás! Steamcito es un proyecto open source, así que podés ver todo su código y sus avances <a href="https://github.com/emilianog94/Steamcito-Conversor-a-Pesos-Argentinos-Steam" target="_blank">clickeando acá</a>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingFive">
+                                  <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        ¿Steamcito se actualizará?
+                                    </button>
+                                  </h5>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                                  <div class="card-body">
+                                    Si por alguna razón Steam actualiza el diseño o programación de la Store y esto rompe algo de Steamcito, se trabajará cuanto antes para arreglarlo. <br><br>
+                                    
+                                    Lo mismo si aparece o se modifica un nuevo impuesto: será cargado cuanto antes a la extensión.
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header" id="headingSix">
+                                  <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        ¿Cómo reporto un bug o hago una sugerencia?
+                                    </button>
+                                  </h5>
+                                </div>
+                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                                  <div class="card-body">
+                                    Si encontrás un bug o tenés una sugerencia para una nueva funcionalidad, podés reportarlo en GitHub <a href="https://github.com/emilianog94/Steamcito-Conversor-a-Pesos-Argentinos-Steam/issues">haciendo click acá</a>.
+                                  </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <div class="col-12">
+            <h4 class="text-success">Acerca del Proyecto</h4>
+            <p>Sección en construcción...</p>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>

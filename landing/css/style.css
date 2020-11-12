@@ -69,4 +69,13 @@ h1 {
     font-size: 3em;
   }
 }
+
+#footer {
+  background-color: #333;
+  color: #fff;
+}
+
+#footer a {
+  color: #fff;
+}
 /*# sourceMappingURL=style.css.map */

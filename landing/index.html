@@ -20,7 +20,7 @@
                 <div class="row align-items-center vh-1000">
                     <div class="col-lg-6 col-md-8">
                         <h1>Steamcito</h1>
-                        <h2 class="mb-5">Convertí toda la tienda de Steam a pesos argentinos en serio.</h2>
+                        <h2 class="mb-5">Convertí toda la tienda de Steam a pesos argentinos con todos los impuestos incluidos</h2>
                         <a href="https://chrome.google.com"  class="btn btn-dark btn-lg disabled"><i class="fab fa-chrome"></i> &nbsp;AÑADIR A GOOGLE CHROME (Pronto)</a>
                         <br>
                         <!-- small>Pronto en Firefox y Opera</small> -->
@@ -33,17 +33,17 @@
     
     <div class="container my-5 features" id="features">
         <div class="row">
-            <div class="col-12 mb-3">
+            <div class="col-12 mb-3 pt-3">
                 <h3 class="text-success font-weight-bold">Lista de Funcionalidades</h3>
             </div>
         </div>
 
         <div class="row align-items-center pb-5">
             <div class="col-md-5">
-                <h4 class>Conversión automática de todos los precios de Steam</h4>
-                <p class="text-muted">Apenas cargás una página en Steam, Steamcito detecta todos los contenedores de precios y los convierte a pesos argentinos agregándoles el emoji del mate 🧉. 
+                <h4 class>Conversión automática de todos los precios de Steam con todos los impuestos incluidos</h4>
+                <p class="text-muted">Apenas cargás una página en Steam, Steamcito detecta todos los contenedores de precios y los convierte a pesos argentinos agregándoles un mate 🧉. 
                 <br><br>
-                Inclusive si scrolleás una misma página y aparecen más juegos, Steamcito se va a encargar de convertir asincrónicamente los precios.</p>
+                Incluso si scrolleás una misma página y aparecen más juegos, Steamcito se va a encargar de convertirlos a medida que aparecen.</p>
             </div>
 
             <div class="col-md-7">
@@ -54,7 +54,7 @@
         <div class="row align-items-center py-5">
             <div class="col-md-5">
                 <h4 class>Conversión de precios en el buscador de Steam</h4>
-                <p class="text-muted">¡Steamcito carga al instante! Inclusive funciona en el buscador predictivo de Steam.</p>
+                <p class="text-muted">¡Steamcito carga al instante! Funciona de 10 en el buscador predictivo de Steam.</p>
             </div>
 
             <div class="col-md-7">
@@ -67,9 +67,9 @@
         <div class="row align-items-center py-5">
             <div class="col-md-5">
                 <h4 class>Detección de Saldo de tu Steam Wallet</h4>
-                <p class="text-muted">Aún si tenés saldo en tu Steam Wallet, Steamcito es ideal para vos.
+                <p class="text-muted">Si sos de los que tienen saldo en la Steam Wallet, Steamcito también es ideal para vos.
                 <br><br>
-                Si iniciaste sesión en Steam, Steamcito detecta el saldo que figura arriba a la derecha, y en base a eso te dice si podés comprar el juego con el saldo de tu Steam Wallet.
+                Si iniciás sesión en Steam, Steamcito detecta el saldo que figura arriba a la derecha, y en base a eso te dice si podés comprar el juego con el saldo de tu Steam Wallet, excluyendo obviamente los impuestos.
                 <br><br>
                 💲 : Podés comprarlo con tu saldo de Steam Wallet <br>
                 🧉: No podés comprarlo con tu saldo de Steam Wallet        
@@ -107,10 +107,12 @@
 
             <div class="col-md-7">
                 <img class="w-100 shadow" src="img/feature-5.png" alt="">
+                <small>Ejemplo tomado en una cuenta con $100 de saldo en Steam Wallet
+                </small>
             </div>
         </div>
 
-        <div class="row align-items-center py-5">
+      <div class="row align-items-center py-5">
           <div class="col-md-5">
               <h4 class>Consistencia durante todo el proceso de compra</h4>
               <p class="text-muted">Steamcito funciona incluso en el checkout cuando seleccionás tu método de pago, para saber cuánto pagás con el o los métodos seleccionados.
@@ -124,6 +126,22 @@
               <small class="mt-2 d-block">Ejemplo tomado en una cuenta con $100 de saldo en Steam Wallet</small>
           </div>
       </div>        
+
+      <div class="row align-items-center py-5">
+        <div class="col-md-5">
+            <h4 class>Conversión manual en un click</h4>
+            <p class="text-muted">¿De curioso te interesa saber cuánto vale el juego sin impuestos o viceversa? ¡Simplemente clickeando en el precio Steamcito te lo va a mostrar!</p>
+            <br><br>
+
+            </p>
+        </div>
+
+        <div class="col-md-7">
+            <video autoplay controls muted loop class="w-100 shadow">
+              <source src="video/feature-7.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>   
 
 
     </div>
@@ -245,9 +263,30 @@
     <div class="container my-5">
         <div class="col-12">
             <h4 class="text-success">Acerca del Proyecto</h4>
-            <p>Sección en construcción...</p>
+            <p>Steamcito es un proyecto personal que comenzó a ser desarrollado en 2019 cuando aparecieron nuevos impuestos a la adquisición de servicios digitales en la Argentina. Por falta de conocimientos y tiempo el proyecto quedó medio abandonado durante un largo rato. <br><br>
+            Con la aparición de  impuestos sorpresivos durante este 2020 que te hacían abrir la calculadora cada vez que pensabas gatillar un jueguito, resurgieron las ganas de llevarlo adelante de una vez, y programar una solución que les sirva a todos: a los que tienen plata cargada en su wallet, y a los que no. 
+            <br><br>
+            ¡Y acá llegamos!
+            </p>
         </div>
     </div>
+
+    <div class="container-fluid py-4" id="footer">
+      <div class="row">
+        <div class="col-12 text-center">
+          <footer>
+            <p>Steamcito 2020 - Diseñado y Desarrollado por Emiliano Gioia.</p>
+            <a href="https://github.com/emilianog94" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
+            
+
+          </footer>
+        </div>
+      </div>
+    </div>
+
+
 
 
     

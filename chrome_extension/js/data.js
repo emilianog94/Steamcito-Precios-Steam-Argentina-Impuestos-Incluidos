@@ -12,7 +12,7 @@ const taxes = [
         moreInfo: "http://biblioteca.afip.gob.ar/dcp/REAG01004659_2020_01_06"
     },
     {
-        name : "Impuesto a las ganancias - RG AFIP Nº 4815/2020",
+        name : "Retención del Impuesto a las ganancias - RG AFIP Nº 4815/2020",
         value : 35,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/235038/20200916"
     }

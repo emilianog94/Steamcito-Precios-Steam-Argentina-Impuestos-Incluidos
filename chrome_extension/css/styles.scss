@@ -1,3 +1,26 @@
+@font-face {
+    font-family: 'steamcito-emojis';
+    src: url('chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.eot');
+    src: url('chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.eot?#iefix') format('embedded-opentype'),
+         url('chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.woff') format('woff'),
+         url('chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.ttf') format('truetype');
+         font-weight: normal;
+         font-style: normal;
+}
+
+.emojis{
+    font-family:'steamcito-emojis';
+    text-transform:uppercase;
+
+    &.mate{
+        color:red;
+    }
+
+    &.saldo{
+        color:lightgreen;
+    }
+}
+
 // CART 
 .cart_area_body{
     .cart_item{

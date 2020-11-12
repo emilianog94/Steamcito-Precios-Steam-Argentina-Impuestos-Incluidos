@@ -20,14 +20,14 @@ function convertTotals(paymentType, walletAmount = "", ccAmount = ""){
         totalAmount.dataset.originalPrice =  totalAmount.innerText;    
         if(paymentType == "cc") {
             let newAmount = numberToString((stringToNumber(totalAmount) * totalTaxes).toFixed(2));
-            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${newAmount} 🧉</span>`);
+            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${newAmount} ${emojiMate}</span>`);
         }    
         else if (paymentType == "wallet"){
-            totalAmount.innerText = totalAmount.innerText + " 💲";
+            totalAmount.innerHTML = totalAmount.innerHTML + emojiWallet;
         }
 
         else if (paymentType == "mixto"){
-            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${walletAmount.innerText} + ${ccAmount} 🧉 </span>`);
+            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${walletAmount.innerHTML} + ${ccAmount} ${emojiMate} </span>`);
         }
     })
 }
@@ -47,9 +47,9 @@ function changeReviewTab(){
             // Caso 1: Pago Mixto
             if(creditCardPayment.style.display == "block" && walletPayment.style.display == "block"){
                 let ccAmount = numberToString((stringToNumber(creditCardPayment.querySelector(".payment_method_total")) * totalTaxes).toFixed(2));
-                creditCardPayment.querySelector(".payment_method_total").insertAdjacentHTML('beforebegin',`<span class="new-amount">${ccAmount} 🧉</span>`);
+                creditCardPayment.querySelector(".payment_method_total").insertAdjacentHTML('beforebegin',`<span class="new-amount">${ccAmount} ${emojiMate}</span>`);
                 let walletAmount = walletPayment.querySelector(".payment_method_total");
-                walletAmount.innerText = walletAmount.innerText + " 💲";
+                walletAmount.innerHTML = walletAmount.innerHTML + emojiWallet;
                 convertTotals("mixto",walletAmount,ccAmount);
             } 
 

@@ -1,3 +1,19 @@
+
+
+function setEmojiMate(){
+    let OSversion = window.navigator.userAgent;
+    return OSversion.indexOf("NT 10.0") != -1 ? " 🧉" : `<span class="emojis mate"> A </span>`;
+}
+
+function setEmojiWallet(){
+    let OSversion = window.navigator.userAgent;
+    return OSversion.indexOf("NT 10.0") != -1 ? " 💲" : `<span class="emojis saldo"> B </span>`;
+}
+
+let emojiMate = setEmojiMate();
+let emojiWallet = setEmojiWallet();
+
+
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
@@ -25,7 +41,7 @@ function getTotalTaxes(){
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
-        walletBalanceContainer.innerText += " 💲";
+        walletBalanceContainer.innerHTML += emojiWallet;
         return stringToNumber(walletBalanceContainer);
     }
     return 0;
@@ -69,7 +85,7 @@ function renderPrices(price){
     }
 
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
-        price.innerText = originalPrice + " 💲";     
+        price.innerHTML = originalPrice + emojiWallet;     
         price.classList.add("original");
         if(price.previousElementSibling){
             if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
@@ -79,11 +95,11 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
-            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${argentinaPrice} 🧉`; 
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${argentinaPrice} ${emojiMate}`; 
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{
-            price.innerText = argentinaPrice + " 🧉";
+            price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
@@ -98,10 +114,10 @@ function showSecondaryPrice(e){
     selectedPrice.classList.add("transition-effect");
     selectedPrice.style.opacity = 0;
     if(selectedPrice.classList.contains("argentina")){
-        switchPrices(selectedPrice,"argentina","original"," 💲");
+        switchPrices(selectedPrice,"argentina","original",emojiWallet);
     }
     else if(selectedPrice.classList.contains("original")){
-        switchPrices(selectedPrice,"original","argentina"," 🧉");
+        switchPrices(selectedPrice,"original","argentina",emojiMate);
     }
 }
 
@@ -110,7 +126,7 @@ function switchPrices(selector,first,second,symbol){
         selector.style.opacity=1;
         selector.classList.remove(first);
         selector.classList.add(second);
-        selector.innerText = numberToString(selector.dataset[second+"Price"] + symbol);
+        selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol);
     },250);
 }
 

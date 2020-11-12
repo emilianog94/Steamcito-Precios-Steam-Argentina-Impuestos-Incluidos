@@ -1,4 +1,4 @@
-const walletBalance = 2;
+const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
 function stringToNumber(number,positionArs = 5){

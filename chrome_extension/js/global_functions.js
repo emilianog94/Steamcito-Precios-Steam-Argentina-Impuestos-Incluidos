@@ -1,4 +1,4 @@
-const walletBalance = getBalance();
+const walletBalance = 2;
 const totalTaxes = getTotalTaxes();
 
 function stringToNumber(number,positionArs = 5){
@@ -33,8 +33,17 @@ function getBalance(){
 
 function getPrices(){
     let prices = document.querySelectorAll(priceContainers);
+
+    // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
+    let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
+    standardDlcPrices.forEach(dlcPrice => { 
+        if(!dlcPrice.querySelector("div")){
+            setArgentinaPrice(dlcPrice);
+        }
+    });
     prices.forEach(price => setArgentinaPrice(price));
 }
+
 
 function setArgentinaPrice(price){
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
@@ -58,13 +67,15 @@ function renderPrices(price){
         price.addEventListener('click',showSecondaryPrice); 
         price.style.cursor="pointer";
     }
+
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
         price.innerText = originalPrice + " 💲";     
         price.classList.add("original");
         if(price.previousElementSibling){
             if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
         }
-    } else{
+    } else
+    {
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");

@@ -46,6 +46,29 @@ html {
   font-weight: bold;
 }
 
+.nav {
+  left: 0;
+  top: 2em;
+}
+
+.nav ul {
+  padding-left: 15px;
+}
+
+.nav ul li {
+  margin-right: 1.5em;
+  list-style-type: none;
+}
+
+.nav ul li a {
+  color: #000;
+  text-transform: uppercase;
+}
+
+.howto img {
+  max-width: 80%;
+}
+
 .features img, .features video {
   border-radius: 20px;
 }
@@ -58,6 +81,14 @@ html {
   width: 100%;
   text-align: left;
   color: #212529;
+}
+
+.changelog ul {
+  padding-left: 0;
+}
+
+.changelog ul li {
+  list-style-type: none;
 }
 
 h1 {

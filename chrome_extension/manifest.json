@@ -4,9 +4,14 @@
     "version": "0.1",
     "description": "Calculador y visualizador de impuestos automatizado para todos los artículos de Steam para Argentina",
 	"manifest_version": 2,
+	"background": {
+		"scripts": ["js/show-tutorial-and-log.js"],
+		"persistent": false
+	},
 	"icons": { 
 		"128": "icon128.png" 
 	},
+
 
 
 	 "content_scripts": [

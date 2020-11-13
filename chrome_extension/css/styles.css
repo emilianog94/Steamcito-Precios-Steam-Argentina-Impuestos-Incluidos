@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'steamcito-emojis';
-  src: url("chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.eot");
-  src: url("chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.eot?#iefix") format("embedded-opentype"), url("chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.woff") format("woff"), url("chrome-extension://nbiiefbmphgbilblmagbidekfkdjipbj/emojis/steamcito-emojis.ttf") format("truetype");
+  src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot");
+  src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot?#iefix") format("embedded-opentype"), url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.woff") format("woff"), url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

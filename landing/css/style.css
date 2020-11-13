@@ -46,23 +46,11 @@ html {
   font-weight: bold;
 }
 
-.nav {
-  left: 0;
-  top: 2em;
-}
-
-.nav ul {
-  padding-left: 15px;
-}
-
-.nav ul li {
-  margin-right: 1.5em;
-  list-style-type: none;
-}
-
-.nav ul li a {
-  color: #000;
-  text-transform: uppercase;
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .howto img {

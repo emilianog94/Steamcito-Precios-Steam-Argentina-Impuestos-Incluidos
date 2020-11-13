@@ -45,22 +45,11 @@ $mobile:768px;
 
 }
 
-.nav{
-    left:0;
-    top:2em;
-
-    ul{
-        padding-left:15px;
-        li{
-            margin-right:1.5em;
-
-            list-style-type:none;
-            a{  
-                color:#000;
-                text-transform:uppercase;
-            }
-        }
-    }
+.navbar{
+    position:absolute;
+    top:0;
+    width:100%;
+    z-index:100;
 }
 
 .howto{

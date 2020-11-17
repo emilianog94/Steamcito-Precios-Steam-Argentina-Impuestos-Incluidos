@@ -89,6 +89,11 @@ h1 {
   }
 }
 
+.modal .ol {
+  padding-left: 0;
+  list-style-position: inside;
+}
+
 #footer {
   background-color: #333;
   color: #fff;

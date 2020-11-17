@@ -1,6 +1,7 @@
 
 ## Steamcito - Calculador de Precios Finales Steam Argentina 2020
-Extensión para Google Chrome que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos.<br><br>
+Extensión para Google Chrome, Opera, OperaGX y Edge que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con impuestos incluidos.<br><br>
+¡Muy pronto en Firefox Addons!
 
 ## [Clickeá acá para ver la landing page con todas las funcionalidades explicadas!](https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html)
 

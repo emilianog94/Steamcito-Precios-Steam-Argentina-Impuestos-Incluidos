@@ -3,7 +3,7 @@ name: Reportar un Bug
 about: Reportá una funcionalidad que creas que no está andando bien
 title: "[BUG]"
 labels: bug
-assignees: ''
+assignees: emilianog94
 
 ---
 

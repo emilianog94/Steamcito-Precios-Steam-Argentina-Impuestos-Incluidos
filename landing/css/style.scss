@@ -27,6 +27,20 @@ $mobile:768px;
         height:auto;
     }
 
+    .browser-list{
+        .browser{
+            a{
+                color:#000;
+                transition:all 0.25s ease;
+
+                &:hover{
+                    text-decoration:none;
+                    transform:scale(1.15);
+                }
+            }
+        }
+    }
+
     .discover{
         position:absolute;
         bottom:1em;

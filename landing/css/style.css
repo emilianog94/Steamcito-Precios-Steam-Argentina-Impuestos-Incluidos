@@ -27,6 +27,18 @@ html {
   }
 }
 
+.hero .browser-list .browser a {
+  color: #000;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.hero .browser-list .browser a:hover {
+  text-decoration: none;
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
+
 .hero .discover {
   position: absolute;
   bottom: 1em;

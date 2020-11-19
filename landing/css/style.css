@@ -58,6 +58,22 @@ html {
   font-weight: bold;
 }
 
+#opiniones .fa-star {
+  color: #ffd43b;
+}
+
+#opiniones .carousel-item {
+  min-height: 14em;
+}
+
+#opiniones .carousel-indicators {
+  bottom: -30px;
+}
+
+#opiniones .carousel-indicators li {
+  background-color: #000;
+}
+
 .navbar {
   position: absolute;
   top: 0;

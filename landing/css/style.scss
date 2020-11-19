@@ -59,6 +59,25 @@ $mobile:768px;
 
 }
 
+#opiniones{
+    .fa-star{
+        color:#ffd43b
+    }
+
+    .carousel-item{
+        min-height:14em;
+        
+    }
+
+    .carousel-indicators{
+        bottom:-30px;
+        li{
+            background-color:#000;
+        }
+    }
+
+}
+
 .navbar{
     position:absolute;
     top:0;

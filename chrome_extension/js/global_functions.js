@@ -56,6 +56,18 @@ function renderPrices(price){
         } else{
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
+
+            // Fix específico para la sección /bundle/ cuando no estás logueado
+            if(document.location.href.indexOf('/bundle/') > -1){
+                setTimeout(function(){
+                    if(price.matches(".argentina.your_price")){
+                        price.innerHTML = argentinaPrice + emojiMate;
+                    }
+                },1500);
+            }
+
+
+
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
             }

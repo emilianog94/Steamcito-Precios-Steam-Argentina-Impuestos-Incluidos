@@ -122,6 +122,10 @@
   width: auto;
 }
 
+.giftcard_selection .giftcard_corner {
+  width: 200px;
+}
+
 #review_tab .payment_method_review_row .new-amount {
   position: absolute;
   right: 0;

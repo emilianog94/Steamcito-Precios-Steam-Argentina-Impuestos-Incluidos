@@ -61,6 +61,7 @@ function renderPrices(price){
             if(document.location.href.indexOf('/bundle/') > -1 && walletBalance == 0){
                 setTimeout(function(){
                         price.innerHTML = argentinaPrice + emojiMate;
+                        price.addEventListener('click',showSecondaryPrice); 
                 },1500);
             }
 

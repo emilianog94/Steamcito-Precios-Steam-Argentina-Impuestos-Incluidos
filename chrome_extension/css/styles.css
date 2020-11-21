@@ -120,6 +120,8 @@
 .bundle_package_item .tab_item .tab_item_discount, .complete_the_set .tab_item .tab_item_discount {
   min-width: 120px;
   width: auto;
+  position: relative;
+  z-index: 100;
 }
 
 .discount_block.game_purchase_discount.no_discount .discount_final_price.your_price {

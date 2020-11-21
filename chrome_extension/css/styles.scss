@@ -129,6 +129,8 @@
         .tab_item_discount{
             min-width:120px;
             width:auto;
+            position:relative;
+            z-index:100;
         }
     }
 }

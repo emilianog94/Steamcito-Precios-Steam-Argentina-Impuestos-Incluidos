@@ -27,4 +27,7 @@ const priceContainers = `
         .search_price:not([${attributeName}]), 
         .regular_price:not([${attributeName}]), 
         .match_price:not([${attributeName}]), 
-        .cart_item .price:not([${attributeName}])`;
+        .cart_item .price:not([${attributeName}]),
+        .price.bundle_final_package_price:not([${attributeName}]),
+        .price.bundle_final_price_with_discount:not([${attributeName}]),
+        .bundle_savings:not([${attributeName}])`;

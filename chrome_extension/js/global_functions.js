@@ -60,8 +60,10 @@ function renderPrices(price){
             // Fix específico para la sección /bundle/ cuando no estás logueado
             if(document.location.href.indexOf('/bundle/') > -1 && walletBalance == 0){
                 setTimeout(function(){
+                    if(!price.classList.contains("discount_original_price")){
                         price.innerHTML = argentinaPrice + emojiMate;
                         price.addEventListener('click',showSecondaryPrice); 
+                    }
                 },1500);
             }
 

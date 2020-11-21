@@ -25,18 +25,18 @@ function showCart(){
     let newCart = 
     `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
-            <p>Total Final pagando con Steam Wallet ${emojiWallet}</p>
-            <span class="green">${numberToString(cartTotal)}</span>
+            <p>Total Final pagando con Steam Wallet </p>
+            <span class="green">${numberToString(cartTotal)} ${emojiWallet}</span>
         </div>
 
         <div class="total_cc">
-            <p>Total Final pagando con Tarjeta ${emojiMate}</p>
-            <span>${numberToString(cartTotalCreditCard)}</span>        
+            <p>Total Final pagando con Tarjeta</p>
+            <span>${numberToString(cartTotalCreditCard)} ${emojiMate}</span>        
         </div>
 
         <div class="total_mixed ${totalMixedDisplay}">
             <p>Total Final pagando con Steam Wallet + Tarjeta</p>
-            <span> <span class="green">${numberToString(walletBalance)} WALLET </span> + ${numberToString(cartTotalMixed)}</span>        
+            <span> <span class="green">${numberToString(walletBalance)} ${emojiWallet} </span> + &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
         </div>
 
     </div>`;

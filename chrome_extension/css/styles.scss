@@ -133,6 +133,14 @@
     }
 }
 
+// Fix line-height en bundles
+.discount_block.game_purchase_discount.no_discount .discount_final_price.your_price{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
 // GIFT CARDS (/digitalgiftcards/selectgiftcard)
 
 .giftcard_selection{

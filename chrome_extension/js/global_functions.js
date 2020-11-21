@@ -58,11 +58,9 @@ function renderPrices(price){
             price.classList.add("argentina");
 
             // Fix específico para la sección /bundle/ cuando no estás logueado
-            if(document.location.href.indexOf('/bundle/') > -1){
+            if(document.location.href.indexOf('/bundle/') > -1 && walletBalance == 0){
                 setTimeout(function(){
-                    if(price.matches(".argentina.your_price")){
                         price.innerHTML = argentinaPrice + emojiMate;
-                    }
                 },1500);
             }
 

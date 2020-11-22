@@ -40,21 +40,25 @@ function setEmojiWallet(){
 
 function showUpdate(){
     chrome.storage.local.get(['justUpdated'], function(result) {
+
+        // Si es la primera vez que se abre desde la actualización
         if(result.justUpdated == 1) {
             let header = document.querySelector('#global_header');
             let changelogUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html'
+            let funcionalidadesUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/#howto'
             let newVersion = chrome.runtime.getManifest().version;
-            let updateAdvice = 
-            `<div class="actualizacion-steamcito">
-                <p>¡Steamcito se actualizó correctamente a la versión ${newVersion} ${emojiMate}! 
-                    <a href="${changelogUrl}" target="_blank">¿Qué hay de nuevo en esta versión?</a>
-                </p> 
-            </div>`;
 
+            let updateAdvice = `
+                <div class="actualizacion-steamcito">
+                    <p>${emojiMate} ¡Steamcito se actualizó correctamente a la versión ${newVersion}! 
+                        <a href="${changelogUrl}" target="_blank">¿Qué hay de nuevo?</a>
+                        <a href="${funcionalidadesUrl}" target="_blank">¿Cómo funciona Steamcito?</a>
+                    </p> 
+                </div>
+            `;
+            
             header.insertAdjacentHTML('afterend',updateAdvice);
-
-          console.log("Se acaba de actualizar");
-          chrome.storage.local.set({justUpdated: 0});
+            chrome.storage.local.set({justUpdated: 0});
       } 
     });
 }

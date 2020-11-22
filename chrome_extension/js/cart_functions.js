@@ -68,8 +68,5 @@ function showTaxes(){
     }
 }
 
-
-
-
 showCart();
 showTaxes();

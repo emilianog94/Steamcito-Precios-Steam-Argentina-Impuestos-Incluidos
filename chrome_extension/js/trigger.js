@@ -1,5 +1,5 @@
 
-// Corro función corre por primera vez
+// Corro función por primera vez
 getPrices();
 
 // Trigger recursivo

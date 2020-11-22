@@ -57,26 +57,6 @@ function renderPrices(price){
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
 
-            /*
-            // Fix específico para la sección /bundle/ cuando no estás logueado
-            if(document.location.href.indexOf('/bundle/') > -1){
-                setTimeout(function(){
-                    if(!price.classList.contains("discount_original_price") && !price.classList.contains("he")){
-                        if(price.querySelector(".your_price_label")){
-                            setArgentinaPrice(price);
-                            price.classList.add("he");
-                        }
-                        if(price.classList.contains("bundle_final_price_with_discount") || price.classList.contains("bundle_final_package_price")){
-                            // setArgentinaPrice(price);
-                            price.classList.add("he");    
-                        }
-                    }
-                },1500);
-            }
-            */
-
-
-
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
             }

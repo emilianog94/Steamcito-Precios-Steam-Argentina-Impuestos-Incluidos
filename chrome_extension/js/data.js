@@ -30,4 +30,7 @@ const priceContainers = `
         .cart_item .price:not([${attributeName}]),
         .price.bundle_final_package_price:not([${attributeName}]),
         .price.bundle_final_price_with_discount:not([${attributeName}]),
-        .bundle_savings:not([${attributeName}])`;
+        .bundle_savings:not([${attributeName}]),
+        .package_info_block_content .price:not([${attributeName}]),
+        #package_savings_bar .savings:not([${attributeName}])
+        `;

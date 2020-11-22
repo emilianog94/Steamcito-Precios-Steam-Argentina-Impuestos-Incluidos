@@ -57,15 +57,23 @@ function renderPrices(price){
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
 
+            /*
             // Fix específico para la sección /bundle/ cuando no estás logueado
-            if(document.location.href.indexOf('/bundle/') > -1 && walletBalance == 0){
+            if(document.location.href.indexOf('/bundle/') > -1){
                 setTimeout(function(){
-                    if(!price.classList.contains("discount_original_price")){
-                        price.innerHTML = argentinaPrice + emojiMate;
-                        price.addEventListener('click',showSecondaryPrice); 
+                    if(!price.classList.contains("discount_original_price") && !price.classList.contains("he")){
+                        if(price.querySelector(".your_price_label")){
+                            setArgentinaPrice(price);
+                            price.classList.add("he");
+                        }
+                        if(price.classList.contains("bundle_final_price_with_discount") || price.classList.contains("bundle_final_package_price")){
+                            // setArgentinaPrice(price);
+                            price.classList.add("he");    
+                        }
                     }
                 },1500);
             }
+            */
 
 
 

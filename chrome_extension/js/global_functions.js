@@ -1,9 +1,8 @@
 const emojiMate = setEmojiMate();
 const emojiWallet = setEmojiWallet();
 const walletBalance = getBalance();
-const totalTaxes = getTotalTaxes();
 
-function getPrices(){
+ function getPrices(){
     let prices = document.querySelectorAll(priceContainers);
 
     // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
@@ -17,11 +16,13 @@ function getPrices(){
 }
 
 function setArgentinaPrice(price){
+    
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
+        const impuestosFinales = localStorage.getItem('taxAmount');
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice.toFixed(2);
-        price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
+        price.dataset.argentinaPrice = (baseNumericPrice * impuestosFinales).toFixed(2);
         renderPrices(price);
     }
     else{

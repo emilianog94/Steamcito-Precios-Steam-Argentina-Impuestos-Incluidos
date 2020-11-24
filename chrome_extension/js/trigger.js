@@ -1,17 +1,28 @@
 
-// Corro función por primera vez
-getPrices();
+async function trigger(){
 
-// Trigger recursivo
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-const observer = new MutationObserver(function(mutations, observer) {
-    getPrices();
-});
+  // Obtengo los impuestos desde la API y los almaceno en localStorage
+  await getImpuestos().catch(impuestosFallback);
 
-observer.observe(document, {
-  subtree: true,
-  attributes: true
-});
+  // Corro función por primera vez
+  getPrices();
+
+  // Trigger recursivo
+  MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+  const observer = new MutationObserver(function(mutations, observer) {
+      getPrices();
+  });
+
+  observer.observe(document, {
+    subtree: true,
+    attributes: true
+  });
+
+}
+
+trigger();
+
+
 
 
 

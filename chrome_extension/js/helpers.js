@@ -1,10 +1,17 @@
-function getTotalTaxes(){
-    function reducer(total,num){
-        return total+num;
+// Implementar una actualización manual de localStorage tras 24hs para fetchear impuestos de forma consistente.
+async function getImpuestos(){
+    if(!localStorage.hasOwnProperty('taxAmount')){
+        let endpoint = "http://localhost:8000/steamcito/valor"; // https://emilianogioia.com.ar/steamcito/valor
+        let response = await fetch(endpoint);
+        let data = await response.text();
+        localStorage.setItem('taxAmount',data);
+        console.log(localStorage.getItem('taxAmount'));
     }
-    let taxesValues = taxes.map(tax => tax.value);
-    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100)).toFixed(2);
-    return totalTaxes;
+}
+
+function impuestosFallback(){
+    console.log("Hubo un error al conectar, acá va la fallback");
+    localStorage.setItem('taxAmount',1.70);
 }
 
 function getBalance(){

@@ -124,6 +124,13 @@
   z-index: 100;
 }
 
+.game_description_column .tab_item .tab_item_discount {
+  min-width: 120px;
+  width: auto;
+  position: relative;
+  z-index: 100;
+}
+
 .discount_block.game_purchase_discount.no_discount .discount_final_price.your_price {
   height: 100%;
   display: -webkit-box;

@@ -32,5 +32,6 @@ const priceContainers = `
         .price.bundle_final_price_with_discount:not([${attributeName}]),
         .bundle_savings:not([${attributeName}]),
         .package_info_block_content .price:not([${attributeName}]),
-        #package_savings_bar .savings:not([${attributeName}])
+        #package_savings_bar .savings:not([${attributeName}]),
+        .promo_item_list .price span:not([${attributeName}])
         `;

@@ -124,7 +124,16 @@
   z-index: 100;
 }
 
-.game_description_column .tab_item .tab_item_discount {
+.promo_item_list .price span {
+  display: block;
+  text-align: right;
+}
+
+.promo_item_list .price span.was {
+  margin-bottom: 2px;
+}
+
+.game_description_column .tab_item .tab_item_discount, .sale_page_package_contents .tab_item .tab_item_discount {
   min-width: 120px;
   width: auto;
   position: relative;

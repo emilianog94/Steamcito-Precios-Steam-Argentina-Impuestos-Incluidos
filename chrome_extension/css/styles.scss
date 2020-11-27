@@ -135,9 +135,26 @@
     }
 }
 
+
+// URLS /SALE/
+.promo_item_list{
+    .price{
+        span{
+
+            &.was{
+                margin-bottom:2px;
+            }
+
+            display:block;
+            text-align:right;
+        }
+    }
+}
+
+
 // URLS /SUB/
 
-.game_description_column{
+.game_description_column,.sale_page_package_contents{
     .tab_item .tab_item_discount{
         min-width: 120px;
         width: auto;

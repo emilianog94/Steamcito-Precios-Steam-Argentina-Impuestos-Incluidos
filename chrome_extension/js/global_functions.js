@@ -29,9 +29,17 @@ function setArgentinaPrice(price){
     }
 }
 
+function sanitizePromoLists(){
+    let items = document.querySelectorAll('.promo_item_list .price br');
+    items.forEach(item => item.remove());
+}
+
 function renderPrices(price){
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
     let originalPrice = numberToString(price.dataset.originalPrice);
+
+    // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
+    if (price.classList.contains("was")) sanitizePromoLists();
     
     // Agrego Listener para switchear precios con click
     if(!price.classList.contains('discount_original_price') || !price.classList.contains('responsive_secondrow')){
@@ -54,6 +62,8 @@ function renderPrices(price){
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{
+
+
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
 

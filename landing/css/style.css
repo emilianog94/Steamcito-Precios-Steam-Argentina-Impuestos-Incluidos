@@ -72,6 +72,9 @@ html {
 
 #opiniones .carousel-indicators li {
   background-color: #000;
+  width: 13px;
+  height: 13px;
+  border-radius: 100%;
 }
 
 .navbar {

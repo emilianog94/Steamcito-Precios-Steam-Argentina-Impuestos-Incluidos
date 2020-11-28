@@ -107,6 +107,10 @@
   display: flex;
 }
 
+.curator #RecommendationsTable .recommendation .discount_block {
+  width: 100%;
+}
+
 .contenthub_specials_ctn .discount_prices {
   display: -webkit-box !important;
   display: -ms-flexbox !important;
@@ -131,6 +135,26 @@
 
 .promo_item_list .price span.was {
   margin-bottom: 2px;
+}
+
+.franchise_game.double .discount_block .discount_pct {
+  width: 100%;
+  text-align: center;
+}
+
+.franchise_game.double .discount_block .discount_prices {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  text-align: center;
+}
+
+[class^="partnereventshared"][style*="grid-template-columns: repeat(4"] span[class^="salepreviewwidgets_CapsulePlatform"] {
+  display: none;
 }
 
 .game_description_column .tab_item .tab_item_discount, .sale_page_package_contents .tab_item .tab_item_discount {

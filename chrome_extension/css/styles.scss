@@ -99,7 +99,7 @@
     }
 }
 
-// CURADORES DE CONTENIDO Y PAGINA DE DEVELOPER
+// CURADORES DE CONTENIDO Y PAGINA DE PUBLISHER
 .curator{
     #RecommendationsRows{
         .store_capsule.price_inline{
@@ -113,6 +113,15 @@
             }
         }
     }
+
+    #RecommendationsTable{
+        .recommendation{
+            .discount_block{
+                width:100%;
+            }
+        }
+    }
+
 }   
 
 
@@ -149,6 +158,24 @@
             text-align:right;
         }
     }
+}
+
+.franchise_game.double{
+    .discount_block{
+        .discount_pct{
+            width:100%;
+            text-align:center;
+        }
+        .discount_prices{
+            display: flex;
+            flex-direction: column;
+            text-align: center;           
+        }
+    }
+}
+
+[class^="partnereventshared"][style*="grid-template-columns: repeat(4"] span[class^="salepreviewwidgets_CapsulePlatform"]{
+    display:none;
 }
 
 

@@ -249,6 +249,27 @@
           transform: rotate(20deg);
 }
 
+#checkout_steam_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#checkout_steam_logo .ico-steamcito img {
+  width: 20px;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+#checkout_steam_logo .ico-steamcito img:hover {
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+}
+
 .menu-steamcito {
   position: fixed;
   right: -30%;
@@ -268,6 +289,18 @@
   .menu-steamcito {
     width: 20%;
   }
+}
+
+.menu-steamcito a {
+  display: block;
+  margin: 1em 0;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.menu-steamcito a.refresher {
+  text-decoration: underline;
 }
 
 .menu-steamcito .internal-menu {
@@ -325,19 +358,13 @@
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion > div select {
   padding: 5px;
   border-radius: 5px;
-  min-width: 50%;
+  width: 50%;
+  cursor: pointer;
 }
 
 .menu-steamcito .internal-menu .ayuda-steamcito {
   margin-top: auto;
   margin-bottom: 30px;
-}
-
-.menu-steamcito .internal-menu .ayuda-steamcito a {
-  display: block;
-  margin: 1em 0;
-  -webkit-transition: all 0.25s ease;
-  transition: all 0.25s ease;
 }
 
 .menu-steamcito.enabled {

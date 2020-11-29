@@ -1,5 +1,5 @@
 function createMenus(){
-    let oldMenu = document.querySelector("#global_action_menu");
+    let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
     let steamcitoIcon = 
     `<div class="ico-steamcito"> 
         <img src="${chrome.runtime.getURL("emojis/mate-emoji.png")}" />
@@ -31,7 +31,7 @@ function createMenus(){
                     <div class="opcion">
                         <div>
                             <label>Modo MercadoPago</label>
-                            <select name="mercadopago" id="mercadopago">
+                            <select name="steamcito-payment" id="steamcito-payment">
                                 <option value="desactivado">Desactivado</option>
                                 <option value="activado">Activado</option>
                             </select>
@@ -39,6 +39,8 @@ function createMenus(){
                         <small>Seleccioná esta opción si pagás con la tarjeta de débito de MercadoPago. Actualmente, MercadoPago tiene aproximadamente 6% menos de impuestos.</small>
 
                     </div>
+                    
+                    <a class="refresher" onClick="window.location.reload();">Refrescá la página para ver los cambios</a> 
 
                 </div>
 
@@ -55,9 +57,18 @@ function createMenus(){
     document.body.insertAdjacentHTML('beforeend',steamcitoMenu);
 }
 
-createMenus();
-const menu = document.querySelector(".menu-steamcito");
-const steamcitoIcon = document.querySelector(".ico-steamcito");
+function setInitialLocalStates(){
+    localStorage.getItem('steamcito-payment') == 'standard' ? selectPayment.value='desactivado' : selectPayment.value='activado';
+    localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
+}
+
+function changePaymentState(){
+    selectPayment.value == 'desactivado' ? localStorage.setItem('steamcito-payment','standard') : localStorage.setItem('steamcito-payment','mercadopago');
+}
+
+function changeEmojiState(){
+    selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
+}
 
 function showMenu(e){
     menu.classList.add('enabled');
@@ -70,4 +81,48 @@ function hideMenu(e){
         document.removeEventListener('click',hideMenu);
     }
 }
+
+function setEmojis(){
+    let OSversion = window.navigator.userAgent;
+    if(!localStorage.hasOwnProperty('steamcito-emoji')){
+        if(OSversion.indexOf("NT 10.0") != -1){
+            localStorage.setItem('steamcito-emoji','unicode');
+            selectEmoji.value = "unicode";
+            return [" 🧉"," 💲"];
+        } else{
+            localStorage.setItem('steamcito-emoji','compatibility');
+            selectEmoji.value = "fallback";
+            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
+        }
+    }
+    else{
+        if(localStorage.getItem('steamcito-emoji') == 'unicode'){
+            selectEmoji.value = "unicode";
+            return [" 🧉"," 💲"];
+        }
+        else{
+            selectEmoji.value = "fallback";
+            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
+        }
+    }
+}
+
+// Inicializo Menú 
+createMenus();
+
+// Selecciono los botones del menú y les asigno eventos
+const menu = document.querySelector(".menu-steamcito");
+const steamcitoIcon = document.querySelector(".ico-steamcito");
+let selectPayment = document.querySelector('#steamcito-payment');
+let selectEmoji = document.querySelector("#estilo-emoji");
+selectPayment.addEventListener('input',changePaymentState);
+selectEmoji.addEventListener('input',changeEmojiState);
+
+// Seteo el estado inicial de payment y emojis
+setInitialLocalStates();
+
+// Defino qué emojis se van a usar
+const emojis = setEmojis();
+const emojiMate = emojis[0];
+const emojiWallet = emojis[1];
 

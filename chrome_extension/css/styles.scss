@@ -287,6 +287,24 @@
     }
 }
 
+#checkout_steam_logo{
+    display:flex;
+    align-items:center;
+
+    .ico-steamcito{
+        img{
+            width:20px;
+            cursor:pointer;
+            transition:all 0.25s ease;
+
+            &:hover{
+                transform:rotate(20deg);
+            }            
+        }
+    }
+
+}
+
 .menu-steamcito{
     position:fixed;
     right:-30%;
@@ -303,6 +321,17 @@
 
     @media(min-width:1440px){
         width:20%;
+    }
+
+    a{
+        display:block;
+        margin:1em 0;
+        cursor:pointer;
+        transition:all 0.25s ease;
+
+        &.refresher{
+            text-decoration:underline;
+        }
     }
 
     .internal-menu{
@@ -345,7 +374,8 @@
                     select{
                         padding:5px;
                         border-radius:5px;
-                        min-width:50%;
+                        width:50%;
+                        cursor:pointer;
                     }
                 }
             }
@@ -354,12 +384,6 @@
         .ayuda-steamcito{
             margin-top:auto;
             margin-bottom:30px;
-
-            a{
-                display:block;
-                margin:1em 0;
-                transition:all 0.25s ease;
-            }
         }
     }
 

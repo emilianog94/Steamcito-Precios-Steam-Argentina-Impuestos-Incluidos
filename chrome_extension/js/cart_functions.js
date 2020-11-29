@@ -48,7 +48,7 @@ function showTaxes(){
     `<div class="tax-container">
         <h3>¿Qué impuestos me cobran pagando con tarjeta?</h3>
         <ul></ul>
-        <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(0)}%</span>
+        <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(2)}%</span>
     </div>`;
     oldCart.insertAdjacentHTML('afterend',taxesContainer);
 

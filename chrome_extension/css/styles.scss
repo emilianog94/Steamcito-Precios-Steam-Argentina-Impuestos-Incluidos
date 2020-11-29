@@ -264,3 +264,107 @@
     }
 }
 
+
+
+// Menu de Configuraciones
+
+#global_actions{
+    display:flex;
+
+    .ico-steamcito{
+        margin-top:7px;
+        margin-right:7px;
+
+        > img{
+            width:20px;
+            cursor:pointer;
+            transition:all 0.25s ease;
+
+            &:hover{
+                transform:rotate(20deg) ;
+            }
+        }
+    }
+}
+
+.menu-steamcito{
+    position:fixed;
+    right:-30%;
+    top:0;
+    height:100vh;
+    width:30%;
+    background-color:#171a21;
+    -webkit-box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);
+    box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);    
+    z-index:100000;
+    transition:all 0.25s ease;
+    padding:15px 0;
+
+    @media(min-width:1440px){
+        width:20%;
+    }
+
+    .internal-menu{
+        padding:0 15px 15px 15px;
+        display:flex;
+        flex-direction:column;
+        height:100%;
+
+        .titulo{
+            font-weight:700;
+            font-size:1.2em;
+        }
+
+        hr{
+            display:block;
+            margin:1.5em 0;
+        }
+
+        .opciones-avanzadas-steamcito{
+
+            .opcion{
+                margin-bottom:3em;
+
+                small{
+                    margin-top:1em;
+                    display:block;
+                    font-size:1em;
+                }
+
+                > div{
+                    display:flex;
+                    flex-direction:row;
+                    justify-content:space-between;
+                    align-items:center;
+
+                    label{
+                        color:#fff;
+                    }
+
+                    select{
+                        padding:5px;
+                        border-radius:5px;
+                        min-width:50%;
+                    }
+                }
+            }
+        }
+
+        .ayuda-steamcito{
+            margin-top:auto;
+            margin-bottom:30px;
+
+            a{
+                display:block;
+                margin:1em 0;
+                transition:all 0.25s ease;
+            }
+        }
+    }
+
+    &.enabled{
+        right:0;
+    }
+}
+

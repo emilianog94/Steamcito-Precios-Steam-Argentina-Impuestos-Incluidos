@@ -39,6 +39,7 @@ const mpTaxes = [
 function setTax(){
     if(!localStorage.hasOwnProperty('steamcito-payment')){
         localStorage.setItem('steamcito-payment','standard');
+        selectPayment.value="desactivado";
         return standardTaxes;
     } 
     

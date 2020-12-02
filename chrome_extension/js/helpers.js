@@ -3,7 +3,7 @@ function getTotalTaxes(){
         return total+num;
     }
     let taxesValues = taxes.map(tax => tax.value);
-    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100)).toFixed(2);
+    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100));
     return totalTaxes;
 }
 

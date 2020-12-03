@@ -10,6 +10,10 @@ html {
   min-height: 100vh;
 }
 
+.rounded-image {
+  border-radius: 20px;
+}
+
 .hero {
   background-image: url("../img/steamcito-hero.jpg");
   background-size: cover;

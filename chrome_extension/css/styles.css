@@ -225,4 +225,149 @@
   text-decoration: underline;
   margin-right: 0.5em;
 }
+
+#global_actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#global_actions .ico-steamcito {
+  margin-top: 7px;
+  margin-right: 7px;
+}
+
+#global_actions .ico-steamcito > img {
+  width: 20px;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+#global_actions .ico-steamcito > img:hover {
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+}
+
+#checkout_steam_logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#checkout_steam_logo .ico-steamcito img {
+  width: 20px;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+#checkout_steam_logo .ico-steamcito img:hover {
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+}
+
+.menu-steamcito {
+  position: fixed;
+  right: -30%;
+  top: 0;
+  height: 100vh;
+  width: 30%;
+  background-color: #171a21;
+  -webkit-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
+  box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
+  z-index: 100000;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  padding: 15px 0;
+}
+
+@media (min-width: 1440px) {
+  .menu-steamcito {
+    width: 20%;
+  }
+}
+
+.menu-steamcito a {
+  display: block;
+  margin: 1em 0;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.menu-steamcito a.refresher {
+  text-decoration: underline;
+}
+
+.menu-steamcito .internal-menu {
+  padding: 0 15px 15px 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+.menu-steamcito .internal-menu .titulo {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.menu-steamcito .internal-menu hr {
+  display: block;
+  margin: 1.5em 0;
+}
+
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion {
+  margin-bottom: 3em;
+}
+
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion small {
+  margin-top: 1em;
+  display: block;
+  font-size: 1em;
+}
+
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion > div label {
+  color: #66c0f4;
+}
+
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .opcion > div select {
+  padding: 5px;
+  border-radius: 5px;
+  width: 50%;
+  cursor: pointer;
+}
+
+.menu-steamcito .internal-menu .ayuda-steamcito {
+  margin-top: auto;
+  margin-bottom: 30px;
+}
+
+.menu-steamcito.enabled {
+  right: 0;
+}
 /*# sourceMappingURL=styles.css.map */

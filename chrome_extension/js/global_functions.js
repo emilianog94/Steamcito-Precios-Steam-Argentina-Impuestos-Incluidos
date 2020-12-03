@@ -1,5 +1,3 @@
-const emojiMate = setEmojiMate();
-const emojiWallet = setEmojiWallet();
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 

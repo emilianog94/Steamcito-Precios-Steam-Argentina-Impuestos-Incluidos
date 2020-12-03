@@ -20,11 +20,11 @@ function createMenus(){
                         <div>
                             <label>Estilo de Emojis</label>
                             <select name="estilo-emoji" id="estilo-emoji">
-                                <option value="unicode">Emoji Full Color</option>
-                                <option value="fallback">Emoji Plano</option>
+                                <option value="unicode">Emojis Nativos</option>
+                                <option value="fallback">Emojis Planos</option>
                             </select>
                         </div>
-                        <small>Seleccioná la opción Plano si los emojis se ven como un rectángulo blanco ▯</small>
+                        <small>Seleccioná "Emoji Plano" si los emojis aparecen como un rectángulo blanco ▯</small>
 
                     </div>
 
@@ -36,11 +36,11 @@ function createMenus(){
                                 <option value="activado">Activado</option>
                             </select>
                         </div>
-                        <small>Seleccioná esta opción si pagás con la tarjeta de débito de MercadoPago. Actualmente, MercadoPago tiene aproximadamente 6% menos de impuestos.</small>
+                        <small>Activá esta opción si pagás con la tarjeta prepaga de MercadoPago. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-mercadopago.html' style="display:inline">¿Porqué MercadoPago tiene menos impuestos?</a></small>
 
                     </div>
                     
-                    <a class="refresher" onClick="window.location.reload();">Refrescá la página para ver los cambios</a> 
+                    <a class="refresher" onClick="window.location.reload();">Refrescá la página para aplicar cambios</a> 
 
                 </div>
 
@@ -48,13 +48,19 @@ function createMenus(){
                     <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Tutorial</a>
                     <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html" target="_blank">Historial de Actualizaciones</a>
                     <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
-                    <a href="https://chrome.google.com/webstore/detail${chrome.runtime.id}" target="_blank">¡Valorá Steamcito en la Chrome Store!</a>
+                    ${getReviewLink()}
                 </div>
             </div>
 
     </div>
     `;
     document.body.insertAdjacentHTML('beforeend',steamcitoMenu);
+}
+
+function getReviewLink(){
+    chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">¡Valorá Steamcito en la Chrome Store! ❤️</a>`;
+    firefoxLink = `<a href="https://addons.mozilla.org/es/firefox/addon/steamcito-steam-impuestos-arg/" target="_blank">¡Valorá Steamcito en Firefox Addons! ❤️</a>`;
+    return navigator.userAgent.indexOf('Firefox') != -1 ? firefoxLink : chromeLink;
 }
 
 function setInitialLocalStates(){

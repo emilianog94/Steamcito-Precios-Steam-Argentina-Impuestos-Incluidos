@@ -119,10 +119,15 @@ $mobile:768px;
 }
 
 .changelog{
+    strong,small,p,span,a{
+        font-family:'Roboto',sans-serif;
+    }
+
     ul{
         padding-left:0;
         li{
             list-style-type:none;
+            font-family:'Roboto',sans-serif;
         }
     }
 }

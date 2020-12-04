@@ -106,12 +106,17 @@ html {
   color: #212529;
 }
 
+.changelog strong, .changelog small, .changelog p, .changelog span, .changelog a {
+  font-family: 'Roboto',sans-serif;
+}
+
 .changelog ul {
   padding-left: 0;
 }
 
 .changelog ul li {
   list-style-type: none;
+  font-family: 'Roboto',sans-serif;
 }
 
 h1 {

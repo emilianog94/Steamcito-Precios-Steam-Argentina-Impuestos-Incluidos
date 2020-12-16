@@ -265,6 +265,22 @@
 }
 
 
+// Community
+.apphub_StoreAppData{
+    .apphub_StorePrice{
+        display:flex;
+        width:auto;
+
+        .discount_pct,.discount_prices{
+            position:static;
+        }
+
+        .discount_prices{
+            padding:0 7px;
+        }
+    }
+}
+
 
 // Menu de Configuraciones
 

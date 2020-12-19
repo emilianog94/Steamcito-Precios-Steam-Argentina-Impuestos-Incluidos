@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steamcito - Convertí la tienda de Steam a pesos argentinos con impuestos incluidos</title>
-    <script src="js/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>   
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.png"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steamcito - Convertí la tienda de Steam a pesos argentinos con impuestos incluidos</title>
+  <script src="js/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="shortcut icon" type="image/png" href="img/favicon/favicon.png" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SW8YFEE79N"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SW8YFEE79N"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-SW8YFEE79N');
-    </script>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-SW8YFEE79N');
+  </script>
 
 
 
 </head>
+
 <body class="animate__animated animate__fadeIn">
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Steamcito</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -42,135 +52,276 @@
         <li class="nav-item"><a class="nav-link" href="index.html#howto">Cómo funciona</a></li>
         <li class="nav-item"><a class="nav-link" href="index.html#features">Funcionalidades</a></li>
         <li class="nav-item"><a class="nav-link active" href="changelog.html">Changelog</a></li>
-        <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/emilianog94/Steamcito-Conversor-a-Pesos-Argentinos-Steam">Ver en Github <i class="fab fa-github"></i></a></li>
+        <li class="nav-item"><a class="nav-link" target="_blank"
+            href="https://github.com/emilianog94/Steamcito-Conversor-a-Pesos-Argentinos-Steam">Ver en Github <i
+              class="fab fa-github"></i></a></li>
       </ul>
     </div>
-  </nav>     
+  </nav>
 
 
-    <div class="container py-5 mt-4 changelog" id="changelog">
-        <div class="row">
-            <div class="col-md-8 mb-4">
-                <h3>Última versión de Steamcito</h3>
+  <div class="container py-5 mt-4 changelog" id="changelog">
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <h3>Última versión de Steamcito</h3>
+        <p><b class="text-success">Steamcito v0.60</b> (Próximamente en todas las Stores de navegadores)</p>
+
+        <ul>
+          <li><b>- Nueva Funcionalidad:</b> Steamcito ahora funciona en todas las microtransacciones de Steam</li>
+          <img class="img-fluid rounded-image mb-4" src="img/updates/v06-1.png" alt="">
+          <li><b>- Nueva Funcionalidad:</b> Steamcito ahora funciona en el panel de suscripciones actuales de Steam</li>
+          <img class="img-fluid rounded-image mb-4" src="img/feature-9.png" alt="">
+          <li><b>- Nueva Funcionalidad:</b> Steamcito ahora funciona en todos aquellos productos que tienen selector de opciones múltiples</li>
+          <img class="img-fluid rounded-image mb-4" src="img/updates/v06-2.png" alt="">
+
+        </ul>
+      </div>
+
+
+
+      <div class="col-md-8 my-4">
+        <h3>Versiones anteriores</h3>
+      </div>
+
+
+      <div class="col-md-8">
+        <div id="accordion">
+
+          <div class="card">
+            <div class="card-header" id="heading0">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse0" aria-expanded="false"
+                  aria-controls="collapse0">
+                  Steamcito v0.50 (03/12/2020)
+                </button>
+              </h5>
             </div>
 
+            <div id="collapse0" class="collapse" aria-labelledby="heading0" data-parent="#accordion">
+              <div class="card-body">
 
-          <div class="col-md-8">
-              <p class="font-weight-bold text-success">Steamcito v0.5<span class="text-muted font-weight-normal"> (03/12/2020)</span></p>
-              <img src="img/updates/steamcito-update-0312.png" class="rounded-image shadow mt-3 img-fluid" alt="">
+                <img src="img/updates/steamcito-update-0312.png" class="rounded-image shadow mt-3 img-fluid" alt="">
 
-              <br><br>
-              <ul>
-                  <li>- <strong>Nueva Funcionalidad:</strong> Steamcito ahora cuenta con un menú desplegable para personalizar la experiencia.</li><br>
-                  <li>- <strong>Nueva Funcionalidad:</strong> Steamcito ahora cuenta con la posibilidad de elegir el estilo de los emojis: Emojis Nativos y Emojis Planos. Esto logra solucionar el problema de que no se ven los emojis para los usuarios de Windows 10 que nunca instalaron la actualización 10.0.18362 de Mayo de 2019. <a target="_blank" href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/9"><small>Ver issue</small></a></li><br>
-                  <li>- <strong>Nueva Funcionalidad:</strong> Modo MercadoPago. Teniendo en cuenta que la tarjeta prepaga de MercadoPago actualmente cobra un monto inferior de impuestos respecto a cualquier otra tarjeta de crédito/débito, activando esta opción podés ver el monto final exacto pagando con MercadoPago. <a href="funcionalidad-mercadopago.html">Ver más información sobre la funcionalidad MercadoPago</a></li> <br>
-                  <li><strong>- Enhancement:</strong> Accesos rápidos para ver tutorial de Steamcito, reportar un bug o enviar sugerencia, y enviar tu opinión.</li><br>
+                <br><br>
+                <ul>
+                  <li>- <strong>Nueva Funcionalidad:</strong> Steamcito ahora cuenta con un menú desplegable para
+                    personalizar
+                    la experiencia.</li><br>
+                  <li>- <strong>Nueva Funcionalidad:</strong> Steamcito ahora cuenta con la posibilidad de elegir el
+                    estilo de
+                    los emojis: Emojis Nativos y Emojis Planos. Esto logra solucionar el problema de que no se ven los
+                    emojis
+                    para los usuarios de Windows 10 que nunca instalaron la actualización 10.0.18362 de Mayo de 2019. <a
+                      target="_blank"
+                      href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/9"><small>Ver
+                        issue</small></a></li><br>
+                  <li>- <strong>Nueva Funcionalidad:</strong> Modo MercadoPago. Teniendo en cuenta que la tarjeta
+                    prepaga de
+                    MercadoPago actualmente cobra un monto inferior de impuestos respecto a cualquier otra tarjeta de
+                    crédito/débito, activando esta opción podés ver el monto final exacto pagando con MercadoPago. <a
+                      href="funcionalidad-mercadopago.html">Ver más información sobre la funcionalidad MercadoPago</a>
+                  </li> <br>
+                  <li><strong>- Enhancement:</strong> Accesos rápidos para ver tutorial de Steamcito, reportar un bug o
+                    enviar
+                    sugerencia, y enviar tu opinión.</li><br>
                   <li><strong>- Enhancement:</strong> Icono de la extensión ahora en formato PNG transparente. </li>
-              </ul>
-              <hr>
+                </ul>
+
+              </div>
+            </div>
           </div>
 
 
-          <div class="col-md-8 my-4">
-              <h3>Versiones anteriores</h3>
+          <div class="card">
+            <div class="card-header" id="heading1">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false"
+                  aria-controls="collapse1">
+                  Steamcito v0.43 (28/11/2020)
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+              <div class="card-body">
+                <p> Además de solucionar inconvenientes con la extensión, en Steamcito se solucionan problemas propios
+                  de la Steam Store.</p>
+                <ul>
+                  <li>- Hotfix: se solucionaron varios bugs visuales propios de la Steam Store <a target="_blank"
+                      href="img/updates/fix-v043.jpg"><br><small>Ver comparativa de cambios</small></a> </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.43<span class="text-muted font-weight-normal"> (28/11/2020)</span></p>
-              <p> Además de solucionar inconvenientes con la extensión, en Steamcito se solucionan problemas propios de la Steam Store.</p>
-              <ul>
-                  <li>- Hotfix: se solucionaron varios bugs visuales propios de la Steam Store <a target="_blank" href="img/updates/fix-v043.jpg"><br><small>Ver comparativa de cambios</small></a> </li>
-              </ul>
-              <hr>
+          <div class="card">
+            <div class="card-header" id="heading2">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse2"
+                  aria-expanded="false" aria-controls="collapse2">
+                  Steamcito v0.42 (27/11/2020)
+                </button>
+              </h5>
+            </div>
+            <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>- Hotfix: se solucionó bug donde un contenedor específico de URLS /sale/ no era tomado por
+                    Steamcito <a target="_blank"
+                      href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/8"><small>Ver
+                        issue</small></a> </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-            
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.42<span class="text-muted font-weight-normal"> (27/11/2020)</span></p>
-              <ul>
-                  <li>- Hotfix: se solucionó bug donde un contenedor específico de URLS /sale/ no era tomado por Steamcito <a target="_blank" href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/8"><small>Ver issue</small></a> </li>
-              </ul>
-              <hr>
+
+          <div class="card">
+            <div class="card-header" id="heading3">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3"
+                  aria-expanded="false" aria-controls="collapse3">
+                  Steamcito v0.41 (25/11/2020)
+                </button>
+              </h5>
+            </div>
+            <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>- Hotfix: se solucionó bug de desfasaje de posición de los precios en packages /sub/ <a
+                      target="_blank"
+                      href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/7"><small>Ver
+                        issue</small></a> </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.41<span class="text-muted font-weight-normal"> (25/11/2020)</span></p>
-              <ul>
-                  <li>- Hotfix: se solucionó bug de desfasaje de posición de los precios en packages /sub/ <a target="_blank" href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/7"><small>Ver issue</small></a> </li>
-              </ul>
-              <hr>
-          </div>
-
-            
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.4<span class="text-muted font-weight-normal"> (24/11/2020)</span></p>
-              <ul>
-                  <li>- Nueva funcionalidad: Steamcito ahora funciona en todas las ventanas de carga de saldo. <a target="_blank" href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/4"><small>Ver issue</small></a></li>
-                  <li>- Hotfix: se solucionó bug de que Steamcito no mostraba precios en Bundles al estar deslogueado. <a target="_blank" href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/3"><small>Ver issue</small></a> </li>
-                  <li>- Enhancement: Ya no se te abre una nueva pestaña con el changelog cada vez que Steamcito se actualiza o instala. Ahora sólo se te muestra una notificación en la home de Steam por única vez.</li>
+          <div class="card">
+            <div class="card-header" id="heading4">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4"
+                  aria-expanded="false" aria-controls="collapse4">
+                  Steamcito v0.40 (24/11/2020)
+                </button>
+              </h5>
+            </div>
+            <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+              <div class="card-body">
+                <ul>
+                  <li>- Nueva funcionalidad: Steamcito ahora funciona en todas las ventanas de carga de saldo. <a
+                      target="_blank"
+                      href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/4"><small>Ver
+                        issue</small></a></li>
+                  <li>- Hotfix: se solucionó bug de que Steamcito no mostraba precios en Bundles al estar deslogueado.
+                    <a target="_blank"
+                      href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues/3"><small>Ver
+                        issue</small></a> </li>
+                  <li>- Enhancement: Ya no se te abre una nueva pestaña con el changelog cada vez que Steamcito se
+                    actualiza o
+                    instala. Ahora sólo se te muestra una notificación en la home de Steam por única vez.</li>
                   <li>- Enhancement: Mejora de Iconos en el carrito</li>
 
-              </ul>
-              <hr>
-          </div>
-
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.3 <span class="text-muted font-weight-normal">(15/11/2020)</span></p>
-              <ul>
-                  <li>- Se implementó compatibilidad con sistemas operativos que no cuentan con Unicode 12.0 (Ej: Windows 7, Windows 8, Ubuntu) para mostrar correctamente el emoji del mate en estos sistemas operativos.</li>
-                  <li>- Se implementó apertura automática del changelog tras instalación o actualización.</li>
-              </ul>
-              <hr>
-          </div>
-         
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.2 <span class="text-muted font-weight-normal">(12/11/2020)</span></p>
-              <ul>
-                  <li>- Se corrigió bug en el cual no se mostraba el porcentaje del descuento en las DLCs que tenían descuento.</li>
-                  <li>- Se corrigió bug visual vista de carga de saldo</li>
-              </ul>
-              <hr>
-          </div>            
-
-
-          <div class="col-md-8">
-              <p class="font-weight-bold">Steamcito v0.1 <span class="text-muted font-weight-normal">(10/11/2020)</span></p>
-              <ul>
-                  <li>- Hola mundo! </li>
-              </ul>
-              <hr>
-          </div>      
-
-
-        </div>
-    </div>
-
-
-
-
-
-    <div class="container-fluid py-4" id="footer">
-      <div class="row">
-        <div class="col-12 text-center">
-          <footer>
-            <p>Steamcito 2020 - Diseñado y Desarrollado por Emiliano Gioia.</p>
-              <div class="d-flex flex-column flex-md-row justify-content-md-center">
-                <a class="mr-3" href="https://github.com/emilianog94" target="_blank">
-                  <i class="fab fa-github"><small class="ml-2">/emilianog94</small></i>
-                </a>
-  
-                <a href="mailto:emiliano@gioia.com.ar" target="_blank">
-                  <i class="far fa-envelope"></i><small class="ml-2">emiliano@gioia.com.ar</small>
-                </a>
+                </ul>
               </div>
-          </footer>
+            </div>
+          </div>
         </div>
+
+
+        <div class="card">
+          <div class="card-header" id="heading5">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5"
+                aria-expanded="false" aria-controls="collapse5">
+                Steamcito v0.30 (15/11/2020)
+              </button>
+            </h5>
+          </div>
+          <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion">
+            <div class="card-body">
+              <ul>
+                <li>- Se implementó compatibilidad con sistemas operativos que no cuentan con Unicode 12.0 (Ej: Windows
+                  7,
+                  Windows 8, Ubuntu) para mostrar correctamente el emoji del mate en estos sistemas operativos.</li>
+                <li>- Se implementó apertura automática del changelog tras instalación o actualización.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="heading6">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse6"
+                aria-expanded="false" aria-controls="collapse6">
+                Steamcito v0.20 (12/11/2020)
+              </button>
+            </h5>
+          </div>
+          <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion">
+            <div class="card-body">
+              <ul>
+                <li>- Se corrigió bug en el cual no se mostraba el porcentaje del descuento en las DLCs que tenían
+                  descuento.
+                </li>
+                <li>- Se corrigió bug visual vista de carga de saldo</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header" id="heading7">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse7"
+                aria-expanded="false" aria-controls="collapse7">
+                Steamcito v0.10 (10/11/2020)
+              </button>
+            </h5>
+          </div>
+          <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion">
+            <div class="card-body">
+              <ul>
+                <li>- Hola mundo! </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class="container-fluid py-4" id="footer">
+    <div class="row">
+      <div class="col-12 text-center">
+        <footer>
+          <p>Steamcito 2020 - Diseñado y Desarrollado por Emiliano Gioia.</p>
+          <div class="d-flex flex-column flex-md-row justify-content-md-center">
+            <a class="mr-3" href="https://github.com/emilianog94" target="_blank">
+              <i class="fab fa-github"><small class="ml-2">/emilianog94</small></i>
+            </a>
+
+            <a href="mailto:emiliano@gioia.com.ar" target="_blank">
+              <i class="far fa-envelope"></i><small class="ml-2">emiliano@gioia.com.ar</small>
+            </a>
+          </div>
+        </footer>
       </div>
     </div>
+  </div>
 
 
 
 
-    
+
 </body>
+
 </html>

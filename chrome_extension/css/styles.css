@@ -241,6 +241,10 @@
   padding: 0 7px;
 }
 
+.convertedPrice {
+  cursor: pointer;
+}
+
 #global_actions {
   display: -webkit-box;
   display: -ms-flexbox;

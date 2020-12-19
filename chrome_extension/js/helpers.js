@@ -20,6 +20,10 @@ function stringToNumber(number,positionArs = 5){
     return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
 }
 
+function stringToNumber2(number,positionArs = 5){
+    return parseFloat(number.slice(positionArs).replace(".","").replace(",","."));
+}
+
 function numberToString(number){
     return `ARS$ ${number}`.replace('.',',');
 }

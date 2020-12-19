@@ -3,7 +3,7 @@ precios.forEach(precio => {
     precio.innerHTML = precio.innerHTML + " &nbsp;"; // Previene errores
     check(precio);
 });
-let spans = document.querySelectorAll(".convertedPrice");
+let spans = document.querySelectorAll(".suscription-price");
 spans.forEach(span => {
     if(walletBalance < span.innerText){
         span.innerText = span.dataset.argentinaPrice + emojiMate;
@@ -12,7 +12,9 @@ spans.forEach(span => {
         span.innerText += emojiWallet;
         span.classList.add("original");
     }
-    span.addEventListener('click',showSecondaryPrice);
+    if(!span.parentElement.classList.contains("game_area_purchase_game_dropdown_menu_item_text")){
+        span.addEventListener('click',showSecondaryPrice);
+    }
 })
 
 function check(element,start = 0){
@@ -25,7 +27,7 @@ function check(element,start = 0){
         let numeroArgentino = (numeroWallet * totalTaxes).toFixed(2);
 
         element.innerHTML = element.innerHTML.replace(
-            numeroOriginal,`<span  class="convertedPrice" data-argentina-price="${numeroArgentino}" data-original-price="${numeroWallet}">${numeroWallet}</span>`
+            numeroOriginal,`<span class="suscription-price" data-argentina-price="${numeroArgentino}" data-original-price="${numeroWallet}">${numeroWallet}</span>`
         );
 
         check(element,finNumero); // Hago un chequeo recursivo para verificar si hay más strings de ARS$

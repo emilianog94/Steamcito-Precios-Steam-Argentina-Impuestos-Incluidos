@@ -90,7 +90,12 @@ function switchPrices(selector,first,second,symbol){
         selector.style.opacity=1;
         selector.classList.remove(first);
         selector.classList.add(second);
-        selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol);
+
+        if(selector.classList.contains("suscription-price")){
+            selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
+        } else{
+            selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol);
+        }
     },250);
 }
 

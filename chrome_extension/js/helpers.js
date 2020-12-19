@@ -20,14 +20,25 @@ function stringToNumber(number,positionArs = 5){
     return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
 }
 
+function stringToNumber2(number,positionArs = 5){
+    return parseFloat(number.slice(positionArs).replace(".","").replace(",","."));
+}
+
 function numberToString(number){
     return `ARS$ ${number}`.replace('.',',');
+}
+
+function numberToStringSub(number){
+    return `${number}`.replace('.',',');
 }
 
 function isInsideString(element,string){
     return element.innerText.indexOf(string) != -1 ? true : false;
 }
 
+function argentinizar(contenedor){
+    return numberToString((stringToNumber(contenedor) * totalTaxes).toFixed(2)) + emojiMate;
+}
 
 function showUpdate(){
     chrome.storage.local.get(['justUpdated'], function(result) {

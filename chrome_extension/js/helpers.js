@@ -36,8 +36,9 @@ function isInsideString(element,string){
     return element.innerText.indexOf(string) != -1 ? true : false;
 }
 
-function argentinizar(contenedor){
-    return numberToString((stringToNumber(contenedor) * totalTaxes).toFixed(2)) + emojiMate;
+function argentinizar(contenedor,emoji = true){
+    let emojiStatus = emoji ? emojiMate : "";
+    return numberToString((stringToNumber(contenedor) * totalTaxes).toFixed(2)) + emojiStatus;
 }
 
 function showUpdate(){

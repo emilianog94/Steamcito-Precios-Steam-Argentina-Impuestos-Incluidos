@@ -46,21 +46,30 @@ function renderPrices(price){
     }
 
     if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
-        price.innerHTML = originalPrice + emojiWallet;     
-        price.classList.add("original");
-        if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
+
+        // Fix para Search View
+        if(price.matches('.discounted.responsive_secondrow')){
+            let precioTachado = price.querySelector("strike");
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${originalPrice} ${emojiWallet}`; 
+            price.removeEventListener('click',showSecondaryPrice); 
         }
-    } else
+        else{
+            price.innerHTML = originalPrice + emojiWallet;     
+            price.classList.add("original");
+            if(price.previousElementSibling){
+                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
+            }
+        }
+    } 
+    else
     {
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
-            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${argentinaPrice} ${emojiMate}`; 
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${argentinizar(precioTachado,false)}</strike> <br> ${argentinaPrice} ${emojiMate}`; 
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{
-
 
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");

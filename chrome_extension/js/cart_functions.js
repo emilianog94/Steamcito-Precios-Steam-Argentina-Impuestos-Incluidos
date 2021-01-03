@@ -51,6 +51,7 @@ function showTaxes(){
         <h3>¿Qué impuestos me cobran pagando con tarjeta${metodo}?</h3>
         <ul></ul>
         <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(2)}%</span>
+        <p id="tax-change">Personalizar impuestos</p>
     </div>`;
     oldCart.insertAdjacentHTML('afterend',taxesContainer);
 
@@ -72,3 +73,11 @@ function showTaxes(){
 
 showCart();
 showTaxes();
+
+let taxChangeShortcut = document.querySelector("#tax-change");
+taxChangeShortcut.addEventListener('click',function(){
+    setTimeout(function(){
+        steamcitoIcon.click();
+    },1);
+});
+

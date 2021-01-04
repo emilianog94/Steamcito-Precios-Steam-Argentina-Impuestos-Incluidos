@@ -46,7 +46,7 @@ function createMenus(){
                                 <option value="activado">Activado</option>
                             </select>
                         </div>
-                        <small>Activá esta opción si vivís en CABA y pagás con tarjeta de crédito. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/impuesto-sellos-steam-2021-caba.html' style="display:inline">¿Porqué CABA cobra más impuestos?</a></small>
+                        <small>Activá esta opción si vivís en <b>CABA</b> y pagás con tarjeta de <b>crédito</b>. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/impuesto-sellos-steam-2021-caba.html' style="display:inline">¿Porqué en CABA se cobran más impuestos?</a></small>
                     </div>                    
 
                     <a class="refresher" onClick="window.location.reload();">Refrescá la página para aplicar cambios</a> 

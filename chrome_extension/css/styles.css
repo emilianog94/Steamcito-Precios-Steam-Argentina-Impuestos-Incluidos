@@ -63,6 +63,28 @@
   border-top: 1px solid #fff;
 }
 
+.cart_area_body .tax-container #tax-change {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 1.3em;
+  padding: 5px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.cart_area_body .tax-container #tax-change:hover {
+  background-color: #fff;
+  color: #af8029;
+}
+
 .cart_area_body .tax-container ul li {
   list-style-type: none;
   display: -webkit-box;

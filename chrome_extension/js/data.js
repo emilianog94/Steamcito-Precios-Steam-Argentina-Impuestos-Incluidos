@@ -36,16 +36,48 @@ const mpTaxes = [
     }
 ];
 
+const cabaTaxes = [
+    {
+        name : "Impuesto de Sellos - LEY N° 6382/2021 - Art. 447 Bis",
+        value : 1.2,
+        moreInfo: "https://www.agip.gob.ar/normativa/leyes/2020/ley-n-6382--2020---codigo-fiscal-con-vigencia-2021"
+    },
+    {
+        name : "IVA Servicios Digitales - RG AFIP N° 4240/2018",
+        value : 21,
+        moreInfo: "http://biblioteca.afip.gob.ar/dcp/REAG01004240_2018_05_11"
+    },
+    {
+        name : "Impuesto PAIS - RG AFIP N° 4659/2020",
+        value : 8,
+        moreInfo: "http://biblioteca.afip.gob.ar/dcp/REAG01004659_2020_01_06"
+    },
+    {
+        name : "Retención del Impuesto a las ganancias - RG AFIP Nº 4815/2020",
+        value : 35,
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/235038/20200916"
+    }
+];
+
 function setTax(){
-    if(!localStorage.hasOwnProperty('steamcito-payment')){
+
+    // Si no existe ningún medio de pago en el localStorage, defaultea
+    if(!localStorage.hasOwnProperty('steamcito-payment') && !localStorage.hasOwnProperty('steamcito-caba')){
         localStorage.setItem('steamcito-payment','standard');
+        localStorage.setItem('steamcito-caba','desactivado');
         selectPayment.value="desactivado";
+        selectCaba.value="desactivado";
         return standardTaxes;
     } 
-    
+
+    if(localStorage.getItem('steamcito-caba') == "activado"){
+        return cabaTaxes;
+    }
+
     if(localStorage.getItem('steamcito-payment') == 'standard'){
         return standardTaxes;
     }
+
     return mpTaxes;
 }
 
@@ -68,5 +100,6 @@ const priceContainers = `
         .package_info_block_content .price:not([${attributeName}]),
         #package_savings_bar .savings:not([${attributeName}]),
         .promo_item_list .price span:not([${attributeName}]),
-        .apphub_StorePrice .price:not([${attributeName}])
+        .apphub_StorePrice .price:not([${attributeName}]),
+        .item_def_price:not([${attributeName}])
         `;

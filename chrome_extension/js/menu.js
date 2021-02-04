@@ -29,17 +29,6 @@ function createMenus(){
 
                     <div class="opcion">
                         <div>
-                            <label>Modo MercadoPago</label>
-                            <select name="steamcito-payment" id="steamcito-payment">
-                                <option value="desactivado">Desactivado</option>
-                                <option value="activado">Activado</option>
-                            </select>
-                        </div>
-                        <small>Activá esta opción si pagás con la tarjeta prepaga de MercadoPago. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-mercadopago.html' style="display:inline">¿Porqué MercadoPago tiene menos impuestos?</a></small>
-                    </div>
-
-                    <div class="opcion">
-                        <div>
                             <label>Impuesto de Sellos CABA 2021</label>
                             <select name="steamcito-caba" id="steamcito-caba">
                                 <option value="desactivado">Desactivado</option>
@@ -73,20 +62,8 @@ function getReviewLink(){
 }
 
 function setInitialLocalStates(){
-    localStorage.getItem('steamcito-payment') == 'standard' ? selectPayment.value='desactivado' : selectPayment.value='activado';
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
     localStorage.getItem('steamcito-caba') == 'activado' ? selectCaba.value='activado' : selectCaba.value='desactivado';
-}
-
-function changePaymentState(){
-    if(selectPayment.value == 'desactivado'){
-        localStorage.setItem('steamcito-payment','standard');
-    } else{
-        localStorage.setItem('steamcito-payment','mercadopago');
-        localStorage.setItem('steamcito-caba','desactivado');
-        selectCaba.value="desactivado";
-    }
-
 }
 
 function changeEmojiState(){
@@ -98,8 +75,6 @@ function changeCabaState(){
         localStorage.setItem('steamcito-caba','desactivado');
     } else{
         localStorage.setItem('steamcito-caba','activado');
-        localStorage.setItem("steamcito-payment","standard");
-        selectPayment.value="desactivado";
     }
 }
 
@@ -147,10 +122,8 @@ createMenus();
 // Selecciono los botones del menú y les asigno eventos
 const menu = document.querySelector(".menu-steamcito");
 const steamcitoIcon = document.querySelector(".ico-steamcito");
-let selectPayment = document.querySelector('#steamcito-payment');
 let selectCaba = document.querySelector('#steamcito-caba');
 let selectEmoji = document.querySelector("#estilo-emoji");
-selectPayment.addEventListener('input',changePaymentState);
 selectEmoji.addEventListener('input',changeEmojiState);
 selectCaba.addEventListener('input',changeCabaState);
 

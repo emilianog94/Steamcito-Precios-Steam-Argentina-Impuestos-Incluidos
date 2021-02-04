@@ -81,7 +81,6 @@ function changeCabaState(){
 function showMenu(e){
     menu.classList.add('enabled');
     document.addEventListener('click',hideMenu);
-    console.log("clickee el mate");
 }
 
 function hideMenu(e){

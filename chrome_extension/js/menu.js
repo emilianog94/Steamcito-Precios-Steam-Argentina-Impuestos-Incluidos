@@ -32,7 +32,7 @@ function createMenus(){
                             <label>Impuestos personalizados</label>
                             <input id="custom-tax" type="number" name="custom-tax" placeholder="Porcentaje personalizado"/>
                         </div>
-                        <small>Si te están cobrando más o menos impuestos, insertá el porcentaje total de impuestos en este campo. 
+                        <small>Si tu tarjeta te está cobrando más impuestos que lo oficial, insertá acá el porcentaje total de impuestos que te llega. 
                         <br>
                         <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver casos de ejemplo.</a></small>
                     </div>                    

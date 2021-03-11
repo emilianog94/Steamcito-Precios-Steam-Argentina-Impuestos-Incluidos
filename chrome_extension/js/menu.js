@@ -32,11 +32,13 @@ function createMenus(){
                             <label>Impuestos personalizados</label>
                             <input id="custom-tax" type="number" name="custom-tax" placeholder="Porcentaje personalizado"/>
                         </div>
-                        <small>Si tu tarjeta te está cobrando más o menos impuestos, insertá el porcentaje total de impuestos acá. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/impuesto-sellos-steam-2021-caba.html' style="display:inline">Ver casos de ejemplo</a></small>
+                        <small>Si te están cobrando más o menos impuestos, insertá el porcentaje total de impuestos en este campo. 
+                        <br>
+                        <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver casos de ejemplo.</a></small>
                     </div>                    
 
 
-                    <a class="refresher" onClick="window.location.reload();">Refrescá la página para aplicar cambios</a> 
+                    <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
 
                 </div>
 

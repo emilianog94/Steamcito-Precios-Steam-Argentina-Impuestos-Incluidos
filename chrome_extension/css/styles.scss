@@ -373,7 +373,17 @@
         transition:all 0.25s ease;
 
         &.refresher{
-            text-decoration:underline;
+            font-size: 1.3em;
+            padding: 0.5em 2em;
+            background-color: rgba( 62, 126, 167, 0.8);
+            border-radius: 1em;
+            text-decoration: none;
+            text-align: center;
+
+            &:hover{
+                background-color: rgba( 62, 126, 167, 0.5);
+                color: #fff;
+            }
         }
     }
 

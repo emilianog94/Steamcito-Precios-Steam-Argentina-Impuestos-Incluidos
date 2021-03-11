@@ -26,19 +26,19 @@ function createMenus(){
                         </div>
                         <small>Seleccioná "Emoji Plano" si los emojis aparecen como un rectángulo blanco ▯</small>
                     </div>
-
+                    
                     <div class="opcion">
                         <div>
-                            <label>Impuesto de Sellos CABA 2021</label>
-                            <select name="steamcito-caba" id="steamcito-caba">
-                                <option value="desactivado">Desactivado</option>
-                                <option value="activado">Activado</option>
-                            </select>
+                            <label>Impuestos personalizados</label>
+                            <input id="custom-tax" type="number" name="custom-tax" placeholder="Porcentaje personalizado"/>
                         </div>
-                        <small>Activá esta opción si vivís en <b>CABA</b> y pagás con tarjeta de <b>crédito</b>. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/impuesto-sellos-steam-2021-caba.html' style="display:inline">¿Porqué en CABA se cobran más impuestos?</a></small>
+                        <small>Si tu tarjeta te está cobrando más impuestos que lo oficial, insertá acá el porcentaje total de impuestos que te llega. 
+                        <br>
+                        <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver casos de ejemplo.</a></small>
                     </div>                    
 
-                    <a class="refresher" onClick="window.location.reload();">Refrescá la página para aplicar cambios</a> 
+
+                    <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
 
                 </div>
 
@@ -63,19 +63,15 @@ function getReviewLink(){
 
 function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
-    localStorage.getItem('steamcito-caba') == 'activado' ? selectCaba.value='activado' : selectCaba.value='desactivado';
+    localStorage.getItem('custom-tax') ? customTax.value=localStorage.getItem('custom-tax') : localStorage.removeItem('custom-tax');
 }
 
 function changeEmojiState(){
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
 }
 
-function changeCabaState(){
-    if(selectCaba.value == 'desactivado'){
-        localStorage.setItem('steamcito-caba','desactivado');
-    } else{
-        localStorage.setItem('steamcito-caba','activado');
-    }
+function changeCustomTax(){
+    localStorage.setItem('custom-tax',this.value);
 }
 
 function showMenu(e){
@@ -120,11 +116,13 @@ createMenus();
 
 // Selecciono los botones del menú y les asigno eventos
 const menu = document.querySelector(".menu-steamcito");
+
 const steamcitoIcon = document.querySelector(".ico-steamcito");
-let selectCaba = document.querySelector('#steamcito-caba');
 let selectEmoji = document.querySelector("#estilo-emoji");
 selectEmoji.addEventListener('input',changeEmojiState);
-selectCaba.addEventListener('input',changeCabaState);
+
+let customTax = document.querySelector("#custom-tax");
+customTax.addEventListener('input',changeCustomTax);
 
 // Seteo el estado inicial de payment y emojis
 setInitialLocalStates();

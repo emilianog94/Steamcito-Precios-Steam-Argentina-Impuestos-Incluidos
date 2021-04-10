@@ -431,4 +431,25 @@
 .menu-steamcito.enabled {
   right: 0;
 }
+
+.wallet_table_row.wallet-purchase .wht_total {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wallet_table_row.wallet-purchase .wht_total > div {
+  padding: 10px 0;
+}
+
+.wallet_table_row.wallet-purchase .wth_payment {
+  display: none;
+}
+
+.wallet_table_row .wht_total {
+  text-align: left;
+}
 /*# sourceMappingURL=styles.css.map */

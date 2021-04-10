@@ -451,3 +451,30 @@
     }
 }
 
+
+// Account History
+
+.wallet_table_row{
+
+    &.wallet-purchase{
+
+        .wht_total{
+            display: flex;
+            align-items: center;
+
+            > div{
+                padding: 10px 0;
+            }
+        }
+
+        .wth_payment{
+            display: none;
+        }
+        
+    }
+
+
+    .wht_total{
+        text-align: left;
+    }
+}

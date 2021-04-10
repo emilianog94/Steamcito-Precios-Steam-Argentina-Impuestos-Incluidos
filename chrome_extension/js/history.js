@@ -7,11 +7,16 @@ function getTransactions(){
 function setTransactionType(transactions){
     transactions.forEach(transaction => {
         transaction.classList.add('processed');
-        const payments = transaction.querySelectorAll('.wth_payment div');
+        const payments = transaction.querySelectorAll('.wht_type .wth_payment div');
 
         // Split Purchase
         if(payments.length){
             transaction.classList.add('split-purchase');
+            let walletValue = transaction.querySelector('.wth_payment > div:first-child');
+            let ccValue = transaction.querySelector('.wth_payment > div:last-child');
+
+            let contenedorTotal = transaction.querySelector('.wht_total');
+            contenedorTotal.innerHTML += ` <b>(Precio Steam)</b> <br><br> ${walletValue.innerHTML} ${emojiWallet} <br> ${argentinizar(ccValue)}`;
         } 
         
         // One-Method Purchase
@@ -39,12 +44,11 @@ function calculateTotals(transaction){
         const precio = transaction.querySelector('.wht_total');
         precio.innerHTML += emojiWallet;
     }
-
-
 }
 
-getTransactions();
 
+
+getTransactions();
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 const transactionObserver = new MutationObserver(function(mutations, observer) {

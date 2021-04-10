@@ -445,7 +445,7 @@
   padding: 10px 0;
 }
 
-.wallet_table_row.wallet-purchase .wth_payment {
+.wallet_table_row.wallet-purchase .wht_total .wth_payment {
   display: none;
 }
 

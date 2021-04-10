@@ -50,6 +50,7 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
+            
             if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${originalPrice} ${emojiWallet}`; 
             price.removeEventListener('click',showSecondaryPrice); 
         }
@@ -66,7 +67,8 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
-            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${argentinizar(precioTachado,false)}</strike> <br> ${argentinaPrice} ${emojiMate}`; 
+            console.log(precioTachado);
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;"> ${argentinizar(calcularImpuestos(stringToNumber(precioTachado)),false)} </strike> <br> ${argentinaPrice} ${emojiMate}`; 
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{

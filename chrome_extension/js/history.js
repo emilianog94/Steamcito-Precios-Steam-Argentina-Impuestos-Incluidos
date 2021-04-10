@@ -14,7 +14,6 @@ function setTransactionType(transactions){
             transaction.classList.add('split-purchase');
             let walletValue = transaction.querySelector('.wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wth_payment > div:last-child');
-
             let contenedorTotal = transaction.querySelector('.wht_total');
             contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(walletValue)} <br> ${argentinizar(ccValue)}`;
         } 

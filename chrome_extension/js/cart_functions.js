@@ -5,16 +5,16 @@ let cartTotalMixed = setMixedCartTotal(cartTotal);
 
 function getCartTotal(){
     let totalWallet = document.querySelector("#cart_estimated_total");
-    return stringToNumber(totalWallet,5).toFixed(2);
+    return stringToNumber(totalWallet);
 }
 
 function setCartTotalCC(cartValue){
-    return ((cartValue * totalTaxes).toFixed(2));
+    return calcularImpuestos(cartValue);
 }
 
 function setMixedCartTotal(cartValue){
     if(walletBalance > 0){
-        return (( (cartValue - walletBalance) * totalTaxes).toFixed(2));
+        return calcularImpuestos(cartValue - walletBalance);
     } 
 }
 

@@ -17,10 +17,12 @@ function convertTotals(paymentType, walletAmount = "", ccAmount = ""){
 
     totals.forEach(total => {
         let totalAmount = total.querySelector(".price");
+        console.log(totalAmount);
         totalAmount.dataset.originalPrice =  totalAmount.innerText;    
         if(paymentType == "cc") {
-            let newAmount = numberToString((stringToNumber(totalAmount) * totalTaxes).toFixed(2));
-            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${newAmount} ${emojiMate}</span>`);
+            let newAmount = argentinizar(calcularImpuestos(stringToNumber(totalAmount)));
+            // let newAmount = numberToString((stringToNumber(totalAmount) * totalTaxes).toFixed(2));
+            totalAmount.insertAdjacentHTML('beforebegin',`<span class="new-amount">${newAmount}</span>`);
         }    
         else if (paymentType == "wallet"){
             totalAmount.innerHTML = totalAmount.innerHTML + emojiWallet;

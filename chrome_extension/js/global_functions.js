@@ -19,7 +19,7 @@ function setArgentinaPrice(price){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice.toFixed(2);
-        price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
+        price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
         renderPrices(price);
     }
     else{

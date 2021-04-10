@@ -41,6 +41,11 @@ function argentinizar(contenedor,emoji = true){
     return numberToString((stringToNumber(contenedor) * totalTaxes).toFixed(2)) + emojiStatus;
 }
 
+function steamizar(contenedor,emoji = true){
+    let emojiStatus = emoji ? emojiWallet : "";
+    return numberToString(stringToNumber(contenedor).toFixed(2)) + emojiStatus;
+}
+
 function showUpdate(){
     chrome.storage.local.get(['justUpdated'], function(result) {
 

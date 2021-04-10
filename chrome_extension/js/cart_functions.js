@@ -26,7 +26,7 @@ function showCart(){
     `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
             <p>Total Final pagando con Steam Wallet </p>
-            <span class="green">${numberToString(cartTotal)} ${emojiWallet}</span>
+            <span class="green">${numberToString(cartTotal.toFixed(2))} ${emojiWallet}</span>
         </div>
 
         <div class="total_cc">

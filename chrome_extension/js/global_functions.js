@@ -79,6 +79,14 @@ function renderPrices(price){
             }
         }
     }
+
+    // Fix para procesar correctamente Bundles Dinámicas en Firefox
+    setTimeout(function(){
+        if(price.querySelector('.your_price_label')){
+            price.removeAttribute('data-original-price');
+        }
+    },1500)
+
 }
 
 function showSecondaryPrice(e){

@@ -22,9 +22,7 @@ function setArgentinaPrice(price){
         price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
         renderPrices(price);
     }
-    else{
-        price.dataset.originalPrice = "none";
-    }
+
 }
 
 function sanitizePromoLists(){
@@ -57,6 +55,7 @@ function renderPrices(price){
         else{
             price.innerHTML = originalPrice + emojiWallet;     
             price.classList.add("original");
+
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
             }

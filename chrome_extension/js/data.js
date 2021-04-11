@@ -1,6 +1,6 @@
 const attributeName = "data-original-price";
 
-const standardTaxes = [
+let standardTaxes = [
     {
         name : "Retención del Impuesto a las ganancias - RG AFIP Nº 4815/2020",
         value : 35,
@@ -17,7 +17,7 @@ function setTax(){
 
     if(localStorage.hasOwnProperty('custom-tax')){
         let taxValue = localStorage.getItem('custom-tax');
-        return [{
+        standardTaxes = [{
             name: "Impuestos Personalizados por el usuario",
             value: taxValue
         }];

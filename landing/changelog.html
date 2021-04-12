@@ -64,15 +64,26 @@
     <div class="row">
       <div class="col-md-8 mb-4">
         <h3>Última versión de Steamcito</h3>
-        <p><b class="text-success">Steamcito v0.70</b> (12/03/2021)</p>
+        <p><b class="text-success">Steamcito v0.80</b> (12/04/2021)</p>
 
         <ul>
-          <li>- <b>Nueva funcionalidad: </b> se añadió la funcionalidad "Personalizador" que te brinda total control sobre Steamcito. A partir de ahora vas a poder cargar manualmente los impuestos que te cobra tu tarjeta. Esto es ideal si vivís en una provincia o municipio que cobre más o menos impuestos, si estás en una condición fiscal especial o bien si tu tarjeta cobra montos mínimamente superiores.</li>
-          <a href="funcionalidad-personalizador.html" target="_blank">Ver más información y casos de ejemplo.</a>
+          <li>- <b>Nueva funcionalidad: </b> Steamcito ahora funciona en tu historial de compras de Steam para que puedas corroborar los montos históricos de todas las compras que realizaste tanto con tarjetas como saldo de Steam Wallet. Esto permitirá a futuro lanzar una actualización para que puedas conocer el monto final de devolución del impuesto a las ganancias en los períodos fiscales correspondientes.</li>  
+          <br>
+          <li>- <b>Enhancement:</b> Debido a que desde hace varias semanas la mayoría de emisores de tarjetas no toman a Steam como un servicio digital (El concepto dejó de llegar como steamgames.com y comenzó a llegar como Steam Purchase, Compra en Steam o similar), se agregó un punto porcentual al Impuesto PAIS. Los impuestos actuales por defecto de Steamcito quedaron en 65% (Anteriormente 64%). Esto permitirá mejorar la precisión del monto final. Esto es particularmente importante si sos usuario de tarjetas recargables como Ualá, MercadoPago o Brubank.</li>
+          <br>
+          <li>- <b>Enhancement:</b> Se mejoró la precisión de Steamcito tomando la fórmula de redondeo de impuestos que utilizan los bancos. Esto soluciona las diferencias de 1-2 centavos cuando pagás con tarjetas recargables. <br>
+          <br>Fórmula anterior: (Monto de Juego + Total de Impuestos) Redondeado
+          <br>Fórmula Actual: (Monto de Juego + Impuesto X Redondeado + Impuesto Z Redondeado)
+          </li>
+          <br>
+          <li>- <b>Enhancement:</b> Si el valor de los impuestos personalizados es 0, se traen automáticamente los impuestos recomendados por Steamcito.
+          </li>
+
+
           <br><br>
-          <img src="img/updates/v07-1.png" class="rounded-image shadow img-fluid" alt="">
+          <img src="img/updates/v08-1.png" class="rounded-image shadow img-fluid" alt="">
           <br><br>
-          <img src="img/updates/v07-2.png" class="rounded-image shadow img-fluid" alt="">
+          <img src="img/updates/v08-2.png" class="rounded-image shadow img-fluid" alt="">
         </ul>
 
       </div>
@@ -86,6 +97,33 @@
 
       <div class="col-md-8">
         <div id="accordion">
+
+
+          <div class="card">
+            <div class="card-header" id="heading15">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse15" aria-expanded="false"
+                  aria-controls="collapse15">
+                  Steamcito v0.70 (10/04/2021)
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapse15" class="collapse" aria-labelledby="heading15" data-parent="#accordion">
+              <div class="card-body">
+
+                <ul>
+                  <li>- <b>Nueva funcionalidad: </b> se añadió la funcionalidad "Personalizador" que te brinda total control sobre Steamcito. A partir de ahora vas a poder cargar manualmente los impuestos que te cobra tu tarjeta. Esto es ideal si vivís en una provincia o municipio que cobre más o menos impuestos, si estás en una condición fiscal especial o bien si tu tarjeta cobra montos mínimamente superiores.</li>
+                  <a href="funcionalidad-personalizador.html" target="_blank">Ver más información y casos de ejemplo.</a>
+                  <br><br>
+                  <img src="img/updates/v07-1.png" class="rounded-image shadow img-fluid" alt="">
+                  <br><br>
+                  <img src="img/updates/v07-2.png" class="rounded-image shadow img-fluid" alt="">
+                </ul>
+
+              </div>
+            </div>
+          </div>
 
           <div class="card">
             <div class="card-header" id="heading14">

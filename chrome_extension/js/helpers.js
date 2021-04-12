@@ -7,6 +7,14 @@ function getTotalTaxes(){
     return totalTaxes;
 }
 
+function calcularImpuestos(initialPrice){
+    let finalPrice = initialPrice;
+    standardTaxes.forEach(tax => {
+        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+    })
+    return finalPrice.toFixed(2);
+}
+
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
@@ -17,7 +25,11 @@ function getBalance(){
 }
 
 function stringToNumber(number,positionArs = 5){
-    return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
+    if(positionArs != "none"){
+        return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));
+    } else {
+        return parseFloat(number.replace(".","").replace(",","."));
+    }
 }
 
 function stringToNumber2(number,positionArs = 5){
@@ -38,7 +50,12 @@ function isInsideString(element,string){
 
 function argentinizar(contenedor,emoji = true){
     let emojiStatus = emoji ? emojiMate : "";
-    return numberToString((stringToNumber(contenedor) * totalTaxes).toFixed(2)) + emojiStatus;
+    return numberToString(contenedor) + emojiStatus;
+}
+
+function steamizar(contenedor,emoji = true){
+    let emojiStatus = emoji ? emojiWallet : "";
+    return numberToString(contenedor) + emojiStatus;
 }
 
 function showUpdate(){

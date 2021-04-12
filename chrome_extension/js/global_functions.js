@@ -19,12 +19,10 @@ function setArgentinaPrice(price){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice.toFixed(2);
-        price.dataset.argentinaPrice = (baseNumericPrice * totalTaxes).toFixed(2);
+        price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
         renderPrices(price);
     }
-    else{
-        price.dataset.originalPrice = "none";
-    }
+
 }
 
 function sanitizePromoLists(){
@@ -50,12 +48,14 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
+            
             if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${originalPrice} ${emojiWallet}`; 
             price.removeEventListener('click',showSecondaryPrice); 
         }
         else{
             price.innerHTML = originalPrice + emojiWallet;     
             price.classList.add("original");
+
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
             }
@@ -66,7 +66,7 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
-            if(precioTachado) price.innerHTML = `<strike style="color: #888888;">${argentinizar(precioTachado,false)}</strike> <br> ${argentinaPrice} ${emojiMate}`; 
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;"> ${argentinizar(calcularImpuestos(stringToNumber(precioTachado)),false)} </strike> <br> ${argentinaPrice} ${emojiMate}`; 
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{
@@ -79,6 +79,14 @@ function renderPrices(price){
             }
         }
     }
+
+    // Fix para procesar correctamente Bundles Dinámicas en Firefox
+    setTimeout(function(){
+        if(price.querySelector('.your_price_label')){
+            price.removeAttribute('data-original-price');
+        }
+    },1500)
+
 }
 
 function showSecondaryPrice(e){

@@ -5,16 +5,16 @@ let cartTotalMixed = setMixedCartTotal(cartTotal);
 
 function getCartTotal(){
     let totalWallet = document.querySelector("#cart_estimated_total");
-    return stringToNumber(totalWallet,5).toFixed(2);
+    return stringToNumber(totalWallet);
 }
 
 function setCartTotalCC(cartValue){
-    return ((cartValue * totalTaxes).toFixed(2));
+    return calcularImpuestos(cartValue);
 }
 
 function setMixedCartTotal(cartValue){
     if(walletBalance > 0){
-        return (( (cartValue - walletBalance) * totalTaxes).toFixed(2));
+        return calcularImpuestos(cartValue - walletBalance);
     } 
 }
 
@@ -26,7 +26,7 @@ function showCart(){
     `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
             <p>Total Final pagando con Steam Wallet </p>
-            <span class="green">${numberToString(cartTotal)} ${emojiWallet}</span>
+            <span class="green">${numberToString(cartTotal.toFixed(2))} ${emojiWallet}</span>
         </div>
 
         <div class="total_cc">

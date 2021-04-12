@@ -17,6 +17,9 @@ function setTax(){
 
     if(localStorage.hasOwnProperty('custom-tax')){
         let taxValue = localStorage.getItem('custom-tax');
+        
+        if(taxValue == 0) return standardTaxes;
+
         standardTaxes = [{
             name: "Impuestos Personalizados por el usuario",
             value: taxValue

@@ -67,8 +67,8 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .cart_area_body .tax-container span.final-total {
-  font-weight: 700;
-  padding-top: 8px;
+  font-size: 1.4em;
+  padding-top: 12px;
   display: block;
   text-align: right;
   border-top: 1px solid #fff;

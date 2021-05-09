@@ -16,45 +16,57 @@ function createMenus(){
 
                 <div class="opciones-avanzadas-steamcito">
 
-                    <div class="opcion">
-                        <div>
-                            <label>Estilo de Emojis</label>
-                            <select name="estilo-emoji" id="estilo-emoji">
-                                <option value="unicode">Emojis Nativos</option>
-                                <option value="fallback">Emojis Planos</option>
-                            </select>
-                        </div>
-                        <small>Seleccioná "Emoji Plano" si los emojis aparecen como un rectángulo blanco ▯</small>
+                    <div class="grupo-opciones">
+                        <h3> Opciones de Impuestos </h3>
+                        <div class="opcion">
+                            <div>
+                                <label for="national-tax">Impuestos nacionales</label>
+                                <input id="national-tax" type="number" name="national-tax" placeholder="Porcentaje personalizado"/>
+                            </div>
+                            <small>Es recomendable no cambiar este valor.<br> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver impuestos nacionales actuales.</a></small>
+                        </div>                    
+
+                        <div class="opcion">
+                            <div>
+                                <label for="province-tax">Impuestos provinciales</label>
+                                <input id="province-tax" type="number" name="province-tax" placeholder="Porcentaje personalizado"/>
+                            </div>
+                            <br>
+                            <small> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Clickeá acá para ver los impuestos que cobra tu provincia.</a></small>
+                        </div>   
                     </div>
-                    
-                    <div class="opcion">
-                        <div>
-                            <label>Impuestos nacionales</label>
-                            <input id="national-tax" type="number" name="national-tax" placeholder="Porcentaje personalizado"/>
-                        </div>
-                        <small>Es recomendable no cambiar este valor. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver impuestos nacionales actuales.</a></small>
-                    </div>                    
 
-                    <div class="opcion">
-                        <div>
-                            <label>Impuestos provinciales</label>
-                            <input id="province-tax" type="number" name="province-tax" placeholder="Porcentaje personalizado"/>
+                    <div class="grupo-opciones">
+                        <h3> Opciones Visuales </h3>
+                        <div class="opcion">
+                            <div>
+                                <label for="estilo-emoji">Estilo de Emojis</label>
+                                <select name="estilo-emoji" id="estilo-emoji">
+                                    <option value="unicode">Emojis Nativos</option>
+                                    <option value="fallback">Emojis Planos</option>
+                                </select>
+                            </div>
+                            <small>Seleccioná "Emojis Planos" si los emojis te aparecen como un rectángulo blanco ▯</small>
                         </div>
-                        <br>
-                        <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Clickeá acá para ver los impuestos que cobra tu provincia.</a>
-                    </div>   
-
+                    </div>
 
                     <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
 
                 </div>
 
                 <div class="ayuda-steamcito"> 
-                    <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Tutorial</a>
-                    <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html" target="_blank">Historial de Actualizaciones</a>
-                    <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
-                    ${getReviewLink()}
+                    <div class="grupo-opciones">
+                        <h3>Ayuda y enlaces útiles</h3>
+                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Sitio Web de Steamcito</a>
+                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Impuestos actuales</a>
+                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html" target="_blank">Historial de Actualizaciones</a>
+                        <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
+                        <a href="https://trello.com/b/iv56hIIT/steamcito-roadmap-p%C3%BAblico" target="_blank">¿Qué se viene? </a>
+
+                        ${getReviewLink()} 
+                    </div>
                 </div>
+
             </div>
 
     </div>
@@ -88,12 +100,14 @@ function changeProvinceTax(){
 
 function showMenu(e){
     menu.classList.add('enabled');
+    document.body.classList.add('menu-enabled');
     document.addEventListener('click',hideMenu);
 }
 
 function hideMenu(e){
     if(!menu.contains(e.target) && !steamcitoIcon.contains(e.target)) {
         menu.classList.remove('enabled');
+        document.body.classList.remove('menu-enabled');
         document.removeEventListener('click',hideMenu);
     }
 }

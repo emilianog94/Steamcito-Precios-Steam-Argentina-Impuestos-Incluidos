@@ -13,15 +13,31 @@ let standardTaxes = [
     }
 ];
 
+let provinceTaxes = [
+    {
+        name: "No se seleccionaron impuestos provinciales. <a href='#'>(Ver listado de impuestos provinciales)</a>",
+        value: 0  
+    }
+]
+
 function setProvinceTax(){
     if(localStorage.hasOwnProperty('province-tax')){
         let taxValue = localStorage.getItem('province-tax');
+
+        if(taxValue == 0){
+            return [{
+                name: "No se seleccionaron impuestos provinciales. <a href='#'>(Ver listado de impuestos provinciales)</a>",
+                value: taxValue            
+            }]
+        }
 
         return [{
             name: "Impuestos Provinciales personalizados por el usuario",
             value: taxValue            
         }]
     }
+
+    return provinceTaxes;
 }
 
 function setNationalTax(){
@@ -42,7 +58,7 @@ function setNationalTax(){
 }
 
 let taxes = setNationalTax();
-let provinceTaxes = setProvinceTax();
+provinceTaxes = setProvinceTax();
 
 const priceContainers = `
         .discount_original_price:not([${attributeName}]), 

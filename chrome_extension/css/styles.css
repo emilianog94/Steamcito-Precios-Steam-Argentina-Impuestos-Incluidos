@@ -52,8 +52,8 @@ body.menu-enabled .responsive_page_frame {
 
 .cart_area_body .tax-container {
   padding: 16px;
-  background: -webkit-gradient(linear, left top, right top, color-stop(5.43%, #E4A01A), to(#7E4400));
-  background: linear-gradient(90deg, #E4A01A 5.43%, #7E4400 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(5.43%, #cc8b0c), to(#7E4400));
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
   color: #ffffff;
   margin: 15px 0px 15px 0px;
 }
@@ -381,11 +381,8 @@ body.menu-enabled .responsive_page_frame {
   font-weight: 700;
   font-size: 1.2em;
   text-transform: uppercase;
-}
-
-.menu-steamcito .internal-menu hr {
-  display: block;
-  margin: 1.5em 0;
+  color: #66c0f4;
+  margin-bottom: 1.5em;
 }
 
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones {

@@ -12,7 +12,6 @@ function createMenus(){
     <div class="menu-steamcito">
             <div class="internal-menu">
                 <span class="titulo">Configuración de Steamcito v${chrome.runtime.getManifest().version}</span>
-                <hr>
 
                 <div class="opciones-avanzadas-steamcito">
 

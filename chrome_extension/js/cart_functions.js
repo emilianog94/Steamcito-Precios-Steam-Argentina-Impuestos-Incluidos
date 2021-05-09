@@ -52,9 +52,9 @@ function showTaxes(){
 
         <br><br>
         <h3>Impuestos Provinciales</h3>
-        <ul class="impuestos-provinciales"></ul>
+        <ul class="impuestos-provinciales"></ul>        
 
-        <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(2)}%</span>
+        <span class="final-total">Impuestos totales: ${((totalTaxes-1)*100).toFixed(2)}%</span>
         <p id="tax-change">Personalizar impuestos</p>
 
     </div>`;

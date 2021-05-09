@@ -56,7 +56,7 @@ body{
 
     .tax-container{
         padding:16px;
-        background: linear-gradient(90deg, #E4A01A 5.43%, #7E4400 100%);
+        background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
         color: #ffffff;
         margin: 15px 0px 15px 0px;
 
@@ -406,12 +406,10 @@ body{
             font-weight:700;
             font-size:1.2em;
             text-transform: uppercase;
+            color: rgb(102, 192, 244);
+            margin-bottom: 1.5em;
         }
 
-        hr{
-            display:block;
-            margin:1.5em 0;
-        }
 
         .opciones-avanzadas-steamcito, .ayuda-steamcito{
             

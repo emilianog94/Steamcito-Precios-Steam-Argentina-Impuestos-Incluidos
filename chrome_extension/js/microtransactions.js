@@ -11,11 +11,12 @@ function setearPrecios(){
         });
     }
     else{
-        contenedorPrecioFinal.innerText = argentinizar(contenedorPrecioFinal);
+        contenedorPrecioFinal.innerText = argentinizar(calcularImpuestos(stringToNumber(contenedorPrecioFinal)));
         otrosContenedores.forEach(contenedor => {
-            if(contenedor.innerText.indexOf("ARS$") != -1) contenedor.innerText = argentinizar(contenedor);
+            if(contenedor.innerText.indexOf("ARS$") != -1) contenedor.innerText = argentinizar(calcularImpuestos(stringToNumber(contenedor)));
         });
     }
 }
+
 
 setearPrecios();

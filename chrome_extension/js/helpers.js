@@ -3,7 +3,15 @@ function getTotalTaxes(){
         return total+num;
     }
     let taxesValues = taxes.map(tax => tax.value);
-    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100));
+    let totalTaxes;
+
+    if(provinceTaxes){
+        let provinceTaxesValues = provinceTaxes.map(tax => tax.value);
+        totalTaxes = (1 + (taxesValues.reduce(reducer)/100) + (provinceTaxesValues.reduce(reducer)/100));
+    } else {
+        totalTaxes = (1 + (taxesValues.reduce(reducer)/100) );
+    }
+
     return totalTaxes;
 }
 
@@ -12,7 +20,15 @@ function calcularImpuestos(initialPrice){
     standardTaxes.forEach(tax => {
         finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
     })
+
+    if(provinceTaxes){
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+        })
+    }
+
     return finalPrice.toFixed(2);
+
 }
 
 function getBalance(){

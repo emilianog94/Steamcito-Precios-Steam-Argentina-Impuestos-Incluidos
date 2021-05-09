@@ -46,16 +46,24 @@ function showCart(){
 function showTaxes(){
     let taxesContainer = 
     `<div class="tax-container">
-        <h3>¿Qué impuestos me cobran pagando con tarjeta?</h3>
-        <ul></ul>
+        <h3>Impuestos Nacionales</h3>
+        <ul class="impuestos-nacionales"></ul>
+
+
+        <br><br>
+        <h3>Impuestos Provinciales</h3>
+        <ul class="impuestos-provinciales"></ul>
+
         <span class="final-total">Carga Impositiva Total ${((totalTaxes-1)*100).toFixed(2)}%</span>
         <p id="tax-change">Personalizar impuestos</p>
+
     </div>`;
     oldCart.insertAdjacentHTML('afterend',taxesContainer);
 
-    taxes.forEach(tax => showFullInfo(tax));
+    taxes.forEach(tax => showFullInfo(tax,"national"));
+    provinceTaxes && provinceTaxes.forEach(tax => showFullInfo(tax,"province"));
 
-    function showFullInfo(tax){
+    function showFullInfo(tax,type){
         let taxList = `
         <li>
             <p>${tax.name}</p>
@@ -65,7 +73,11 @@ function showTaxes(){
             <p class="value">${tax.value}%</p>
         </li>
         `
-        document.querySelector(".tax-container ul").insertAdjacentHTML('afterbegin',taxList);
+        if(type == "national"){
+            document.querySelector(".tax-container ul.impuestos-nacionales").insertAdjacentHTML('afterbegin',taxList);
+        } else{
+            document.querySelector(".tax-container ul.impuestos-provinciales").insertAdjacentHTML('afterbegin',taxList);
+        }
     }
 }
 

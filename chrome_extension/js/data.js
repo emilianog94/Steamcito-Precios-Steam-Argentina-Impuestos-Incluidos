@@ -13,24 +13,36 @@ let standardTaxes = [
     }
 ];
 
-function setTax(){
+function setProvinceTax(){
+    if(localStorage.hasOwnProperty('province-tax')){
+        let taxValue = localStorage.getItem('province-tax');
 
-    if(localStorage.hasOwnProperty('custom-tax')){
-        let taxValue = localStorage.getItem('custom-tax');
+        return [{
+            name: "Impuestos Provinciales personalizados por el usuario",
+            value: taxValue            
+        }]
+    }
+}
+
+function setNationalTax(){
+
+    if(localStorage.hasOwnProperty('national-tax')){
+        let taxValue = localStorage.getItem('national-tax');
         
         if(taxValue == 0) return standardTaxes;
 
         standardTaxes = [{
-            name: "Impuestos Personalizados por el usuario",
+            name: "Impuestos Nacionales personalizados por el usuario",
             value: taxValue
         }];
     }
 
-    // Si no existen custom taxes en localStorage, agarrar taxes oficiales
+    // Si no existen custom taxes nacionales en localStorage, agarrar taxes oficiales
     return standardTaxes;
 }
 
-let taxes = setTax();
+let taxes = setNationalTax();
+let provinceTaxes = setProvinceTax();
 
 const priceContainers = `
         .discount_original_price:not([${attributeName}]), 

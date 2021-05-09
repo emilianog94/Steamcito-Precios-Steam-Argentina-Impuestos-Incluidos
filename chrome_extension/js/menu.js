@@ -29,13 +29,20 @@ function createMenus(){
                     
                     <div class="opcion">
                         <div>
-                            <label>Impuestos personalizados</label>
-                            <input id="custom-tax" type="number" name="custom-tax" placeholder="Porcentaje personalizado"/>
+                            <label>Impuestos nacionales</label>
+                            <input id="national-tax" type="number" name="national-tax" placeholder="Porcentaje personalizado"/>
                         </div>
-                        <small>Si tu tarjeta te está cobrando más impuestos que lo oficial, insertá acá el porcentaje total de impuestos que te llega. 
-                        <br>
-                        <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver casos de ejemplo.</a></small>
+                        <small>Es recomendable no cambiar este valor. <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver impuestos nacionales actuales.</a></small>
                     </div>                    
+
+                    <div class="opcion">
+                        <div>
+                            <label>Impuestos provinciales</label>
+                            <input id="province-tax" type="number" name="province-tax" placeholder="Porcentaje personalizado"/>
+                        </div>
+                        <br>
+                        <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Clickeá acá para ver los impuestos que cobra tu provincia.</a>
+                    </div>   
 
 
                     <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
@@ -63,15 +70,20 @@ function getReviewLink(){
 
 function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
-    localStorage.getItem('custom-tax') ? customTax.value=localStorage.getItem('custom-tax') : localStorage.removeItem('custom-tax');
+    localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
+    localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
 }
 
 function changeEmojiState(){
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
 }
 
-function changeCustomTax(){
-    localStorage.setItem('custom-tax',this.value);
+function changeNationalTax(){
+    localStorage.setItem('national-tax',this.value);
+}
+
+function changeProvinceTax(){
+    localStorage.setItem('province-tax',this.value);
 }
 
 function showMenu(e){
@@ -121,8 +133,11 @@ const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectEmoji = document.querySelector("#estilo-emoji");
 selectEmoji.addEventListener('input',changeEmojiState);
 
-let customTax = document.querySelector("#custom-tax");
-customTax.addEventListener('input',changeCustomTax);
+let nationalTax = document.querySelector("#national-tax");
+nationalTax.addEventListener('input',changeNationalTax);
+
+let provinceTax = document.querySelector("#province-tax");
+provinceTax.addEventListener('input',changeProvinceTax);
 
 // Seteo el estado inicial de payment y emojis
 setInitialLocalStates();

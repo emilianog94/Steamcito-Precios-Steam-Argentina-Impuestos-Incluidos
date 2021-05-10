@@ -20,18 +20,17 @@ function createMenus(){
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" placeholder="Porcentaje personalizado"/>
+                                <input id="national-tax" type="number" name="national-tax" placeholder="65"/>
                             </div>
-                            <small>Es recomendable no cambiar este valor.<br> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver impuestos nacionales actuales.</a></small>
+                            <small>Es recomendable no cambiar este valor.<br> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">
                             <div>
                                 <label for="province-tax">Impuestos provinciales</label>
-                                <input id="province-tax" type="number" name="province-tax" placeholder="Porcentaje personalizado"/>
+                                <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
                             </div>
-                            <br>
-                            <small> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Clickeá acá para ver los impuestos que cobra tu provincia.</a></small>
+                            <small> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver listado de impuestos provinciales.</a></small>
                         </div>   
                     </div>
 
@@ -41,11 +40,11 @@ function createMenus(){
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
                                 <select name="estilo-emoji" id="estilo-emoji">
-                                    <option value="unicode">Emojis Nativos</option>
-                                    <option value="fallback">Emojis Planos</option>
+                                    <option value="unicode">Emojis Recomendados</option>
+                                    <option value="fallback">Emojis Retrocompatibles</option>
                                 </select>
                             </div>
-                            <small>Seleccioná "Emojis Planos" si los emojis te aparecen como un rectángulo blanco ▯</small>
+                            <small>Modificá esta opción solo si los emojis te aparecen como un rectángulo blanco ▯</small>
                         </div>
                     </div>
 

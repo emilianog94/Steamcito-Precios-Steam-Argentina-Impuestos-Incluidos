@@ -339,7 +339,7 @@ body.menu-enabled .responsive_page_frame {
 
 @media (min-width: 1440px) {
   .menu-steamcito {
-    width: 25%;
+    width: 20%;
   }
 }
 
@@ -424,9 +424,9 @@ body.menu-enabled .responsive_page_frame {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -437,6 +437,7 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div select, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div select {
+  margin-left: 1em;
   padding: 5px;
   border-radius: 5px;
   border: 0;
@@ -445,6 +446,8 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div input {
+  width: 3em;
+  margin-left: 1em;
   padding: 5px;
   border-radius: 5px;
   border: 0;

@@ -372,7 +372,7 @@ body{
     padding:15px 0;
 
     @media(min-width:1440px){
-        width:25%;
+        width:20%;
     }
 
     a{
@@ -445,7 +445,7 @@ body{
                     > div{
                         display:flex;
                         flex-direction:row;
-                        justify-content:space-between;
+                        justify-content: flex-start;
                         align-items:center;
     
                         label{
@@ -453,6 +453,7 @@ body{
                         }
     
                         select{
+                            margin-left: 1em;
                             padding:5px;
                             border-radius:5px;
                             border: 0;
@@ -461,6 +462,8 @@ body{
                         }
     
                         input{
+                            width: 3em;
+                            margin-left: 1em;
                             padding:5px;
                             border-radius:5px;
                             border: 0;

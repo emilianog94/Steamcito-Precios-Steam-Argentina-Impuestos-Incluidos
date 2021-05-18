@@ -72,8 +72,8 @@ function showUpdate(){
         // Si es la primera vez que se abre desde la actualización
         if(result.justUpdated == 1) {
             let header = document.querySelector('#global_header');
-            let changelogUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html'
-            let funcionalidadesUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/#howto'
+            let changelogUrl = 'https://steamcito.com.ar/changelog'
+            let funcionalidadesUrl = 'https://steamcito.com.ar/funcionalidades'
             let newVersion = chrome.runtime.getManifest().version;
 
             let updateAdvice = `

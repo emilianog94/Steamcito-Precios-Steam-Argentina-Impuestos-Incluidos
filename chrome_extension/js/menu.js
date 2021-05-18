@@ -22,7 +22,7 @@ function createMenus(){
                                 <label for="national-tax">Impuestos nacionales</label>
                                 <input id="national-tax" type="number" name="national-tax" placeholder="65"/>
                             </div>
-                            <small>Es recomendable no cambiar este valor.<br> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver listado de impuestos nacionales.</a></small>
+                            <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">
@@ -30,7 +30,7 @@ function createMenus(){
                                 <label for="province-tax">Impuestos provinciales</label>
                                 <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
                             </div>
-                            <small> <a target="_blank" href='https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/funcionalidad-personalizador.html' style="display:inline">Ver listado de impuestos provinciales.</a></small>
+                            <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
                         </div>   
                     </div>
 
@@ -55,9 +55,9 @@ function createMenus(){
                 <div class="ayuda-steamcito"> 
                     <div class="grupo-opciones">
                         <h3>Ayuda y enlaces útiles</h3>
-                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Sitio Web de Steamcito</a>
-                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/index.html#howto" target="_blank">Impuestos actuales</a>
-                        <a href="https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html" target="_blank">Historial de Actualizaciones</a>
+                        <a href="https://steamcito.com.ar" target="_blank">Sitio Web de Steamcito</a>
+                        <a href="https://steamcito.com.ar/impuestos-hoy" target="_blank">Impuestos actuales</a>
+                        <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones</a>
                         <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
                         <a href="https://trello.com/b/iv56hIIT/steamcito-roadmap-p%C3%BAblico" target="_blank">¿Qué se viene? </a>
 

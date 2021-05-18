@@ -449,7 +449,7 @@ body.menu-enabled .responsive_page_frame {
   width: 3em;
   margin-left: 1em;
   padding: 5px;
-  border-radius: 5px;
+  border-radius: 0;
   border: 0;
   cursor: pointer;
 }

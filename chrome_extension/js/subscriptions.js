@@ -6,10 +6,10 @@ precios.forEach(precio => {
 let spans = document.querySelectorAll(".suscription-price");
 spans.forEach(span => {
     if(walletBalance < span.innerText){
-        span.innerText = span.dataset.argentinaPrice + emojiMate;
+        span.innerHTML = span.dataset.argentinaPrice + emojiMate;
         span.classList.add("argentina");
     } else{
-        span.innerText += emojiWallet;
+        span.innerHTML += emojiWallet;
         span.classList.add("original");
     }
     if(!span.parentElement.classList.contains("game_area_purchase_game_dropdown_menu_item_text")){

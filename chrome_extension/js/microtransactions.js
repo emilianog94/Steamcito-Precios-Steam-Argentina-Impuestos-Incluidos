@@ -4,16 +4,16 @@ let enlace = document.querySelector("#purchase_button_container_bottom a");
 
 function setearPrecios(){
     if(enlace.href.indexOf("addfunds") == -1){
-        contenedorPrecioFinal.innerText += emojiWallet;
+        contenedorPrecioFinal.innerHTML += emojiWallet;
         otrosContenedores.forEach(contenedor => {
             // Verifico si el billing original es en ARS
-            if(contenedor.innerText.indexOf("ARS$") != -1)  contenedor.innerText += emojiWallet;
+            if(contenedor.innerHTML.indexOf("ARS$") != -1)  contenedor.innerHTML += emojiWallet;
         });
     }
     else{
-        contenedorPrecioFinal.innerText = argentinizar(calcularImpuestos(stringToNumber(contenedorPrecioFinal)));
+        contenedorPrecioFinal.innerHTML = argentinizar(calcularImpuestos(stringToNumber(contenedorPrecioFinal)));
         otrosContenedores.forEach(contenedor => {
-            if(contenedor.innerText.indexOf("ARS$") != -1) contenedor.innerText = argentinizar(calcularImpuestos(stringToNumber(contenedor)));
+            if(contenedor.innerHTML.indexOf("ARS$") != -1) contenedor.innerHTML = argentinizar(calcularImpuestos(stringToNumber(contenedor)));
         });
     }
 }

@@ -15,7 +15,7 @@ let standardTaxes = [
 
 let provinceTaxes = [
     {
-        name: "No se seleccionaron impuestos provinciales. <a href='#'>(Ver listado de impuestos provinciales)</a>",
+        name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
         value: 0  
     }
 ]
@@ -26,7 +26,7 @@ function setProvinceTax(){
 
         if(taxValue == 0){
             return [{
-                name: "No se seleccionaron impuestos provinciales. <a href='#'>(Ver listado de impuestos provinciales)</a>",
+                name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
                 value: taxValue            
             }]
         }

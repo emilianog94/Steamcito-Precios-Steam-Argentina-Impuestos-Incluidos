@@ -56,11 +56,9 @@ function createMenus(){
                     <div class="grupo-opciones">
                         <h3>Ayuda y enlaces útiles</h3>
                         <a href="https://steamcito.com.ar" target="_blank">Sitio Web de Steamcito</a>
-                        <a href="https://steamcito.com.ar/impuestos-hoy" target="_blank">Impuestos actuales</a>
                         <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones</a>
                         <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
-                        <a href="https://trello.com/b/iv56hIIT/steamcito-roadmap-p%C3%BAblico" target="_blank">¿Qué se viene? </a>
-
+                        <a href="https://cafecito.app/steamcito" target="_blank">Donar a Steamcito ❤️</a>
                         ${getReviewLink()} 
                     </div>
                 </div>
@@ -73,8 +71,8 @@ function createMenus(){
 }
 
 function getReviewLink(){
-    chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">¡Valorá Steamcito en la Chrome Store! ❤️</a>`;
-    firefoxLink = `<a href="https://addons.mozilla.org/es/firefox/addon/steamcito-steam-impuestos-arg/" target="_blank">¡Valorá Steamcito en Firefox Addons! ❤️</a>`;
+    chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">¡Valorá Steamcito en la Chrome Store!</a>`;
+    firefoxLink = `<a href="https://addons.mozilla.org/es/firefox/addon/steamcito-steam-impuestos-arg/" target="_blank">¡Valorá Steamcito en Firefox Addons!</a>`;
     return navigator.userAgent.indexOf('Firefox') != -1 ? firefoxLink : chromeLink;
 }
 

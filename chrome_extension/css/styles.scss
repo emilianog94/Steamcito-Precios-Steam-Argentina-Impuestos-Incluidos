@@ -21,6 +21,15 @@
     }
 }
 
+body{
+    &.menu-enabled{
+        .responsive_page_frame{
+            filter: blur(0.35em);
+            transition: all .5s ease;
+        }
+    }
+}
+
 // CART 
 .cart_area_body{
     .cart_item{
@@ -47,7 +56,7 @@
 
     .tax-container{
         padding:16px;
-        background: linear-gradient(90deg, #E4A01A 5.43%, #7E4400 100%);
+        background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
         color: #ffffff;
         margin: 15px 0px 15px 0px;
 
@@ -60,8 +69,8 @@
         }
 
         span.final-total{
-            font-weight:700;
-            padding-top:8px;
+            font-size: 1.4em;
+            padding-top:12px;
             display:block;
             text-align:right;
             border-top:1px solid #fff;
@@ -396,48 +405,75 @@
         .titulo{
             font-weight:700;
             font-size:1.2em;
+            text-transform: uppercase;
+            color: rgb(102, 192, 244);
+            margin-bottom: 1.5em;
         }
 
-        hr{
-            display:block;
-            margin:1.5em 0;
-        }
 
-        .opciones-avanzadas-steamcito{
+        .opciones-avanzadas-steamcito, .ayuda-steamcito{
+            
+            .grupo-opciones{
+                margin: 2em 0;
+                border-bottom: 1px solid #c6d4df;
 
-            .opcion{
-                margin-bottom:3em;
-
-                small{
-                    margin-top:1em;
-                    display:block;
-                    font-size:1em;
+                &:first-child{
+                    margin-top: 0 !important;
                 }
 
-                > div{
-                    display:flex;
-                    flex-direction:row;
-                    justify-content:space-between;
-                    align-items:center;
+                &:last-child{
+                    border-bottom: 0;
+                }
 
-                    label{
-                        color:#66c0f4;
+                h3{
+                    margin-bottom: 1em;
+                    color: rgb(102, 192, 244);
+                    font-size: 1.5em;
+                    text-transform: uppercase;
+                }
+
+                .opcion{
+                    margin-bottom:2em;
+    
+                    small{
+                        margin-top: .5em;
+                        display: block;
+                        font-size: 1em;
+                        opacity: .5;
                     }
-
-                    select{
-                        padding:5px;
-                        border-radius:5px;
-                        width:50%;
-                        cursor:pointer;
-                    }
-
-                    input{
-                        padding:5px;
-                        border-radius:5px;
-                        cursor:pointer;                        
+    
+                    > div{
+                        display:flex;
+                        flex-direction:row;
+                        justify-content: flex-start;
+                        align-items:center;
+    
+                        label{
+                            color:#c6d4df;
+                        }
+    
+                        select{
+                            margin-left: 1em;
+                            padding:5px;
+                            border-radius:5px;
+                            border: 0;
+                            width:50%;
+                            cursor:pointer;
+                        }
+    
+                        input{
+                            width: 3em;
+                            margin-left: 1em;
+                            padding:5px;
+                            border-radius: 0;
+                            border: 0;
+                            cursor:pointer;                        
+                        }
                     }
                 }
             }
+
+
         }
 
         .ayuda-steamcito{

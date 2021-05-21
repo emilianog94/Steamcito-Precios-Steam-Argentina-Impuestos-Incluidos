@@ -3,7 +3,9 @@ function getTotalTaxes(){
         return total+num;
     }
     let taxesValues = taxes.map(tax => tax.value);
-    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100));
+    let provinceTaxesValues = provinceTaxes.map(tax => tax.value);
+    let totalTaxes = (1 + (taxesValues.reduce(reducer)/100) + (provinceTaxesValues.reduce(reducer)/100));
+
     return totalTaxes;
 }
 
@@ -12,7 +14,13 @@ function calcularImpuestos(initialPrice){
     standardTaxes.forEach(tax => {
         finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
     })
+
+    provinceTaxes.forEach(tax => {
+        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+    })
+
     return finalPrice.toFixed(2);
+
 }
 
 function getBalance(){
@@ -64,8 +72,8 @@ function showUpdate(){
         // Si es la primera vez que se abre desde la actualización
         if(result.justUpdated == 1) {
             let header = document.querySelector('#global_header');
-            let changelogUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html'
-            let funcionalidadesUrl = 'https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/#howto'
+            let changelogUrl = 'https://steamcito.com.ar/changelog'
+            let funcionalidadesUrl = 'https://steamcito.com.ar/funcionalidades'
             let newVersion = chrome.runtime.getManifest().version;
 
             let updateAdvice = `

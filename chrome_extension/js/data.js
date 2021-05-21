@@ -13,24 +13,52 @@ let standardTaxes = [
     }
 ];
 
-function setTax(){
+let provinceTaxes = [
+    {
+        name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
+        value: 0  
+    }
+]
 
-    if(localStorage.hasOwnProperty('custom-tax')){
-        let taxValue = localStorage.getItem('custom-tax');
+function setProvinceTax(){
+    if(localStorage.hasOwnProperty('province-tax')){
+        let taxValue = localStorage.getItem('province-tax');
+
+        if(taxValue == 0){
+            return [{
+                name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
+                value: taxValue            
+            }]
+        }
+
+        return [{
+            name: "Impuestos Provinciales personalizados por el usuario",
+            value: taxValue            
+        }]
+    }
+
+    return provinceTaxes;
+}
+
+function setNationalTax(){
+
+    if(localStorage.hasOwnProperty('national-tax')){
+        let taxValue = localStorage.getItem('national-tax');
         
         if(taxValue == 0) return standardTaxes;
 
         standardTaxes = [{
-            name: "Impuestos Personalizados por el usuario",
+            name: "Impuestos Nacionales personalizados por el usuario",
             value: taxValue
         }];
     }
 
-    // Si no existen custom taxes en localStorage, agarrar taxes oficiales
+    // Si no existen custom taxes nacionales en localStorage, agarrar taxes oficiales
     return standardTaxes;
 }
 
-let taxes = setTax();
+let taxes = setNationalTax();
+provinceTaxes = setProvinceTax();
 
 const priceContainers = `
         .discount_original_price:not([${attributeName}]), 

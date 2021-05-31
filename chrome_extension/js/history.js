@@ -49,9 +49,30 @@ function calculateTotals(transaction){
     }
 }
 
-
-
 getTransactions();
+
+const showDevolucionHtml = () => {
+    const html = 
+    `<div class="aviso-devolucion">
+        <div class="left">
+            <p>En 2022 AFIP te devolverá el 35% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año fiscal 2021. <b>(RG AFIP Nº 4815/2020)</b></p>
+            <div class="botones">
+                <span class="calculo-primario">CALCULAR DEVOLUCIÓN AÑO FISCAL 2021</span>
+                <span class="calculo-secundario">CALCULAR DEVOLUCIÓN 2020</span>
+            </div>
+        </div>
+
+        <div class="right">
+
+        </div>
+
+    </div>`;
+    
+    const mainDiv = document.querySelector('#main_content');
+    mainDiv.insertAdjacentHTML('afterbegin',html);
+}
+
+showDevolucionHtml();
 
 MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 const transactionObserver = new MutationObserver(function(mutations, observer) {

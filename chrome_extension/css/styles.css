@@ -463,6 +463,55 @@ body.menu-enabled .responsive_page_frame {
   right: 0;
 }
 
+.aviso-devolucion {
+  background: -webkit-gradient(linear, left top, right top, color-stop(5.43%, #cc8b0c), to(#7E4400));
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
+  padding: 2em;
+  margin-bottom: 2em;
+  font-family: 'Motiva Sans',sans-serif;
+}
+
+.aviso-devolucion .left {
+  width: 65%;
+  color: #fff;
+}
+
+.aviso-devolucion .left .botones {
+  margin-top: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.aviso-devolucion .left .botones span {
+  cursor: pointer;
+}
+
+.aviso-devolucion .left .botones span:first-child {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: .5em 1em;
+  text-align: center;
+  -webkit-transition: all .25s ease;
+  transition: all .25s ease;
+}
+
+.aviso-devolucion .left .botones span:first-child:hover {
+  background-color: #fff;
+  color: #cc8b0c;
+}
+
+.aviso-devolucion .left .botones span:last-child {
+  margin-left: 1em;
+  border-bottom: 1px solid #fff;
+}
+
 .wallet_table_row.wallet-purchase .wht_total {
   display: -webkit-box;
   display: -ms-flexbox;

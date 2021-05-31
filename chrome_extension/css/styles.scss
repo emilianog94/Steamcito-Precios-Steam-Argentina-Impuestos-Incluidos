@@ -490,6 +490,48 @@ body{
 
 // Account History
 
+.aviso-devolucion{
+    background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
+    padding: 2em;
+    margin-bottom: 2em;
+    font-family:'Motiva Sans',sans-serif;
+
+    .left{
+        width: 65%;
+        color: #fff;
+
+        .botones{
+            margin-top: 2em;
+            display: flex; 
+            justify-content: flex-start;
+            align-items: center;
+
+            span{
+                cursor: pointer;
+            }
+            
+            span:first-child{
+                border: 1px solid #fff;
+                border-radius: 5px;
+                padding: .5em 1em;
+                text-align: center;
+                transition: all .25s ease;
+
+                &:hover{
+                    background-color: #fff;
+                    color: rgb(204, 139, 12);
+
+                }
+            }
+
+            span:last-child{
+                margin-left: 1em;
+                border-bottom: 1px solid #fff;
+            }
+        }
+    }
+}
+
 .wallet_table_row{
 
     &.wallet-purchase{

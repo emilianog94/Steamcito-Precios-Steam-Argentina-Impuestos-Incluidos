@@ -491,14 +491,16 @@ body{
 // Account History
 
 .aviso-devolucion{
+    display: flex;
+    justify-content: space-between;
     background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
     padding: 2em;
     margin-bottom: 2em;
     font-family:'Motiva Sans',sans-serif;
+    color: #fff;
 
     .left{
-        width: 65%;
-        color: #fff;
+        flex: 5;
 
         .botones{
             margin-top: 2em;
@@ -527,6 +529,34 @@ body{
             span:last-child{
                 margin-left: 1em;
                 border-bottom: 1px solid #fff;
+            }
+        }
+    }
+
+    .right{
+        flex: 3;
+        transition: all .25s ease;
+
+        &.not-defined{
+            opacity: 0;
+        }
+
+        h4{
+            border-bottom: 1px solid #fff;
+            padding-bottom: .5em;
+        }
+
+        .results-table{
+            margin-top: 1em;
+
+            > div{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: .75em;
+
+                .bold{
+                    font-weight: 700;
+                }
             }
         }
     }

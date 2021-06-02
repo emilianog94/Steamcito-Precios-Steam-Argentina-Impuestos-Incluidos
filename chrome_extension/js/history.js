@@ -59,7 +59,7 @@ const total2021 = () => {
     // Agarro todas las transacciones elegibles (Split y CC)
     let transactionElements = Array.from(document.querySelectorAll('.split-purchase:not(.picked),.cc-purchase:not(.picked)'));
     transactionElements.forEach(transaction => transaction.classList.add('picked'));
-    return transactionElements
+    let total = transactionElements
 
     // Mapeo creando un objeto con los valores que me interesan
     .map(transaction => {
@@ -76,9 +76,21 @@ const total2021 = () => {
     // Sumo el total de los montos originales 
     .reduce( (acumulado,item) => acumulado + item.originalValue , 0);
 
-}
-console.log(total2021());
+    let totalConImpuestos =  (total * totalTaxes) - total;
+    let totalDevolucion = total * 0.35;
 
+    let html= document.querySelector('.right');
+    html.classList.remove('not-defined');
+
+    let htmlTotal = html.querySelector('.results-table > div:nth-child(1) span');
+    htmlTotal.innerText = numberToString(total.toFixed(2));
+
+    let htmlConImpuestos = html.querySelector('.results-table > div:nth-child(2) span');
+    htmlConImpuestos.innerText = numberToString(totalConImpuestos.toFixed(2));
+
+    let htmlDevolucion = html.querySelector('.results-table > div:nth-child(3) span');
+    htmlDevolucion.innerText = numberToString(totalDevolucion.toFixed(2));
+}
 
 const showDevolucionHtml = () => {
     const html = 
@@ -91,14 +103,31 @@ const showDevolucionHtml = () => {
             </div>
         </div>
 
-        <div class="right">
-
+        <div class="right not-defined">
+            <h4>Cálculos Año Fiscal ${currentYear}</h4>
+            <div class="results-table">
+                <div>
+                    <p>Total de compras (Sin impuestos)</p>
+                    <span></span>
+                </div> 
+                <div>
+                    <p>Total de impuestos pagados</p>
+                    <span></span>
+                </div>
+                <div>
+                    <p>Devolución del 35% correspondiente</p>
+                    <span class="bold"></span>
+                </div>
+            </div>
         </div>
 
     </div>`;
     
     const mainDiv = document.querySelector('#main_content');
     mainDiv.insertAdjacentHTML('afterbegin',html);
+
+    const botonCalcular = document.querySelector('.calculo-primario');
+    botonCalcular.addEventListener('click',total2021);
 }
 showDevolucionHtml();
 

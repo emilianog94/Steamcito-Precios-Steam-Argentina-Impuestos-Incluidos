@@ -464,16 +464,24 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .aviso-devolucion {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   background: -webkit-gradient(linear, left top, right top, color-stop(5.43%, #cc8b0c), to(#7E4400));
   background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
   padding: 2em;
   margin-bottom: 2em;
   font-family: 'Motiva Sans',sans-serif;
+  color: #fff;
 }
 
 .aviso-devolucion .left {
-  width: 65%;
-  color: #fff;
+  -webkit-box-flex: 5;
+      -ms-flex: 5;
+          flex: 5;
 }
 
 .aviso-devolucion .left .botones {
@@ -510,6 +518,41 @@ body.menu-enabled .responsive_page_frame {
 .aviso-devolucion .left .botones span:last-child {
   margin-left: 1em;
   border-bottom: 1px solid #fff;
+}
+
+.aviso-devolucion .right {
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+  -webkit-transition: all .25s ease;
+  transition: all .25s ease;
+}
+
+.aviso-devolucion .right.not-defined {
+  opacity: 0;
+}
+
+.aviso-devolucion .right h4 {
+  border-bottom: 1px solid #fff;
+  padding-bottom: .5em;
+}
+
+.aviso-devolucion .right .results-table {
+  margin-top: 1em;
+}
+
+.aviso-devolucion .right .results-table > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: .75em;
+}
+
+.aviso-devolucion .right .results-table > div .bold {
+  font-weight: 700;
 }
 
 .wallet_table_row.wallet-purchase .wht_total {

@@ -103,8 +103,9 @@ function showCalculo(pickedYear){
     // Sumo el total de los montos originales 
     .reduce( (acumulado,item) => acumulado + item.originalValue , 0);
 
-    let totalConImpuestos =  (total * totalTaxes) - total;
+    let totalImpuestos =  (total * totalTaxes) - total;
     let totalDevolucion = total * 0.35;
+    let totalFinal = total + totalImpuestos;
 
     let html = document.querySelector('.right');
     html.classList.remove('not-defined');
@@ -115,10 +116,13 @@ function showCalculo(pickedYear){
     let htmlTotal = html.querySelector('.results-table > div:nth-child(1) span');
     htmlTotal.innerText = numberToString(total.toFixed(2));
 
-    let htmlConImpuestos = html.querySelector('.results-table > div:nth-child(2) span');
-    htmlConImpuestos.innerText = numberToString(totalConImpuestos.toFixed(2));
+    let htmlImpuestos = html.querySelector('.results-table > div:nth-child(2) span');
+    htmlImpuestos.innerText = numberToString(totalImpuestos.toFixed(2));
 
-    let htmlDevolucion = html.querySelector('.results-table > div:nth-child(3) span');
+    let htmlTotalFinal = html.querySelector('.results-table > div:nth-child(3) span');
+    htmlTotalFinal.innerText = numberToString(totalFinal.toFixed(2));
+
+    let htmlDevolucion = html.querySelector('.results-table > div:nth-child(4) span');
     htmlDevolucion.innerText = numberToString(totalDevolucion.toFixed(2));
 }
 
@@ -134,16 +138,20 @@ const showDevolucionHtml = () => {
         </div>
 
         <div class="right not-defined">
-            <h4>Cálculos Año Fiscal <span></span></h4>
+            <h4>Cálculos Año <span></span></h4>
             <div class="results-table">
                 <div>
-                    <p>Compras con tarjeta (Sin impuestos)</p>
+                    <p>Total que pagaste a Steam</p>
                     <span></span>
                 </div> 
                 <div>
-                    <p>Impuestos pagados</p>
+                    <p>Total que pagaste de impuestos</p>
                     <span></span>
                 </div>
+                <div>
+                    <p>Total final</p>
+                    <span></span>
+                </div>                
                 <div>
                     <p>Devolución del 35% correspondiente</p>
                     <span class="bold"></span>

@@ -484,6 +484,17 @@ body.menu-enabled .responsive_page_frame {
           flex: 5;
 }
 
+.aviso-devolucion .left a {
+  display: inline-block;
+  margin-top: 1em;
+  border-bottom: 1px solid #fff;
+}
+
+.aviso-devolucion .left p.monto {
+  font-size: 1.25em;
+  margin-top: .25em;
+}
+
 .aviso-devolucion .left .botones {
   margin-top: 2em;
   display: -webkit-box;
@@ -549,6 +560,10 @@ body.menu-enabled .responsive_page_frame {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: .75em;
+}
+
+.aviso-devolucion .right .results-table > div:last-child {
+  margin-top: 2em;
 }
 
 .aviso-devolucion .right .results-table > div .bold {

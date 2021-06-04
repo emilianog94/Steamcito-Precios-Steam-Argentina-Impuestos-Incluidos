@@ -70,8 +70,7 @@ function checkForReload(pickedYear){
 
 
     // Condición para ver si es posible que hayan más transacciones del año seleccionado
-    if(year == pickedYear){
-        console.log("Trayendo nuevas transacciones...");
+    if(pickedYear == year || pickedYear < year ){
         refreshButton.click();
         rightContainer.classList.add('loading');
         let interval = setInterval(function(){
@@ -89,7 +88,7 @@ function checkForReload(pickedYear){
 }
 
 function showCalculoHtml(pickedYear){
-        // Agarro todas las transacciones elegibles (Split y CC)
+    // Agarro todas las transacciones elegibles (Split y CC)
     let transactionElements = Array.from(document.querySelectorAll('.split-purchase:not(.picked),.cc-purchase:not(.picked)'));
     transactionElements.forEach(transaction => transaction.classList.add('picked'));
     let total = transactionElements
@@ -113,16 +112,17 @@ function showCalculoHtml(pickedYear){
     let totalDevolucion = total * 0.35;
     let totalFinal = total + totalImpuestos;
     let rightContainer = document.querySelector('.right');
+    let leftContainer = document.querySelector('.left');
 
-    let htmlRender = `
+    let htmlRenderRight = `
         <h4>Cálculos de compras del ${pickedYear} al día de hoy</h4>
         <div class="results-table">
             <div>
-                <p>Total que pagaste a Steam</p>
+                <p>Total pagado a Steam</p>
                 <span>${numberToString(total.toFixed(2))}</span>
             </div> 
             <div>
-                <p>Total que pagaste de impuestos</p>
+                <p>Total de impuestos pagados al Estado</p>
                 <span>${numberToString(totalImpuestos.toFixed(2))}</span>
             </div>
             <div>
@@ -136,7 +136,12 @@ function showCalculoHtml(pickedYear){
         </div>
     `;
 
-    rightContainer.insertAdjacentHTML('afterbegin',htmlRender);
+    rightContainer.insertAdjacentHTML('afterbegin',htmlRenderRight);
+    leftContainer.innerHTML = `
+    <h3>¡Cálculo de devolución a recibir en ${parseInt(pickedYear) + 1} listo!</h3>
+    <p class="monto">Al día de hoy te corresponde una devolución de ${numberToString(totalDevolucion.toFixed(2))} </p>
+    <a href="#">Consultá la guía paso a paso de steamcito.com.ar para solicitar la devolución</a>
+    `
 }
 
 
@@ -144,10 +149,10 @@ const showDevolucionHtml = () => {
     const html = 
     `<div class="aviso-devolucion">
         <div class="left">
-            <p>En ${currentYear + 1} AFIP te devolverá el 35% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año fiscal ${currentYear}. <b>(RG AFIP Nº 4815/2020)</b></p>
+            <p>En ${currentYear + 1} AFIP te devolverá el 35% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año ${currentYear}. <b>(RG AFIP Nº 4815/2020)</b></p>
             <div class="botones">
                 <span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN DE COMPRAS DEL ${currentYear}</span>
-                <span class="calculo-secundario" data-year="${currentYear - 1}">CALCULAR DEVOLUCIÓN ${currentYear -1}</span>
+                <span class="calculo-secundario" data-year="${lastYear}">CALCULAR DEVOLUCIÓN ${lastYear}</span>
             </div>
         </div>
         <div class="right">

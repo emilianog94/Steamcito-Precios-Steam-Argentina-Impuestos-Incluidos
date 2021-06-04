@@ -502,6 +502,17 @@ body{
     .left{
         flex: 5;
 
+        a{
+            display: inline-block;
+            margin-top: 1em;
+            border-bottom: 1px solid #fff;
+        }
+
+        p.monto{
+            font-size: 1.25em;
+            margin-top: .25em;
+        }
+
         .botones{
             margin-top: 2em;
             display: flex; 
@@ -553,6 +564,10 @@ body{
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: .75em;
+
+                &:last-child{
+                    margin-top: 2em;
+                }
 
                 .bold{
                     font-weight: 700;

@@ -66,23 +66,29 @@ function checkForReload(pickedYear){
     const year = parseInt(lastDate.slice(-4));
     const refreshButton = document.querySelector('#load_more_button');
     const loadingIcon = document.querySelector('#wallet_history_loading');
+    let rightContainer = document.querySelector('.right');
+
+
+    // Condición para ver si es posible que hayan más transacciones del año seleccionado
     if(year == pickedYear){
         console.log("Trayendo nuevas transacciones...");
         refreshButton.click();
+        rightContainer.classList.add('loading');
         let interval = setInterval(function(){
             // Chequeo si cargaron las transacciones necesarias
             if(loadingIcon.style.display == "none"){
                 clearInterval(interval);
-                showCalculo(pickedYear);
+                rightContainer.classList.remove('loading');
+                showCalculoHtml(pickedYear);
             }
         },500);
     } else{
-        showCalculo(pickedYear);
+        showCalculoHtml(pickedYear);
     }
 
 }
 
-function showCalculo(pickedYear){
+function showCalculoHtml(pickedYear){
         // Agarro todas las transacciones elegibles (Split y CC)
     let transactionElements = Array.from(document.querySelectorAll('.split-purchase:not(.picked),.cc-purchase:not(.picked)'));
     transactionElements.forEach(transaction => transaction.classList.add('picked'));
@@ -106,25 +112,33 @@ function showCalculo(pickedYear){
     let totalImpuestos =  (total * totalTaxes) - total;
     let totalDevolucion = total * 0.35;
     let totalFinal = total + totalImpuestos;
+    let rightContainer = document.querySelector('.right');
 
-    let html = document.querySelector('.right');
-    html.classList.remove('not-defined');
+    let htmlRender = `
+        <h4>Cálculos de compras del ${pickedYear} al día de hoy</h4>
+        <div class="results-table">
+            <div>
+                <p>Total que pagaste a Steam</p>
+                <span>${numberToString(total.toFixed(2))}</span>
+            </div> 
+            <div>
+                <p>Total que pagaste de impuestos</p>
+                <span>${numberToString(totalImpuestos.toFixed(2))}</span>
+            </div>
+            <div>
+                <p>Total final</p>
+                <span>${numberToString(totalFinal.toFixed(2))}</span>
+            </div>                
+            <div>
+                <p>Devolución del 35% correspondiente</p>
+                <span class="bold">${numberToString(totalDevolucion.toFixed(2))}</span>
+            </div>
+        </div>
+    `;
 
-    let htmlAno = html.querySelector('h4 span');
-    htmlAno.innerText = pickedYear;
-
-    let htmlTotal = html.querySelector('.results-table > div:nth-child(1) span');
-    htmlTotal.innerText = numberToString(total.toFixed(2));
-
-    let htmlImpuestos = html.querySelector('.results-table > div:nth-child(2) span');
-    htmlImpuestos.innerText = numberToString(totalImpuestos.toFixed(2));
-
-    let htmlTotalFinal = html.querySelector('.results-table > div:nth-child(3) span');
-    htmlTotalFinal.innerText = numberToString(totalFinal.toFixed(2));
-
-    let htmlDevolucion = html.querySelector('.results-table > div:nth-child(4) span');
-    htmlDevolucion.innerText = numberToString(totalDevolucion.toFixed(2));
+    rightContainer.insertAdjacentHTML('afterbegin',htmlRender);
 }
+
 
 const showDevolucionHtml = () => {
     const html = 
@@ -132,33 +146,16 @@ const showDevolucionHtml = () => {
         <div class="left">
             <p>En ${currentYear + 1} AFIP te devolverá el 35% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año fiscal ${currentYear}. <b>(RG AFIP Nº 4815/2020)</b></p>
             <div class="botones">
-                <span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN AÑO FISCAL ${currentYear}</span>
+                <span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN DE COMPRAS DEL ${currentYear}</span>
                 <span class="calculo-secundario" data-year="${currentYear - 1}">CALCULAR DEVOLUCIÓN ${currentYear -1}</span>
             </div>
         </div>
-
-        <div class="right not-defined">
-            <h4>Cálculos Año <span></span></h4>
-            <div class="results-table">
-                <div>
-                    <p>Total que pagaste a Steam</p>
-                    <span></span>
-                </div> 
-                <div>
-                    <p>Total que pagaste de impuestos</p>
-                    <span></span>
-                </div>
-                <div>
-                    <p>Total final</p>
-                    <span></span>
-                </div>                
-                <div>
-                    <p>Devolución del 35% correspondiente</p>
-                    <span class="bold"></span>
-                </div>
+        <div class="right">
+            <div class="loader-icon"> 
+                <img src="https://store.akamai.steamstatic.com/public/images/login/throbber.gif"/>
+                <p> Cargando transacciones del año elegido...
             </div>
         </div>
-
     </div>`;
     
     const mainDiv = document.querySelector('#main_content');

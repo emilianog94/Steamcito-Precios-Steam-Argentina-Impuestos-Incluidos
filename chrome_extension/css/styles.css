@@ -501,7 +501,11 @@ body.menu-enabled .responsive_page_frame {
   cursor: pointer;
 }
 
-.aviso-devolucion .left .botones span:first-child {
+.aviso-devolucion .left .botones span[data-year="2020"] {
+  display: none;
+}
+
+.aviso-devolucion .left .botones span.calculo-primario {
   border: 1px solid #fff;
   border-radius: 5px;
   padding: .5em 1em;
@@ -510,12 +514,12 @@ body.menu-enabled .responsive_page_frame {
   transition: all .25s ease;
 }
 
-.aviso-devolucion .left .botones span:first-child:hover {
+.aviso-devolucion .left .botones span.calculo-primario:hover {
   background-color: #fff;
   color: #cc8b0c;
 }
 
-.aviso-devolucion .left .botones span:last-child {
+.aviso-devolucion .left .botones span.calculo-secundario {
   margin-left: 1em;
   border-bottom: 1px solid #fff;
 }
@@ -526,10 +530,6 @@ body.menu-enabled .responsive_page_frame {
           flex: 3;
   -webkit-transition: all .25s ease;
   transition: all .25s ease;
-}
-
-.aviso-devolucion .right.not-defined {
-  opacity: 0;
 }
 
 .aviso-devolucion .right h4 {
@@ -553,6 +553,19 @@ body.menu-enabled .responsive_page_frame {
 
 .aviso-devolucion .right .results-table > div .bold {
   font-weight: 700;
+}
+
+.aviso-devolucion .right .loader-icon {
+  display: none;
+  text-align: center;
+}
+
+.aviso-devolucion .right .loader-icon img {
+  margin-bottom: 1em;
+}
+
+.aviso-devolucion .right.loading .loader-icon {
+  display: block;
 }
 
 .wallet_table_row.wallet-purchase .wht_total {

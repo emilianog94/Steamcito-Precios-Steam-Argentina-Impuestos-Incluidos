@@ -510,25 +510,29 @@ body{
 
             span{
                 cursor: pointer;
-            }
-            
-            span:first-child{
-                border: 1px solid #fff;
-                border-radius: 5px;
-                padding: .5em 1em;
-                text-align: center;
-                transition: all .25s ease;
 
-                &:hover{
-                    background-color: #fff;
-                    color: rgb(204, 139, 12);
-
+                &[data-year="2020"]{
+                    display: none;
                 }
-            }
 
-            span:last-child{
-                margin-left: 1em;
-                border-bottom: 1px solid #fff;
+                &.calculo-primario{
+                    border: 1px solid #fff;
+                    border-radius: 5px;
+                    padding: .5em 1em;
+                    text-align: center;
+                    transition: all .25s ease;
+    
+                    &:hover{
+                        background-color: #fff;
+                        color: rgb(204, 139, 12);
+    
+                    }
+                }
+
+                &.calculo-secundario{
+                    margin-left: 1em;
+                    border-bottom: 1px solid #fff;
+                }
             }
         }
     }
@@ -536,10 +540,6 @@ body{
     .right{
         flex: 3;
         transition: all .25s ease;
-
-        &.not-defined{
-            opacity: 0;
-        }
 
         h4{
             border-bottom: 1px solid #fff;
@@ -558,6 +558,19 @@ body{
                     font-weight: 700;
                 }
             }
+        }
+
+        .loader-icon{
+            display: none;
+            text-align: center;
+
+            img{
+                margin-bottom: 1em;
+            }
+        }
+
+        &.loading .loader-icon{
+            display: block;
         }
     }
 }

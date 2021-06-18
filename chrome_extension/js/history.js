@@ -5,6 +5,9 @@ function getTransactions(){
 }
 function setTransactionType(transactions){
     transactions.forEach(transaction => {
+
+
+
         transaction.classList.add('processed');
 
         // Evito que las transacciones con moneda extranjera sean convertidas
@@ -14,11 +17,14 @@ function setTransactionType(transactions){
 
         const payments = transaction.querySelectorAll('.wht_type .wth_payment div');
 
+
+
         // Split Purchase
         if(payments.length){
+            console.log(payments);
             transaction.classList.add('split-purchase');
-            let walletValue = transaction.querySelector('.wth_payment > div:first-child');
-            let ccValue = transaction.querySelector('.wth_payment > div:last-child');
+            let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
+            let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
             transaction.dataset.originalValue = ccValue.innerText;
             let contenedorTotal = transaction.querySelector('.wht_total');
             contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestos(stringToNumber(ccValue)))}`;
@@ -26,13 +32,21 @@ function setTransactionType(transactions){
         
         // One-Method Purchase
         else{
-            const paymentType = transaction.querySelector('.wth_payment');
-            if( paymentType.innerText.indexOf('MasterCard') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
-                transaction.classList.add('wallet-purchase');
+            const paymentType = transaction.querySelector('.wht_type .wth_payment');
+
+            // Este código previene que si tenés una digital card redemption se rompa todo
+            if(transaction.querySelector('.wht_total').innerText == ""){
+                return;
             } else{
-                transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
-                transaction.classList.add('cc-purchase');
+                if( paymentType.innerText.indexOf('MasterCard') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
+                    transaction.classList.add('wallet-purchase');
+                } else{
+                    transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
+                    transaction.classList.add('cc-purchase');
+                }
             }
+
+
         }
         calculateTotals(transaction);
 
@@ -62,6 +76,7 @@ const totalByYear = (e) => {
 }
 
 function checkForReload(pickedYear){
+    console.log(pickedYear);
     const lastDate = document.querySelector(".wallet_history_table tbody > tr.wallet_table_row:nth-last-child(2) td[class*=date]").innerText;
     const year = parseInt(lastDate.slice(-4));
     const refreshButton = document.querySelector('#load_more_button');
@@ -76,12 +91,14 @@ function checkForReload(pickedYear){
         let interval = setInterval(function(){
             // Chequeo si cargaron las transacciones necesarias
             if(loadingIcon.style.display == "none"){
-                clearInterval(interval);
-                rightContainer.classList.remove('loading');
-                showCalculoHtml(pickedYear);
+                if(pickedYear == year || pickedYear < year ){
+                    clearInterval(interval);
+                    checkForReload(pickedYear);
+                }
             }
         },500);
     } else{
+        rightContainer.classList.remove('loading');
         showCalculoHtml(pickedYear);
     }
 
@@ -138,9 +155,9 @@ function showCalculoHtml(pickedYear){
 
     rightContainer.insertAdjacentHTML('afterbegin',htmlRenderRight);
     leftContainer.innerHTML = `
-    <h3>¡Cálculo de devolución a recibir en ${parseInt(pickedYear) + 1} listo!</h3>
-    <p class="monto">Al día de hoy te corresponde una devolución de ${numberToString(totalDevolucion.toFixed(2))} </p>
-    <a href="#">Consultá la guía paso a paso de steamcito.com.ar para solicitar la devolución</a>
+    <h3>¡Cálculo listo!</h3>
+    <p class="monto">En el año ${parseInt(pickedYear) + 1} te corresponde una devolución de <b>${numberToString(totalDevolucion.toFixed(2))}</b> por todas tus compras realizadas en Steam durante el ${parseInt(pickedYear)} </p>
+    <a href="https://steamcito.com.ar/devolucion-35-impuesto-ganancias" target="_blank">Solicitar la devolución</a>
     `
 }
 

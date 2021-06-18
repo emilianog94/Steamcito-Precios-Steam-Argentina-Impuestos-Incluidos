@@ -21,7 +21,6 @@ function setTransactionType(transactions){
 
         // Split Purchase
         if(payments.length){
-            console.log(payments);
             transaction.classList.add('split-purchase');
             let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
@@ -76,7 +75,6 @@ const totalByYear = (e) => {
 }
 
 function checkForReload(pickedYear){
-    console.log(pickedYear);
     const lastDate = document.querySelector(".wallet_history_table tbody > tr.wallet_table_row:nth-last-child(2) td[class*=date]").innerText;
     const year = parseInt(lastDate.slice(-4));
     const refreshButton = document.querySelector('#load_more_button');

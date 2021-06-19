@@ -36,8 +36,9 @@ function setTransactionType(transactions){
             // Este código previene que si tenés una digital card redemption se rompa todo
             if(transaction.querySelector('.wht_total').innerText == ""){
                 return;
-            } else{
-                if( paymentType.innerText.indexOf('MasterCard') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
+            } 
+            else{
+                if( paymentType.innerText.indexOf('Master') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
                     transaction.classList.add('wallet-purchase');
                 } else{
                     transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
@@ -130,7 +131,7 @@ function showCalculoHtml(pickedYear){
     let leftContainer = document.querySelector('.left');
 
     let htmlRenderRight = `
-        <h4>Cálculos de compras del ${pickedYear} al día de hoy</h4>
+        <h4>Pagos del ${pickedYear} con tarjetas de débito/crédito</h4>
         <div class="results-table">
             <div>
                 <p>Total pagado a Steam</p>
@@ -153,9 +154,12 @@ function showCalculoHtml(pickedYear){
 
     rightContainer.insertAdjacentHTML('afterbegin',htmlRenderRight);
     leftContainer.innerHTML = `
-    <h3>¡Cálculo listo!</h3>
-    <p class="monto">En el año ${parseInt(pickedYear) + 1} te corresponde una devolución de <b>${numberToString(totalDevolucion.toFixed(2))}</b> por todas tus compras realizadas en Steam durante el ${parseInt(pickedYear)} </p>
-    <a href="https://steamcito.com.ar/devolucion-35-impuesto-ganancias" target="_blank">Solicitar la devolución</a>
+    <h3>Te corresponden ${numberToString(totalDevolucion.toFixed(2))}</h3>
+    <p class="monto">
+    Este cálculo se realizó teniendo en cuenta todos los pagos con tarjeta de crédito y débito del ${parseInt(pickedYear)}. Se excluyeron todos los reembolsos y compras con saldo Steam Wallet. <br><br>
+    En el año ${parseInt(pickedYear) + 1} te corresponde una devolución de <b>${numberToString(totalDevolucion.toFixed(2))}</b>.
+    </p>
+    <a href="https://steamcito.com.ar/devolucion-35-impuesto-ganancias" target="_blank">¿Cómo solicitar la devolución?</a>
     `
 }
 

@@ -23,6 +23,8 @@
 
 body{
     &.menu-enabled{
+        overflow-x: hidden;
+
         .responsive_page_frame{
             filter: blur(0.35em);
             transition: all .5s ease;
@@ -285,7 +287,7 @@ body{
     padding:10px 0;
     text-align:center;
     background:#4c6b22;
-    margin-bottom:1em;
+    margin-bottom:0;
 
     a{
         font-weight:700;
@@ -401,6 +403,7 @@ body{
         display:flex;
         flex-direction:column;
         height:100%;
+        overflow: auto;
 
         .titulo{
             font-weight:700;

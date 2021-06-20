@@ -1,23 +1,20 @@
-
 function getTransactions(){
+    // Agarro todas las transacciones que todavía no fueron procesadas por la función
     const transactions = document.querySelectorAll('.wallet_table_row:not(.processed)');
     setTransactionType(transactions);
 }
+
 function setTransactionType(transactions){
     transactions.forEach(transaction => {
-
-
-
         transaction.classList.add('processed');
 
-        // Evito que las transacciones con moneda extranjera sean convertidas
+        // Evito que las transacciones con moneda extranjera sean tomadas en cuenta
         if(transaction.innerText.indexOf('USD') != -1 ){
             return;
         }
 
+        // Obtengo la información de pago de la transacción
         const payments = transaction.querySelectorAll('.wht_type .wth_payment div');
-
-
 
         // Split Purchase
         if(payments.length){
@@ -33,23 +30,19 @@ function setTransactionType(transactions){
         else{
             const paymentType = transaction.querySelector('.wht_type .wth_payment');
 
-            // Este código previene que si tenés una digital card redemption se rompa todo
+            // Evito que las transacciones Digital Card Redemption sean tomadas en cuenta
             if(transaction.querySelector('.wht_total').innerText == ""){
                 return;
             } 
-            else{
-                if( paymentType.innerText.indexOf('Master') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
-                    transaction.classList.add('wallet-purchase');
-                } else{
-                    transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
-                    transaction.classList.add('cc-purchase');
-                }
+
+            if( paymentType.innerText.indexOf('Master') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
+                transaction.classList.add('wallet-purchase');
+            } else{
+                transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
+                transaction.classList.add('cc-purchase');
             }
-
-
         }
         calculateTotals(transaction);
-
     })
 }
 
@@ -64,8 +57,24 @@ function calculateTotals(transaction){
         precio.innerHTML += emojiWallet;
     }
 }
+
+// Corro toda la lógica declarada arriba
 getTransactions();
 
+MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+const transactionObserver = new MutationObserver(function(mutations, observer) {
+    getTransactions();
+});
+
+transactionObserver.observe(document, {
+  subtree: true,
+  attributes: true
+});
+
+
+
+
+// Lógica de la calculadora de impuestos
 
 let currentYear = new Date().getFullYear();
 let lastYear = currentYear - 1;
@@ -77,6 +86,7 @@ const totalByYear = (e) => {
 
 function checkForReload(pickedYear){
     const lastDate = document.querySelector(".wallet_history_table tbody > tr.wallet_table_row:nth-last-child(2) td[class*=date]").innerText;
+    // Obtengo el año de la última transacción visible
     const year = parseInt(lastDate.slice(-4));
     const refreshButton = document.querySelector('#load_more_button');
     const loadingIcon = document.querySelector('#wallet_history_loading');
@@ -118,7 +128,7 @@ function showCalculoHtml(pickedYear){
         }
     })
 
-    // Filtro para eliminar las refundeadas y las de años anteriores
+    // Filtro para no tomar en cuenta las refundeadas y las de años anteriores
     .filter(transaction => transaction.status === "valid" && transaction.date.includes(pickedYear))
 
     // Sumo el total de los montos originales 
@@ -191,15 +201,7 @@ const showDevolucionHtml = () => {
     const botonCalcular2 = document.querySelector('.calculo-secundario');
     botonCalcular2.addEventListener('click',totalByYear);
 }
+
 showDevolucionHtml();
 
 
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-const transactionObserver = new MutationObserver(function(mutations, observer) {
-    getTransactions();
-});
-
-transactionObserver.observe(document, {
-  subtree: true,
-  attributes: true
-});

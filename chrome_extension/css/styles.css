@@ -19,6 +19,10 @@
   color: lightgreen;
 }
 
+body.menu-enabled {
+  overflow-x: hidden;
+}
+
 body.menu-enabled .responsive_page_frame {
   -webkit-filter: blur(0.35em);
           filter: blur(0.35em);
@@ -250,7 +254,7 @@ body.menu-enabled .responsive_page_frame {
   padding: 10px 0;
   text-align: center;
   background: #4c6b22;
-  margin-bottom: 1em;
+  margin-bottom: 0;
 }
 
 .actualizacion-steamcito a {
@@ -375,6 +379,7 @@ body.menu-enabled .responsive_page_frame {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
+  overflow: auto;
 }
 
 .menu-steamcito .internal-menu .titulo {

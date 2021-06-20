@@ -49,6 +49,17 @@ function createMenus(){
                     </div>
 
                     <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
+                    
+                    <br>
+
+
+                    <div class="grupo-opciones">
+                        <h3> Accesos Directos </h3>
+                            <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuesto del 35%</a>
+                            <a href="https://store.steampowered.com/account/subscriptions/">Ver suscripciones activas</a>
+                    </div>
+
+
 
                 </div>
 

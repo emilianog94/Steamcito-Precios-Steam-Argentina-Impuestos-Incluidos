@@ -73,14 +73,12 @@ function showUpdate(){
         if(result.justUpdated == 1) {
             let header = document.querySelector('#global_header');
             let changelogUrl = 'https://steamcito.com.ar/changelog'
-            let funcionalidadesUrl = 'https://steamcito.com.ar/funcionalidades'
             let newVersion = chrome.runtime.getManifest().version;
 
             let updateAdvice = `
                 <div class="actualizacion-steamcito">
                     <p>${emojiMate} ¡Steamcito se actualizó correctamente a la versión ${newVersion}! 
                         <a href="${changelogUrl}" target="_blank">¿Qué hay de nuevo?</a>
-                        <a href="${funcionalidadesUrl}" target="_blank">¿Cómo funciona Steamcito?</a>
                     </p> 
                 </div>
             `;

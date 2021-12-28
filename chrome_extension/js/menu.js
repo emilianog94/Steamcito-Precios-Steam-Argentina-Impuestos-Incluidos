@@ -32,6 +32,18 @@ function createMenus(){
                             </div>
                             <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
                         </div>   
+
+                        <div class="opcion">
+                            <div>
+                                <label for="steamcito-mode">Modo</label>
+                                <select name="steamcito-mode" id="steamcito-mode">
+                                    <option value="normal">Normal</option>
+                                    <option value="invertido">Invertido</option>
+                                </select>
+                            </div>
+                            <small>Seleccioná "Invertido" si querés ver los precios sin impuestos por defecto.</small>
+                        </div>   
+
                     </div>
 
                     <div class="grupo-opciones">
@@ -40,11 +52,11 @@ function createMenus(){
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
                                 <select name="estilo-emoji" id="estilo-emoji">
-                                    <option value="unicode">Emojis Recomendados</option>
-                                    <option value="fallback">Emojis Retrocompatibles</option>
+                                    <option value="unicode">Normal</option>
+                                    <option value="fallback">Retrocompatible</option>
                                 </select>
                             </div>
-                            <small>Modificá esta opción solo si los emojis te aparecen como un rectángulo blanco ▯</small>
+                            <small>Seleccioná "Retrocompatible" si los emojis te cargan como un rectángulo blanco así: ▯</small>
                         </div>
                     </div>
 
@@ -55,7 +67,7 @@ function createMenus(){
 
                     <div class="grupo-opciones">
                         <h3> Accesos Directos </h3>
-                            <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuesto del 35%</a>
+                            <a href="https://store.steampowered.com/account/history/">Ver historial de compras + devolución de 35%</a>
                             <a href="https://store.steampowered.com/account/subscriptions/">Ver suscripciones activas</a>
                     </div>
 
@@ -89,8 +101,10 @@ function getReviewLink(){
 
 function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
+    localStorage.getItem('steamcito-mode') == 'normal' ? selectEmoji.value='normal' : selectEmoji.value='invertido';
     localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
+
 }
 
 function changeEmojiState(){
@@ -105,6 +119,10 @@ function changeProvinceTax(){
     localStorage.setItem('province-tax',this.value);
 }
 
+function changeMode(){
+    selectMode.value == 'normal' ? localStorage.setItem('steamcito-mode','normal') : localStorage.setItem('steamcito-mode','invertido');
+}
+
 function showMenu(e){
     menu.classList.add('enabled');
     document.body.classList.add('menu-enabled');
@@ -116,6 +134,19 @@ function hideMenu(e){
         menu.classList.remove('enabled');
         document.body.classList.remove('menu-enabled');
         document.removeEventListener('click',hideMenu);
+    }
+}
+
+function setMode(){
+    if(!localStorage.hasOwnProperty('steamcito-mode')){
+        localStorage.setItem('steamcito-mode','normal');
+        selectMode.value = "normal"; 
+    } else {
+        if(localStorage.getItem('steamcito-mode') == "normal"){
+            selectMode.value = "normal"; 
+        } else{
+            selectMode.value = "invertido";
+        }
     }
 }
 
@@ -160,11 +191,15 @@ nationalTax.addEventListener('input',changeNationalTax);
 let provinceTax = document.querySelector("#province-tax");
 provinceTax.addEventListener('input',changeProvinceTax);
 
+let selectMode = document.querySelector("#steamcito-mode");
+selectMode.addEventListener('input',changeMode)
+
 // Seteo el estado inicial de payment y emojis
 setInitialLocalStates();
 
 // Defino qué emojis se van a usar
 const emojis = setEmojis();
+const mode = setMode();
 const emojiMate = emojis[0];
 const emojiWallet = emojis[1];
 

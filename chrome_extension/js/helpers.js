@@ -24,6 +24,12 @@ function calcularImpuestos(initialPrice){
 }
 
 function getBalance(){
+
+    console.log(localStorage.getItem('steamcito-mode'));
+    if(localStorage.getItem('steamcito-mode') == "invertido") {
+        return 999999;
+    }
+
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
     if(walletBalanceContainer){
         walletBalanceContainer.innerHTML += emojiWallet;

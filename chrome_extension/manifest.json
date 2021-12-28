@@ -1,0 +1,78 @@
+ 
+ {
+    "name": "Steamcito: Steam con impuestos Argentina 2021",
+    "version": "1.10",
+    "description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
+	"manifest_version": 2,
+	"background": {
+		"scripts": ["js/background.js"],
+		"persistent": false
+	},
+
+	"web_accessible_resources": [
+		"emojis/*.woff",
+		"emojis/*.eot",
+		"emojis/*.ttf",
+		"emojis/*.png"
+	  ],
+
+	"icons": { 
+		"128": "icon128.png" 
+	},
+	"permissions":[
+		"storage"
+	],
+
+	"content_scripts": [
+		{ 
+			"matches": ["https://store.steampowered.com/*","https://steamcommunity.com/app*"],
+			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*","https://store.steampowered.com/digitalgiftcards*","https://store.steampowered.com/bundle/*"],
+			"run_at": "document_idle",
+			"js": ["js/menu.js","js/helpers.js","js/data.js","js/global_functions.js","js/trigger.js"],
+			"css": ["css/styles.css"]
+		},		 
+		{
+			"matches": ["https://store.steampowered.com/cart*"],
+			"run_at": "document_idle",
+			"js": ["js/cart_functions.js"]
+		},
+		{
+			"matches":["https://store.steampowered.com/steamaccount/addfunds*","https://store.steampowered.com/digitalgiftcards*"],
+			"runt_at":"document_idle",
+			"js": ["js/menu.js","js/helpers.js","js/data.js","js/addfunds_functions.js"],
+			"css": ["css/styles.css"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/checkout*"],
+			"run_at": "document_idle",
+			"js": ["js/checkout_functions.js"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/bundle/*"],
+			"run_at": "document_idle",
+			"js": ["js/menu.js","js/helpers.js","js/data.js","js/global_functions.js","js/bundle_functions.js"],
+			"css": ["css/styles.css"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/?*","https://store.steampowered.com/"],
+			"run_at": "document_idle",
+			"js": ["js/updates.js"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/checkout/approvetxn*"],
+			"run_at": "document_idle",
+			"js": ["js/microtransactions.js"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/account/subscriptions/*","https://store.steampowered.com/app/*"],
+			"run_at": "document_idle",
+			"js": ["js/subscriptions.js"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/account/history*"],
+			"run_at": "document_idle",
+			"js": ["js/history.js"]
+		}
+
+	]
+  }

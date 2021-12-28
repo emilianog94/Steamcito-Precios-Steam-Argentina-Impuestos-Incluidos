@@ -47,7 +47,7 @@ body.menu-enabled .responsive_page_frame {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-bottom: 15px;
-  font-weight: 700;
+  font-size: 13px;
 }
 
 .cart_area_body .estimated_total_extension > div.hide {

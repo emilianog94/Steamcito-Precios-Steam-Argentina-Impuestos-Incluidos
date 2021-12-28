@@ -36,7 +36,7 @@ function showCart(){
 
         <div class="total_mixed ${totalMixedDisplay}">
             <p>Total Final pagando con Steam Wallet + Tarjeta</p>
-            <span> <span class="green">${numberToString(walletBalance)} ${emojiWallet} </span> + &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
+            <span> <span class="green">${numberToString(walletBalance)} ${emojiWallet} </span> | &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
         </div>
 
     </div>`;

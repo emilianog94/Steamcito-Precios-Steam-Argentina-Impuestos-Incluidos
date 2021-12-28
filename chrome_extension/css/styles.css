@@ -136,6 +136,7 @@ body.menu-enabled .responsive_page_frame {
   min-width: -webkit-fit-content !important;
   min-width: -moz-fit-content !important;
   min-width: fit-content !important;
+  position: relative;
 }
 
 .curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices {

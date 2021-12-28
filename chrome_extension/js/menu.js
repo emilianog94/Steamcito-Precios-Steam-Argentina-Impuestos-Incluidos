@@ -156,7 +156,7 @@ function setEmojis(){
         if(OSversion.indexOf("NT 10.0") != -1){
             localStorage.setItem('steamcito-emoji','unicode');
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
+            return ["🧉","💲"];
         } else{
             localStorage.setItem('steamcito-emoji','compatibility');
             selectEmoji.value = "fallback";
@@ -166,7 +166,7 @@ function setEmojis(){
     else{
         if(localStorage.getItem('steamcito-emoji') == 'unicode'){
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
+            return ["🧉","💲"];
         }
         else{
             selectEmoji.value = "fallback";

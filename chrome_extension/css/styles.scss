@@ -139,6 +139,7 @@ body{
             .discount_block{
                 display:flex !important;
                 min-width:fit-content !important;
+                position: relative;
 
                 .discount_prices{
                     display:flex;

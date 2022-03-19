@@ -66,7 +66,7 @@
 		{
 			"matches": ["https://store.steampowered.com/account/subscriptions/*","https://store.steampowered.com/app/*"],
 			"run_at": "document_idle",
-			"js": ["js/subscriptions.js"]
+			"js": ["js/helpers.js","js/subscriptions.js"]
 		},
 		{
 			"matches": ["https://store.steampowered.com/account/history*"],

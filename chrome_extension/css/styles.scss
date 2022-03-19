@@ -141,6 +141,10 @@ body{
 
                 .discount_prices{
                     display:flex;
+
+                    > div{
+                        width: max-content;
+                    }
                 }
             }
         }

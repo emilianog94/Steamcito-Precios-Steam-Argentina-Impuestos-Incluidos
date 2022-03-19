@@ -36,10 +36,6 @@ function stringToNumber(number,positionArs = 5){
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;
-    console.log("el numero essssssssssss");
-    console.log(number);
-    console.log(number.innerText);
-
     if(numero){
         if( numero.indexOf(',') != -1  && numero.indexOf('.') != -1){
             if(numero.indexOf(',') < numero.indexOf('.')){

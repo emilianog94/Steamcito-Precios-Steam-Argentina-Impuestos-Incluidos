@@ -144,6 +144,12 @@ body.menu-enabled .responsive_page_frame {
   display: flex;
 }
 
+.curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices > div {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .curator #RecommendationsTable .recommendation .discount_block {
   width: 100%;
 }

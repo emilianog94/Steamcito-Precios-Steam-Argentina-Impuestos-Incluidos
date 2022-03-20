@@ -11,13 +11,15 @@ function getTotalTaxes(){
 
 function calcularImpuestos(initialPrice){
     let finalPrice = initialPrice;
-    standardTaxes.forEach(tax => {
-        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
-    })
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+        })
 
-    provinceTaxes.forEach(tax => {
-        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
-    })
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+        })
 
     return finalPrice.toFixed(2);
 

@@ -171,6 +171,10 @@ body.menu-enabled .responsive_page_frame {
   z-index: 100;
 }
 
+#search_result_container .col.search_price {
+  width: auto;
+}
+
 .promo_item_list .price span {
   display: block;
   text-align: right;

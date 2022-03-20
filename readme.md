@@ -9,7 +9,7 @@
 
 
 
-# Steamcito - La extensión que calcula automáticamente los impuestos de Steam Argentina (2021)
+# Steamcito - La extensión que calcula automáticamente los impuestos de Steam Argentina (2022)
 Steamcito es una extensión para todos los navegadores que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con todos los impuestos incluidos.
 
 [Ver vídeos e imágenes de todas las funcionalidades en Steamcito.com.ar](https://www.steamcito.com.ar)
@@ -31,12 +31,11 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 
 ## Dispositivos Compatibles
 - Compatible en Windows, Linux y Mac 
-- Próximamente en dispositivos Android
 
 ***
 
-## Instrucciones de Instalación
-1. [Instalá Steamcito en tu navegador](https://www.steamcito.com.ar)
+## Instrucciones de instalación y uso
+1. Instalá Steamcito [en tu navegador favorito](https://www.steamcito.com.ar)
 2. ¡Listo! Ya podés entrar a la tienda de Steam desde tu navegador y Steamcito estará funcionando.
 3. Opcionalmente podés personalizar los impuestos y otras opciones desde el mate que se encuentra arriba a la derecha en la tienda de Steam
 
@@ -50,15 +49,24 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 ***
 
 ## ¿Por qué usar Steamcito?
-- No tenés que sumar los impuestos de forma manual con la calculadora(representa un ahorro aproximado de 8 segundos por cada producto)
-- Si usás tarjetas prepagas, no necesitás hacer cálculos para saber si tenés que cargarle más saldo para comprar un juego.
-- Si tenés saldo en la Steam Wallet, te calcula automáticamente las dos opciones de compra disponibles: todo tarjeta y parte saldo/parte tarjeta.
+- Siempre vas a ver el precio final de todos los productos de Steam
+- Es compatible con todas las vistas de la tienda de Steam
+- No tenés que sumar los impuestos de forma manual con la calculadora (representa un ahorro aproximado de 6-8 segundos por cada producto que ves)
+- Si usás tarjetas prepagas no necesitás hacer cálculos para saber si tenés que cargarle más saldo para comprar un juego.
+- Si tenés saldo en la Steam Wallet te calcula automáticamente las dos opciones de compra disponibles: todo con tarjeta y parte saldo/parte tarjeta.
 - Algunos entes emisores de tarjetas tienen diferencias en el cálculo del porcentaje de impuestos. En Steamcito podés personalizar tus impuestos para calcular siempre de forma correcta.
+- Tiene un matecito 🧉
+
+***
+
+
+## ¿Tenés planeado hacer algo similar para Origin, Microsoft, Epic Store, Playstation Store, etc?
+¡Ya existe una muy buena extensión para otras tiendas! <a href="https://github.com/lucasromerodb/impuestito">Te recomiendo usar Impuestito</a> que aún está en desarrollo y hace los cálculos de impuestos para la mayoría de las tiendas 😀
 
 ***
 
 ## Reporte de Bugs y Sugerencias
-¿Tenés una buena idea para Steamcito? ¿Encontraste un bug o tenés un problema para usar la extensión?
+¿Encontraste un bug o tenés un problema para usar la extensión?
 
 [Creá un issue](https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues)
 
@@ -76,9 +84,7 @@ Conocé todos los detalles de las últimas actualizaciones de Steamcito
 ***
 
 ## Roadmap
-Conocé todo lo que se encuentra planeado y las ideas que existen actualmente para mejorar Steamcito
-
-[Visitar tablero de Trello](https://trello.com/b/iv56hIIT/steamcito-roadmap-p%C3%BAblico)
+El roadmap se encuentra cerrado ya que de momento no van a agregarse más funcionalidades! Actualmente realizo tareas de mantenimiento para resolver ocasionales bugs que surgen cuando Steam realiza cambios importantes en la lógica de su storefront.
 
 
 ***

@@ -1,4 +1,3 @@
-
 // Corro función por primera vez
 getPrices();
 

@@ -1,20 +1,21 @@
  
  {
     "name": "Steamcito: Steam con impuestos Argentina 2022",
-    "version": "1.20",
+    "version": "1.21",
     "description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"background": {
-		"scripts": ["js/background.js"],
-		"persistent": false
+		"service_worker": "js/background.js"
 	},
-
-	"web_accessible_resources": [
-		"emojis/*.woff",
-		"emojis/*.eot",
-		"emojis/*.ttf",
-		"emojis/*.png"
-	  ],
+	"web_accessible_resources": [{
+		"resources": [
+			"emojis/*.woff",
+			"emojis/*.eot",
+			"emojis/*.ttf",
+			"emojis/*.png"
+		],
+		"matches": ["<all_urls>"]
+	}],
 
 	"icons": { 
 		"128": "icon128.png" 
@@ -28,7 +29,7 @@
 			"matches": ["https://store.steampowered.com/*","https://steamcommunity.com/app*"],
 			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*","https://store.steampowered.com/digitalgiftcards*","https://store.steampowered.com/bundle/*"],
 			"run_at": "document_idle",
-			"js": ["js/menu.js","js/helpers.js","js/data.js","js/global_functions.js","js/trigger.js"],
+			"js": ["js/helpers.js","js/data.js","js/menu.js","js/global_functions.js","js/trigger.js"],
 			"css": ["css/styles.css"]
 		},		 
 		{
@@ -66,7 +67,7 @@
 		{
 			"matches": ["https://store.steampowered.com/account/subscriptions/*","https://store.steampowered.com/app/*"],
 			"run_at": "document_idle",
-			"js": ["js/subscriptions.js"]
+			"js": ["js/helpers.js","js/subscriptions.js"]
 		},
 		{
 			"matches": ["https://store.steampowered.com/account/history*"],

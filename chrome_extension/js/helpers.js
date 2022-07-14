@@ -11,13 +11,15 @@ function getTotalTaxes(){
 
 function calcularImpuestos(initialPrice){
     let finalPrice = initialPrice;
-    standardTaxes.forEach(tax => {
-        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
-    })
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+        })
 
-    provinceTaxes.forEach(tax => {
-        finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
-    })
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat( (initialPrice * tax.value/100).toFixed(2));
+        })
 
     return finalPrice.toFixed(2);
 
@@ -36,17 +38,22 @@ function stringToNumber(number,positionArs = 5){
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;
-    if( numero.indexOf(',') != -1  && numero.indexOf('.') != -1){
-        if(numero.indexOf(',') < numero.indexOf('.')){
-            const numeroArreglado = numero.replace(',','')
+    if(numero){
+        if( numero.indexOf(',') != -1  && numero.indexOf('.') != -1){
+            if(numero.indexOf(',') < numero.indexOf('.')){
+                const numeroArreglado = numero.replace(',','')
+                return parseFloat(numeroArreglado.slice(positionArs));
+            }
+        }
+    }
+
+    if(numero){
+        if( numero.indexOf(',') == -1){
+            const numeroArreglado = numero;
             return parseFloat(numeroArreglado.slice(positionArs));
         }
     }
 
-    if( numero.indexOf(',') == -1){
-        const numeroArreglado = numero;
-        return parseFloat(numeroArreglado.slice(positionArs));
-    }
 
     if(positionArs != "none"){
         return parseFloat(number.innerText.slice(positionArs).replace(".","").replace(",","."));

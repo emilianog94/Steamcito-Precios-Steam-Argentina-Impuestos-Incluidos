@@ -3,7 +3,7 @@ const attributeName = "data-original-price";
 let standardTaxes = [
     {
         name : "Retención del Impuesto a las ganancias - RG AFIP Nº 4815/2020",
-        value : 35,
+        value : 45,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/235038/20200916"
     },
     {

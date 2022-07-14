@@ -141,6 +141,10 @@ body{
 
                 .discount_prices{
                     display:flex;
+
+                    > div{
+                        width: max-content;
+                    }
                 }
             }
         }
@@ -175,6 +179,15 @@ body{
         }
     }
 }
+
+// URLS /SEARCH/
+
+#search_result_container{
+    .col.search_price{
+        width: auto;
+    }
+}
+
 
 
 // URLS /SALE/

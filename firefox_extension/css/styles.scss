@@ -1,0 +1,644 @@
+@font-face {
+    font-family: 'steamcito-emojis';
+    src: url('moz-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot');
+    src: url('moz-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot?#iefix') format('embedded-opentype'),
+         url('moz-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.woff') format('woff'),
+         url('moz-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.ttf') format('truetype');
+         font-weight: normal;
+         font-style: normal;
+}
+
+.emojis{
+    font-family:'steamcito-emojis';
+    text-transform:uppercase;
+
+    &.mate{
+        color:red;
+    }
+
+    &.saldo{
+        color:lightgreen;
+    }
+}
+
+body{
+    &.menu-enabled{
+        overflow-x: hidden;
+
+        .responsive_page_frame{
+            filter: blur(0.35em);
+            transition: all .5s ease;
+        }
+    }
+}
+
+// CART 
+.cart_area_body{
+    .cart_item{
+        min-height:90px;
+    }
+
+    #cart_estimated_total_text{
+        opacity:0;
+        height:0;
+    }
+
+    .estimated_total_extension{
+        > div{
+            display:flex;
+            justify-content:space-between;
+            margin-bottom:15px;
+            font-weight:700;
+
+            &.hide{
+                display:none;
+            }
+        }
+    }
+
+    .tax-container{
+        padding:16px;
+        background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
+        color: #ffffff;
+        margin: 15px 0px 15px 0px;
+
+        a[href=undefined]{
+            display:none;
+        }
+
+        h3{
+            margin-bottom:15px;
+        }
+
+        span.final-total{
+            font-size: 1.4em;
+            padding-top:12px;
+            display:block;
+            text-align:right;
+            border-top:1px solid #fff;
+        }
+
+        #tax-change{
+            display: flex;
+            width: fit-content;
+            margin-left: auto;
+            margin-top: 1.3em;
+            padding: 5px;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            cursor: pointer;    
+            transition:all 0.25s ease;
+            
+            &:hover{
+                background-color:#fff;
+                color: #af8029;
+            }
+        }
+
+        ul{
+            li{
+                list-style-type:none;
+                display:flex;
+                margin-bottom:10px;
+
+                .value{
+                    margin-left:auto;
+                    font-weight:700;
+                }
+
+                a{
+                    margin-left:10px;
+
+                    &:hover{
+                        color:#263645;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// TABS
+.tab_content,.tab_content_ctn{
+    .tab_item{
+        .tab_item_discount{
+            width:auto;
+
+            .discount_prices{
+                margin-left:12px;
+            }
+        }
+    }
+}
+
+// CURADORES DE CONTENIDO Y PAGINA DE PUBLISHER
+.curator{
+    #RecommendationsRows{
+        .store_capsule.price_inline{
+            .discount_block{
+                display:flex !important;
+                min-width:fit-content !important;
+
+                .discount_prices{
+                    display:flex;
+
+                    > div{
+                        width: max-content;
+                    }
+                }
+            }
+        }
+    }
+
+    #RecommendationsTable{
+        .recommendation{
+            .discount_block{
+                width:100%;
+            }
+        }
+    }
+
+}   
+
+
+.contenthub_specials_ctn{
+    .discount_prices{
+        display:flex !important;
+        flex-direction:column;
+    }
+}
+
+// BUNDLES (COMPLETE SET)
+.bundle_package_item,.complete_the_set{
+    .tab_item{
+        .tab_item_discount{
+            min-width:120px;
+            width:auto;
+            position:relative;
+            z-index:100;
+        }
+    }
+}
+
+// URLS /SEARCH/
+
+#search_result_container{
+    .col.search_price{
+        width: auto;
+    }
+}
+
+
+
+// URLS /SALE/
+.promo_item_list{
+    .price{
+        span{
+
+            &.was{
+                margin-bottom:2px;
+            }
+
+            display:block;
+            text-align:right;
+        }
+    }
+}
+
+.franchise_game.double{
+    .discount_block{
+        .discount_pct{
+            width:100%;
+            text-align:center;
+        }
+        .discount_prices{
+            display: flex;
+            flex-direction: column;
+            text-align: center;           
+        }
+    }
+}
+
+[class^="partnereventshared"][style*="grid-template-columns: repeat(4"] span[class^="salepreviewwidgets_CapsulePlatform"]{
+    display:none;
+}
+
+
+// URLS /SUB/
+
+.game_description_column,.sale_page_package_contents{
+    .tab_item .tab_item_discount{
+        min-width: 120px;
+        width: auto;
+        position: relative;
+        z-index: 100;
+    }
+}
+
+// Fix line-height en bundles
+.discount_block.game_purchase_discount.no_discount .discount_final_price.your_price{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+// GIFT CARDS (/digitalgiftcards/selectgiftcard)
+
+.giftcard_selection{
+    .giftcard_corner{
+        width:200px;
+    }
+}
+
+// Checkout (Last Step)
+
+#review_tab{
+    .payment_method_review_row{
+
+        .new-amount{
+            position:absolute;
+            right:0;
+        }
+
+        .new-amount + .payment_method_total{
+            display:none !important;
+        }
+
+        .payment_method_review_method_label{
+            margin-right:1em;
+        }
+
+        .payment_method_total{
+            margin-right:0 !important;
+            right:0 !important;
+        }
+    }
+
+    .cart_totals_area{
+        .new-amount{
+            position:absolute;
+            right:0;
+            color:#c6d4df;
+        }
+
+        .new-amount + .price{
+            display:none;
+        }
+    }
+}
+
+.transition-effect{
+    transition:all 0.25s ease;
+}
+
+// Update Advice
+
+.actualizacion-steamcito{
+    color:#fff;
+    font-family:'Motiva Sans',sans-serif;
+    padding:10px 0;
+    text-align:center;
+    background:#4c6b22;
+    margin-bottom:0;
+
+    a{
+        font-weight:700;
+        text-decoration:underline;
+        margin-right:0.5em;
+    }
+}
+
+
+// Community
+.apphub_StoreAppData{
+    .apphub_StorePrice{
+        display:flex;
+        width:auto;
+
+        .discount_pct,.discount_prices{
+            position:static;
+        }
+
+        .discount_prices{
+            padding:0 7px;
+        }
+    }
+}
+
+
+// Subscriptions
+
+.suscription-price{
+    cursor:pointer;
+}
+
+// Menu de Configuraciones
+
+#global_actions{
+    display:flex;
+
+    .ico-steamcito{
+        margin-top:7px;
+        margin-right:7px;
+
+        > img{
+            width:20px;
+            cursor:pointer;
+            transition:all 0.25s ease;
+
+            &:hover{
+                transform:rotate(20deg) ;
+            }
+        }
+    }
+}
+
+#checkout_steam_logo{
+    display:flex;
+    align-items:center;
+
+    .ico-steamcito{
+        img{
+            width:20px;
+            cursor:pointer;
+            transition:all 0.25s ease;
+
+            &:hover{
+                transform:rotate(20deg);
+            }            
+        }
+    }
+
+}
+
+.menu-steamcito{
+    position:fixed;
+    right:-30%;
+    top:0;
+    height:100vh;
+    width:30%;
+    background-color:#171a21;
+    -webkit-box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);
+    box-shadow: -12px -1px 22px -8px rgba(0,0,0,0.75);    
+    z-index:100000;
+    transition:all 0.25s ease;
+    padding:15px 0;
+
+    @media(min-width:1440px){
+        width:20%;
+    }
+
+    a{
+        display:block;
+        margin:1em 0;
+        cursor:pointer;
+        transition:all 0.25s ease;
+
+        &.refresher{
+            font-size: 1.3em;
+            padding: 0.5em 2em;
+            background-color: rgba( 62, 126, 167, 0.8);
+            border-radius: 1em;
+            text-decoration: none;
+            text-align: center;
+
+            &:hover{
+                background-color: rgba( 62, 126, 167, 0.5);
+                color: #fff;
+            }
+        }
+    }
+
+    .internal-menu{
+        padding:0 15px 15px 15px;
+        display:flex;
+        flex-direction:column;
+        height:100%;
+        overflow: auto;
+
+        .titulo{
+            font-weight:700;
+            font-size:1.2em;
+            text-transform: uppercase;
+            color: rgb(102, 192, 244);
+            margin-bottom: 1.5em;
+        }
+
+
+        .opciones-avanzadas-steamcito, .ayuda-steamcito{
+            
+            .grupo-opciones{
+                margin: 2em 0;
+                border-bottom: 1px solid #c6d4df;
+
+                &:first-child{
+                    margin-top: 0 !important;
+                }
+
+                &:last-child{
+                    border-bottom: 0;
+                }
+
+                h3{
+                    margin-bottom: 1em;
+                    color: rgb(102, 192, 244);
+                    font-size: 1.5em;
+                    text-transform: uppercase;
+                }
+
+                .opcion{
+                    margin-bottom:2em;
+    
+                    small{
+                        margin-top: .5em;
+                        display: block;
+                        font-size: 1em;
+                        opacity: .5;
+                    }
+    
+                    > div{
+                        display:flex;
+                        flex-direction:row;
+                        justify-content: flex-start;
+                        align-items:center;
+    
+                        label{
+                            color:#c6d4df;
+                        }
+    
+                        select{
+                            margin-left: 1em;
+                            padding:5px;
+                            border-radius:5px;
+                            border: 0;
+                            width:50%;
+                            cursor:pointer;
+                        }
+    
+                        input{
+                            width: 3em;
+                            margin-left: 1em;
+                            padding:5px;
+                            border-radius: 0;
+                            border: 0;
+                            cursor:pointer;                        
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+        .ayuda-steamcito{
+            margin-top:auto;
+            margin-bottom:30px;
+        }
+    }
+
+    &.enabled{
+        right:0;
+    }
+}
+
+
+// Account History
+
+.aviso-devolucion{
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
+    padding: 2em;
+    margin-bottom: 2em;
+    font-family:'Motiva Sans',sans-serif;
+    color: #fff;
+
+    .left{
+        flex: 5;
+
+        h3{
+            margin-bottom: .5em;
+        }
+
+        a{
+            display: inline-block;
+            margin-top: 1em;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            padding: .5em 1em;
+            text-align: center;
+            transition: all .25s ease;
+
+            &:hover{
+                background-color: #fff;
+                color: rgb(204, 139, 12);
+            }
+
+        }
+
+        p.monto{
+            margin-top: .25em;
+            margin-right: 2.5em;
+        }
+
+        .botones{
+            margin-top: 2em;
+            display: flex; 
+            justify-content: flex-start;
+            align-items: center;
+
+            span{
+                cursor: pointer;
+
+                &[data-year="2020"]{
+                    display: none;
+                }
+
+                &.calculo-primario{
+                    border: 1px solid #fff;
+                    border-radius: 5px;
+                    padding: .5em 1em;
+                    text-align: center;
+                    transition: all .25s ease;
+    
+                    &:hover{
+                        background-color: #fff;
+                        color: rgb(204, 139, 12);
+                    }
+                }
+
+                &.calculo-secundario{
+                    margin-left: 1em;
+                    border-bottom: 1px solid #fff;
+                }
+            }
+        }
+    }
+
+    .right{
+        flex: 3;
+        transition: all .25s ease;
+
+        h4{
+            border-bottom: 1px solid #fff;
+            padding-bottom: .5em;
+        }
+
+        .results-table{
+            margin-top: 1em;
+
+            > div{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: .75em;
+
+                &:last-child{
+                    margin-top: 2em;
+                }
+
+                .bold{
+                    font-weight: 700;
+                }
+            }
+        }
+
+        .loader-icon{
+            display: none;
+            text-align: center;
+
+            img{
+                margin-bottom: 1em;
+            }
+        }
+
+        &.loading .loader-icon{
+            display: block;
+        }
+    }
+}
+
+.wallet_table_row{
+
+    &.wallet-purchase{
+
+        .wht_total{
+            display: flex;
+            align-items: center;
+
+            > div{
+                padding: 10px 0;
+            }
+
+            .wth_payment{
+                display: none;
+            }
+        }        
+    }
+
+    .wht_total{
+        text-align: left;
+    }
+
+}

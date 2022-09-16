@@ -151,7 +151,11 @@ function stringToNumber2(number,positionArs = 5){
 }
 
 function numberToString(number){
-    return `ARS$ ${number}`.replace('.',',');
+    var parts = number.toString().split(".");
+    parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+    return 'ARS$ '+ parts.join(",");
+
+    // return `ARS$ ${number}`.replace('.',',');
 }
 
 function numberToStringSub(number){

@@ -49,7 +49,7 @@ function setTransactionType(transactions){
 function calculateTotals(transaction){
     if(transaction.classList.contains('cc-purchase')){
         const precio = transaction.querySelector('.wht_total');
-        precio.innerText = argentinizar(calcularImpuestos(stringToNumber(precio)));
+        precio.innerHTML = argentinizar(calcularImpuestos(stringToNumber(precio)));
     }
 
     else if(transaction.classList.contains('wallet-purchase')){

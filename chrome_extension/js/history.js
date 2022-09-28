@@ -135,7 +135,7 @@ function showCalculoHtml(pickedYear){
     .reduce( (acumulado,item) => acumulado + item.originalValue , 0);
 
     let totalImpuestos =  (total * totalTaxes) - total;
-    let totalDevolucion = total * 0.35;
+    let totalDevolucion = total * 0.45;
     let totalFinal = total + totalImpuestos;
     let rightContainer = document.querySelector('.right');
     let leftContainer = document.querySelector('.left');
@@ -144,19 +144,19 @@ function showCalculoHtml(pickedYear){
         <h4>Pagos del ${pickedYear} con tarjetas de débito/crédito</h4>
         <div class="results-table">
             <div>
-                <p>Total pagado a Steam</p>
+                <p>Plata que llegó a Steam</p>
                 <span>${numberToString(total.toFixed(2))}</span>
             </div> 
             <div>
-                <p>Total de impuestos pagados al Estado</p>
+                <p>Plata que llegó al Estado Nacional</p>
                 <span>${numberToString(totalImpuestos.toFixed(2))}</span>
             </div>
             <div>
-                <p>Total final</p>
+                <p>Total que pagaste</p>
                 <span>${numberToString(totalFinal.toFixed(2))}</span>
             </div>                
             <div>
-                <p>Devolución del 35% correspondiente</p>
+                <p>Devolución del 45% correspondiente</p>
                 <span class="bold">${numberToString(totalDevolucion.toFixed(2))}</span>
             </div>
         </div>
@@ -169,7 +169,7 @@ function showCalculoHtml(pickedYear){
     Este cálculo se realizó teniendo en cuenta todos los pagos con tarjeta de crédito y débito del ${parseInt(pickedYear)}. Se excluyeron todos los reembolsos y compras con saldo Steam Wallet. <br><br>
     En el año ${parseInt(pickedYear) + 1} te corresponde una devolución de <b>${numberToString(totalDevolucion.toFixed(2))}</b>.
     </p>
-    <a href="https://steamcito.com.ar/devolucion-35-impuesto-ganancias" target="_blank">¿Cómo solicitar la devolución?</a>
+    <a href="https://steamcito.com.ar/devolucion-35-impuesto-ganancias" target="_blank">Guía de Devolución en Steamcito.com.ar</a>
     `
 }
 
@@ -178,10 +178,10 @@ const showDevolucionHtml = () => {
     const html = 
     `<div class="aviso-devolucion">
         <div class="left">
-            <p>En ${currentYear + 1} AFIP te devolverá el 35% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año ${currentYear}. <b>(RG AFIP Nº 4815/2020)</b></p>
+            <p>En ${currentYear + 1} podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año ${currentYear}. <b>(RG AFIP Nº 5232/2022)</b></p>
             <div class="botones">
                 <span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN DE COMPRAS DEL ${currentYear}</span>
-                <span class="calculo-secundario" data-year="${lastYear}">CALCULAR DEVOLUCIÓN ${lastYear}</span>
+                <span class="calculo-secundario" data-year="${lastYear}">CALCULAR DEVOLUCIÓN DEL ${lastYear}</span>
             </div>
         </div>
         <div class="right">

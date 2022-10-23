@@ -372,6 +372,7 @@ body.menu-enabled .responsive_page_frame {
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div label, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div label {
   color: #c6d4df;
+  min-width: 125px;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div select, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div select {
   background-color: rgba(0, 0, 0, 0.4);

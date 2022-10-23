@@ -46,6 +46,9 @@ body.menu-enabled .responsive_page_frame {
   color: #ffffff;
   margin: 0px 0px 15px 0px;
 }
+.cart_area_body .tax-container .asterisk {
+  opacity: 0.75;
+}
 .cart_area_body .tax-container a[href=undefined] {
   display: none;
 }
@@ -56,13 +59,20 @@ body.menu-enabled .responsive_page_frame {
 }
 .cart_area_body .tax-container h3 {
   margin-bottom: 15px;
+  font-size: 19px;
+}
+.cart_area_body .tax-container .taxes-separator {
+  width: 100%;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .cart_area_body .tax-container span.final-total {
   font-size: 1.4em;
-  padding-top: 12px;
+  padding-top: 0;
   display: block;
   text-align: right;
-  border-top: 1px solid #fff;
 }
 .cart_area_body .tax-container #tax-change {
   display: flex;
@@ -84,11 +94,13 @@ body.menu-enabled .responsive_page_frame {
 .cart_area_body .tax-container ul li {
   list-style-type: none;
   display: flex;
+  align-items: center;
   margin-bottom: 10px;
 }
 .cart_area_body .tax-container ul li .value {
   margin-left: auto;
   font-weight: 700;
+  font-size: 0.8rem !important;
 }
 .cart_area_body .tax-container ul li a {
   margin-left: 0;
@@ -270,7 +282,7 @@ body.menu-enabled .responsive_page_frame {
   top: 0;
   height: 100vh;
   width: 30%;
-  background-color: #171a21;
+  background-color: #16202d;
   box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
   z-index: 100000;
   transition: all 0.25s ease;
@@ -288,10 +300,8 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.25s ease;
 }
 .menu-steamcito a.refresher {
-  font-size: 1.3em;
-  padding: 0.5em 2em;
-  background-color: rgba(62, 126, 167, 0.8);
-  border-radius: 1em;
+  font-size: 1rem;
+  padding: 0.5rem;
   text-decoration: none;
   text-align: center;
 }
@@ -306,16 +316,32 @@ body.menu-enabled .responsive_page_frame {
   height: 100%;
   overflow: auto;
 }
+.menu-steamcito .internal-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.menu-steamcito .internal-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.menu-steamcito .internal-menu::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.menu-steamcito .internal-menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .menu-steamcito .internal-menu .titulo {
   font-weight: 700;
   font-size: 1.2em;
-  text-transform: uppercase;
   color: rgb(102, 192, 244);
   margin-bottom: 1.5em;
 }
+.menu-steamcito .internal-menu .titulo .titulo__version {
+  font-size: 0.85em;
+  font-weight: 400;
+  opacity: 0.75;
+}
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones {
   margin: 2em 0;
-  border-bottom: 1px solid #c6d4df;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones:first-child, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones:first-child {
   margin-top: 0 !important;
@@ -326,7 +352,7 @@ body.menu-enabled .responsive_page_frame {
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones h3, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones h3 {
   margin-bottom: 1em;
   color: rgb(102, 192, 244);
-  font-size: 1.5em;
+  font-size: 1.3em;
   text-transform: uppercase;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion {
@@ -348,20 +374,32 @@ body.menu-enabled .responsive_page_frame {
   color: #c6d4df;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div select, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div select {
-  margin-left: 1em;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 3px;
+  box-shadow: 1px 1px 0px #45556c;
+  margin-left: 1rem;
   padding: 5px;
-  border-radius: 5px;
-  border: 0;
+  margin-top: 3px;
+  font-size: 16px;
+  line-height: 21px;
   width: 50%;
-  cursor: pointer;
+  font-size: 0.9rem;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input, .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div input {
-  width: 3em;
-  margin-left: 1em;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 3px;
+  box-shadow: 1px 1px 0px #45556c;
+  margin-left: 1rem;
   padding: 5px;
-  border-radius: 0;
-  border: 0;
-  cursor: pointer;
+  margin-top: 3px;
+  font-size: 16px;
+  line-height: 21px;
+  width: 40px;
+  font-size: 0.9rem;
 }
 .menu-steamcito .internal-menu .ayuda-steamcito {
   margin-top: auto;

@@ -11,7 +11,7 @@ function createMenus(){
     let steamcitoMenu = `
     <div class="menu-steamcito">
             <div class="internal-menu">
-                <span class="titulo">Configuración de Steamcito v${chrome.runtime.getManifest().version}</span>
+                <span class="titulo">CONFIGURACIÓN DE STEAMCITO <br><span class="titulo__version"> Versión ${chrome.runtime.getManifest().version}</span></span>
 
                 <div class="opciones-avanzadas-steamcito">
 
@@ -40,35 +40,28 @@ function createMenus(){
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
                                 <select name="estilo-emoji" id="estilo-emoji">
-                                    <option value="unicode">Emojis Recomendados</option>
-                                    <option value="fallback">Emojis Retrocompatibles</option>
+                                    <option value="unicode">Recomendado</option>
+                                    <option value="fallback">Retrocompatibles</option>
                                 </select>
                             </div>
                             <small>Modificá esta opción solo si los emojis te aparecen como un rectángulo blanco ▯</small>
                         </div>
                     </div>
 
-                    <a class="refresher" onClick="window.location.reload();">Aplicar cambios</a> 
+                    <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
                     
                     <br>
-
-
-                    <div class="grupo-opciones">
-                        <h3> Accesos Directos </h3>
-                            <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuesto del 45%</a>
-                            <a href="https://store.steampowered.com/account/subscriptions/">Ver suscripciones activas</a>
-                    </div>
-
 
 
                 </div>
 
                 <div class="ayuda-steamcito"> 
                     <div class="grupo-opciones">
-                        <h3>Ayuda y enlaces útiles</h3>
-                        <a href="https://steamcito.com.ar" target="_blank">Sitio Web de Steamcito</a>
-                        <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones</a>
-                        <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug / Sugerir una funcionalidad </a>
+                        <h3>Enlaces Útiles</h3>
+                        <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuestos anual 🧾</a>
+                        <a href="https://steamcito.com.ar" target="_blank">Sitio Web de Steamcito 🧉</a>
+                        <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones 📄</a>
+                        <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug 🐛</a>
                         <a href="https://cafecito.app/steamcito" target="_blank">Donar a Steamcito ❤️</a>
                         ${getReviewLink()} 
                     </div>
@@ -82,7 +75,7 @@ function createMenus(){
 }
 
 function getReviewLink(){
-    chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">¡Valorá Steamcito en la Chrome Store!</a>`;
+    chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">Valorá Steamcito en Chrome Store ⭐</a> `;
     firefoxLink = `<a href="https://addons.mozilla.org/es/firefox/addon/steamcito-steam-impuestos-arg/" target="_blank">¡Valorá Steamcito en Firefox Addons!</a>`;
     return navigator.userAgent.indexOf('Firefox') != -1 ? firefoxLink : chromeLink;
 }

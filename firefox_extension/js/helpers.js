@@ -1,3 +1,87 @@
+const attributeName = "data-original-price";
+
+let standardTaxes = [
+    {
+        name : "Percepción de Ganancias y Bienes Personales - RG AFIP Nº 5232/2022",
+        value : 45,
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
+    },
+    {
+        name : "Impuesto PAIS - RG AFIP N° 4659/2020",
+        value : 30,
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
+    }
+];
+
+let provinceTaxes = [
+    {
+        name: "Cargá los impuestos de tu provincia para que el precio sea más exacto.<br><a href='https://steamcito.com.ar/impuestos-hoy/#impuestos-provinciales' target='_blank'>Ver listado de impuestos provinciales en Steamcito</a>",
+        value: 0  
+    }
+]
+
+function setProvinceTax(){
+    if(localStorage.hasOwnProperty('province-tax')){
+        let taxValue = localStorage.getItem('province-tax');
+
+        if(taxValue == 0){
+            return [{
+                name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
+                value: taxValue            
+            }]
+        }
+
+        return [{
+            name: "Impuestos Provinciales personalizados por vos",
+            value: taxValue            
+        }]
+    }
+
+    return provinceTaxes;
+}
+
+function setNationalTax(){
+
+    if(localStorage.hasOwnProperty('national-tax')){
+        let taxValue = localStorage.getItem('national-tax');
+        
+        if(taxValue == 0) return standardTaxes;
+
+        standardTaxes = [{
+            name: "Impuestos Nacionales personalizados por vos",
+            value: taxValue
+        }];
+    }
+
+    // Si no existen custom taxes nacionales en localStorage, agarrar taxes oficiales
+    return standardTaxes;
+}
+
+let taxes = setNationalTax();
+provinceTaxes = setProvinceTax();
+
+const priceContainers = `
+        .discount_original_price:not([${attributeName}]), 
+        .discount_final_price:not([${attributeName}]), 
+        .game_purchase_price:not([${attributeName}]), 
+        [class*=salepreviewwidgets_StoreSalePriceBox]:not([${attributeName}]), 
+        [class*=salepreviewwidgets_StoreOrignalPrice]:not([${attributeName}]), 
+        [class*=salepreviewwidgets_StoreOriginalPrice]:not([${attributeName}]), 
+        .search_price:not([${attributeName}]), 
+        .regular_price:not([${attributeName}]), 
+        .match_price:not([${attributeName}]), 
+        .cart_item .price:not([${attributeName}]),
+        .price.bundle_final_package_price:not([${attributeName}]),
+        .price.bundle_final_price_with_discount:not([${attributeName}]),
+        .bundle_savings:not([${attributeName}]),
+        .package_info_block_content .price:not([${attributeName}]),
+        #package_savings_bar .savings:not([${attributeName}]),
+        .promo_item_list .price span:not([${attributeName}]),
+        .apphub_StorePrice .price:not([${attributeName}]),
+        .item_def_price:not([${attributeName}])
+        `;
+
+
 function getTotalTaxes(){
     function reducer(total,num){
         return total+num;
@@ -67,7 +151,11 @@ function stringToNumber2(number,positionArs = 5){
 }
 
 function numberToString(number){
-    return `ARS$ ${number}`.replace('.',',');
+    if(number){
+        let parts = number.toString().split(".");
+        parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+        return 'ARS$ '+ parts.join(",");
+    }
 }
 
 function numberToStringSub(number){

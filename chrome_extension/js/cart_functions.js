@@ -46,9 +46,11 @@ function showCart(){
 function showTaxes(){
     let taxesContainer = 
     `<div class="tax-container">
-        <h3>Impuestos Nacionales</h3>
+        <h3>Impuestos Nacionales*</h3>
         <ul class="impuestos-nacionales"></ul>
 
+        <span class="rg5272-notice">*Si gastás más de 300 USD en el mes se te cobrará otro impuesto del 25%. RG AFIP Nº 5272/2022
+        </span>
 
         <br><br>
         <h3>Impuestos Provinciales</h3>
@@ -66,9 +68,9 @@ function showTaxes(){
     function showFullInfo(tax,type){
         let taxList = `
         <li>
-            <p>${tax.name}</p>
+            <p>${tax.name}</p>&nbsp;
             <a href="${tax.moreInfo}" target="_blank">
-                <span>(Ver más)</span>
+                <span>(Boletín Oficial)</span>
             </a>
             <p class="value">${tax.value}%</p>
         </li>

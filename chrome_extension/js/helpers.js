@@ -2,20 +2,20 @@ const attributeName = "data-original-price";
 
 let standardTaxes = [
     {
-        name : "Retención del Impuesto a las ganancias - RG AFIP Nº 4815/2020",
+        name : "Percepción de Ganancias y Bienes Personales - RG AFIP Nº 5232/2022",
         value : 45,
-        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/235038/20200916"
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
     },
     {
         name : "Impuesto PAIS - RG AFIP N° 4659/2020",
         value : 30,
-        moreInfo: "http://biblioteca.afip.gob.ar/dcp/REAG01004659_2020_01_06"
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
     }
 ];
 
 let provinceTaxes = [
     {
-        name: "No se seleccionaron impuestos provinciales. <a href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' target='_blank'>(Listado de impuestos provinciales)</a>",
+        name: "Cargá los impuestos de tu provincia para que el precio sea más exacto.<br><a href='https://steamcito.com.ar/impuestos-hoy/#impuestos-provinciales' target='_blank'>Ver listado de impuestos provinciales en Steamcito</a>",
         value: 0  
     }
 ]
@@ -32,7 +32,7 @@ function setProvinceTax(){
         }
 
         return [{
-            name: "Impuestos Provinciales personalizados por el usuario",
+            name: "Impuestos Provinciales personalizados por vos",
             value: taxValue            
         }]
     }
@@ -48,7 +48,7 @@ function setNationalTax(){
         if(taxValue == 0) return standardTaxes;
 
         standardTaxes = [{
-            name: "Impuestos Nacionales personalizados por el usuario",
+            name: "Impuestos Nacionales personalizados por vos",
             value: taxValue
         }];
     }

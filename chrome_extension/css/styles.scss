@@ -60,10 +60,16 @@ body{
         padding:16px;
         background: linear-gradient(90deg, #cc8b0c 5.43%, #7E4400 100%);
         color: #ffffff;
-        margin: 15px 0px 15px 0px;
+        margin: 0px 0px 15px 0px;
 
         a[href=undefined]{
             display:none;
+        }
+
+        .rg5272-notice{
+            display: block;
+            margin-bottom: .5rem;
+            opacity: .75;
         }
 
         h3{
@@ -107,10 +113,12 @@ body{
                 }
 
                 a{
-                    margin-left:10px;
+                    margin-left:0;
+                    transition: all .25s ease;
 
                     &:hover{
-                        color:#263645;
+                        opacity: .75;
+                        color: #fff;
                     }
                 }
             }

@@ -1,7 +1,7 @@
  
  {
     "name": "Steamcito: Steam con impuestos Argentina 2022",
-    "version": "1.21",
+    "version": "1.30",
     "description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
 	"manifest_version": 3,
 	"background": {
@@ -23,13 +23,12 @@
 	"permissions":[
 		"storage"
 	],
-
 	"content_scripts": [
 		{ 
 			"matches": ["https://store.steampowered.com/*","https://steamcommunity.com/app*"],
 			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*","https://store.steampowered.com/digitalgiftcards*","https://store.steampowered.com/bundle/*"],
 			"run_at": "document_idle",
-			"js": ["js/helpers.js","js/data.js","js/menu.js","js/global_functions.js","js/trigger.js"],
+			"js": ["js/helpers.js","js/menu.js","js/global_functions.js","js/trigger.js"],
 			"css": ["css/styles.css"]
 		},		 
 		{
@@ -39,8 +38,8 @@
 		},
 		{
 			"matches":["https://store.steampowered.com/steamaccount/addfunds*","https://store.steampowered.com/digitalgiftcards*"],
-			"runt_at":"document_idle",
-			"js": ["js/menu.js","js/helpers.js","js/data.js","js/addfunds_functions.js"],
+			"run_at":"document_idle",
+			"js": ["js/menu.js","js/helpers.js","js/addfunds_functions.js"],
 			"css": ["css/styles.css"]
 		},
 		{
@@ -51,7 +50,7 @@
 		{
 			"matches": ["https://store.steampowered.com/bundle/*"],
 			"run_at": "document_idle",
-			"js": ["js/menu.js","js/helpers.js","js/data.js","js/global_functions.js","js/bundle_functions.js"],
+			"js": ["js/menu.js","js/helpers.js","js/global_functions.js","js/bundle_functions.js"],
 			"css": ["css/styles.css"]
 		},
 		{
@@ -67,12 +66,12 @@
 		{
 			"matches": ["https://store.steampowered.com/account/subscriptions/*","https://store.steampowered.com/app/*"],
 			"run_at": "document_idle",
-			"js": ["js/helpers.js","js/subscriptions.js"]
+			"js": ["js/helpers.js","js/menu.js","js/global_functions.js","js/subscriptions.js"]
 		},
 		{
 			"matches": ["https://store.steampowered.com/account/history*"],
 			"run_at": "document_idle",
-			"js": ["js/history.js"]
+			"js": ["js/helpers.js","js/menu.js","js/global_functions.js","js/history.js"]
 		}
 
 	]

@@ -152,6 +152,10 @@ body.menu-enabled .responsive_page_frame {
   width: auto;
 }
 
+.search_result_row, .search_result_row:hover {
+  display: flex !important;
+}
+
 .promo_item_list .price span {
   display: block;
   text-align: right;

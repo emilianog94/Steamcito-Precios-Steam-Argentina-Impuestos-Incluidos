@@ -82,8 +82,6 @@ let lastYear = currentYear - 1;
 const lastDayNumber = new Date(currentYear , 3, 0).getDate();
 const lastDay =  new Date(currentYear , 3, 0).getTime(); // Último día para solicitar devolución
 const currentDay = new Date().getTime();
-console.log(lastDay);
-console.log(currentDay);
 
 const totalByYear = (e) => {
     const pickedYear = e.currentTarget.dataset.year;

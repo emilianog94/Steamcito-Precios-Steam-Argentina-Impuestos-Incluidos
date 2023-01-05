@@ -458,20 +458,16 @@ body.menu-enabled .responsive_page_frame {
 .aviso-devolucion .left .botones span[data-year="2020"] {
   display: none;
 }
-.aviso-devolucion .left .botones span.calculo-primario {
+.aviso-devolucion .left .botones span.calculo-primario, .aviso-devolucion .left .botones span.calculo-secundario {
   border: 1px solid #fff;
   border-radius: 5px;
   padding: 0.5em 1em;
   text-align: center;
   transition: all 0.25s ease;
 }
-.aviso-devolucion .left .botones span.calculo-primario:hover {
+.aviso-devolucion .left .botones span.calculo-primario:hover, .aviso-devolucion .left .botones span.calculo-secundario:hover {
   background-color: #fff;
   color: rgb(204, 139, 12);
-}
-.aviso-devolucion .left .botones span.calculo-secundario {
-  margin-left: 1em;
-  border-bottom: 1px solid #fff;
 }
 .aviso-devolucion .right {
   flex: 3;

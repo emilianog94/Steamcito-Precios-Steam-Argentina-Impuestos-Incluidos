@@ -622,7 +622,7 @@ body{
                     display: none;
                 }
 
-                &.calculo-primario{
+                &.calculo-primario, &.calculo-secundario{
                     border: 1px solid #fff;
                     border-radius: 5px;
                     padding: .5em 1em;
@@ -635,10 +635,10 @@ body{
                     }
                 }
 
-                &.calculo-secundario{
-                    margin-left: 1em;
-                    border-bottom: 1px solid #fff;
-                }
+                // &.calculo-secundario{
+                //     margin-left: 0;
+                //     border-bottom: 1px solid #fff;
+                // }
             }
         }
     }

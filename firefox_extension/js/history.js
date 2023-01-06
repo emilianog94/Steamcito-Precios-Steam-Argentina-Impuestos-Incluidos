@@ -1,3 +1,7 @@
+console.log("holi PROBANDO");
+
+
+
 function getTransactions(){
     // Agarro todas las transacciones que todavía no fueron procesadas por la función
     const transactions = document.querySelectorAll('.wallet_table_row:not(.processed)');
@@ -87,6 +91,7 @@ const totalByYear = (e) => {
     const pickedYear = e.currentTarget.dataset.year;
     checkForReload(pickedYear);
 }
+
 
 function checkForReload(pickedYear){
     const lastDate = document.querySelector(".wallet_history_table tbody > tr.wallet_table_row:nth-last-child(2) td[class*=date]").innerText;

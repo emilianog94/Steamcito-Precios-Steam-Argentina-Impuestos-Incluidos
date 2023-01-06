@@ -17,7 +17,6 @@ function convertTotals(paymentType, walletAmount = "", ccAmount = ""){
 
     totals.forEach(total => {
         let totalAmount = total.querySelector(".price");
-        console.log(totalAmount);
         totalAmount.dataset.originalPrice =  totalAmount.innerText;    
         if(paymentType == "cc") {
             let newAmount = argentinizar(calcularImpuestos(stringToNumber(totalAmount)));

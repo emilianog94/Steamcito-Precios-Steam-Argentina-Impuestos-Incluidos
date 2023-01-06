@@ -1,3 +1,7 @@
+console.log("holi PROBANDO");
+
+
+
 function getTransactions(){
     // Agarro todas las transacciones que todavía no fueron procesadas por la función
     const transactions = document.querySelectorAll('.wallet_table_row:not(.processed)');
@@ -79,10 +83,15 @@ transactionObserver.observe(document, {
 let currentYear = new Date().getFullYear();
 let lastYear = currentYear - 1;
 
+const lastDayNumber = new Date(currentYear , 3, 0).getDate();
+const lastDay =  new Date(currentYear , 3, 0).getTime(); // Último día para solicitar devolución
+const currentDay = new Date().getTime();
+
 const totalByYear = (e) => {
     const pickedYear = e.currentTarget.dataset.year;
     checkForReload(pickedYear);
 }
+
 
 function checkForReload(pickedYear){
     const lastDate = document.querySelector(".wallet_history_table tbody > tr.wallet_table_row:nth-last-child(2) td[class*=date]").innerText;
@@ -178,10 +187,23 @@ const showDevolucionHtml = () => {
     const html = 
     `<div class="aviso-devolucion">
         <div class="left">
-            <p>En ${currentYear + 1} podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito correspondientes al año ${currentYear}. <b>(RG AFIP Nº 5232/2022)</b></p>
+
+            <p>
+                ${currentDay > lastDay 
+                ? 
+                    `El ${currentYear + 1} podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de este año. <b>(RG AFIP Nº 5232/2022)</b> ` 
+                : 
+                   `Tenés tiempo hasta el ${lastDayNumber} de Marzo de ${currentYear} para solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
+                }
+
+            </p>
             <div class="botones">
-                <span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN DE COMPRAS DEL ${currentYear}</span>
-                <span class="calculo-secundario" data-year="${lastYear}">CALCULAR DEVOLUCIÓN DEL ${lastYear}</span>
+                ${currentDay > lastDay
+                ?
+                    `<span class="calculo-primario" data-year="${currentYear}">CALCULAR DEVOLUCIÓN DEL PERÍODO ${currentYear}</span>`
+                :
+                    `<span class="calculo-secundario" data-year="${lastYear}">CALCULAR DEVOLUCIÓN DEL PERÍODO ${lastYear}</span>`
+                }
             </div>
         </div>
         <div class="right">
@@ -196,10 +218,10 @@ const showDevolucionHtml = () => {
     mainDiv.insertAdjacentHTML('afterbegin',html);
 
     const botonCalcular = document.querySelector('.calculo-primario');
-    botonCalcular.addEventListener('click',totalByYear);
+    botonCalcular && botonCalcular.addEventListener('click',totalByYear);
 
     const botonCalcular2 = document.querySelector('.calculo-secundario');
-    botonCalcular2.addEventListener('click',totalByYear);
+    botonCalcular2 && botonCalcular2.addEventListener('click',totalByYear);
 }
 
 showDevolucionHtml();

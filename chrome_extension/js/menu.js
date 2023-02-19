@@ -36,6 +36,19 @@ function createMenus(){
 
                     <div class="grupo-opciones">
                         <h3> Opciones Visuales </h3>
+
+                        <div class="opcion">
+                            <div>
+                                <label for="">Preferencia de precios</label>
+                                <select name="" id="">
+                                    <option value="">Recomendado</option>
+                                    <option value="mate">Forzar precio con mate</option>
+                                    <option value="wallet">Forzar precio con saldo</option>
+                                </select>
+                            </div>
+                            <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
+                        </div>
+
                         <div class="opcion">
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
@@ -44,7 +57,7 @@ function createMenus(){
                                     <option value="fallback">Retrocompatibles</option>
                                 </select>
                             </div>
-                            <small>Modificá esta opción solo si los emojis te aparecen como un rectángulo blanco ▯</small>
+                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
                         </div>
                     </div>
 

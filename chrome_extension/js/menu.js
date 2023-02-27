@@ -39,8 +39,8 @@ function createMenus(){
 
                         <div class="opcion">
                             <div>
-                                <label for="">Preferencia de precios</label>
-                                <select name="" id="">
+                                <label for="modo-manual">Preferencia de precios</label>
+                                <select name="" id="modo-manual">
                                     <option value="">Recomendado</option>
                                     <option value="mate">Forzar precio con mate</option>
                                     <option value="wallet">Forzar precio con saldo</option>
@@ -97,10 +97,21 @@ function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
     localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
+    localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
+
 }
 
 function changeEmojiState(){
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
+}
+
+function changeManualModeState(){
+    if(!selectManualMode.value){
+        localStorage.removeItem('manual-mode')
+    } else{
+        selectManualMode.value == 'mate' ? localStorage.setItem('manual-mode', 'mate') : localStorage.setItem('manual-mode', 'wallet');
+    }
+    
 }
 
 function changeNationalTax(){
@@ -157,8 +168,10 @@ createMenus();
 const menu = document.querySelector(".menu-steamcito");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
+let selectManualMode = document.querySelector("#modo-manual")
 let selectEmoji = document.querySelector("#estilo-emoji");
 selectEmoji.addEventListener('input',changeEmojiState);
+selectManualMode.addEventListener('input', changeManualModeState);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);

@@ -78,7 +78,8 @@ const priceContainers = `
         #package_savings_bar .savings:not([${attributeName}]),
         .promo_item_list .price span:not([${attributeName}]),
         .apphub_StorePrice .price:not([${attributeName}]),
-        .item_def_price:not([${attributeName}])
+        .item_def_price:not([${attributeName}]),
+        .match_subtitle:not([${attributeName}])
         `;
 
 
@@ -111,7 +112,13 @@ function calcularImpuestos(initialPrice){
 
 function getBalance(){
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
-    if(walletBalanceContainer){
+
+    if (localStorage.getItem('manual-mode') == "wallet"){
+        return 9999999;
+    } else if(localStorage.getItem('manual-mode') == "mate"){
+        return 0;
+    }
+    else if(walletBalanceContainer){
         walletBalanceContainer.innerHTML += emojiWallet;
         return stringToNumber(walletBalanceContainer);
     }

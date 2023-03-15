@@ -36,6 +36,19 @@ function createMenus(){
 
                     <div class="grupo-opciones">
                         <h3> Opciones Visuales </h3>
+
+                        <div class="opcion">
+                            <div>
+                                <label for="modo-manual">Preferencia de precios</label>
+                                <select name="" id="modo-manual">
+                                    <option value="">Recomendado</option>
+                                    <option value="mate">Forzar precio con mate</option>
+                                    <option value="wallet">Forzar precio con saldo</option>
+                                </select>
+                            </div>
+                            <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
+                        </div>
+
                         <div class="opcion">
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
@@ -44,7 +57,7 @@ function createMenus(){
                                     <option value="fallback">Retrocompatibles</option>
                                 </select>
                             </div>
-                            <small>Modificá esta opción solo si los emojis te aparecen como un rectángulo blanco ▯</small>
+                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
                         </div>
                     </div>
 
@@ -84,10 +97,21 @@ function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
     localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
+    localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
+
 }
 
 function changeEmojiState(){
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
+}
+
+function changeManualModeState(){
+    if(!selectManualMode.value){
+        localStorage.removeItem('manual-mode')
+    } else{
+        selectManualMode.value == 'mate' ? localStorage.setItem('manual-mode', 'mate') : localStorage.setItem('manual-mode', 'wallet');
+    }
+    
 }
 
 function changeNationalTax(){
@@ -144,8 +168,10 @@ createMenus();
 const menu = document.querySelector(".menu-steamcito");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
+let selectManualMode = document.querySelector("#modo-manual")
 let selectEmoji = document.querySelector("#estilo-emoji");
 selectEmoji.addEventListener('input',changeEmojiState);
+selectManualMode.addEventListener('input', changeManualModeState);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);

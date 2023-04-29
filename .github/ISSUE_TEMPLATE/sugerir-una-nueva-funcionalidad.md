@@ -14,7 +14,7 @@ Descripción del problema. Ejemplo: "es medio frustrante que..."
 Descripción corta y concisa acerca de cuál pensás que es la solución.
 
 **Alternativas que hayas considerado**
-Una o más alternativas que se te hayan ocurrido para solucionar el problema
+Una o más alternativas que se te hayan ocurrido para solucionar el problema.
 
 **Comentarios Adicionales**
-Capturas de pantalla o más información sobre tu sugerencia
+Capturas de pantalla o más información sobre tu sugerencia.

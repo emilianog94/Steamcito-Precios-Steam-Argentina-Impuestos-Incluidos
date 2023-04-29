@@ -8,7 +8,7 @@ assignees: emilianog94
 ---
 
 **Describí el bug**
-Una descripción del problema
+Una descripción del problema.
 
 **¿Qué pasos seguiste para llegar al bug?**
 Ejemplo:
@@ -17,7 +17,7 @@ Ejemplo:
 3. Apareció el error
 
 **Capturas de Pantalla**
-De ser necesario, agregá capturas del problema
+De ser necesario, agregá capturas del problema.
 
 **Información de tu PC**
  - Navegador que estás usando: 

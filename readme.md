@@ -35,9 +35,9 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 ***
 
 ## Instrucciones de instalación y uso
-1. Instalá Steamcito [en tu navegador favorito](https://www.steamcito.com.ar)
+1. Instalá Steamcito [en tu navegador favorito](https://www.steamcito.com.ar).
 2. ¡Listo! Ya podés entrar a la tienda de Steam desde tu navegador y Steamcito estará funcionando.
-3. Opcionalmente podés personalizar los impuestos y otras opciones desde el mate que se encuentra arriba a la derecha en la tienda de Steam
+3. Opcionalmente podés personalizar los impuestos y otras opciones desde el mate que se encuentra arriba a la derecha en la tienda de Steam.
 
 
 ***
@@ -49,9 +49,9 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 ***
 
 ## ¿Por qué usar Steamcito?
-- Siempre vas a ver el precio final de todos los productos de Steam
-- Es compatible con todas las vistas de la tienda de Steam
-- No tenés que sumar los impuestos de forma manual con la calculadora (representa un ahorro aproximado de 6-8 segundos por cada producto que ves)
+- Siempre vas a ver el precio final de todos los productos de Steam.
+- Es compatible con todas las vistas de la tienda de Steam.
+- No tenés que sumar los impuestos de forma manual con la calculadora (representa un ahorro aproximado de 6-8 segundos por cada producto que ves).
 - Si usás tarjetas prepagas no necesitás hacer cálculos para saber si tenés que cargarle más saldo para comprar un juego.
 - Si tenés saldo en la Steam Wallet te calcula automáticamente las dos opciones de compra disponibles: todo con tarjeta y parte saldo/parte tarjeta.
 - Algunos entes emisores de tarjetas tienen diferencias en el cálculo del porcentaje de impuestos. En Steamcito podés personalizar tus impuestos para calcular siempre de forma correcta.
@@ -76,7 +76,7 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 ***
 
 ## Últimas Actualizaciones
-Conocé todos los detalles de las últimas actualizaciones de Steamcito
+Conocé todos los detalles de las últimas actualizaciones de Steamcito.
 
 [Ver changelog](https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html)
 

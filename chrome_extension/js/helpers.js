@@ -195,6 +195,8 @@ let regionalPricingChart = [
     },
 ]
 
+const regionalPricingOptions = regionalPricingChart.map(item => item.usdPrice)
+
 function setProvinceTax() {
     if (localStorage.hasOwnProperty('province-tax')) {
         let taxValue = localStorage.getItem('province-tax');

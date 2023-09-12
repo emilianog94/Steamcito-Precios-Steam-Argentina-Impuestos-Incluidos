@@ -48,15 +48,15 @@ const getAppData = async (appId) => {
 
         // Está más caro que lo esperado
         if (appData.arsPrice > appData.recommendedArsPrice) {
-            appData.regionalStatus = "expensive";
-            appData.regionalDifference = parseInt((appData.arsPrice / appData.recommendedArsPrice) * 100);
+            appData.regionalDifference = Math.round((parseFloat((appData.arsPrice / appData.recommendedArsPrice)) - 1) * 100);
+            appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "expensive";
         }
         else if (appData.arsPrice < appData.recommendedArsPrice) {
-            appData.regionalStatus = "cheap";
-            appData.regionalDifference = parseInt((appData.recommendedArsPrice / appData.arsPrice) * 100);
+            appData.regionalDifference = Math.round((parseFloat((appData.recommendedArsPrice - appData.arsPrice)) / appData.recommendedArsPrice) * 100);
+            appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "cheap";
         }
         else if (appData.arsPrice == appData.recommendedArsPrice) {
-            appData.regionalStatus = "fair";
+            appData.regionalStatus = "absolutely-fair";
             appData.regionalDifference = 0;
         }
 

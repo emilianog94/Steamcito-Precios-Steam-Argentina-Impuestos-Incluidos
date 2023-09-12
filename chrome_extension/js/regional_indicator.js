@@ -31,6 +31,7 @@ const getAppData = async (appId) => {
             name: appIdResponse.name,
             publisher: appIdResponse.publishers[0],
             usdPrice: (appIdResponse.price_overview.final) / 100,
+            // arsPrice: 11400,
             arsPrice: (appIdArgResponse.price_overview.final) / 100,
             recommendedArsPrice: undefined,
             regionalStatus: undefined
@@ -48,7 +49,7 @@ const getAppData = async (appId) => {
 
         // Está más caro que lo esperado
         if (appData.arsPrice > appData.recommendedArsPrice) {
-            appData.regionalDifference = Math.round((parseFloat((appData.arsPrice / appData.recommendedArsPrice)) - 1) * 100);
+            appData.regionalDifference = Math.round((parseFloat((appData.arsPrice - appData.recommendedArsPrice)) / appData.recommendedArsPrice) * 100);
             appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "expensive";
         }
         else if (appData.arsPrice < appData.recommendedArsPrice) {

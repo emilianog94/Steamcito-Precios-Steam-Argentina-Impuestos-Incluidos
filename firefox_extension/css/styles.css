@@ -76,8 +76,6 @@ body.menu-enabled .responsive_page_frame {
 }
 .cart_area_body .tax-container #tax-change {
   display: flex;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
   margin-left: auto;
   margin-top: 1.3em;
@@ -120,16 +118,12 @@ body.menu-enabled .responsive_page_frame {
 
 .curator #RecommendationsRows .store_capsule.price_inline .discount_block {
   display: flex !important;
-  min-width: -webkit-fit-content !important;
-  min-width: -moz-fit-content !important;
   min-width: fit-content !important;
 }
 .curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices {
   display: flex;
 }
 .curator #RecommendationsRows .store_capsule.price_inline .discount_block .discount_prices > div {
-  width: -webkit-max-content;
-  width: -moz-max-content;
   width: max-content;
 }
 .curator #RecommendationsTable .recommendation .discount_block {
@@ -287,6 +281,8 @@ body.menu-enabled .responsive_page_frame {
   height: 100vh;
   width: 30%;
   background-color: #16202d;
+  -webkit-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
   box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
   z-index: 100000;
   transition: all 0.25s ease;

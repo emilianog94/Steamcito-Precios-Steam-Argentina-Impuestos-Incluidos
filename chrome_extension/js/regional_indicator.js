@@ -79,5 +79,49 @@ const getAppData = async (appId) => {
     // fetch(`/api/packagedetails?packageids=${subId}&cc=us`, { credentials: 'omit' }).then(res => res.json()).then(res => console.log(res))
 }
 
+
+const renderRegionalIndicator = () => {
+    let sidebar = document.querySelector('.rightcol.game_meta_data');
+
+    let container =
+        `
+    <div class="block responsive_apppage_details_right heading">
+        Medidor de precio regional
+    </div>
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+        <div class="regional-meter-container">
+            <div class="regional-meter-bar regional-meter-bar--cheap">
+                <span>Barato</span>
+            </div>
+            <div class="regional-meter-bar regional-meter-bar--fair">
+                <span>Adecuado</span>
+            </div>
+            <div class="regional-meter-bar regional-meter-bar--expensive regional-meter-bar--selected">
+                <span>Caro</span>
+            </div>
+        </div>
+        <hr>
+        <p class="reason against">
+            Este juego es un <span class="regional-meter-reason--red">167%</span> más caro que la recomendación de precios regionales en pesos argentinos de Steam.
+        </p>
+        <hr>
+        <p class="reason against">
+            Steam recomienda a Bethesda Softworks poner Starfield a <span class="regional-meter-reason--green">$7.875,00🧉</span>  en vez de <span class="regional-meter-reason--red">$21.118,24</span>🧉
+        </p>
+
+        <div class="DRM_notice">
+            <div>
+                Cálculo realizado por Steamcito en base a la
+                <a href="#">Valve Regional Pricing Recommendation</a>
+            </div>
+        </div>
+
+    </div>
+    `
+
+    sidebar.insertAdjacentHTML('afterbegin', container);
+}
+
 const appId = getAppId(url);
 getAppData(appId);
+renderRegionalIndicator();

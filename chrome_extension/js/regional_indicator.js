@@ -57,9 +57,12 @@ const getAppData = async (appId) => {
             appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "cheap";
         }
         else if (appData.arsPrice == appData.recommendedArsPrice) {
-            appData.regionalStatus = "absolutely-fair";
+            appData.regionalStatus = "fair";
             appData.regionalDifference = 0;
         }
+
+        renderRegionalIndicator(appData);
+
 
         console.log(appIdResponse);
         console.log(appData);
@@ -80,7 +83,7 @@ const getAppData = async (appId) => {
 }
 
 
-const renderRegionalIndicator = () => {
+const renderRegionalIndicator = (appData) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let container =
@@ -90,24 +93,75 @@ const renderRegionalIndicator = () => {
     </div>
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
         <div class="regional-meter-container">
-            <div class="regional-meter-bar regional-meter-bar--cheap">
+            <div class="regional-meter-bar regional-meter-bar--cheap ${appData.regionalStatus == "cheap" && "regional-meter-bar--selected"}">
                 <span>Barato</span>
             </div>
-            <div class="regional-meter-bar regional-meter-bar--fair">
+            <div class="regional-meter-bar regional-meter-bar--fair ${appData.regionalStatus == "fair" && "regional-meter-bar--selected"}">
                 <span>Adecuado</span>
             </div>
-            <div class="regional-meter-bar regional-meter-bar--expensive regional-meter-bar--selected">
+            <div class="regional-meter-bar regional-meter-bar--expensive ${appData.regionalStatus == "expensive" && "regional-meter-bar--selected"}">
                 <span>Caro</span>
             </div>
         </div>
         <hr>
+        ${appData.regionalStatus == "expensive"
+            ?
+            `
         <p class="reason against">
-            Este juego es un <span class="regional-meter-reason--red">167%</span> más caro que la recomendación de precios regionales en pesos argentinos de Steam.
+        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro que la recomendación de precios regionales en pesos argentinos de Steam.
         </p>
         <hr>
-        <p class="reason against">
-            Steam recomienda a Bethesda Softworks poner Starfield a <span class="regional-meter-reason--green">$7.875,00🧉</span>  en vez de <span class="regional-meter-reason--red">$21.118,24</span>🧉
+        <p class="reason info">
+            Precio actual:<br> <span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span> 
         </p>
+        <hr>
+        <p class="reason info">
+            Precio sugerido por Valve: <br><span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
+        </p>
+        `
+            : ""
+        }
+
+        ${appData.regionalStatus == "fair"
+            ?
+            `
+        <p class="reason for">
+        <span class="name-span">${appData.name}</span> sigue de cerca la recomendación de precios regionales en pesos argentinos propuesta por Valve.
+        </p>
+        <hr>
+        <p class="reason for">
+        <span class="name-span">${appData.publisher}</span> fijó que este juego esté a un precio accesible para los argentinos.            
+        </p>
+        <hr>
+        `
+            : ""
+        }
+
+        ${appData.regionalStatus == "cheap"
+            ?
+            `
+        <p class="reason for">
+        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que la recomendación de precios regionales en pesos argentinos de Steam.
+        </p>
+        <hr>
+        <p class="reason for">
+            El precio actual tiene un bug o bien <span class="name-span">${appData.publisher}</span> olvidó actualizar el precio para Argentina.  
+        </p>
+        <hr>
+        <p class="reason info">
+            Precio actual:<br> <span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span>  
+        </p>
+        <hr>
+        <p class="reason info">
+            Precio sugerido por Valve: <br><span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
+        </p>
+
+        <hr>
+        `
+            : ""
+        }
+
+
 
         <div class="DRM_notice">
             <div>
@@ -124,4 +178,3 @@ const renderRegionalIndicator = () => {
 
 const appId = getAppId(url);
 getAppData(appId);
-renderRegionalIndicator();

@@ -702,14 +702,18 @@ body {
 // Regional Indicator
 
 .regional-meter-wrapper {
-  .reason {
-  }
-
-  .reason.against {
+  .reason.against,
+  .reason.for,
+  .reason.info {
     line-height: 1.1rem;
 
     span {
       font-weight: 700;
+
+      &.name-span {
+        color: #ddd;
+        font-weight: 400;
+      }
     }
 
     .regional-meter-reason--red {
@@ -751,16 +755,28 @@ body {
     &--cheap {
       border-color: #84b114;
       color: #84b114;
+
+      &.regional-meter-bar--selected::before {
+        border-top: 12px solid #84b114;
+      }
     }
 
     &--fair {
       border-color: #e6cf0f;
       color: #e6cf0f;
+
+      &.regional-meter-bar--selected::before {
+        border-top: 12px solid #e6cf0f;
+      }
     }
 
     &--expensive {
       border-color: #b94b53;
       color: #b94b53;
+
+      &.regional-meter-bar--selected::before {
+        border-top: 12px solid #b94b53;
+      }
     }
 
     &--selected {

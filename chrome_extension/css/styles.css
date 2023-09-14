@@ -528,16 +528,30 @@ body.menu-enabled .responsive_page_frame {
   text-align: left;
 }
 
-.regional-meter-wrapper .reason.against {
+.regional-meter-wrapper .reason.against,
+.regional-meter-wrapper .reason.for,
+.regional-meter-wrapper .reason.info {
   line-height: 1.1rem;
 }
-.regional-meter-wrapper .reason.against span {
+.regional-meter-wrapper .reason.against span,
+.regional-meter-wrapper .reason.for span,
+.regional-meter-wrapper .reason.info span {
   font-weight: 700;
 }
-.regional-meter-wrapper .reason.against .regional-meter-reason--red {
+.regional-meter-wrapper .reason.against span.name-span,
+.regional-meter-wrapper .reason.for span.name-span,
+.regional-meter-wrapper .reason.info span.name-span {
+  color: #ddd;
+  font-weight: 400;
+}
+.regional-meter-wrapper .reason.against .regional-meter-reason--red,
+.regional-meter-wrapper .reason.for .regional-meter-reason--red,
+.regional-meter-wrapper .reason.info .regional-meter-reason--red {
   color: #b94b53;
 }
-.regional-meter-wrapper .reason.against .regional-meter-reason--green {
+.regional-meter-wrapper .reason.against .regional-meter-reason--green,
+.regional-meter-wrapper .reason.for .regional-meter-reason--green,
+.regional-meter-wrapper .reason.info .regional-meter-reason--green {
   color: #84b114;
 }
 .regional-meter-wrapper .DRM_notice {
@@ -566,13 +580,22 @@ body.menu-enabled .responsive_page_frame {
   border-color: #84b114;
   color: #84b114;
 }
+.regional-meter-container .regional-meter-bar--cheap.regional-meter-bar--selected::before {
+  border-top: 12px solid #84b114;
+}
 .regional-meter-container .regional-meter-bar--fair {
   border-color: #e6cf0f;
   color: #e6cf0f;
 }
+.regional-meter-container .regional-meter-bar--fair.regional-meter-bar--selected::before {
+  border-top: 12px solid #e6cf0f;
+}
 .regional-meter-container .regional-meter-bar--expensive {
   border-color: #b94b53;
   color: #b94b53;
+}
+.regional-meter-container .regional-meter-bar--expensive.regional-meter-bar--selected::before {
+  border-top: 12px solid #b94b53;
 }
 .regional-meter-container .regional-meter-bar--selected::before {
   content: "";

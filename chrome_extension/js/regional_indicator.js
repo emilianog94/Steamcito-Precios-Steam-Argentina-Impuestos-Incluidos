@@ -24,7 +24,7 @@ const getAppData = async (appId) => {
     console.log("la response de AR es", appIdArgResponse);
 
     if (appIdResponse[appId].success && appIdArgResponse[appId].success) {
-        if (appIdResponse[appId].data.is_free) {
+        if (appIdResponse[appId].data.is_free || !appIdResponse[appId].data.price_overview) {
             return;
         }
         appIdResponse = appIdResponse[appId].data;

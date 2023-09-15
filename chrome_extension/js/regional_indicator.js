@@ -2,40 +2,52 @@ const url = window.location.pathname;
 console.log(regionalPricingChart);
 console.log(regionalPricingOptions);
 
-const getAppId = (url) => {
+const getAppData = (url) => {
+    let appData = {
+        type: '',
+        id: ''
+    };
+    url.includes('/sub/') ? appData.type = "sub" : appData.type = "app";
+
     let startingPosition = url.indexOf('/', 1);
     let endingPosition = url.indexOf('/', startingPosition + 1);
-    let appId = url.slice(startingPosition + 1, endingPosition);
-    console.log(`App id is ${appId}`);
-    return appId;
+    appData.id = url.slice(startingPosition + 1, endingPosition);
+
+    console.log(`App Data is`);
+    console.log(appData);
+    return appData;
 }
 
 
-const getAppData = async (appId) => {
-    const appIdFetch = await fetch(`/api/appdetails?appids=${appId}&cc=us`, { credentials: 'omit' })
-    const appIdFetchArg = await fetch(`/api/appdetails?appids=${appId}&cc=ar`, { credentials: 'omit' })
+const getAppPricing = async (appInitialData) => {
+    const { type, id } = appInitialData;
+    let appEndpoint = `/api/appdetails?appids=${id}`;
+    let subEndpoint = `/api/packagedetails?packageids=${id}`
+
+    const appIdFetch = await fetch(`${type == "app" ? `${appEndpoint}&cc=us` : `${subEndpoint}&cc=us`}`, { credentials: 'omit' })
+
+    const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
 
-
     console.log("la response de US es", appIdResponse);
-    console.log("-----------")
+    console.log("-----------");
     console.log("la response de AR es", appIdArgResponse);
+    console.log("-----------");
 
-    if (appIdResponse[appId].success && appIdArgResponse[appId].success) {
-        if (appIdResponse[appId].data.is_free || !appIdResponse[appId].data.price_overview) {
+    if (appIdResponse[id].success && appIdArgResponse[id].success) {
+        if (appIdResponse[id].data.is_free || !appIdResponse[id].data[type == "sub" ? "price" : "price_overview"]) {
             return;
         }
-        appIdResponse = appIdResponse[appId].data;
-        appIdArgResponse = appIdArgResponse[appId].data;
+        appIdResponse = appIdResponse[id].data;
+        appIdArgResponse = appIdArgResponse[id].data;
 
         const appData = {
             name: appIdResponse.name,
-            publisher: appIdResponse.publishers[0],
-            usdPrice: (appIdResponse.price_overview.final) / 100,
-            // arsPrice: 11400,
-            arsPrice: (appIdArgResponse.price_overview.final) / 100,
+            publisher: appIdResponse.publishers?.[0] || "El publisher",
+            usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
+            arsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             recommendedArsPrice: undefined,
             regionalStatus: undefined
         }
@@ -66,23 +78,13 @@ const getAppData = async (appId) => {
 
         renderRegionalIndicator(appData);
 
-
         console.log(appIdResponse);
         console.log(appData);
         return appData;
 
     } else {
-        console.log("falló el fetch");
-        console.log(appIdResponse);
+        console.log("Falló la extensión");
     }
-
-
-    // Ejemplo para Packages
-    // const subIdContainer = document.querySelector('form[name^="add_to_cart_"]');
-    // const subId = subIdContainer.querySelector('input[name="subid"]').value;
-    // console.log(subId);
-
-    // fetch(`/api/packagedetails?packageids=${subId}&cc=us`, { credentials: 'omit' }).then(res => res.json()).then(res => console.log(res))
 }
 
 
@@ -148,7 +150,7 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason for">
-            El precio actual tiene un bug o bien <span class="name-span">${appData.publisher}</span> olvidó actualizar el precio para Argentina.  
+        <span class="name-span">${appData.publisher}</span> olvidó actualizar el precio para Argentina o bien el precio actual tiene un bug.  
         </p>
         <hr>
         <p class="reason info">
@@ -175,9 +177,8 @@ const renderRegionalIndicator = (appData) => {
 
     </div>
     `
-
     sidebar.insertAdjacentHTML('afterbegin', container);
 }
 
-const appId = getAppId(url);
-getAppData(appId);
+const appData = getAppData(url);
+getAppPricing(appData);

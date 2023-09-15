@@ -41,7 +41,7 @@
  			"css": ["css/styles.css"]
  		},
  		{
- 			"matches": ["https://store.steampowered.com/app/*", "https://store.steampowered.com/bundle/*"],
+ 			"matches": ["https://store.steampowered.com/app/*", "https://store.steampowered.com/sub/*"],
  			"run_at": "document_idle",
  			"js": ["js/helpers.js", "js/regional_indicator.js"],
  			"css": ["css/styles.css"]

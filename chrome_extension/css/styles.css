@@ -154,6 +154,10 @@ body.menu-enabled .responsive_page_frame {
   display: flex !important;
 }
 
+.search_price_discount_combined .discount_final_price {
+  width: max-content;
+}
+
 .promo_item_list .price span {
   display: block;
   text-align: right;

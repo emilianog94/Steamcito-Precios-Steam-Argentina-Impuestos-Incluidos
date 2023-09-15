@@ -218,6 +218,12 @@ body {
   display: flex !important;
 }
 
+.search_price_discount_combined {
+  .discount_final_price {
+    width: max-content;
+  }
+}
+
 // URLS /SALE/
 .promo_item_list {
   .price {

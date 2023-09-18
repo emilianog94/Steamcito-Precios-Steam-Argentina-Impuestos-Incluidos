@@ -119,7 +119,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro que la recomendación de precios regionales en pesos argentinos de Steam.
+        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> sea <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo recomendado por Valve.
         </p>
         <hr>
         <p class="reason info">
@@ -138,7 +138,7 @@ const renderRegionalIndicator = (appData) => {
             `
         <p class="reason for">
         
-        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> esté a un precio accesible para Argentina, siguiendo de cerca la recomendación de precios de Valve.           
+        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> esté a un precio accesible en Argentina en base a la recomendación de precios de Valve.           
         </p>
         <hr>
 
@@ -147,7 +147,7 @@ const renderRegionalIndicator = (appData) => {
                 ?
                 `
             <p class="reason for">
-                Este juego está sólo <span class="regional-meter-reason--red">${appData.regionalDifference}%  más caro</span> que lo esperado. 
+                Este juego está sólo <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro que lo esperado. 
             </p>
             <hr>                
             `
@@ -159,7 +159,7 @@ const renderRegionalIndicator = (appData) => {
                 ?
                 `
             <p class="reason for">
-                Este juego está <span class="regional-meter-reason--green">${appData.regionalDifference}%  más barato</span> que lo esperado. 
+                Este juego está <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que lo esperado. 
             </p>
             <hr>                
             `
@@ -184,7 +184,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason for">
-        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que la recomendación de precios regionales en pesos argentinos de Steam.
+        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que la recomendación de precios regionales de Valve.
         </p>
         <hr>
         <p class="reason for">

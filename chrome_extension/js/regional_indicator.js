@@ -45,19 +45,25 @@ const getAppPricing = async (appInitialData) => {
 
         const appData = {
             name: appIdResponse.name,
+            discount: (appIdResponse[type == "sub" ? "price" : "price_overview"].discount_percent),
             publisher: appIdResponse.publishers?.[0] || "El publisher",
+            baseUsdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
+            baseArsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
             usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             arsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             recommendedArsPrice: undefined,
             regionalStatus: undefined
         }
 
-        const nearestOption = regionalPricingOptions.reduce((prev, curr) => Math.abs(curr - appData.usdPrice) < Math.abs(prev - appData.usdPrice) ? curr : prev);
+        console.log("appdata is");
+        console.log(appData);
+
+        const nearestOption = regionalPricingOptions.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
         console.log("Nearest option is", nearestOption);
 
         const recommendedArsPrice = regionalPricingChart
             .filter(item => item.usdPrice == nearestOption)
-            .map(item => item.argPrice)[0];
+            .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
         console.log(recommendedArsPrice);
 
         appData.recommendedArsPrice = recommendedArsPrice;
@@ -131,13 +137,45 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason for">
-        <span class="name-span">${appData.name}</span> sigue de cerca la recomendación de precios regionales en pesos argentinos propuesta por Valve.
+        
+        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> esté a un precio accesible para Argentina, siguiendo de cerca la recomendación de precios de Valve.           
         </p>
         <hr>
-        <p class="reason for">
-        <span class="name-span">${appData.publisher}</span> fijó que este juego esté a un precio accesible para los argentinos.            
+
+
+        ${appData.arsPrice > appData.recommendedArsPrice
+                ?
+                `
+            <p class="reason for">
+                Este juego está sólo <span class="regional-meter-reason--red">${appData.regionalDifference}%  más caro</span> que lo esperado. 
+            </p>
+            <hr>                
+            `
+                :
+                ""
+            }
+
+            ${appData.arsPrice < appData.recommendedArsPrice
+                ?
+                `
+            <p class="reason for">
+                Este juego está <span class="regional-meter-reason--green">${appData.regionalDifference}%  más barato</span> que lo esperado. 
+            </p>
+            <hr>                
+            `
+                :
+                ""
+            }
+
+
+
+        <p class="reason info">
+            Precio actual:<br> <span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span> 
         </p>
         <hr>
+        <p class="reason info">
+        Precio sugerido por Valve: <br><span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
+        </p>
         `
             : ""
         }

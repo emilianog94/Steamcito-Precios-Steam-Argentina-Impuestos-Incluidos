@@ -714,7 +714,9 @@ body {
     line-height: 1.1rem;
 
     span {
-      font-weight: 700;
+      // color: #67c1f5;
+      color: #fff;
+      // font-weight: 700;
 
       &.name-span {
         color: #ddd;
@@ -724,10 +726,15 @@ body {
 
     .regional-meter-reason--red {
       color: #b94b53;
+      font-weight: 700;
     }
 
     .regional-meter-reason--green {
       color: #84b114;
+    }
+
+    .regional-meter-reason--yellow {
+      color: #e6cf0f;
     }
   }
 
@@ -735,6 +742,7 @@ body {
     font-size: 12px;
     a {
       color: #fff !important;
+      text-decoration: underline;
     }
   }
 }

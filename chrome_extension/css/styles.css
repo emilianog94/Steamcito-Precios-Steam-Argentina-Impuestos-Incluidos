@@ -540,7 +540,7 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.against span,
 .regional-meter-wrapper .reason.for span,
 .regional-meter-wrapper .reason.info span {
-  font-weight: 700;
+  color: #fff;
 }
 .regional-meter-wrapper .reason.against span.name-span,
 .regional-meter-wrapper .reason.for span.name-span,
@@ -552,17 +552,24 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.for .regional-meter-reason--red,
 .regional-meter-wrapper .reason.info .regional-meter-reason--red {
   color: #b94b53;
+  font-weight: 700;
 }
 .regional-meter-wrapper .reason.against .regional-meter-reason--green,
 .regional-meter-wrapper .reason.for .regional-meter-reason--green,
 .regional-meter-wrapper .reason.info .regional-meter-reason--green {
   color: #84b114;
 }
+.regional-meter-wrapper .reason.against .regional-meter-reason--yellow,
+.regional-meter-wrapper .reason.for .regional-meter-reason--yellow,
+.regional-meter-wrapper .reason.info .regional-meter-reason--yellow {
+  color: #e6cf0f;
+}
 .regional-meter-wrapper .DRM_notice {
   font-size: 12px;
 }
 .regional-meter-wrapper .DRM_notice a {
   color: #fff !important;
+  text-decoration: underline;
 }
 
 .regional-meter-container {

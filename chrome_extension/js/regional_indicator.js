@@ -100,7 +100,7 @@ const renderRegionalIndicator = (appData) => {
     let container =
         `
     <div class="block responsive_apppage_details_right heading">
-        Medidor de precio regional
+        ¿Cómo es el precio regional?
     </div>
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
         <div class="regional-meter-container">
@@ -119,16 +119,17 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> sea <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo recomendado por Valve.
+        <span class="name-span">${appData.name}, de ${appData.publisher},</span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
         </p>
         <hr>
         <p class="reason info">
-            Precio actual:<br> <span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span> 
+            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
         </p>
         <hr>
         <p class="reason info">
-            Precio sugerido por Valve: <br><span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
-        </p>
+            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+        </p> 
+
         `
             : ""
         }
@@ -138,7 +139,7 @@ const renderRegionalIndicator = (appData) => {
             `
         <p class="reason for">
         
-        <span class="name-span">${appData.publisher}</span> fijó que <span class="name-span">${appData.name}</span> esté a un precio accesible en Argentina en base a la recomendación de precios de Valve.           
+        <span class="name-span">${appData.name}</span> está a un precio accesible en Argentina, siguiendo de cerca la sugerencia de precios de Valve. <span class="name-span">¡Gracias ${appData.publisher}!</span>         
         </p>
         <hr>
 
@@ -146,8 +147,8 @@ const renderRegionalIndicator = (appData) => {
         ${appData.arsPrice > appData.recommendedArsPrice
                 ?
                 `
-            <p class="reason for">
-                Este juego está sólo <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro que lo esperado. 
+            <p class="reason info">
+                Está <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más caro que lo sugerido. 
             </p>
             <hr>                
             `
@@ -158,8 +159,8 @@ const renderRegionalIndicator = (appData) => {
             ${appData.arsPrice < appData.recommendedArsPrice
                 ?
                 `
-            <p class="reason for">
-                Este juego está <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que lo esperado. 
+            <p class="reason info">
+                Está <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más barato que lo sugerido. 
             </p>
             <hr>                
             `
@@ -167,15 +168,16 @@ const renderRegionalIndicator = (appData) => {
                 ""
             }
 
-
-
         <p class="reason info">
-            Precio actual:<br> <span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span> 
+            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
         </p>
         <hr>
         <p class="reason info">
-        Precio sugerido por Valve: <br><span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
-        </p>
+            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+        </p> 
+
+
+
         `
             : ""
         }
@@ -184,21 +186,20 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason for">
-        <span class="name-span">${appData.name}</span> es un <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato que la recomendación de precios regionales de Valve.
+        <span class="name-span">${appData.name}</span> es <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato en Argentina que lo sugerido por Valve.
         </p>
         <hr>
-        <p class="reason for">
+        <p class="reason info">
         <span class="name-span">${appData.publisher}</span> olvidó actualizar el precio para Argentina o bien el precio actual tiene un bug.  
         </p>
         <hr>
         <p class="reason info">
-            Precio actual:<br> <span class="regional-meter-reason--green regional-meter-price">ARS$ ${appData.arsPrice}</span> <span>(${appData.usdPrice} USD)</span>  
+            Precio mínimo sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
         </p>
         <hr>
         <p class="reason info">
-            Precio sugerido por Valve: <br><span class="regional-meter-reason--red regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
-        </p>
-
+            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+        </p> 
         <hr>
         `
             : ""
@@ -208,7 +209,7 @@ const renderRegionalIndicator = (appData) => {
 
         <div class="DRM_notice">
             <div>
-                Cálculo realizado por Steamcito en base a la
+                Cálculo hecho por Steamcito en base a la
                 <a href="#">Valve Regional Pricing Recommendation</a>
             </div>
         </div>

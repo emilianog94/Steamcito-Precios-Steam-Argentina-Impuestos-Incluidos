@@ -210,7 +210,7 @@ const renderRegionalIndicator = (appData) => {
         <div class="DRM_notice">
             <div>
                 Cálculo hecho por Steamcito en base a la
-                <a href="#">Valve Regional Pricing Recommendation</a>
+                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
             </div>
         </div>
 

@@ -52,6 +52,11 @@
  			"js": ["js/checkout_functions.js"]
  		},
  		{
+ 			"matches": ["https://store.steampowered.com/search*"],
+ 			"run_at": "document_idle",
+ 			"js": ["js/global_functions.js", "js/search.js"]
+ 		},
+ 		{
  			"matches": ["https://store.steampowered.com/bundle/*"],
  			"run_at": "document_idle",
  			"js": ["js/menu.js", "js/helpers.js", "js/global_functions.js", "js/bundle_functions.js"],

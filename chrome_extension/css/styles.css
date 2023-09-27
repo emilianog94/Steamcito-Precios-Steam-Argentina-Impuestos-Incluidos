@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "steamcito-emojis";
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot");
@@ -174,6 +175,10 @@ body.menu-enabled .responsive_page_frame {
   display: flex;
   flex-direction: column;
   text-align: center;
+}
+
+#price_range_display:after {
+  content: " 💲";
 }
 
 [class^=partnereventshared][style*="grid-template-columns: repeat(4"] span[class^=salepreviewwidgets_CapsulePlatform] {

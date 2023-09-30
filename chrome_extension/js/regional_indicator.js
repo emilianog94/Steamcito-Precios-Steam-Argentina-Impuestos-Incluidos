@@ -127,7 +127,7 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
         </p> 
 
         `
@@ -173,7 +173,7 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
         </p> 
 
 
@@ -198,7 +198,7 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio en Estados Unidos<br> <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
         </p> 
         <hr>
         `

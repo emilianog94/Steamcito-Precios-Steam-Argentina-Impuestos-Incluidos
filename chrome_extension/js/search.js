@@ -1,7 +1,6 @@
 function changeRangeValue() {
     let currentNumber = document.querySelector('input#maxprice_input');
-    console.log(currentNumber.value);
-    console.log(rangeDisplayText.innerText);
+
     if (!isNaN(currentNumber.value) && currentNumber.value) {
         rangeDisplayTextSteamcito.innerText = `Menos de ARS$ ${(currentNumber.value * totalTaxes).toFixed(2)} 🧉`;
     } else {

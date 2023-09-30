@@ -1,6 +1,4 @@
 const url = window.location.pathname;
-console.log(regionalPricingChart);
-console.log(regionalPricingOptions);
 
 const getAppData = (url) => {
     let appData = {
@@ -12,9 +10,6 @@ const getAppData = (url) => {
     let startingPosition = url.indexOf('/', 1);
     let endingPosition = url.indexOf('/', startingPosition + 1);
     appData.id = url.slice(startingPosition + 1, endingPosition);
-
-    console.log(`App Data is`);
-    console.log(appData);
     return appData;
 }
 
@@ -30,11 +25,6 @@ const getAppPricing = async (appInitialData) => {
 
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
-
-    console.log("la response de US es", appIdResponse);
-    console.log("-----------");
-    console.log("la response de AR es", appIdArgResponse);
-    console.log("-----------");
 
     if (appIdResponse[id].success && appIdArgResponse[id].success) {
         if (appIdResponse[id].data.is_free || !appIdResponse[id].data[type == "sub" ? "price" : "price_overview"]) {
@@ -55,16 +45,11 @@ const getAppPricing = async (appInitialData) => {
             regionalStatus: undefined
         }
 
-        console.log("appdata is");
-        console.log(appData);
-
         const nearestOption = regionalPricingOptions.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
-        console.log("Nearest option is", nearestOption);
 
         const recommendedArsPrice = regionalPricingChart
             .filter(item => item.usdPrice == nearestOption)
             .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
-        console.log(recommendedArsPrice);
 
         appData.recommendedArsPrice = recommendedArsPrice;
 
@@ -84,12 +69,9 @@ const getAppPricing = async (appInitialData) => {
 
         renderRegionalIndicator(appData);
 
-        console.log(appIdResponse);
-        console.log(appData);
         return appData;
 
     } else {
-        console.log("Falló la extensión");
     }
 }
 

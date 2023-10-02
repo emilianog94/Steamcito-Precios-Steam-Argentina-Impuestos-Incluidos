@@ -1,7 +1,3 @@
-console.log("holi PROBANDO");
-
-
-
 function getTransactions() {
     // Agarro todas las transacciones que todavía no fueron procesadas por la función
     const transactions = document.querySelectorAll('.wallet_table_row:not(.processed)');

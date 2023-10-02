@@ -25,7 +25,7 @@ function convertTotals(paymentType, walletAmount = "", ccAmount = "") {
             totalAmount.insertAdjacentHTML('beforebegin', DOMPurify.sanitize(`<span class="new-amount">${newAmount}</span>`));
         }
         else if (paymentType == "wallet") {
-            totalAmount.innerHTML = totalAmount.innerHTML + emojiWallet;
+            totalAmount.innerHTML = DOMPurify.sanitize(totalAmount.innerHTML + emojiWallet);
         }
 
         else if (paymentType == "mixto") {
@@ -51,7 +51,7 @@ function changeReviewTab() {
             let ccAmount = numberToString((stringToNumber(creditCardPayment.querySelector(".payment_method_total")) * totalTaxes).toFixed(2));
             creditCardPayment.querySelector(".payment_method_total").insertAdjacentHTMLDOMPurify.sanitize(('beforebegin', `<span class="new-amount">${ccAmount} ${emojiMate}</span>`));
             let walletAmount = walletPayment.querySelector(".payment_method_total");
-            walletAmount.innerHTML = walletAmount.innerHTML + emojiWallet;
+            walletAmount.innerHTML = DOMPurify.sanitize(walletAmount.innerHTML + emojiWallet);
             convertTotals("mixto", walletAmount, ccAmount);
         }
 

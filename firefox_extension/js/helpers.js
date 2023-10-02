@@ -119,7 +119,7 @@ function getBalance() {
         return 0;
     }
     else if (walletBalanceContainer) {
-        walletBalanceContainer.innerHTML += emojiWallet;
+        walletBalanceContainer.innerHTML = DOMPurify(walletBalanceContainer.innerHTML + emojiWallet);
         return stringToNumber(walletBalanceContainer);
     }
     return 0;

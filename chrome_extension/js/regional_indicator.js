@@ -101,7 +101,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}, de ${appData.publisher},</span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
+        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
         </p>
         <hr>
         <p class="reason info">
@@ -121,7 +121,9 @@ const renderRegionalIndicator = (appData) => {
             `
         <p class="reason for">
         
-        <span class="name-span">${appData.name}</span> está a un precio accesible en Argentina, siguiendo de cerca la sugerencia de precios de Valve. <span class="name-span">¡Gracias ${appData.publisher}!</span>         
+        <span class="name-span">${appData.name}</span> está a un precio accesible en Argentina, siguiendo de cerca la sugerencia de precios de Valve.
+        
+        ${appData.publisher != "El publisher" ? `<span class="name-span">¡Gracias ${appData.publisher}!</span>` : ""}
         </p>
         <hr>
 

@@ -119,7 +119,7 @@ function getBalance() {
         return 0;
     }
     else if (walletBalanceContainer) {
-        walletBalanceContainer.innerHTML += emojiWallet;
+        walletBalanceContainer.innerText += emojiWallet;
         return stringToNumber(walletBalanceContainer);
     }
     return 0;
@@ -200,7 +200,7 @@ function showUpdate() {
                 </div>
             `;
 
-            header.insertAdjacentHTML('afterend', updateAdvice);
+            header.insertAdjacentHTML('afterend', DOMPurify.sanitize(updateAdvice));
             chrome.storage.local.set({ justUpdated: 0 });
         }
     });

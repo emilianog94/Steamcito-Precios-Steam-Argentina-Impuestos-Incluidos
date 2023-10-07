@@ -1,12 +1,15 @@
-function createMenus(){
+function createMenus() {
+
+    let nodoImagen = document.createElement('img');
+    nodoImagen.src = browser.runtime.getURL("emojis/mate-emoji.png");
     let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
-    let steamcitoIcon = 
-    `<div class="ico-steamcito"> 
-        <img src="${chrome.runtime.getURL("emojis/mate-emoji.png")}" />
-    </div>`;
-    oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
+    let steamcitoIcon =
+        `<div class="ico-steamcito"> </div>`;
+    oldMenu.insertAdjacentHTML('afterend', DOMPurify.sanitize(steamcitoIcon));
+    let contenedorIcono = document.querySelector('.ico-steamcito');
+    contenedorIcono.appendChild(nodoImagen);
     steamcitoIcon = document.querySelector(".ico-steamcito");
-    steamcitoIcon.addEventListener('click',showMenu);
+    steamcitoIcon.addEventListener('click', showMenu);
 
     let steamcitoMenu = `
     <div class="menu-steamcito">
@@ -84,79 +87,81 @@ function createMenus(){
 
     </div>
     `;
-    document.body.insertAdjacentHTML('beforeend',steamcitoMenu);
+    document.body.insertAdjacentHTML('beforeend', DOMPurify.sanitize(steamcitoMenu));
+    let refresher = document.querySelector('a.refresher');
+    refresher.addEventListener('click', () => window.location.reload());
 }
 
-function getReviewLink(){
+function getReviewLink() {
     chromeLink = `<a href="https://chrome.google.com/webstore/detail/steamcito-steam-con-impue/fcjljapncagfmfhdkccgnbkgdpbcefcj" target="_blank">Valorá Steamcito en Chrome Store ⭐</a> `;
     firefoxLink = `<a href="https://addons.mozilla.org/es/firefox/addon/steamcito-steam-impuestos-arg/" target="_blank">¡Valorá Steamcito en Firefox Addons!</a>`;
     return navigator.userAgent.indexOf('Firefox') != -1 ? firefoxLink : chromeLink;
 }
 
-function setInitialLocalStates(){
-    localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
-    localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
-    localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
-    localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
+function setInitialLocalStates() {
+    localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value = 'unicode' : selectEmoji.value = 'fallback';
+    localStorage.getItem('national-tax') ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
+    localStorage.getItem('province-tax') ? provinceTax.value = localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
+    localStorage.getItem('manual-mode') ? selectManualMode.value = localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
 
 }
 
-function changeEmojiState(){
-    selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
+function changeEmojiState() {
+    selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji', 'unicode') : localStorage.setItem('steamcito-emoji', 'fallback');
 }
 
-function changeManualModeState(){
-    if(!selectManualMode.value){
+function changeManualModeState() {
+    if (!selectManualMode.value) {
         localStorage.removeItem('manual-mode')
-    } else{
+    } else {
         selectManualMode.value == 'mate' ? localStorage.setItem('manual-mode', 'mate') : localStorage.setItem('manual-mode', 'wallet');
     }
-    
+
 }
 
-function changeNationalTax(){
-    localStorage.setItem('national-tax',this.value);
+function changeNationalTax() {
+    localStorage.setItem('national-tax', this.value);
 }
 
-function changeProvinceTax(){
-    localStorage.setItem('province-tax',this.value);
+function changeProvinceTax() {
+    localStorage.setItem('province-tax', this.value);
 }
 
-function showMenu(e){
+function showMenu(e) {
     menu.classList.add('enabled');
     document.body.classList.add('menu-enabled');
-    document.addEventListener('click',hideMenu);
+    document.addEventListener('click', hideMenu);
 }
 
-function hideMenu(e){
-    if(!menu.contains(e.target) && !steamcitoIcon.contains(e.target)) {
+function hideMenu(e) {
+    if (!menu.contains(e.target) && !steamcitoIcon.contains(e.target)) {
         menu.classList.remove('enabled');
         document.body.classList.remove('menu-enabled');
-        document.removeEventListener('click',hideMenu);
+        document.removeEventListener('click', hideMenu);
     }
 }
 
-function setEmojis(){
+function setEmojis() {
     let OSversion = window.navigator.userAgent;
-    if(!localStorage.hasOwnProperty('steamcito-emoji')){
-        if(OSversion.indexOf("NT 10.0") != -1){
-            localStorage.setItem('steamcito-emoji','unicode');
+    if (!localStorage.hasOwnProperty('steamcito-emoji')) {
+        if (OSversion.indexOf("NT 10.0") != -1) {
+            localStorage.setItem('steamcito-emoji', 'unicode');
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
-        } else{
-            localStorage.setItem('steamcito-emoji','compatibility');
+            return [" 🧉", " 💲"];
+        } else {
+            localStorage.setItem('steamcito-emoji', 'compatibility');
             selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
+            return ['<span class="emojis mate"> A </span>', '<span class="emojis saldo"> B </span>'];
         }
     }
-    else{
-        if(localStorage.getItem('steamcito-emoji') == 'unicode'){
+    else {
+        if (localStorage.getItem('steamcito-emoji') == 'unicode') {
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
+            return [" 🧉", " 💲"];
         }
-        else{
+        else {
             selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
+            return ['<span class="emojis mate"> A </span>', '<span class="emojis saldo"> B </span>'];
         }
     }
 }
@@ -170,14 +175,14 @@ const menu = document.querySelector(".menu-steamcito");
 const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual")
 let selectEmoji = document.querySelector("#estilo-emoji");
-selectEmoji.addEventListener('input',changeEmojiState);
+selectEmoji.addEventListener('input', changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
 
 let nationalTax = document.querySelector("#national-tax");
-nationalTax.addEventListener('input',changeNationalTax);
+nationalTax.addEventListener('input', changeNationalTax);
 
 let provinceTax = document.querySelector("#province-tax");
-provinceTax.addEventListener('input',changeProvinceTax);
+provinceTax.addEventListener('input', changeProvinceTax);
 
 // Seteo el estado inicial de payment y emojis
 setInitialLocalStates();

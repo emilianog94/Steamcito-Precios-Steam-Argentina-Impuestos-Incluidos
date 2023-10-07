@@ -1,6 +1,6 @@
  {
  	"name": "Steamcito: Steam con impuestos Argentina 2023",
- 	"version": "1.41",
+ 	"version": "2.0",
  	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
  	"manifest_version": 2,
  	"background": {
@@ -40,10 +40,21 @@
  			"css": ["css/styles.css"]
  		},
  		{
+			"matches": ["https://store.steampowered.com/sub/*"],
+			"run_at": "document_idle",
+			"js": ["js/purify.min.js","js/helpers.js", "js/regional_indicator.js"],
+			"css": ["css/styles.css"]
+		},
+ 		{
  			"matches": ["https://store.steampowered.com/checkout*"],
  			"run_at": "document_idle",
  			"js": ["js/purify.min.js", "js/checkout_functions.js"]
  		},
+ 		{
+			"matches": ["https://store.steampowered.com/search*"],
+			"run_at": "document_idle",
+			"js": ["js/purify.min.js","js/global_functions.js", "js/search.js"]
+		},
  		{
  			"matches": ["https://store.steampowered.com/bundle/*"],
  			"run_at": "document_idle",
@@ -61,7 +72,12 @@
  			"js": ["js/purify.min.js", "js/microtransactions.js"]
  		},
  		{
- 			"matches": ["https://store.steampowered.com/account/subscriptions/*", "https://store.steampowered.com/app/*"],
+			"matches": ["https://store.steampowered.com/app/*"],
+			"run_at": "document_idle",
+			"js": ["js/purify.min.js", "js/subscriptions.js","js/helpers.js", "js/regional_indicator.js"]
+		},		
+ 		{
+ 			"matches": ["https://store.steampowered.com/account/subscriptions/*"],
  			"run_at": "document_idle",
  			"js": ["js/purify.min.js", "js/subscriptions.js"]
  		},

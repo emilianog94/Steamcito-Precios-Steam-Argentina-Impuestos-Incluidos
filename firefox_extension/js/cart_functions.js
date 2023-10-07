@@ -49,7 +49,7 @@ function showTaxes() {
         <h3>Impuestos Nacionales<span class="asterisk">*</span></h3>
         <ul class="impuestos-nacionales"></ul>
 
-        <span class="rg5272-notice">*Si gastás más de 300 USD en el mes se te cobrará otro impuesto del 25%. RG AFIP Nº 5272/2022
+        <span class="rg5272-notice">*Si gastás más de 300 USD en el mes se te cobrará otro impuesto del 5%. RG AFIP Nº 5272/2022
         </span>
 
         <span class="taxes-separator"></span>

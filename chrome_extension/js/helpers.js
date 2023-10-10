@@ -2,21 +2,26 @@ const attributeName = "data-original-price";
 
 let standardTaxes = [
     {
-        name : "Percepción de Ganancias y Bienes Personales - RG AFIP Nº 5232/2022",
-        value : 45,
+        name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
+        value: 45,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
     },
     {
-        name : "Impuesto PAIS - RG AFIP N° 4659/2020",
-        value : 30,
+        name: "Impuesto PAIS - RG AFIP N° 4659/2020",
+        value: 30,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
+    },
+    {
+        name: "Percepción de Bienes Personales - RG AFIP Nº 5430/2023",
+        value: 25,
+        moreInfo: "https://www.boletinoficial.gob.ar/#!DetalleNorma/295840/20231010"
     }
 ];
 
 let provinceTaxes = [
     {
         name: "Cargá los impuestos de tu provincia para que el precio sea más exacto.<br><a href='https://steamcito.com.ar/impuestos-hoy/#impuestos-provinciales' target='_blank'>Ver listado de impuestos provinciales en Steamcito</a>",
-        value: 0  
+        value: 0
     }
 ]
 

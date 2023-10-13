@@ -23,7 +23,7 @@ function createMenus() {
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" placeholder="75"/>
+                                <input id="national-tax" type="number" name="national-tax" placeholder="100"/>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    

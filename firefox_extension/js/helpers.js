@@ -2,7 +2,7 @@ const attributeName = "data-original-price";
 
 let standardTaxes = [
     {
-        name: "Percepción de Ganancias y Bienes Personales - RG AFIP Nº 5232/2022",
+        name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
         value: 45,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
     },
@@ -10,6 +10,11 @@ let standardTaxes = [
         name: "Impuesto PAIS - RG AFIP N° 4659/2020",
         value: 30,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
+    },
+    {
+        name: "Percepción de Bienes Personales - RG AFIP Nº 5430/2023",
+        value: 25,
+        moreInfo: "https://www.boletinoficial.gob.ar/#!DetalleNorma/295840/20231010"
     }
 ];
 

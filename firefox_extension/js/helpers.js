@@ -25,6 +25,185 @@ let provinceTaxes = [
     }
 ]
 
+
+let regionalPricingChart = [
+    {
+        usdPrice: 0.99,
+        argPrice: 82.00
+    },
+    {
+        usdPrice: 1.99,
+        argPrice: 165.00
+    },
+    {
+        usdPrice: 2.99,
+        argPrice: 249.00
+    },
+    {
+        usdPrice: 3.99,
+        argPrice: 320.00
+    },
+    {
+        usdPrice: 4.99,
+        argPrice: 400.00
+    },
+    {
+        usdPrice: 5.99,
+        argPrice: 475.00
+    },
+    {
+        usdPrice: 6.99,
+        argPrice: 550.00
+    },
+    {
+        usdPrice: 7.99,
+        argPrice: 620.00
+    },
+    {
+        usdPrice: 8.99,
+        argPrice: 700.00
+    },
+    {
+        usdPrice: 9.99,
+        argPrice: 765.00
+    },
+    {
+        usdPrice: 10.99,
+        argPrice: 835.00
+    },
+    {
+        usdPrice: 11.99,
+        argPrice: 900.00
+    },
+    {
+        usdPrice: 12.99,
+        argPrice: 970.00
+    },
+    {
+        usdPrice: 13.99,
+        argPrice: 1000.00
+    },
+    {
+        usdPrice: 14.99,
+        argPrice: 1050.00
+    },
+    {
+        usdPrice: 15.99,
+        argPrice: 1100.00
+    },
+    {
+        usdPrice: 16.99,
+        argPrice: 1200.00
+    },
+    {
+        usdPrice: 17.99,
+        argPrice: 1300.00
+    },
+    {
+        usdPrice: 18.99,
+        argPrice: 1350.00
+    },
+    {
+        usdPrice: 18.99,
+        argPrice: 1400.00
+    },
+    {
+        usdPrice: 18.99,
+        argPrice: 1350.00
+    },
+    {
+        usdPrice: 19.99,
+        argPrice: 1400.00
+    },
+    {
+        usdPrice: 24.99,
+        argPrice: 1750.00
+    },
+    {
+        usdPrice: 29.99,
+        argPrice: 2100.00
+    },
+    {
+        usdPrice: 34.99,
+        argPrice: 2400.00
+    },
+    {
+        usdPrice: 39.99,
+        argPrice: 2600.00
+    },
+    {
+        usdPrice: 44.99,
+        argPrice: 2850.00
+    },
+    {
+        usdPrice: 49.99,
+        argPrice: 3200.00
+    },
+    {
+        usdPrice: 54.99,
+        argPrice: 3700.00
+    },
+    {
+        usdPrice: 59.99,
+        argPrice: 3800.00
+    },
+    {
+        usdPrice: 64.99,
+        argPrice: 4100.00
+    },
+    {
+        usdPrice: 69.99,
+        argPrice: 4500.00
+    },
+    {
+        usdPrice: 74.99,
+        argPrice: 4750.00
+    },
+    {
+        usdPrice: 79.99,
+        argPrice: 5100.00
+    },
+    {
+        usdPrice: 84.99,
+        argPrice: 5400.00
+    },
+    {
+        usdPrice: 89.99,
+        argPrice: 5700.00
+    },
+    {
+        usdPrice: 89.99,
+        argPrice: 5700.00
+    },
+    {
+        usdPrice: 89.99,
+        argPrice: 5700.00
+    },
+    {
+        usdPrice: 99.99,
+        argPrice: 6400.00
+    },
+    {
+        usdPrice: 119.99,
+        argPrice: 7600.00
+    },
+    {
+        usdPrice: 129.99,
+        argPrice: 8200.00
+    },
+    {
+        usdPrice: 149.99,
+        argPrice: 9500.00
+    },
+    {
+        usdPrice: 199.99,
+        argPrice: 13000.00
+    },
+]
+
+const regionalPricingOptions = regionalPricingChart.map(item => item.usdPrice)
+
+
 function setProvinceTax() {
     if (localStorage.hasOwnProperty('province-tax')) {
         let taxValue = localStorage.getItem('province-tax');
@@ -84,7 +263,8 @@ const priceContainers = `
         .promo_item_list .price span:not([${attributeName}]),
         .apphub_StorePrice .price:not([${attributeName}]),
         .item_def_price:not([${attributeName}]),
-        .match_subtitle:not([${attributeName}])
+        .match_subtitle:not([${attributeName}]),
+        .regional-meter-price:not([${attributeName}])        
         `;
 
 
@@ -124,7 +304,7 @@ function getBalance() {
         return 0;
     }
     else if (walletBalanceContainer) {
-        walletBalanceContainer.innerText += emojiWallet;
+        walletBalanceContainer.innerHTML = DOMPurify.sanitize(walletBalanceContainer.innerHTML += emojiWallet);
         return stringToNumber(walletBalanceContainer);
     }
     return 0;

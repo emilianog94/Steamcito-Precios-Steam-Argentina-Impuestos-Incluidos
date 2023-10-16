@@ -10,7 +10,7 @@
 
 
 # Steamcito - La extensión que calcula automáticamente los impuestos de Steam Argentina (2022)
-Steamcito es una extensión para todos los navegadores que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con todos los impuestos incluidos.
+Steamcito es una extensión para todos los navegadores que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con todos los impuestos incluidos, entre otras funcionalidades que te van a hacer comprar de forma más inteligente.
 
 [Ver vídeos e imágenes de todas las funcionalidades en Steamcito.com.ar](https://www.steamcito.com.ar)
 
@@ -50,6 +50,7 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 
 ## ¿Por qué usar Steamcito?
 - Siempre vas a ver el precio final de todos los productos de Steam
+- Contás con un medidor regional que te indica si el juego que estás viendo tiene el precio buggeado, precio regional o un precio muy elevado. 
 - Es compatible con todas las vistas de la tienda de Steam
 - No tenés que sumar los impuestos de forma manual con la calculadora (representa un ahorro aproximado de 6-8 segundos por cada producto que ves)
 - Si usás tarjetas prepagas no necesitás hacer cálculos para saber si tenés que cargarle más saldo para comprar un juego.
@@ -81,11 +82,5 @@ Conocé todos los detalles de las últimas actualizaciones de Steamcito
 [Ver changelog](https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html)
 
 
-***
 
-## Roadmap
-El roadmap se encuentra cerrado ya que de momento no van a agregarse más funcionalidades! Actualmente realizo tareas de mantenimiento para resolver ocasionales bugs que surgen cuando Steam realiza cambios importantes en la lógica de su storefront.
-
-
-***
 

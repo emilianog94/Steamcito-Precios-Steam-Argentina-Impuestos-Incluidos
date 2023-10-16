@@ -3,27 +3,27 @@ let cartTotal = getCartTotal();
 let cartTotalCreditCard = setCartTotalCC(cartTotal);
 let cartTotalMixed = setMixedCartTotal(cartTotal);
 
-function getCartTotal(){
+function getCartTotal() {
     let totalWallet = document.querySelector("#cart_estimated_total");
     return stringToNumber(totalWallet);
 }
 
-function setCartTotalCC(cartValue){
+function setCartTotalCC(cartValue) {
     return calcularImpuestos(cartValue);
 }
 
-function setMixedCartTotal(cartValue){
-    if(walletBalance > 0){
+function setMixedCartTotal(cartValue) {
+    if (walletBalance > 0) {
         return calcularImpuestos(cartValue - walletBalance);
-    } 
+    }
 }
 
-function showCart(){
+function showCart() {
     let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
     let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
 
-    let newCart = 
-    `<div class="estimated_total_extension">
+    let newCart =
+        `<div class="estimated_total_extension">
         <div class="total_wallet ${estimatedTotalDisplay}"> 
             <p>Total Final pagando con Steam Wallet </p>
             <span class="green">${numberToString(cartTotal.toFixed(2))} ${emojiWallet}</span>
@@ -40,17 +40,14 @@ function showCart(){
         </div>
 
     </div>`;
-    oldCart.insertAdjacentHTML('afterbegin',newCart);
+    oldCart.insertAdjacentHTML('afterbegin', newCart);
 }
 
-function showTaxes(){
-    let taxesContainer = 
-    `<div class="tax-container">
+function showTaxes() {
+    let taxesContainer =
+        `<div class="tax-container">
         <h3>Impuestos Nacionales<span class="asterisk">*</span></h3>
         <ul class="impuestos-nacionales"></ul>
-
-        <span class="rg5272-notice">*Si gastás más de 300 USD en el mes se te cobrará otro impuesto del 25%. RG AFIP Nº 5272/2022
-        </span>
 
         <span class="taxes-separator"></span>
 
@@ -60,16 +57,16 @@ function showTaxes(){
         <span class="taxes-separator"></span>
 
 
-        <span class="final-total">Total de impuestos: ${((totalTaxes-1)*100).toFixed(2)}%</span>
+        <span class="final-total">Total de impuestos: ${((totalTaxes - 1) * 100).toFixed(2)}%</span>
         <p id="tax-change">Personalizar impuestos</p>
 
     </div>`;
-    oldCart.insertAdjacentHTML('afterend',taxesContainer);
+    oldCart.insertAdjacentHTML('afterend', taxesContainer);
 
-    taxes.forEach(tax => showFullInfo(tax,"national"));
-    provinceTaxes && provinceTaxes.forEach(tax => showFullInfo(tax,"province"));
+    taxes.forEach(tax => showFullInfo(tax, "national"));
+    provinceTaxes && provinceTaxes.forEach(tax => showFullInfo(tax, "province"));
 
-    function showFullInfo(tax,type){
+    function showFullInfo(tax, type) {
         let taxList = `
         <li>
             <p>${tax.name}</p>&nbsp;
@@ -79,10 +76,10 @@ function showTaxes(){
             <p class="value">${tax.value}%</p>
         </li>
         `
-        if(type == "national"){
-            document.querySelector(".tax-container ul.impuestos-nacionales").insertAdjacentHTML('afterbegin',taxList);
-        } else{
-            document.querySelector(".tax-container ul.impuestos-provinciales").insertAdjacentHTML('afterbegin',taxList);
+        if (type == "national") {
+            document.querySelector(".tax-container ul.impuestos-nacionales").insertAdjacentHTML('afterbegin', taxList);
+        } else {
+            document.querySelector(".tax-container ul.impuestos-provinciales").insertAdjacentHTML('afterbegin', taxList);
         }
     }
 }
@@ -91,9 +88,9 @@ showCart();
 showTaxes();
 
 let taxChangeShortcut = document.querySelector("#tax-change");
-taxChangeShortcut.addEventListener('click',function(){
-    setTimeout(function(){
+taxChangeShortcut.addEventListener('click', function () {
+    setTimeout(function () {
         steamcitoIcon.click();
-    },1);
+    }, 1);
 });
 

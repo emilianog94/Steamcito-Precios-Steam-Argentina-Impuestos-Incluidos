@@ -101,7 +101,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
+            <span class="name-span">${appData.name} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve. ${appData.publisher != "El publisher" ? `<br><span class="name-span">¡Mal ahí ${appData.publisher}!</span>` : ""}
         </p>
         <hr>
         <p class="reason info">
@@ -109,7 +109,11 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
         </p> 
         `
             : ""
@@ -151,7 +155,11 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
         </p> 
         `
             : ""
@@ -172,9 +180,12 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
         </p> 
         <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
+        </p> 
         `
             : ""
         }

@@ -368,11 +368,13 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
+const currentChange = "minor"; // patch | minor | major
+
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {
 
         // Si es la primera vez que se abre desde la actualización
-        if (result.justUpdated == 1) {
+        if (result.justUpdated == 1 && currentChange == "major") {
             let header = document.querySelector('#global_header');
             let changelogUrl = 'https://steamcito.com.ar/changelog'
             let newVersion = chrome.runtime.getManifest().version;

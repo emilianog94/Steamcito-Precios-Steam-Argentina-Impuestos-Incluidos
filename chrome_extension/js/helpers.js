@@ -303,7 +303,13 @@ function getBalance() {
     }
     else if (walletBalanceContainer) {
         walletBalanceContainer.innerHTML += emojiWallet;
-        return stringToNumber(walletBalanceContainer);
+        // Fix para resolver problema de detección de saldo cuando tenés un reembolso pendiente
+        let walletBalance = document.createElement('p');
+        walletBalance.innerText = walletBalanceContainer.innerText;
+        if(walletBalance.innerText.indexOf('Pend')){
+            walletBalance.innerText = walletBalance.innerText.slice(0, walletBalance.innerText.indexOf('Pend'))
+        }
+        return stringToNumber(walletBalance);
     }
     return 0;
 }
@@ -312,6 +318,8 @@ function stringToNumber(number, positionArs = 5) {
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;
+    console.log("numero es");
+    console.log(numero);
     if (numero) {
         if (numero.indexOf(',') != -1 && numero.indexOf('.') != -1) {
             if (numero.indexOf(',') < numero.indexOf('.')) {

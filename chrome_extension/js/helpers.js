@@ -318,8 +318,6 @@ function stringToNumber(number, positionArs = 5) {
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;
-    console.log("numero es");
-    console.log(numero);
     if (numero) {
         if (numero.indexOf(',') != -1 && numero.indexOf('.') != -1) {
             if (numero.indexOf(',') < numero.indexOf('.')) {

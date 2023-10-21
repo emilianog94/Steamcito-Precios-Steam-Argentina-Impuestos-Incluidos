@@ -25,7 +25,7 @@ const criticizePublisher = (margin,publisher) => {
     ]
 
     const randomChoice = Math.floor(Math.random() * phrases.length);
-    if(margin >= 300){
+    if(margin >= 290){
         return `<br><br><span>${phrases[randomChoice]}</span>`
     }
     return "";

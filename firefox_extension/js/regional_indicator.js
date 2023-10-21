@@ -13,6 +13,23 @@ const getAppData = (url) => {
     return appData;
 }
 
+const criticizePublisher = (margin,publisher) => {
+
+    const phrases = [
+        `¿Lo trajiste de Dubai, ${publisher}?`,
+        `¡Te fuiste al pasto ${publisher}!`,
+        `¡Te zarpaste mal ${publisher}!`,
+        `Epa, ¿qué rompimos ${publisher}?`,
+        `¡Saladito ${publisher}!`,
+        `¡Se te fue la mano ${publisher}!`
+    ]
+
+    const randomChoice = Math.floor(Math.random() * phrases.length);
+    if(margin >= 300){
+        return `<br><br><span>${phrases[randomChoice]}</span>`
+    }
+    return "";
+}
 
 const getAppPricing = async (appInitialData) => {
     const { type, id } = appInitialData;
@@ -101,7 +118,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-            <span class="name-span">${appData.name} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve. ${appData.publisher != "El publisher" ? `<br><span class="name-span">¡Mal ahí ${appData.publisher}!</span>` : ""}
+            <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve. ${criticizePublisher(appData.regionalDifference,appData.publisher)}
         </p>
         <hr>
         <p class="reason info">

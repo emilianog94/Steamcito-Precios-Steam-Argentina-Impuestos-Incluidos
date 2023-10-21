@@ -305,6 +305,13 @@ function getBalance() {
     }
     else if (walletBalanceContainer) {
         walletBalanceContainer.innerHTML = DOMPurify.sanitize(walletBalanceContainer.innerHTML += emojiWallet);
+        // Fix para resolver problema de detección de saldo cuando tenés un reembolso pendiente
+        let walletBalance = document.createElement('p');
+        walletBalance.innerText = walletBalanceContainer.innerText;
+        if(walletBalance.innerText.indexOf('Pend')){
+            walletBalance.innerText = walletBalance.innerText.slice(0, walletBalance.innerText.indexOf('Pend'))
+        }
+
         return stringToNumber(walletBalanceContainer);
     }
     return 0;

@@ -200,6 +200,165 @@ let regionalPricingChart = [
     },
 ]
 
+let regionalPricingChartLatam = [
+    {
+        usdPrice: 0.99,
+        argPrice: 0.89
+    },
+    {
+        usdPrice: 1.99,
+        argPrice: 1.49
+    },
+    {
+        usdPrice: 2.99,
+        argPrice: 1.99
+    },
+    {
+        usdPrice: 3.99,
+        argPrice: 2.49
+    },
+    {
+        usdPrice: 4.99,
+        argPrice: 2.99
+    },
+    {
+        usdPrice: 5.99,
+        argPrice: 3.59
+    },
+    {
+        usdPrice: 6.99,
+        argPrice: 3.99
+    },
+    {
+        usdPrice: 7.99,
+        argPrice: 4.49
+    },
+    {
+        usdPrice: 8.99,
+        argPrice: 4.99
+    },
+    {
+        usdPrice: 9.99,
+        argPrice: 5.79
+    },
+    {
+        usdPrice: 10.99,
+        argPrice: 6.29
+    },
+    {
+        usdPrice: 11.99,
+        argPrice: 6.59
+    },
+    {
+        usdPrice: 12.99,
+        argPrice: 7.29
+    },
+    {
+        usdPrice: 13.99,
+        argPrice: 7.79
+    },
+    {
+        usdPrice: 14.99,
+        argPrice: 7.99
+    },
+    {
+        usdPrice: 15.99,
+        argPrice: 8.49
+    },
+    {
+        usdPrice: 16.99,
+        argPrice: 8.99
+    },
+    {
+        usdPrice: 17.99,
+        argPrice: 9.29
+    },
+    {
+        usdPrice: 18.99,
+        argPrice: 9.89
+    },
+    {
+        usdPrice: 19.99,
+        argPrice: 10.99
+    },
+    {
+        usdPrice: 24.99,
+        argPrice: 12.49
+    },
+    {
+        usdPrice: 29.99,
+        argPrice: 14.99
+    },
+    {
+        usdPrice: 34.99,
+        argPrice: 17.99
+    },
+    {
+        usdPrice: 39.99,
+        argPrice: 18.99
+    },
+    {
+        usdPrice: 44.99,
+        argPrice: 20.99
+    },
+    {
+        usdPrice: 49.99,
+        argPrice: 22.99
+    },
+    {
+        usdPrice: 54.99,
+        argPrice: 25.99
+    },
+    {
+        usdPrice: 59.99,
+        argPrice: 26.99
+    },
+    {
+        usdPrice: 64.99,
+        argPrice: 29.99
+    },
+    {
+        usdPrice: 69.99,
+        argPrice: 32.99
+    },
+    {
+        usdPrice: 74.99,
+        argPrice: 34.99
+    },
+    {
+        usdPrice: 79.99,
+        argPrice: 36.99
+    },
+    {
+        usdPrice: 84.99,
+        argPrice: 38.99
+    },
+    {
+        usdPrice: 89.99,
+        argPrice: 41.99
+    },
+    {
+        usdPrice: 99.99,
+        argPrice: 45.99
+    },
+    {
+        usdPrice: 119.99,
+        argPrice: 55.99
+    },
+    {
+        usdPrice: 129.99,
+        argPrice: 59.99
+    },
+    {
+        usdPrice: 149.99,
+        argPrice: 69.99
+    },
+    {
+        usdPrice: 199.99,
+        argPrice: 92.99
+    },
+]
+
 const regionalPricingOptions = regionalPricingChart.map(item => item.usdPrice)
 
 function setProvinceTax() {

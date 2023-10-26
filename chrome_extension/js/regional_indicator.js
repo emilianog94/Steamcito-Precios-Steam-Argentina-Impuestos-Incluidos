@@ -9,10 +9,8 @@ function evaluateDate(){
         let difference = currentTimestamp - savedTimestamp;
 
         if(difference >= 86400){
-            console.log("Pasaron 24hs, refetching now")
             return true;
         } else{
-            console.log("No pasaron 24hs, no hacer nada")
             return false;
         }
     }
@@ -22,8 +20,6 @@ function evaluateDate(){
 async function getUsdExchangeRate(){
 
     let shouldGetNewRate = evaluateDate();
-    console.log("get new rate es");
-    console.log(shouldGetNewRate);
 
     if(shouldGetNewRate){
         try{
@@ -48,7 +44,6 @@ async function getUsdExchangeRate(){
 
     } else{
         let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
-        console.log("es", exchangeRateJSON.rate);
         return parseFloat(exchangeRateJSON.rate)
     }
 }
@@ -97,8 +92,6 @@ const getAppPricing = async (appInitialData) => {
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
     let exchangeRate = await getUsdExchangeRate();
-    console.log("exchangerate is");
-    console.log(exchangeRate);
     
 
     let appIdResponse = await appIdFetch.json();
@@ -132,17 +125,9 @@ const getAppPricing = async (appInitialData) => {
             
         const nearestOptionLatam = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
 
-        console.log("La nearest option latam es");
-        console.log(nearestOptionLatam);
-
         const recommendedArsPriceLatam = regionalPricingChartLatam
             .filter(item => item.usdPrice == nearestOptionLatam)
             .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
-
-
-            console.log("recommended latam price is");
-            console.log(recommendedArsPriceLatam);
-
 
         appData.recommendedArsPrice = recommendedArsPrice;
         appData.recommendedLatamPrice = recommendedArsPriceLatam.toFixed(2);

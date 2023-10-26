@@ -162,27 +162,37 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         `
 
     <div class="block responsive_apppage_details_right heading">
-        ¿Cómo será el precio dolarizado?
+        ¿Cómo cambiará el precio el 20/11?
     </div>
 
 
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
         <p class="reason info">
-        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>tiene hasta el 20 de Noviembre para decidir si <span class="name-span">${appData.name}</span> sigue el nuevo precio sugerido por Valve.
+        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>debe decidir si <span class="name-span">${appData.name}</span> toma el nuevo precio en dólares sugerido por Valve.
         </p>
         <hr>
         
-        <p class="reason info">
-            Precio sugerido a partir del 20/11<br><span>${numberToString((appData.recommendedLatamPrice * exchangeRate * 2).toFixed(2))}🧉 (USD$ ${appData.recommendedLatamPrice}💲)</span>
+        <p class="reason for">
+            Precio sugerido por Valve<br>
+            <span>
+                USD$ ${appData.recommendedLatamPrice}💲
+                (${numberToString((appData.recommendedLatamPrice * exchangeRate * 2).toFixed(2))}🧉)
+            </span>
         </p> 
         <hr>
-        <p class="reason info">
-            Si se ignora el precio sugerido<br><span>${numberToString((appData.usdPrice * exchangeRate * 2).toFixed(2))}🧉 (USD$ ${appData.usdPrice}💲) </span> 
+        <p class="reason against">
+            Si se ignora el precio sugerido<br>
+            <span>
+                USD$ ${appData.usdPrice}💲
+                (${numberToString((appData.usdPrice * exchangeRate * 2).toFixed(2))}🧉) 
+            </span> 
         </p> 
         <div class="DRM_notice">
             <div>
-                Cálculo hecho por Steamcito en base a la cotización del dólar hoy y la 
-                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
+                Cálculo hecho por Steamcito en base a la 
+                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation.</a>
+                <br>
+                Cotización de hoy: 1 USD = ${exchangeRate} Pesos
             </div>
         </div>
 

@@ -168,7 +168,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
         <p class="reason info">
-        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>debe decidir si <span class="name-span">${appData.name}</span> adopta el nuevo precio sugerido por Valve.
+        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>debe decidir si <span class="name-span">"${appData.name}"</span> adopta el nuevo precio sugerido por Valve.
         </p>
         <hr>
         

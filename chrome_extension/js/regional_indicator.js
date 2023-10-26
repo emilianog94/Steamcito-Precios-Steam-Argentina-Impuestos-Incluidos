@@ -26,20 +26,30 @@ async function getUsdExchangeRate(){
     console.log(shouldGetNewRate);
 
     if(shouldGetNewRate){
-        let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
-        let exchangeRateJson = await exchangeRateResponse.json();
-        let exchangeRate = exchangeRateJson.venta;
-        exchangeRate = parseFloat(exchangeRate.replace(',','.'));
-        
-        let exchangeRateJSON = {
-            rate : exchangeRate,
-            date: Date.now()
-        }
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                date: Date.now()
+            }
+
     
         localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
         return exchangeRate;
+        }
+        catch(err){
+            return 367.72
+        }
+
+
     } else{
-        return 367.72;
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+        console.log("es", exchangeRateJSON.rate);
+        return parseFloat(exchangeRateJSON.rate)
     }
 }
 

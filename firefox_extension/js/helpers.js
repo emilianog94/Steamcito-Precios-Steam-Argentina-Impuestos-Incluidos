@@ -305,6 +305,13 @@ function getBalance() {
     }
     else if (walletBalanceContainer) {
         walletBalanceContainer.innerHTML = DOMPurify.sanitize(walletBalanceContainer.innerHTML += emojiWallet);
+        // Fix para resolver problema de detección de saldo cuando tenés un reembolso pendiente
+        let walletBalance = document.createElement('p');
+        walletBalance.innerText = walletBalanceContainer.innerText;
+        if(walletBalance.innerText.indexOf('Pend')){
+            walletBalance.innerText = walletBalance.innerText.slice(0, walletBalance.innerText.indexOf('Pend'))
+        }
+
         return stringToNumber(walletBalanceContainer);
     }
     return 0;
@@ -368,11 +375,13 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
+const currentChange = "minor"; // patch | minor | major
+
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {
 
         // Si es la primera vez que se abre desde la actualización
-        if (result.justUpdated == 1) {
+        if (result.justUpdated == 1 && currentChange == "major") {
             let header = document.querySelector('#global_header');
             let changelogUrl = 'https://steamcito.com.ar/changelog'
             let newVersion = chrome.runtime.getManifest().version;

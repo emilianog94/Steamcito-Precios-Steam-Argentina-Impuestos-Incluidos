@@ -24,10 +24,16 @@ function showCart() {
 
     let newCart =
         `<div class="estimated_total_extension">
-        <div class="total_wallet ${estimatedTotalDisplay}"> 
+        ${totalMixedDisplay != "show" ?
+        `
+        <div class="total_wallet"> 
             <p>Total Final pagando con Steam Wallet </p>
             <span class="green">${numberToString(cartTotal.toFixed(2))} ${emojiWallet}</span>
         </div>
+        `
+        :
+        ""
+        }
 
         <div class="total_cc">
             <p>Total Final pagando con Tarjeta</p>

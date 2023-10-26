@@ -13,6 +13,23 @@ const getAppData = (url) => {
     return appData;
 }
 
+const criticizePublisher = (margin,publisher) => {
+
+    const phrases = [
+        `¿Lo trajiste de Dubai, ${publisher}?`,
+        `¡Te fuiste al pasto ${publisher}!`,
+        `¡Te zarpaste mal ${publisher}!`,
+        `Epa, ¿qué rompimos ${publisher}?`,
+        `¡Saladito ${publisher}!`,
+        `¡Se te fue la mano ${publisher}!`
+    ]
+
+    const randomChoice = Math.floor(Math.random() * phrases.length);
+    if(margin >= 290){
+        return `<br><br><span>${phrases[randomChoice]}</span>`
+    }
+    return "";
+}
 
 const getAppPricing = async (appInitialData) => {
     const { type, id } = appInitialData;
@@ -101,7 +118,7 @@ const renderRegionalIndicator = (appData) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
+            <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve. ${criticizePublisher(appData.regionalDifference,appData.publisher)}
         </p>
         <hr>
         <p class="reason info">
@@ -109,7 +126,11 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
         </p> 
         `
             : ""
@@ -151,7 +172,11 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
         </p> 
         `
             : ""
@@ -172,9 +197,12 @@ const renderRegionalIndicator = (appData) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span> | <span>USD$ ${appData.usdPrice} </span> 
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
         </p> 
         <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
+        </p> 
         `
             : ""
         }

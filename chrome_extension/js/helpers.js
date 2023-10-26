@@ -360,6 +360,9 @@ let regionalPricingChartLatam = [
 ]
 
 const regionalPricingOptions = regionalPricingChart.map(item => item.usdPrice)
+const regionalPricingOptionsLatam = regionalPricingChartLatam.map(item => item.usdPrice)
+
+
 
 function setProvinceTax() {
     if (localStorage.hasOwnProperty('province-tax')) {

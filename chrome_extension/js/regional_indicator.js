@@ -37,10 +37,13 @@ async function getUsdExchangeRate(){
         }
     
         localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
+        return exchangeRate;
+    } else{
+        return 367.72;
     }
 }
 
-getUsdExchangeRate();
+
 
 const getAppData = (url) => {
     let appData = {
@@ -83,6 +86,11 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
+    let exchangeRate = await getUsdExchangeRate();
+    console.log("exchangerate is");
+    console.log(exchangeRate);
+    
+
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
 
@@ -102,6 +110,7 @@ const getAppPricing = async (appInitialData) => {
             usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             arsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             recommendedArsPrice: undefined,
+            recommendedLatamPrice: undefined,
             regionalStatus: undefined
         }
 
@@ -110,8 +119,23 @@ const getAppPricing = async (appInitialData) => {
         const recommendedArsPrice = regionalPricingChart
             .filter(item => item.usdPrice == nearestOption)
             .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
+            
+        const nearestOptionLatam = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
+
+        console.log("La nearest option latam es");
+        console.log(nearestOptionLatam);
+
+        const recommendedArsPriceLatam = regionalPricingChartLatam
+            .filter(item => item.usdPrice == nearestOptionLatam)
+            .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
+
+
+            console.log("recommended latam price is");
+            console.log(recommendedArsPriceLatam);
+
 
         appData.recommendedArsPrice = recommendedArsPrice;
+        appData.recommendedLatamPrice = recommendedArsPriceLatam.toFixed(2);
 
         // Está más caro que lo esperado
         if (appData.arsPrice > appData.recommendedArsPrice) {
@@ -127,7 +151,7 @@ const getAppPricing = async (appInitialData) => {
             appData.regionalDifference = 0;
         }
 
-        renderRegionalIndicator(appData);
+        renderRegionalIndicator(appData, exchangeRate);
 
         return appData;
 
@@ -136,11 +160,42 @@ const getAppPricing = async (appInitialData) => {
 }
 
 
-const renderRegionalIndicator = (appData) => {
+const renderRegionalIndicator = (appData, exchangeRate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let container =
         `
+
+    <div class="block responsive_apppage_details_right heading">
+        ¿Cómo será el precio dolarizado?
+    </div>
+
+
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+        <p class="reason info">
+        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>tiene hasta el 20 de Noviembre para decidir si <span class="name-span">${appData.name}</span> sigue el nuevo precio sugerido por Valve.
+        </p>
+        <hr>
+        
+        <p class="reason info">
+            Precio sugerido a partir del 20/11<br><span>${numberToString((appData.recommendedLatamPrice * exchangeRate * 2).toFixed(2))}🧉 (USD$ ${appData.recommendedLatamPrice}💲)</span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Si se ignora el precio sugerido<br><span>${numberToString((appData.usdPrice * exchangeRate * 2).toFixed(2))}🧉 (USD$ ${appData.usdPrice}💲) </span> 
+        </p> 
+        <div class="DRM_notice">
+            <div>
+                Cálculo hecho por Steamcito en base a la cotización del dólar hoy y la 
+                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
+            </div>
+        </div>
+
+
+    </div>
+
+    
+
     <div class="block responsive_apppage_details_right heading">
         ¿Cómo es el precio regional?
     </div>

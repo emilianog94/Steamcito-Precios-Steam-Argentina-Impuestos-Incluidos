@@ -1,5 +1,54 @@
 const url = window.location.pathname;
 
+function evaluateDate(){
+    if(localStorage.getItem('steamcito-cotizacion')){
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+
+        let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
+        let currentTimestamp = Date.now()/1000;
+        let difference = currentTimestamp - savedTimestamp;
+
+        if(difference >= 86400){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    return true;
+}
+
+async function getUsdExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate();
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
+        return exchangeRate;
+        }
+        catch(err){
+            return 367.72
+        }
+
+
+    } else{
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+        return parseFloat(exchangeRateJSON.rate)
+    }
+}
+
+
 const getAppData = (url) => {
     let appData = {
         type: '',
@@ -40,6 +89,8 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
+    let exchangeRate = await getUsdExchangeRate();
+
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
 
@@ -68,7 +119,15 @@ const getAppPricing = async (appInitialData) => {
             .filter(item => item.usdPrice == nearestOption)
             .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
 
+        const nearestOptionLatam = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
+
+        const recommendedArsPriceLatam = regionalPricingChartLatam
+            .filter(item => item.usdPrice == nearestOptionLatam)
+            .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
+
+
         appData.recommendedArsPrice = recommendedArsPrice;
+        appData.recommendedLatamPrice = recommendedArsPriceLatam.toFixed(2);
 
         // Está más caro que lo esperado
         if (appData.arsPrice > appData.recommendedArsPrice) {
@@ -84,7 +143,7 @@ const getAppPricing = async (appInitialData) => {
             appData.regionalDifference = 0;
         }
 
-        renderRegionalIndicator(appData);
+        renderRegionalIndicator(appData,exchangeRate);
 
         return appData;
 
@@ -93,11 +152,47 @@ const getAppPricing = async (appInitialData) => {
 }
 
 
-const renderRegionalIndicator = (appData) => {
+const renderRegionalIndicator = (appData,exchangeRate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let container =
         `
+    <div class="block responsive_apppage_details_right heading">
+        ¿Cómo cambiará el precio el 20/11?
+    </div>
+
+
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+        <p class="reason info">
+        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>debe decidir si <span class="name-span">"${appData.name}"</span> adopta el nuevo precio sugerido por Valve.
+        </p>
+        <hr>
+        
+        <p class="reason for">
+            Precio sugerido por Valve desde el 20/11<br>
+            <span>
+                USD$ ${appData.recommendedLatamPrice}💲
+                (${numberToString((appData.recommendedLatamPrice * exchangeRate * 2).toFixed(2))}🧉)
+            </span>
+        </p> 
+        <hr>
+        <p class="reason against">
+            Si se ignora el precio sugerido<br>
+            <span>
+                USD$ ${appData.usdPrice}💲
+                (${numberToString((appData.usdPrice * exchangeRate * 2).toFixed(2))}🧉) 
+            </span> 
+        </p> 
+        <div class="DRM_notice">
+            <div>
+                Cálculo hecho por Steamcito en base a la 
+                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation.</a>
+                <br>
+                Cotización de hoy: 1 USD = ${exchangeRate} Pesos
+            </div>
+        </div>
+    </div>
+
     <div class="block responsive_apppage_details_right heading">
         ¿Cómo es el precio regional?
     </div>

@@ -18,7 +18,8 @@
  		"128": "icon128.png"
  	},
  	"permissions": [
- 		"storage"
+ 		"storage",
+		 "https://mercados.ambito.com/dolar/oficial/variacion"
  	],
 
  	"content_scripts": [{

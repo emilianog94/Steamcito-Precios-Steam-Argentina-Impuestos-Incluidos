@@ -20,7 +20,6 @@ function evaluateDate(){
 async function getUsdExchangeRate(){
 
     let shouldGetNewRate = evaluateDate();
-
     if(shouldGetNewRate){
         try{
             let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');

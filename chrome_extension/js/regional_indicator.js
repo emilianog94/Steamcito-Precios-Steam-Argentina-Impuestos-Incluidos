@@ -1,55 +1,5 @@
 const url = window.location.pathname;
 
-function evaluateDate(){
-    if(localStorage.getItem('steamcito-cotizacion')){
-        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
-
-        let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
-        let currentTimestamp = Date.now()/1000;
-        let difference = currentTimestamp - savedTimestamp;
-
-        if(difference >= 86400){
-            return true;
-        } else{
-            return false;
-        }
-    }
-    return true;
-}
-
-async function getUsdExchangeRate(){
-
-    let shouldGetNewRate = evaluateDate();
-
-    if(shouldGetNewRate){
-        try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
-            let exchangeRateJson = await exchangeRateResponse.json();
-            let exchangeRate = exchangeRateJson.venta;
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
-            
-            let exchangeRateJSON = {
-                rate : exchangeRate,
-                date: Date.now()
-            }
-
-    
-        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
-        return exchangeRate;
-        }
-        catch(err){
-            return 367.72
-        }
-
-
-    } else{
-        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
-        return parseFloat(exchangeRateJSON.rate)
-    }
-}
-
-
-
 const getAppData = (url) => {
     let appData = {
         type: '',

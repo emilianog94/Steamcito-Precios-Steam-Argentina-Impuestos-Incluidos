@@ -1,9 +1,14 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function getPrices(){
-    let prices = document.querySelectorAll(priceContainers);
+async function getPrices(){
 
+    let exchangeRate = await getUsdExchangeRate();
+    console.log("la exchange rate es");
+    console.log(exchangeRate);
+
+    let prices = document.querySelectorAll(priceContainers);
+    
     // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
     let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
     standardDlcPrices.forEach(dlcPrice => { 
@@ -117,4 +122,52 @@ function switchPrices(selector,first,second,symbol){
 }
 
 
+
+function evaluateDate(){
+    if(localStorage.getItem('steamcito-cotizacion')){
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+
+        let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
+        let currentTimestamp = Date.now()/1000;
+        let difference = currentTimestamp - savedTimestamp;
+
+        if(difference >= 86400){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    return true;
+}
+
+async function getUsdExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate();
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
+        return exchangeRate;
+        }
+        catch(err){
+            return 367.72
+        }
+
+
+    } else{
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+        return parseFloat(exchangeRateJSON.rate)
+    }
+}
 

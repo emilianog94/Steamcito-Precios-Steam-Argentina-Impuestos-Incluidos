@@ -3,12 +3,27 @@ let cartTotal = getCartTotal();
 let cartTotalCreditCard = setCartTotalCC(cartTotal);
 let cartTotalMixed = setMixedCartTotal(cartTotal);
 
+let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+console.log("la cotizacion es");
+console.log(parseFloat(exchangeRateJSON.rate))
+
+
 function getCartTotal() {
     let totalWallet = document.querySelector("#cart_estimated_total");
+    console.log("cart total is");
+    console.log(stringToNumber(totalWallet));
     return stringToNumber(totalWallet);
 }
 
 function setCartTotalCC(cartValue) {
+    let totalWallet = document.querySelector("#cart_estimated_total");
+    console.log("total wallet is");
+    console.log(totalWallet);
+    if(!totalWallet.innerText.includes('ARS')){
+        totalWallet.dataset.currency = "usd"
+        return calculateTaxesAndExchange(cartValue)
+    }
+    totalWallet.dataset.currency = "ars"
     return calcularImpuestos(cartValue);
 }
 
@@ -19,6 +34,8 @@ function setMixedCartTotal(cartValue) {
 }
 
 function showCart() {
+    let totalWallet = document.querySelector("#cart_estimated_total");
+
     let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
     let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
 
@@ -30,7 +47,7 @@ function showCart() {
         `
         <div class="total_wallet"> 
             <p>Total Final pagando con Steam Wallet </p>
-            <span class="green">${numberToString(cartTotal.toFixed(2))} ${emojiWallet}</span>
+            <span class="green">${totalWallet.dataset.currency == "ars" ? numberToString(cartTotal.toFixed(2)) : numberToStringUsd(cartTotal)} ${emojiWallet}</span>
         </div>
         `
         :

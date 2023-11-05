@@ -33,19 +33,11 @@ async function setArgentinaPrice(price){
 
     // Update 20/11 si los precios están en una currency distinta a ARS
     else{
-        let regexFindNumber = /(\d+\.\d+)/;
-        let match = price.innerText.match(regexFindNumber);
-
-        if(match){
-            console.log("El match es");
-            console.log(match[0]);
-            console.log("===========");
-            let baseNumericPrice = match[0];
-            price.dataset.originalPrice = baseNumericPrice;
-            price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
-            price.dataset.isDolarized = "dolarized";
-            renderPrices(price);
-        }
+        let baseNumericPrice = extractNumberFromString(price.innerText)
+        price.dataset.originalPrice = baseNumericPrice;
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
+        price.dataset.isDolarized = "dolarized";
+        renderPrices(price);
     }
 
 }

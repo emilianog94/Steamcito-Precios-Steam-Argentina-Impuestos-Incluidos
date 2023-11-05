@@ -454,7 +454,12 @@ function calcularImpuestos(initialPrice) {
     return finalPrice.toFixed(2);
 }
 
-function calculateTaxesAndExchange(initialPrice,exchangeRate) {
+ function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
+
+    if(exchangeRate=="unset"){
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    }
+
     let arsPriceBeforeTaxes = initialPrice * exchangeRate
     let finalPrice = initialPrice * exchangeRate;
     console.log("finalprice es");
@@ -494,7 +499,20 @@ function getBalance() {
     return 0;
 }
 
+function extractNumberFromString(string){
+    let regexFindNumber = /(\d+\.\d+)/;
+    let match = string.match(regexFindNumber);
+    if(match){
+        return match[0];
+    }
+
+}
+
 function stringToNumber(number, positionArs = 5) {
+
+    if(!number.innerText.includes('ARS')){
+        return extractNumberFromString(number.innerText);
+    }
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;

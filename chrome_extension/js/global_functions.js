@@ -2,10 +2,10 @@ const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
 async function getPrices(){
-
     let exchangeRate = await getUsdExchangeRate();
-    console.log("la exchange rate es");
-    console.log(exchangeRate);
+
+    // console.log("la exchange rate es");
+    // console.log(exchangeRate);
 
     let prices = document.querySelectorAll(priceContainers);
     
@@ -19,13 +19,33 @@ async function getPrices(){
     prices.forEach(price => setArgentinaPrice(price));
 }
 
-function setArgentinaPrice(price){
+async function setArgentinaPrice(price){
+    let exchangeRate = await getUsdExchangeRate();
+
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
         let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice.toFixed(2);
         price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
+        price.dataset.isDolarized = "not-dolarized";
         renderPrices(price);
+    }
+
+    // Update 20/11 si los precios están en una currency distinta a ARS
+    else{
+        let regexFindNumber = /(\d+\.\d+)/;
+        let match = price.innerText.match(regexFindNumber);
+
+        if(match){
+            console.log("El match es");
+            console.log(match[0]);
+            console.log("===========");
+            let baseNumericPrice = match[0];
+            price.dataset.originalPrice = baseNumericPrice;
+            price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
+            price.dataset.isDolarized = "dolarized";
+            renderPrices(price);
+        }
     }
 
 }
@@ -36,8 +56,13 @@ function sanitizePromoLists(){
 }
 
 function renderPrices(price){
+
+    console.log("price is");
+    console.log(price);
+
+
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
-    let originalPrice = numberToString(price.dataset.originalPrice);
+    let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
 
     // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
     if (price.classList.contains("was")) sanitizePromoLists();
@@ -100,24 +125,46 @@ function showSecondaryPrice(e){
     selectedPrice.classList.add("transition-effect");
     selectedPrice.style.opacity = 0;
     if(selectedPrice.classList.contains("argentina")){
-        switchPrices(selectedPrice,"argentina","original",emojiWallet);
+        switchPrices(selectedPrice,"argentina","original",emojiWallet,selectedPrice.dataset.isDolarized);
     }
     else if(selectedPrice.classList.contains("original")){
-        switchPrices(selectedPrice,"original","argentina",emojiMate);
+        switchPrices(selectedPrice,"original","argentina",emojiMate,selectedPrice.dataset.isDolarized);
     }
 }
 
-function switchPrices(selector,first,second,symbol){
+function switchPrices(selector,first,second,symbol,isDolarized){
     setTimeout(function(){
         selector.style.opacity=1;
         selector.classList.remove(first);
         selector.classList.add(second);
 
-        if(selector.classList.contains("suscription-price")){
-            selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
-        } else{
-            selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol);
+        if(isDolarized == "dolarized"){
+            if(selector.classList.contains("suscription-price")){
+                selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
+            } else{
+    
+                console.log("selector is");
+                console.log(selector);
+    
+                selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : numberToString(selector.dataset[second+"Price"] + symbol)  ;
+            }            
         }
+
+        else{
+
+            if(selector.classList.contains("suscription-price")){
+                selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
+            } else{
+    
+                console.log("selector is");
+                console.log(selector);
+    
+                selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol) ;
+            }
+
+        }
+
+
     },250);
 }
 

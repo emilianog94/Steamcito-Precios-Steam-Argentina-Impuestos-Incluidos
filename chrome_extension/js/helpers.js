@@ -452,8 +452,26 @@ function calcularImpuestos(initialPrice) {
         })
 
     return finalPrice.toFixed(2);
-
 }
+
+function calculateTaxesAndExchange(initialPrice,exchangeRate) {
+    let arsPriceBeforeTaxes = initialPrice * exchangeRate
+    let finalPrice = initialPrice * exchangeRate;
+    console.log("finalprice es");
+    console.log(finalPrice);
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    return finalPrice.toFixed(2);
+}
+
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
@@ -513,6 +531,18 @@ function numberToString(number) {
         let parts = number.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return 'ARS$ ' + parts.join(",");
+    }
+}
+
+function numberToStringUsd(number) {
+    console.log("entré a numbertostringusd");
+    console.log(number);
+    console.log("==========")
+    if (number) {
+        let parts = number.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        console.log('USD$ ' + parts.join(","));
+        return 'USD$ ' + parts.join(",");
     }
 }
 

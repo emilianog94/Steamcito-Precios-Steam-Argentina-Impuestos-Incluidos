@@ -32,7 +32,7 @@ async function setArgentinaPrice(price){
     }
 
     // Update 20/11 si los precios están en una currency distinta a ARS
-    else{
+    else if(price.innerText.includes("$")){
         let baseNumericPrice = extractNumberFromString(price.innerText)
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);

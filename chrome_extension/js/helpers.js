@@ -480,7 +480,6 @@ function calcularImpuestos(initialPrice) {
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
-
     if (localStorage.getItem('manual-mode') == "wallet") {
         return 9999999;
     } else if (localStorage.getItem('manual-mode') == "mate") {
@@ -494,6 +493,7 @@ function getBalance() {
         if(walletBalance.innerText.indexOf('Pend')){
             walletBalance.innerText = walletBalance.innerText.slice(0, walletBalance.innerText.indexOf('Pend'))
         }
+        // return 6.12;
         return stringToNumber(walletBalance);
     }
     return 0;

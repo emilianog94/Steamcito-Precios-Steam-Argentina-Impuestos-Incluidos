@@ -1,4 +1,5 @@
 let oldCart = document.querySelector(".estimated_total_box");
+let walletElement = document.querySelector('#cart_estimated_total');
 let cartTotal = getCartTotal();
 let cartTotalCreditCard = setCartTotalCC(cartTotal);
 let cartTotalMixed = setMixedCartTotal(cartTotal);
@@ -9,59 +10,58 @@ console.log(parseFloat(exchangeRateJSON.rate))
 
 
 function getCartTotal() {
-    let totalWallet = document.querySelector("#cart_estimated_total");
     console.log("cart total is");
-    console.log(stringToNumber(totalWallet));
-    return stringToNumber(totalWallet);
+    console.log(stringToNumber(walletElement));
+    return stringToNumber(walletElement);
 }
 
 function setCartTotalCC(cartValue) {
-    let totalWallet = document.querySelector("#cart_estimated_total");
     console.log("total wallet is");
-    console.log(totalWallet);
-    if(!totalWallet.innerText.includes('ARS')){
-        totalWallet.dataset.currency = "usd"
+    console.log(walletElement);
+    if(!walletElement.innerText.includes('ARS')){
+        walletElement.dataset.currency = "usd"
         return calculateTaxesAndExchange(cartValue)
     }
-    totalWallet.dataset.currency = "ars"
+    walletElement.dataset.currency = "ars"
     return calcularImpuestos(cartValue);
 }
 
 function setMixedCartTotal(cartValue) {
+
+    console.log("Función Mixed");
+    console.log("cartvalue es", cartValue);
+    console.log("walletbalance es", walletBalance);
+
     if (walletBalance > 0) {
+
+        if(!walletElement.innerText.includes('ARS')){
+            walletElement.dataset.currency = "usd"
+            return calculateTaxesAndExchange(cartValue - walletBalance)
+        }
         return calcularImpuestos(cartValue - walletBalance);
     }
 }
 
 function showCart() {
-    let totalWallet = document.querySelector("#cart_estimated_total");
-
     let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
     let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
 
     let newCart =
-        `<div class="estimated_total_extension">
+    `<div class="estimated_total_extension">
 
-        ${totalMixedDisplay != "show" ?
-
-        `
         <div class="total_wallet"> 
             <p>Total Final pagando con Steam Wallet </p>
-            <span class="green">${totalWallet.dataset.currency == "ars" ? numberToString(cartTotal.toFixed(2)) : numberToStringUsd(cartTotal)} ${emojiWallet}</span>
+            <span class="green">${walletElement.dataset.currency == "ars" ? numberToString(cartTotal.toFixed(2)) : numberToStringUsd(cartTotal)} ${emojiWallet}</span>
         </div>
-        `
-        :
-        ""
-        }
 
         <div class="total_cc">
-            <p>Total Final pagando con Tarjeta</p>
+            <p>Total Aproximado pagando con Tarjeta</p>
             <span>${numberToString(cartTotalCreditCard)} ${emojiMate}</span>        
         </div>
 
         <div class="total_mixed ${totalMixedDisplay}">
-            <p>Total Final pagando con Steam Wallet + Tarjeta</p>
-            <span> <span class="green">${numberToString(walletBalance)} ${emojiWallet} </span> + &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
+            <p>Total Aproximado pagando con Steam Wallet + Tarjeta</p>
+            <span> <span class="green">${walletElement.dataset.currency == "ars" ? numberToString(walletBalance) : numberToStringUsd(walletBalance)} ${emojiWallet} </span> + &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
         </div>
 
     </div>`;

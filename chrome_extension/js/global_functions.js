@@ -188,10 +188,12 @@ async function getUsdExchangeRate(){
             let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
             let exchangeRateJson = await exchangeRateResponse.json();
             let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
             exchangeRate = parseFloat(exchangeRate.replace(',','.'));
             
             let exchangeRateJSON = {
                 rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
                 date: Date.now()
             }
 

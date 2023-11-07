@@ -32,6 +32,14 @@ const criticizePublisher = (margin,publisher) => {
 }
 
 
+const getExchangeRate = async () => {
+    let exchangeRate = await getUsdExchangeRate();
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+
+    renderExchangeIndicator(exchangeRate,exchangeRateDate)
+
+}
+
 const getAppPricing = async (appInitialData) => {
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
@@ -42,7 +50,7 @@ const getAppPricing = async (appInitialData) => {
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
     let exchangeRate = await getUsdExchangeRate();
-    
+
 
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
@@ -105,12 +113,37 @@ const getAppPricing = async (appInitialData) => {
 }
 
 
+const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
+    let sidebar = document.querySelector('.rightcol.game_meta_data');
+    let container = `
+        <div class="block responsive_apppage_details_right heading">
+            ¿A cuánto está el dólar?
+        </div>
+
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+            <p class="reason info"><span class="name-span">1 USD = ${exchangeRate} Pesos Argentinos</span>
+            </p>
+
+            <div class="DRM_notice">
+                <div>
+                    Tipo de cambio minorista referencial de hoy provisto por Ámbito Financiero.<br> <b>Última actualización: ${exchangeRateDate}</b>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    
+    `;
+
+    sidebar.insertAdjacentHTML('afterbegin', container);
+}
+
+
 const renderRegionalIndicator = (appData, exchangeRate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let container =
         `
-
     <div class="block responsive_apppage_details_right heading">
         ¿Cómo cambiará el precio el 20/11?
     </div>
@@ -284,8 +317,11 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     sidebar.insertAdjacentHTML('afterbegin', container);
 }
 
+if(isStoreDolarized()){
+    getExchangeRate();
+}
+
 if(!isStoreDolarized()){
     const appData = getAppData(url);
     getAppPricing(appData);
 }
-

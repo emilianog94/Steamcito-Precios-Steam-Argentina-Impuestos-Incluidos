@@ -1,12 +1,7 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-async function getPrices(){
-    let exchangeRate = await getUsdExchangeRate();
-
-    // console.log("la exchange rate es");
-    // console.log(exchangeRate);
-
+function getPrices(){
     let prices = document.querySelectorAll(priceContainers);
     
     // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
@@ -48,11 +43,6 @@ function sanitizePromoLists() {
 }
 
 function renderPrices(price) {
-
-
-    console.log("price is");
-    console.log(price);
-
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
     let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
     // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
@@ -133,10 +123,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
             if(selector.classList.contains("suscription-price")){
                 selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
             } else{
-    
-                console.log("selector is");
-                console.log(selector);
-    
                 selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol))  ;
             }            
         }
@@ -146,10 +132,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
             if(selector.classList.contains("suscription-price")){
                 selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
             } else{
-    
-                console.log("selector is");
-                console.log(selector);
-    
                 selector.innerHTML = DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol)) ;
             }
 

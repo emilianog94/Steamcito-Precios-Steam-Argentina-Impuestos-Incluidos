@@ -1,11 +1,7 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-async function getPrices(){
-    let exchangeRate = await getUsdExchangeRate();
-
-    // console.log("la exchange rate es");
-    // console.log(exchangeRate);
+function getPrices(){
 
     let prices = document.querySelectorAll(priceContainers);
     
@@ -48,10 +44,6 @@ function sanitizePromoLists(){
 }
 
 function renderPrices(price){
-
-    console.log("price is");
-    console.log(price);
-
 
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
     let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
@@ -134,10 +126,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
             if(selector.classList.contains("suscription-price")){
                 selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
             } else{
-    
-                console.log("selector is");
-                console.log(selector);
-    
                 selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : numberToString(selector.dataset[second+"Price"] + symbol)  ;
             }            
         }
@@ -147,10 +135,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
             if(selector.classList.contains("suscription-price")){
                 selector.innerHTML = numberToStringSub(selector.dataset[second+"Price"] + symbol);
             } else{
-    
-                console.log("selector is");
-                console.log(selector);
-    
                 selector.innerHTML = numberToString(selector.dataset[second+"Price"] + symbol) ;
             }
 

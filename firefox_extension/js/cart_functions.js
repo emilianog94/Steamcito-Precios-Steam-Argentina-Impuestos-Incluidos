@@ -5,18 +5,12 @@ let cartTotalCreditCard = setCartTotalCC(cartTotal);
 let cartTotalMixed = setMixedCartTotal(cartTotal);
 
 let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
-console.log("la cotizacion es");
-console.log(parseFloat(exchangeRateJSON.rate))
 
 function getCartTotal() {
-    console.log("cart total is");
-    console.log(stringToNumber(walletElement));
     return stringToNumber(walletElement);
 }
 
 function setCartTotalCC(cartValue) {
-    console.log("total wallet is");
-    console.log(walletElement);
     if(!walletElement.innerText.includes('ARS')){
         walletElement.dataset.currency = "usd"
         return calculateTaxesAndExchange(cartValue)
@@ -26,10 +20,6 @@ function setCartTotalCC(cartValue) {
 }
 
 function setMixedCartTotal(cartValue) {
-    console.log("Función Mixed");
-    console.log("cartvalue es", cartValue);
-    console.log("walletbalance es", walletBalance);
-
     if (walletBalance > 0) {
         if(!walletElement.innerText.includes('ARS')){
             walletElement.dataset.currency = "usd"

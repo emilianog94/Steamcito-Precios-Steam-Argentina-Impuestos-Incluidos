@@ -59,7 +59,7 @@ body.menu-enabled .responsive_page_frame {
   opacity: 0.75;
 }
 .cart_area_body .tax-container h3 {
-  margin-bottom: 15px;
+  margin-bottom: 6px;
   font-size: 19px;
 }
 .cart_area_body .tax-container .taxes-separator {
@@ -72,14 +72,13 @@ body.menu-enabled .responsive_page_frame {
 .cart_area_body .tax-container span.final-total {
   font-size: 1.4em;
   padding-top: 0;
-  display: block;
-  text-align: right;
+  display: inline;
 }
 .cart_area_body .tax-container #tax-change {
-  display: flex;
+  display: inline-block;
   width: fit-content;
   margin-left: auto;
-  margin-top: 1.3em;
+  margin-top: 0;
   padding: 5px;
   border: 1px solid #fff;
   border-radius: 5px;
@@ -94,7 +93,7 @@ body.menu-enabled .responsive_page_frame {
   list-style-type: none;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 .cart_area_body .tax-container ul li .value {
   margin-left: auto;
@@ -552,6 +551,17 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.info span.name-span {
   color: #ddd;
   font-weight: 400;
+}
+.regional-meter-wrapper .reason.against span.name-smaller,
+.regional-meter-wrapper .reason.for span.name-smaller,
+.regional-meter-wrapper .reason.info span.name-smaller {
+  font-size: 0.72rem;
+  color: #969696;
+}
+.regional-meter-wrapper .reason.against span.name-smaller a,
+.regional-meter-wrapper .reason.for span.name-smaller a,
+.regional-meter-wrapper .reason.info span.name-smaller a {
+  color: #fff;
 }
 .regional-meter-wrapper .reason.against .regional-meter-reason--red,
 .regional-meter-wrapper .reason.for .regional-meter-reason--red,

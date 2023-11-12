@@ -1,25 +1,42 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function getPrices() {
-    let prices = document.querySelectorAll(priceContainers);
+async function getPrices(){
+    let exchangeRate = await getUsdExchangeRate();
 
+    // console.log("la exchange rate es");
+    // console.log(exchangeRate);
+
+    let prices = document.querySelectorAll(priceContainers);
+    
     // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
     let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
-    standardDlcPrices.forEach(dlcPrice => {
-        if (!dlcPrice.querySelector("div")) {
+    standardDlcPrices.forEach(dlcPrice => { 
+        if(!dlcPrice.querySelector("div")){
             setArgentinaPrice(dlcPrice);
         }
     });
     prices.forEach(price => setArgentinaPrice(price));
 }
 
-function setArgentinaPrice(price) {
-    if (price.innerText.includes("ARS$") && price.hasChildNodes()) {
+async function setArgentinaPrice(price){
+    let exchangeRate = await getUsdExchangeRate();
+
+    if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
-        let baseNumericPrice = stringToNumber(price, positionArs);
+        let baseNumericPrice = stringToNumber(price,positionArs);
         price.dataset.originalPrice = baseNumericPrice.toFixed(2);
         price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
+        price.dataset.isDolarized = "not-dolarized";
+        renderPrices(price);
+    }
+
+    // Update 20/11 si los precios están en una currency distinta a ARS
+    else if(price.innerText.includes("$")){
+        let baseNumericPrice = extractNumberFromString(price.innerText)
+        price.dataset.originalPrice = baseNumericPrice;
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
+        price.dataset.isDolarized = "dolarized";
         renderPrices(price);
     }
 
@@ -31,9 +48,13 @@ function sanitizePromoLists() {
 }
 
 function renderPrices(price) {
-    let argentinaPrice = numberToString(price.dataset.argentinaPrice);
-    let originalPrice = numberToString(price.dataset.originalPrice);
 
+
+    console.log("price is");
+    console.log(price);
+
+    let argentinaPrice = numberToString(price.dataset.argentinaPrice);
+    let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
     // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
     if (price.classList.contains("was")) sanitizePromoLists();
 
@@ -79,41 +100,112 @@ function renderPrices(price) {
         }
     }
 
-    // Fix para procesar correctamente Bundles Dinámicas en Firefox
-    setTimeout(function () {
-        if (price.querySelector('.your_price_label')) {
-            price.removeAttribute('data-original-price');
+    // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
+    setTimeout(function(){
+        if(price.classList.contains('argentina') && !price.innerText.includes("ARS")){
+            renderPrices(price);
         }
-    }, 1500)
+    },1500)
 
 }
 
-function showSecondaryPrice(e) {
+function showSecondaryPrice(e){
     e.preventDefault();
     let selectedPrice = e.currentTarget;
     selectedPrice.classList.add("transition-effect");
     selectedPrice.style.opacity = 0;
-    if (selectedPrice.classList.contains("argentina")) {
-        switchPrices(selectedPrice, "argentina", "original", emojiWallet);
+    if(selectedPrice.classList.contains("argentina")){
+        switchPrices(selectedPrice,"argentina","original",emojiWallet,selectedPrice.dataset.isDolarized);
     }
-    else if (selectedPrice.classList.contains("original")) {
-        switchPrices(selectedPrice, "original", "argentina", emojiMate);
+    else if(selectedPrice.classList.contains("original")){
+        switchPrices(selectedPrice,"original","argentina",emojiMate,selectedPrice.dataset.isDolarized);
     }
 }
 
-function switchPrices(selector, first, second, symbol) {
-    setTimeout(function () {
-        selector.style.opacity = 1;
+
+function switchPrices(selector,first,second,symbol,isDolarized){
+    setTimeout(function(){
+        selector.style.opacity=1;
         selector.classList.remove(first);
         selector.classList.add(second);
 
-        if (selector.classList.contains("suscription-price")) {
-            selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second + "Price"] + symbol));
-        } else {
-            selector.innerHTML = DOMPurify.sanitize(numberToString(selector.dataset[second + "Price"] + symbol));
+        if(isDolarized == "dolarized"){
+            if(selector.classList.contains("suscription-price")){
+                selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
+            } else{
+    
+                console.log("selector is");
+                console.log(selector);
+    
+                selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol))  ;
+            }            
         }
-    }, 250);
+
+        else{
+
+            if(selector.classList.contains("suscription-price")){
+                selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
+            } else{
+    
+                console.log("selector is");
+                console.log(selector);
+    
+                selector.innerHTML = DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol)) ;
+            }
+
+        }
+
+
+    },250);
 }
 
+function evaluateDate(){
+    if(localStorage.getItem('steamcito-cotizacion')){
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
 
+        let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
+        let currentTimestamp = Date.now()/1000;
+        let difference = currentTimestamp - savedTimestamp;
+
+        if(difference >= 3600){
+            return true;
+        } else{
+            return false;
+        }
+    }
+    return true;
+}
+
+async function getUsdExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate();
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
+        return exchangeRate;
+        }
+        catch(err){
+            return 367.72
+        }
+
+
+    } else{
+        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+        return parseFloat(exchangeRateJSON.rate)
+    }
+}
 

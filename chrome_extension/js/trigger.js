@@ -1,16 +1,26 @@
 // Corro función por primera vez
-getPrices();
 
-// Trigger recursivo
-MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-const observer = new MutationObserver(function(mutations, observer) {
-    getPrices();
-});
+async function lala(){
+  console.log("entré a lala");
+  await getUsdExchangeRate();
+  getPrices();
 
-observer.observe(document, {
-  subtree: true,
-  attributes: true
-});
+  // Trigger recursivo
+  MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+  const observer = new MutationObserver(function(mutations, observer) {
+      getPrices();
+  });
+
+  observer.observe(document, {
+    subtree: true,
+    attributes: true
+  });
+
+}
+
+lala();
+
+
 
 
 

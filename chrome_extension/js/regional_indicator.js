@@ -33,7 +33,8 @@ const criticizePublisher = (margin,publisher) => {
 
 
 const getExchangeRate = async () => {
-    let exchangeRate = await getUsdExchangeRate();
+    await getUsdExchangeRate();
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
     let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
 
     renderExchangeIndicator(exchangeRate,exchangeRateDate)
@@ -49,7 +50,7 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
-    let exchangeRate = await getUsdExchangeRate();
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
 
     let appIdResponse = await appIdFetch.json();

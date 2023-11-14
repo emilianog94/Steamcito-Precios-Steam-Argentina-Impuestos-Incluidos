@@ -32,12 +32,14 @@ const criticizePublisher = (margin,publisher) => {
 }
 
 const getExchangeRate = async () => {
-    let exchangeRate = await getUsdExchangeRate();
+    await getUsdExchangeRate();
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
     let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
 
     renderExchangeIndicator(exchangeRate,exchangeRateDate)
 
 }
+
 
 
 const getAppPricing = async (appInitialData) => {
@@ -49,7 +51,7 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
-    let exchangeRate = await getUsdExchangeRate();
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
     let appIdResponse = await appIdFetch.json();
     let appIdArgResponse = await appIdFetchArg.json();
@@ -124,8 +126,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>
                 <span class="name-smaller">Promedio de tipo de cambio minorista <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">(BCRA)</a></span><br>
-                <span class="name-smaller">Último cierre: ${exchangeRateDate}</span>
-            </p>
+                ${exchangeRateDate ? `<span class="name-smaller">Último cierre: ${exchangeRateDate}</span>` : ""}            </p>
 
             <div class="DRM_notice">
                 <div>

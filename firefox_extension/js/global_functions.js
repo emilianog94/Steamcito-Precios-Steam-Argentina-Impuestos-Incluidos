@@ -15,7 +15,7 @@ function getPrices(){
 }
 
 async function setArgentinaPrice(price){
-    let exchangeRate = await getUsdExchangeRate();
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
     if(price.innerText.includes("ARS$") && price.hasChildNodes()){
         let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
@@ -34,7 +34,6 @@ async function setArgentinaPrice(price){
         price.dataset.isDolarized = "dolarized";
         renderPrices(price);
     }
-
 }
 
 function sanitizePromoLists() {
@@ -178,16 +177,16 @@ async function getUsdExchangeRate(){
 
     
         localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
-        return exchangeRate;
         }
         catch(err){
-            return 367.72
+            localStorage.setItem('steamcito-cotizacion', JSON.stringify({
+                rate:367.93,
+                rateDateProvided:"13/11/2023 - 16:05",
+                date:1699919573049
+            }));
         }
 
 
-    } else{
-        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
-        return parseFloat(exchangeRateJSON.rate)
     }
 }
 

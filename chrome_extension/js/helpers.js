@@ -452,12 +452,32 @@ function calcularImpuestos(initialPrice) {
         })
 
     return finalPrice.toFixed(2);
-
 }
+
+ function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
+
+    if(exchangeRate=="unset"){
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    }
+
+    let arsPriceBeforeTaxes = initialPrice * exchangeRate
+    let finalPrice = initialPrice * exchangeRate;
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    return finalPrice.toFixed(2);
+}
+
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
-
     if (localStorage.getItem('manual-mode') == "wallet") {
         return 9999999;
     } else if (localStorage.getItem('manual-mode') == "mate") {
@@ -471,12 +491,34 @@ function getBalance() {
         if(walletBalance.innerText.indexOf('Pend')){
             walletBalance.innerText = walletBalance.innerText.slice(0, walletBalance.innerText.indexOf('Pend'))
         }
+        // return 6.12;
         return stringToNumber(walletBalance);
     }
     return 0;
 }
 
+function isStoreDolarized(){
+    // Si la tienda no está dolarizada
+    if(Date.now() < 1700449200000){
+        return false;
+    }
+    return true;
+}
+
+function extractNumberFromString(string){
+    let regexFindNumber = /(\d+\.\d+)/;
+    let match = string.match(regexFindNumber);
+    if(match){
+        return match[0];
+    }
+
+}
+
 function stringToNumber(number, positionArs = 5) {
+
+    if(!number.innerText.includes('ARS')){
+        return extractNumberFromString(number.innerText);
+    }
 
     // Comprobación para cuando a Steam le pinta cambiar el orden de las comas y decimales!
     const numero = number.innerText;
@@ -513,6 +555,14 @@ function numberToString(number) {
         let parts = number.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return 'ARS$ ' + parts.join(",");
+    }
+}
+
+function numberToStringUsd(number) {
+    if (number) {
+        let parts = number.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        return 'USD$ ' + parts.join(",");
     }
 }
 

@@ -126,7 +126,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>
                 <span class="name-smaller">Promedio de tipo de cambio minorista <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">(BCRA)</a></span><br>
-                <span class="name-smaller">Último cierre: ${exchangeRateDate}</span>
+                ${exchangeRateDate ? `<span class="name-smaller">Último cierre: ${exchangeRateDate}</span>` : ""}
             </p>
 
             <div class="DRM_notice">

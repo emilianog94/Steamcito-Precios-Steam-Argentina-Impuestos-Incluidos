@@ -1,7 +1,5 @@
 // Corro función por primera vez
-
-async function lala(){
-  console.log("entré a lala");
+(async() => {
   await getUsdExchangeRate();
   getPrices();
 
@@ -16,9 +14,8 @@ async function lala(){
     attributes: true
   });
 
-}
+})();
 
-lala();
 
 
 

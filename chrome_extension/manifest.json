@@ -47,11 +47,6 @@
  			"css": ["css/styles.css"]
  		},
  		{
- 			"matches": ["https://store.steampowered.com/checkout*"],
- 			"run_at": "document_idle",
- 			"js": ["js/checkout_functions.js"]
- 		},
- 		{
  			"matches": ["https://store.steampowered.com/search*"],
  			"run_at": "document_idle",
  			"js": ["js/global_functions.js", "js/search.js"]

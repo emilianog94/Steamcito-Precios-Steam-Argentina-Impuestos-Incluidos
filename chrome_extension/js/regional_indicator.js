@@ -284,5 +284,8 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     sidebar.insertAdjacentHTML('afterbegin', container);
 }
 
-const appData = getAppData(url);
-getAppPricing(appData);
+if(!isStoreDolarized()){
+    const appData = getAppData(url);
+    getAppPricing(appData);
+}
+

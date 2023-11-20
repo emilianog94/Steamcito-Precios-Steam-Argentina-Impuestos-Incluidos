@@ -71,7 +71,7 @@ function showCart() {
 function showTaxes() {
     let taxesContainer =
         `<div class="tax-container">
-        <h3>Impuestos Nacionales<span class="asterisk">*</span></h3>
+        <h3>Impuestos Nacionales</h3>
         <ul class="impuestos-nacionales"></ul>
 
         <span class="taxes-separator"></span>

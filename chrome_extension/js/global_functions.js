@@ -18,17 +18,9 @@ function getPrices(){
 async function setArgentinaPrice(price){
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
-    if(price.innerText.includes("ARS$") && price.hasChildNodes()){
-        let positionArs = price.innerText.lastIndexOf("ARS$ ") + 5;
-        let baseNumericPrice = stringToNumber(price,positionArs);
-        price.dataset.originalPrice = baseNumericPrice.toFixed(2);
-        price.dataset.argentinaPrice = calcularImpuestos(baseNumericPrice);
-        price.dataset.isDolarized = "not-dolarized";
-        renderPrices(price);
-    }
 
     // Update 20/11 si los precios están en una currency distinta a ARS
-    else if(price.innerText.includes("$")){
+    if(price.innerText.includes("$")){
         let baseNumericPrice = extractNumberFromString(price.innerText)
         price.dataset.originalPrice = baseNumericPrice;
         price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);

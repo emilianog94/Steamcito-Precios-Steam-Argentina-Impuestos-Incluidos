@@ -102,10 +102,10 @@ function renderPrices(price){
         }
     }
 
-    // Fix para procesar correctamente Bundles Dinámicas en Firefox
+    // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
     setTimeout(function(){
-        if(price.querySelector('.your_price_label')){
-            price.removeAttribute('data-original-price');
+        if(price.classList.contains('argentina') && !price.innerText.includes("ARS")){
+            renderPrices(price);
         }
     },1500)
 

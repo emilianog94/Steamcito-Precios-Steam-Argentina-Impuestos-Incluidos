@@ -170,7 +170,7 @@ function evaluateDate(){
         let currentTimestamp = Date.now()/1000;
         let difference = currentTimestamp - savedTimestamp;
 
-        if(difference >= 86400){
+        if(difference >= 3600){
             return true;
         } else{
             return false;

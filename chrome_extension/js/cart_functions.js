@@ -42,6 +42,22 @@ function setMixedCartTotal(cartValue) {
     }
 }
 
+
+function showExchangeRate(exchangeRate) {
+
+    let exchangeRateContainer = 
+        `<div class="tax-container">
+            <h3>Cotización del dólar: 1 USD ≈ ${exchangeRate.rate} ARS </h3>
+            <p>
+                Todos los precios en pesos argentinos (ARS$) son aproximados ya que cada banco/entidad tiene su propia cotización del dólar. De acuerdo al banco/aplicación que uses, es posible que pagues más o menos que el monto indicado.
+            </p>
+            
+        </div>`
+
+        oldCart.insertAdjacentHTML('afterend', exchangeRateContainer);
+}
+
+
 function showCart() {
     let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
     let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
@@ -112,6 +128,9 @@ function showTaxes() {
 
 showCart();
 showTaxes();
+if(isStoreDolarized() && exchangeRateJSON){
+    showExchangeRate(exchangeRateJSON);
+}
 
 let taxChangeShortcut = document.querySelector("#tax-change");
 taxChangeShortcut.addEventListener('click', function () {

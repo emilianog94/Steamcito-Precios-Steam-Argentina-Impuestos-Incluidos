@@ -254,7 +254,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         </p>
         <hr>
         <p class="reason info">
-        <span class="name-span">${appData.publisher}</span> cargó manualmente un precio más barato que el sugerido. <br><br> ¡Muchas gracias ${appData.publisher}!
+        <span class="name-span">${appData.publisher}</span> cargó manualmente un precio más barato que el sugerido. <br><br> ¡Te quiero mucho ${appData.publisher}!
         </p>
         <hr>
         <p class="reason info">

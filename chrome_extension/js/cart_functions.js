@@ -81,9 +81,10 @@ function showTaxes() {
         
         <span class="taxes-separator"></span>
 
-
-        <span class="final-total">Total de impuestos: ${((totalTaxes - 1) * 100).toFixed(2)}%</span>
-        <p id="tax-change">Personalizar impuestos</p>
+        <div class="taxes-final-total">
+            <span class="final-total">Total de Impuestos: ${((totalTaxes - 1) * 100).toFixed(2)}%</span>
+            <p id="tax-change">Personalizar impuestos</p>
+        </div>
 
     </div>`;
     oldCart.insertAdjacentHTML('afterend', taxesContainer);

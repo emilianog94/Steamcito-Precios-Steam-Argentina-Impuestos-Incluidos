@@ -211,7 +211,7 @@ const renderRegionalIndicator = (appData,exchangeRate) => {
                 :
                 ""
             }
-            ${appData.arsPrice < appData.recommendedArsPrice
+            ${appData.arsPrice < appData.recommendedArsPrice && appData.regionalDifference != 0
                 ?
                 `
             <p class="reason info">

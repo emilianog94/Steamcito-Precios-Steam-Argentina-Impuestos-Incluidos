@@ -122,13 +122,16 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
             <p class="reason info">
-                <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span><br>
-                Último cierre: ${exchangeRateDate}
+                <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
+                <br>
+                <span class="name-smaller">Promedio de tipo de cambio minorista del <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">BCRA</a></span><br>
+                <span class="name-smaller">Último cierre: ${exchangeRateDate}</span>
             </p>
 
             <div class="DRM_notice">
                 <div>
-                    Tipo de cambio minorista provisto por Ámbito.<br> Actualizado todos los días hábiles cada 2 horas en base a informe del <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">BCRA.</a><br> <b></b>
+                    Todos los precios en pesos argentinos (ARS$) son aproximados ya que cada banco/entidad tiene su propia cotización del dólar.
+                     <b></b>
                 </div>
             </div>
 

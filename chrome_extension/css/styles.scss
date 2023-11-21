@@ -730,6 +730,15 @@ body {
         color: #ddd;
         font-weight: 400;
       }
+
+      &.name-smaller{
+        font-size: .73rem;
+        color: #969696;
+
+        a{
+          color: #fff;
+        }
+      }
     }
 
     .regional-meter-reason--red {

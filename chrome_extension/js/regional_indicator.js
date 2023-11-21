@@ -21,11 +21,14 @@ const criticizePublisher = (margin,publisher) => {
         `¡Te zarpaste mal ${publisher}!`,
         `Epa, ¿qué rompimos ${publisher}?`,
         `¡Saladito ${publisher}!`,
-        `¡Se te fue la mano ${publisher}!`
+        `¡Se te fue la mano ${publisher}!`,
+        `${publisher}, hasta acá llegaste...`,
+        `¿Viene firmado por Messi, ${publisher}?`,
+        `${publisher}, en qué te has convertido...`
     ]
 
     const randomChoice = Math.floor(Math.random() * phrases.length);
-    if(margin >= 290){
+    if(margin >= 100){
         return `<br><br><span>${phrases[randomChoice]}</span>`
     }
     return "";
@@ -38,10 +41,11 @@ const getExchangeRate = async () => {
     let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
 
     renderExchangeIndicator(exchangeRate,exchangeRateDate)
-
+    
 }
 
 const getAppPricing = async (appInitialData) => {
+    await getUsdExchangeRate();
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
     let subEndpoint = `/api/packagedetails?packageids=${id}`
@@ -76,29 +80,23 @@ const getAppPricing = async (appInitialData) => {
             regionalStatus: undefined
         }
 
-        const nearestOption = regionalPricingOptions.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
+        const nearestOption = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
 
-        const recommendedArsPrice = regionalPricingChart
+        const recommendedArsPrice = regionalPricingChartLatam
             .filter(item => item.usdPrice == nearestOption)
             .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
             
-        const nearestOptionLatam = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
-
-        const recommendedArsPriceLatam = regionalPricingChartLatam
-            .filter(item => item.usdPrice == nearestOptionLatam)
-            .map(item => item.argPrice)[0] * (100 - appData.discount) / 100;
 
         appData.recommendedArsPrice = recommendedArsPrice;
-        appData.recommendedLatamPrice = recommendedArsPriceLatam.toFixed(2);
 
         // Está más caro que lo esperado
         if (appData.arsPrice > appData.recommendedArsPrice) {
             appData.regionalDifference = Math.round((parseFloat((appData.arsPrice - appData.recommendedArsPrice)) / appData.recommendedArsPrice) * 100);
-            appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "expensive";
+            appData.regionalDifference <= 35 ? appData.regionalStatus = "fair" : appData.regionalStatus = "expensive";
         }
         else if (appData.arsPrice < appData.recommendedArsPrice) {
             appData.regionalDifference = Math.round((parseFloat((appData.recommendedArsPrice - appData.arsPrice)) / appData.recommendedArsPrice) * 100);
-            appData.regionalDifference <= 20 ? appData.regionalStatus = "fair" : appData.regionalStatus = "cheap";
+            appData.regionalDifference <= 25 ? appData.regionalStatus = "fair" : appData.regionalStatus = "cheap";
         }
         else if (appData.arsPrice == appData.recommendedArsPrice) {
             appData.regionalStatus = "fair";
@@ -109,7 +107,6 @@ const getAppPricing = async (appInitialData) => {
 
         return appData;
 
-    } else {
     }
 }
 
@@ -126,7 +123,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>
                 <span class="name-smaller">Promedio de tipo de cambio minorista <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">(BCRA)</a></span><br>
-                ${exchangeRateDate ? `<span class="name-smaller">Último cierre: ${exchangeRateDate}</span>` : ""}
+                ${exchangeRateDate ? `<span class="name-smaller">Último cierre hábil: ${exchangeRateDate}</span>` : ""}
             </p>
 
             <div class="DRM_notice">
@@ -150,46 +147,6 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     let container =
         `
     <div class="block responsive_apppage_details_right heading">
-        ¿Cómo cambiará el precio el 20/11?
-    </div>
-
-
-    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
-        <p class="reason info">
-        <span class="name-span">${appData.publisher != "El publisher" ? `${appData.publisher}` : "El publisher"} </span>debe decidir si <span class="name-span">"${appData.name}"</span> adopta el nuevo precio sugerido por Valve.
-        </p>
-        <hr>
-        
-        <p class="reason for">
-            Precio sugerido por Valve desde el 20/11<br>
-            <span>
-                USD$ ${appData.recommendedLatamPrice}💲
-                (${numberToString((appData.recommendedLatamPrice * exchangeRate * 2).toFixed(2))}🧉)
-            </span>
-        </p> 
-        <hr>
-        <p class="reason against">
-            Si se ignora el precio sugerido<br>
-            <span>
-                USD$ ${appData.usdPrice}💲
-                (${numberToString((appData.usdPrice * exchangeRate * 2).toFixed(2))}🧉) 
-            </span> 
-        </p> 
-        <div class="DRM_notice">
-            <div>
-                Cálculo hecho por Steamcito en base a la 
-                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation.</a>
-                <br>
-                Cotización de hoy: 1 USD = ${exchangeRate} Pesos
-            </div>
-        </div>
-
-
-    </div>
-
-    
-
-    <div class="block responsive_apppage_details_right heading">
         ¿Cómo es el precio regional?
     </div>
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
@@ -209,15 +166,22 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve. ${criticizePublisher(appData.regionalDifference,appData.publisher)}
+        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
+        </p>
+        ${appData.usdPrice == appData.arsPrice 
+        ?
+            `<hr><p class="reason against">
+            El precio en Argentina es igual al de Estados Unidos. Es posible que <span class="name-span">${appData.publisher}</span> se haya olvidado y lo corrija en el futuro.
+            </p>`
+        :   ``
+        }
+        <hr>
+        <p class="reason info">
+            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
         </p>
         <hr>
         <p class="reason info">
-            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
-        </p>
-        <hr>
-        <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">
@@ -233,7 +197,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             `
         <p class="reason for">
         
-        <span class="name-span">${appData.name}</span> está a un precio accesible en Argentina, siguiendo de cerca la sugerencia de precios de Valve.
+        <span class="name-span">${appData.name}</span> está a un precio accesible, siguiendo de cerca la sugerencia de precios de Valve.
         
         ${appData.publisher != "El publisher" ? `<span class="name-span">¡Gracias ${appData.publisher}!</span>` : ""}
         </p>
@@ -244,7 +208,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 ?
                 `
             <p class="reason info">
-                Está <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más caro que lo sugerido. 
+                El precio es solamente <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más caro que lo sugerido. 
             </p>
             <hr>                
             `
@@ -265,11 +229,11 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             }
 
         <p class="reason info">
-            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
+            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
         </p>
         <hr>
         <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">
@@ -286,19 +250,19 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             ?
             `
         <p class="reason for">
-        <span class="name-span">${appData.name}</span> es <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato en Argentina que lo sugerido por Valve.
+        <span class="name-span">${appData.name}</span> es <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato en Argentina que lo sugerido por Valve.<br>
         </p>
         <hr>
         <p class="reason info">
-        <span class="name-span">${appData.publisher}</span> olvidó actualizar el precio para Argentina o bien el precio actual tiene un bug.  
+        <span class="name-span">${appData.publisher}</span> cargó manualmente un precio más barato que el sugerido. <br><br> ¡Muchas gracias ${appData.publisher}!
         </p>
         <hr>
         <p class="reason info">
-            Precio mínimo sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice}</span>
+            Precio sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
         </p>
         <hr>
         <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice} </span>
+            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">
@@ -326,7 +290,5 @@ if(isStoreDolarized()){
     getExchangeRate();
 }
 
-if(!isStoreDolarized()){
-    const appData = getAppData(url);
-    getAppPricing(appData);
-}
+const appData = getAppData(url);
+getAppPricing(appData);

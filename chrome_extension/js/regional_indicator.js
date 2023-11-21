@@ -117,17 +117,18 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
     let container = `
         <div class="block responsive_apppage_details_right heading">
-            ¿A cuánto está el dólar?
+            Cotización del dólar referencial
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
-            <p class="reason info"><span class="name-span">1 USD = ${exchangeRate} Pesos Argentinos</span>
+            <p class="reason info">
+                <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span><br>
+                Último cierre: ${exchangeRateDate}
             </p>
 
             <div class="DRM_notice">
                 <div>
-                    Tipo de cambio minorista referencial de hoy provisto por Ámbito Financiero.<br> <b>Última actualización: ${exchangeRateDate}</b>
-                    <br>
+                    Tipo de cambio minorista provisto por Ámbito.<br> Actualizado todos los días hábiles cada 2 horas en base a informe del <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">BCRA.</a><br> <b></b>
                 </div>
             </div>
 

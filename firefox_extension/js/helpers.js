@@ -513,8 +513,6 @@ function isStoreDolarized(){
 function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
     let match = string.match(regexFindNumber);
-    console.log("match es");
-    console.log(match);
     if(match){
         return match[0].replace(/,/g, '');
     }

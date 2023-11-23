@@ -34,9 +34,22 @@
     
     function showExchangeRate(exchangeRate) {
     
+        let staticExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+        let newExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+
+        standardTaxes &&
+        standardTaxes.forEach(tax => {
+            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        })
+
+        provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        })
+
         let exchangeRateContainer = 
             `<div class="tax-container">
-                <h3>Cotización del dólar: 1 USD ≈ ${exchangeRate.rate} ARS </h3>
+                <h3>Cotización del dólar con todos los impuestos incluidos: <br> 1 USD ≈ ${newExchangeRate} ARS </h3>
                 <p>
                     Todos los precios en pesos argentinos (ARS$) son aproximados ya que cada banco/entidad tiene su propia cotización del dólar. De acuerdo al banco/aplicación que uses, es posible que pagues más o menos que el monto indicado.
                 </p>

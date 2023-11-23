@@ -715,7 +715,78 @@ body {
 
 // Regional Indicator
 
+.notify-publisher-popup{
+  padding: 1.5rem;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  min-width: 500px;
+  height: auto;
+  background: #2E353E;
+  z-index: 9999;
+  -webkit-box-shadow: 0 0 15px rgba(0,0,0,.4);
+  -moz-box-shadow: 0 0 15px rgba(0,0,0,.4);
+  box-shadow: 0 0 15px rgba(0,0,0,.4);
+  font-family: 'Motiva Sans',sans-serif;
+
+  h4{
+    font-size: 28px !important;
+    line-height: 36px !important;
+    font-weight: 200 !important;
+    color: #fff !important;
+  }
+
+  h5{
+    font-size: 20px !important;
+    line-height: 36px !important;
+    font-weight: 200 !important;
+    color: #fff !important;  
+  }
+
+  p{
+    font-size: 14px;
+    line-height: 19px;
+    color: #cfd2d3;
+  }
+
+  .contact-method-container{
+    .publisher-email{
+      margin-top: .75rem;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 2px;
+      padding: .5rem 1rem;
+    }
+  }
+
+  .email-template-container{
+    margin-top: 2rem;
+  }
+}
+
 .regional-meter-wrapper {
+
+
+  .notify-publisher-steamcito{
+    border-radius: 2px;
+    display: block;
+    background: linear-gradient( to right, #75b022 5%, #588a1b 95%);
+    text-align: center;
+    color: #d2efa9 !important;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    text-shadow: 1px 1px 0px rgba( 0, 0, 0, 0.3 );
+    cursor: pointer;
+    font-family: 'Motiva Sans',sans-serif;
+
+    &:hover{
+      color: #fff !important;
+    }
+  }
+
+
+
   .reason.against,
   .reason.for,
   .reason.info {

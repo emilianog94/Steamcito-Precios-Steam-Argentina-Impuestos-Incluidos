@@ -75,10 +75,15 @@ const getAppPricing = async (appInitialData) => {
             baseArsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
             usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             arsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
+            support_url: appIdResponse?.support_info?.url,
+            support_email: appIdResponse?.support_info?.email,
             recommendedArsPrice: undefined,
             recommendedLatamPrice: undefined,
             regionalStatus: undefined
         }
+
+        console.log("appdata es");
+        console.log(appData);
 
         const nearestOption = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
 
@@ -168,13 +173,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <p class="reason against">
         <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
         </p>
-        ${appData.usdPrice == appData.arsPrice 
-        ?
-            `<hr><p class="reason against">
-            El precio en Argentina es igual al de Estados Unidos. Es posible que <span class="name-span">${appData.publisher}</span> se haya olvidado y lo corrija en el futuro.
-            </p>`
-        :   ``
-        }
+
         <hr>
         <p class="reason info">
             Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
@@ -187,7 +186,6 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <p class="reason info">
             Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
         </p> 
-
         `
             : ""
         }
@@ -282,6 +280,64 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         </div>
 
     </div>
+
+    ${appData.usdPrice == appData.arsPrice 
+        ?
+        `<div class="block responsive_apppage_details_right heading">
+        Notificar posible error
+        </div>
+        
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+            <div class="">
+                <p class="reason info">
+                El precio de <span class="name-span">${appData.name}</span> en Argentina es igual al de Estados Unidos. <br><br> Es muy probable que el publisher se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minutito para avisarle!</span>
+
+                <span class="notify-publisher-steamcito">Escribir a ${appData.publisher}</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="notify-publisher-popup">
+
+
+            <h4>Contactar a ${appData.publisher}</h4>
+
+            <div class="contact-method-container">
+                <h5>Medio de contacto</h5>
+                <p>Este es el medio de contacto que ${appData.publisher} suministró:
+                <br>
+    
+                <span class="publisher-email">${appData.support_email}</span>
+            </div>
+
+
+
+            <div class="email-template-container">
+                <h5>Plantilla recomendada</h5>
+                <p class="email-template">
+
+                Hey there! <br>
+                Hope you're having an awesome day.<br><br>
+
+                I'm a Steam user from Argentina and just wanted to give you a heads up about something that could have slipped through the cracks. Steam rolled out a new region recently on November 20th: LATAM USD. This region includes most of the weakest economies in Latin America including my country: Argentina. <br><br> I was checking ${appData.name} and its price is exactly the same as in United States. I believe this could have happened automatically by mistake.<br><br>
+
+                I was wondering if you could consider a price review for the LATAM USD region when you get a chance.<br>
+                People from Argentina, Ecuador, Venezuela, Paraguay, Bolivia and many other countries in this new region will thank you! <br><br>
+
+                Thank you for your time! <br>
+                Kind regards,
+                </p>
+            </div>
+        </div>
+
+        `
+
+        :
+            ""
+
+
+    }
+
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
 }

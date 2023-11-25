@@ -21,9 +21,10 @@ function setTransactionType(transactions){
             transaction.classList.add('split-purchase');
             let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
+			let date = stringToDate(transaction.querySelector('.wht_date').innerText);
             transaction.dataset.originalValue = ccValue.innerText;
             let contenedorTotal = transaction.querySelector('.wht_total');
-            contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestos(stringToNumber(ccValue)))}`;
+            contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestos(stringToNumber(ccValue),date))}`;
         } 
         
         // One-Method Purchase
@@ -31,11 +32,12 @@ function setTransactionType(transactions){
             const paymentType = transaction.querySelector('.wht_type .wth_payment');
 
             // Evito que las transacciones Digital Card Redemption sean tomadas en cuenta
-            if(transaction.querySelector('.wht_total').innerText == ""){
+            if(transaction.querySelector('.wht_total').innerText == "")
+			{
                 return;
             } 
-
-            if( paymentType.innerText.indexOf('Master') == -1 && paymentType.innerText.indexOf('Visa') == -1 ){
+			// Evito que las transacciones de la cartera sean tomadas en cuenta
+            if(!paymentType.innerText.includes('Master') && !paymentType.innerText.includes('Visa')){
                 transaction.classList.add('wallet-purchase');
             } else{
                 transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
@@ -49,7 +51,8 @@ function setTransactionType(transactions){
 function calculateTotals(transaction){
     if(transaction.classList.contains('cc-purchase')){
         const precio = transaction.querySelector('.wht_total');
-        precio.innerHTML = argentinizar(calcularImpuestos(stringToNumber(precio)));
+		let date = stringToDate(transaction.querySelector('.wht_date').innerText);
+        precio.innerHTML = argentinizar(calcularImpuestos(stringToNumber(precio),date));
     }
 
     else if(transaction.classList.contains('wallet-purchase')){
@@ -71,11 +74,7 @@ transactionObserver.observe(document, {
   attributes: true
 });
 
-
-
-
 // Lógica de la calculadora de impuestos
-
 let currentYear = new Date().getFullYear();
 let lastYear = currentYear - 1;
 
@@ -121,25 +120,27 @@ function showCalculoHtml(pickedYear){
     // Agarro todas las transacciones elegibles (Split y CC)
     let transactionElements = Array.from(document.querySelectorAll('.split-purchase:not(.picked),.cc-purchase:not(.picked)'));
     transactionElements.forEach(transaction => transaction.classList.add('picked'));
-    let total = transactionElements
+    let transacciones = transactionElements
 
     // Mapeo creando un objeto con los valores que me interesan
     .map(transaction => {
     return {
-            date: transaction.querySelector('.wht_date').innerText,
+            date: stringToDate(transaction.querySelector('.wht_date').innerText),
             status: transaction.querySelector('*[class*=refunded]') ? "refunded" : "valid",
             originalValue: stringToNumber2(transaction.dataset.originalValue)
         }
     })
 
     // Filtro para no tomar en cuenta las refundeadas y las de años anteriores
-    .filter(transaction => transaction.status === "valid" && transaction.date.includes(pickedYear))
+    .filter(transaction => transaction.status === "valid" && transaction.date.year == pickedYear);
 
-    // Sumo el total de los montos originales 
-    .reduce( (acumulado,item) => acumulado + item.originalValue , 0);
-
-    let totalImpuestos =  (total * totalTaxes) - total;
-    let totalDevolucion = total * 0.45;
+    // Sumo el total de los montos originales
+	let total = transacciones.reduce( (acumulado,item) => acumulado + item.originalValue , 0);
+	
+	// Sumo el total de los montos originales multiplicados por sus impuestos para calcular el total de impuestos aplicados
+	let totalImpuestos = transacciones.reduce( (acumulado,item) => acumulado + Number(calcularImpuestos(item.originalValue,item.date)) , 0);
+    
+    let totalDevolucion = transacciones.reduce( (acumulado,item) => acumulado + Number(calcularDevoluciones(item.originalValue,item.date)) , 0);
     let totalFinal = total + totalImpuestos;
     let rightContainer = document.querySelector('.right');
     let leftContainer = document.querySelector('.left');

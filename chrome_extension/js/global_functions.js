@@ -1,5 +1,11 @@
 const walletBalance = getBalance();
-const totalTaxes = getTotalTaxes();
+//const totalTaxes = getTotalTaxes();
+let date = new Date();
+const hoy = {
+			day: date.getDate(),
+			month: date.getMonth()+1,
+			year: date.getFullYear
+		};
 
 function getPrices(){
 
@@ -15,6 +21,23 @@ function getPrices(){
     prices.forEach(price => setArgentinaPrice(price));
 }
 
+// Pasa de un stirng de iniciales de un mes al número de mes. Ejemplo: AGO (Agosto) será 8
+function monthStrToNumber(month)
+{
+	return ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;
+}
+
+// Pasa de un string del formato 15 ENE 2023 a un json { day:15, month:1, year:2023}
+function stringToDate(dateStr)
+{
+	let dateArr = dateStr.split(" ");
+	return {
+		day:Number(dateArr[0]),
+		month:monthStrToNumber(dateArr[1]),
+		year:Number(dateArr[2])
+	};
+}
+
 async function setArgentinaPrice(price){
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
@@ -23,7 +46,7 @@ async function setArgentinaPrice(price){
     if(price.innerText.includes("$")){
         let baseNumericPrice = extractNumberFromString(price.innerText)
         price.dataset.originalPrice = baseNumericPrice;
-        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate,hoy);
         price.dataset.isDolarized = "dolarized";
         renderPrices(price);
     }
@@ -72,7 +95,8 @@ function renderPrices(price){
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
             let precioTachado = price.querySelector("strike");
-            if(precioTachado) price.innerHTML = `<strike style="color: #888888;"> ${argentinizar(calcularImpuestos(stringToNumber(precioTachado)),false)} </strike> <br> ${argentinaPrice} ${emojiMate}`; 
+			
+            if(precioTachado) price.innerHTML = `<strike style="color: #888888;"> ${argentinizar(calcularImpuestos(stringToNumber(precioTachado),hoy),false)} </strike> <br> ${argentinaPrice} ${emojiMate}`; 
             price.removeEventListener('click',showSecondaryPrice); 
 
         } else{

@@ -1,22 +1,72 @@
 const attributeName = "data-original-price";
 
+let devoluciones = [
+	{
+		value: 1,
+		day: 1,
+		month: 1,
+		year: 2019
+	},
+	{
+		value: 45,
+		day: 1,
+		month: 1,
+		year: 2023
+	}
+]
+
 let standardTaxes = [
-    {
-        name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
-        value: 100,
+	{
+		name: "Impuesto PAIS - RG AFIP N° 4659/2020",
+		values: [
+			{
+				value: 30,
+				day: 21,
+				month: 12,
+				year: 2019
+			}
+		],
+		moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
+	},
+	{
+		name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
+        values: [
+			{
+				value: 35,
+				day: 15,
+				month: 09,
+				year: 2020
+			},
+			{
+				value: 45,
+				day: 13,
+				month: 07,
+				year: 2022
+			},
+			{
+				value: 100,
+				day: 23,
+				month: 11,
+				year: 2023
+			}
+		],
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
-    },
-    {
-        name: "Impuesto PAIS - RG AFIP N° 4659/2020",
-        value: 30,
-        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
-    },
-    {
+	},
+	{
         name: "Percepción de Bienes Personales - RG AFIP Nº 5430/2023",
-        value: 25,
+        values: [
+			{
+				value: 25,
+				day: 10,
+				month: 10,
+				year: 2023
+			}
+		],
         moreInfo: "https://www.boletinoficial.gob.ar/#!DetalleNorma/295840/20231010"
     }
-];
+]
+
+let impuestosGanancias = standardTaxes[1].values;
 
 let provinceTaxes = [
     {
@@ -393,7 +443,15 @@ function setNationalTax() {
 
         standardTaxes = [{
             name: "Impuestos Nacionales personalizados por vos",
-            value: taxValue
+            values:
+			[
+				{
+					value: taxValue,
+					day: 0,
+					month: 0,
+					year: 0
+				}
+			]
         }];
     }
 
@@ -427,46 +485,142 @@ const priceContainers = `
         .regional-meter-price:not([${attributeName}])        
         `;
 
-
-function getTotalTaxes() {
-    function reducer(total, num) {
-        return total + num;
-    }
-    let taxesValues = taxes.map(tax => tax.value);
-    let provinceTaxesValues = provinceTaxes.map(tax => tax.value);
-    let totalTaxes = (1 + (taxesValues.reduce(reducer) / 100) + (provinceTaxesValues.reduce(reducer) / 100));
-
-    return totalTaxes;
-}
-
-function calcularImpuestos(initialPrice) {
-    let finalPrice = initialPrice;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((initialPrice * tax.value / 100).toFixed(2));
-        })
-
+function calcularImpuestos(initialPrice,date) {
+	// Hago una variable para guardar la suma de los impuestos.
+	let taxes = 0;
+	// Recorro el arreglo del historial de impuestos
+	for(let t = 0; t < standardTaxes.length; t++)
+	{
+		// Obtengo el impuesto en la posición actual
+		let currentTaxes = standardTaxes[t].values;
+		// Inicializo una variable tax para almacenar el impuesto que corresponderá según la fecha al finalizar el loop.
+		let tax = 0;
+		// Recorro el arreglo de valores de impuestos para comprobar las fechas
+		for(let v = 0; v < currentTaxes.length; v++)
+		{
+			// Impuesto actual
+			let currentTax = currentTaxes[v];
+			// Comparo la fecha del impuesto con la de la compra.
+			// Si el año de la compra es mayor que la del impuesto.
+			// O: coinciden los años
+			// 		Y: el mes de la compra es mayor que la del impuesto
+			//			O: coinciden los meses
+			//				Y: el dia de la compra es mayor o igual que la del impuesto
+			if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
+			{
+				// tax tendrá el valor del impuesto
+				tax = currentTax.value;
+			}
+			else
+			{
+				// Si ya no coincide ningún impuesto, dejo de recorrer el arreglo, como está ordenado de más viejo al más nuevo, donde haya un impuesto más nuevo que la compra se cortará el loop.
+				break;
+			}
+		}
+		// Si tax no es 0, quiere decir que se encontró algún impuesto que se aplica.
+		if(tax != 0)
+		{
+			// Sumo el impuesto a la variable de impuestos a aplicar.
+			taxes += tax;
+		}
+	}
+	if(taxes == 0)
+	{
+		taxes = 1;
+	}
+	let finalPrice = (initialPrice) * (taxes / 100);
+	
     provinceTaxes &&
         provinceTaxes.forEach(tax => {
-            finalPrice += parseFloat((initialPrice * tax.value / 100).toFixed(2));
+            finalPrice += parseFloat(((initialPrice) * tax.value / 100).toFixed(2));
         })
-
     return finalPrice.toFixed(2);
 }
 
- function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
+function calcularDevoluciones(initialPrice, date)
+{
+	let impGanancias = 0;
+	let devolucion = 0;
+	for(let t = 0; t < impuestosGanancias.length; t++)
+	{
+		let currentTax = impuestosGanancias[t];
+		if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
+		{
+			// tax tendrá el valor del impuesto
+			impGanancias = currentTax.value;
+		}
+		else
+		{
+			break;
+		}
+	}
+	for(let d = 0; d < devoluciones.length; d++)
+	{
+		let currentTax = devoluciones[d];
+		if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
+		{
+			// tax tendrá el valor del impuesto
+			devolucion = currentTax.value;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return initialPrice * (impGanancias / 100) * (devolucion/100);
+}
+
+ function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset", date) {
 
     if(exchangeRate=="unset"){
         exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
     }
 
     let arsPriceBeforeTaxes = initialPrice * exchangeRate
-    let finalPrice = initialPrice * exchangeRate;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
-        })
-
+    // Hago una variable para guardar la suma de los impuestos.
+	let taxes = 0;
+	// Recorro el arreglo del historial de impuestos
+	for(let t = 0; t < standardTaxes.length; t++)
+	{
+		// Obtengo el impuesto en la posición actual
+		let currentTaxes = standardTaxes[t].values;
+		// Inicializo una variable tax para almacenar el impuesto que corresponderá según la fecha al finalizar el loop.
+		let tax = 0;
+		// Recorro el arreglo de valores de impuestos para comprobar las fechas
+		for(let v = 0; v < currentTaxes.length; v++)
+		{
+			// Impuesto actual
+			let currentTax = currentTaxes[v];
+			// Comparo la fecha del impuesto con la de la compra.
+			// Si el año de la compra es mayor que la del impuesto.
+			// O: coinciden los años
+			// 		Y: el mes de la compra es mayor que la del impuesto
+			//			O: coinciden los meses
+			//				Y: el dia de la compra es mayor o igual que la del impuesto
+			if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
+			{
+				// tax tendrá el valor del impuesto
+				tax = currentTax.value;
+			}
+			else
+			{
+				// Si ya no coincide ningún impuesto, dejo de recorrer el arreglo, como está ordenado de más viejo al más nuevo, donde haya un impuesto más nuevo que la compra se cortará el loop.
+				break;
+			}
+		}
+		// Si tax no es 0, quiere decir que se encontró algún impuesto que se aplica.
+		if(tax != 0)
+		{
+			// Sumo el impuesto a la variable de impuestos a aplicar.
+			taxes += tax;
+		}
+	}
+	if(taxes == 0)
+	{
+		taxes = 1;
+	}
+	let finalPrice = arsPriceBeforeTaxes * (taxes / 100);
+	
     provinceTaxes &&
         provinceTaxes.forEach(tax => {
             finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));

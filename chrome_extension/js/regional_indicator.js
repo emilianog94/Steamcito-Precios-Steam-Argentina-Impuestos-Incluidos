@@ -316,13 +316,15 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 <h5>Plantilla recomendada</h5>
                 <p class="email-template">
 
-                Hey there! <br>
-                Hope you're having an awesome day.<br><br>
+                Hi there! <br>
+                <br>
 
-                I'm a Steam user from Argentina and just wanted to give you a heads up about something that could have slipped through the cracks. Steam rolled out a new region recently on November 20th: LATAM USD. This region includes most of the weakest economies in Latin America including my country: Argentina. <br><br> I was checking ${appData.name} and its price is exactly the same as in United States. I believe this could have happened automatically by mistake.<br><br>
+                I'm a Steam user from Argentina and I wanted to bring something to your attention that could have slipped through the cracks. Steam recently introduced a new region called LATAM a few days ago, encompassing the weakest economies in Latin America, including my country, Argentina.
+                <br><br> 
 
-                I was wondering if you could consider a price review for the LATAM USD region when you get a chance.<br>
-                People from Argentina, Ecuador, Venezuela, Paraguay, Bolivia and many other countries in this new region will thank you! <br><br>
+                Currently, ${appData.name} seems to have inherited the price of the United States, which poses a challenge for many people who wish to purchase the game. <br><br>
+
+                I was wondering if you could consider setting a price for our region when you get a chance.This would be greatly appreciated by players across Latin America! <br><br>
 
                 Thank you for your time! <br>
                 Kind regards,

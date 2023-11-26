@@ -570,7 +570,7 @@ function calcularDevoluciones(initialPrice, date)
 	return initialPrice * (impGanancias / 100) * (devolucion/100);
 }
 
- function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset", date) {
+ function calculateTaxesAndExchange(initialPrice, date, exchangeRate = "unset") {
 
     if(exchangeRate=="unset"){
         exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;

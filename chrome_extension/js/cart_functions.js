@@ -16,10 +16,10 @@
     function setCartTotalCC(cartValue) {
         if(!walletElement.innerText.includes('ARS')){
             walletElement.dataset.currency = "usd"
-            return calculateTaxesAndExchange(cartValue)
+            return calculateTaxesAndExchange(cartValue,hoy)
         }
         walletElement.dataset.currency = "ars"
-        return calcularImpuestos(cartValue);
+        return calcularImpuestos(cartValue,hoy);
     }
     
     function setMixedCartTotal(cartValue) {
@@ -28,9 +28,9 @@
     
             if(!walletElement.innerText.includes('ARS')){
                 walletElement.dataset.currency = "usd"
-                return calculateTaxesAndExchange(cartValue - walletBalance)
+                return calculateTaxesAndExchange(cartValue - walletBalance,hoy)
             }
-            return calcularImpuestos(cartValue - walletBalance);
+            return calcularImpuestos(cartValue - walletBalance,hoy);
         }
     }
     

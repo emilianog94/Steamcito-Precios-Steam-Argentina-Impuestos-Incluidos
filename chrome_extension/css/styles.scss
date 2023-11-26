@@ -726,6 +726,30 @@ body {
 // Regional Indicator
 
 .regional-meter-wrapper {
+
+  &.barra-minificada{
+    cursor: pointer;
+    max-height: 30px;
+    transition: all 1s ease;
+    overflow: hidden;
+
+    .reason{
+      transition: all 1s ease;
+    }
+  
+    .reason:before{
+      opacity: 0;
+    }
+  
+    &:hover{
+      max-height: 600px;
+
+      .reason:before{
+        opacity: 1;
+      }
+    }
+  }
+
   .reason.against,
   .reason.for,
   .reason.info {
@@ -735,6 +759,10 @@ body {
       // color: #67c1f5;
       color: #fff;
       // font-weight: 700;
+
+      &.name-white{
+        color: #fff;
+      }
 
       &.name-span {
         color: #ddd;

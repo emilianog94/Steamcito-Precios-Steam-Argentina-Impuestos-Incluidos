@@ -46,7 +46,7 @@ async function setArgentinaPrice(price){
     if(price.innerText.includes("$")){
         let baseNumericPrice = extractNumberFromString(price.innerText)
         price.dataset.originalPrice = baseNumericPrice;
-        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate,hoy);
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,hoy,exchangeRate);
         price.dataset.isDolarized = "dolarized";
         renderPrices(price);
     }

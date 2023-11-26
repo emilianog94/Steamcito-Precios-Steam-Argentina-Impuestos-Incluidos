@@ -4,7 +4,7 @@ let date = new Date();
 const hoy = {
 			day: date.getDate(),
 			month: date.getMonth()+1,
-			year: date.getFullYear
+			year: date.getFullYear()
 		};
 
 function getPrices(){

@@ -149,6 +149,10 @@ body.menu-enabled .responsive_page_frame {
   z-index: 100;
 }
 
+.search_area .match_subtitle {
+  max-width: fit-content;
+}
+
 #search_result_container .col.search_price {
   width: auto;
 }

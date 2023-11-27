@@ -132,7 +132,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
             Cotización del dólar de Steamcito
         </div>
 
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle}">
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle}">
             <p class="reason info">
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>

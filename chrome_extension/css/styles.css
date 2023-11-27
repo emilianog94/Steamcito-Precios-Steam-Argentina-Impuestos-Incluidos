@@ -544,14 +544,14 @@ body.menu-enabled .responsive_page_frame {
   text-align: left;
 }
 
+.regional-meter-wrapper.barra-minificada.cotizacion-wrapper .reason:before {
+  opacity: 1;
+}
 .regional-meter-wrapper.barra-minificada {
   cursor: pointer;
   max-height: 30px;
-  transition: all 1s ease;
+  transition: max-height 1s ease;
   overflow: hidden;
-}
-.regional-meter-wrapper.barra-minificada .reason {
-  transition: all 1s ease;
 }
 .regional-meter-wrapper.barra-minificada .reason:before {
   opacity: 0;

@@ -727,16 +727,18 @@ body {
 
 .regional-meter-wrapper {
 
+  &.barra-minificada.cotizacion-wrapper{
+    .reason:before{
+      opacity: 1;
+    }
+  }
+  
   &.barra-minificada{
     cursor: pointer;
     max-height: 30px;
-    transition: all 1s ease;
+    transition: max-height 1s ease;
     overflow: hidden;
 
-    .reason{
-      transition: all 1s ease;
-    }
-  
     .reason:before{
       opacity: 0;
     }

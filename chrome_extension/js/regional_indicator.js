@@ -134,7 +134,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle}">
             <p class="reason info">
-                <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
+                <span class="name-span">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Resultado de dólar oficial más impuestos<br><br>

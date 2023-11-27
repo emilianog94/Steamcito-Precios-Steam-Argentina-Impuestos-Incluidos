@@ -37,25 +37,11 @@
     
     function showExchangeRate() {
         
-        let staticExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-        let newExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-
-        standardTaxes &&
-        standardTaxes.forEach(tax => {
-            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-        })
-
-        provinceTaxes &&
-        provinceTaxes.forEach(tax => {
-            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-        })
-
-        
         let exchangeRateContainer = 
             `<div class="tax-container">
-                <h3>Cotización del dólar con todos los impuestos incluidos: <br> 1 USD ≈ ${newExchangeRate} ARS </h3>
+                <h3>Aclaración sobre los precios en pesos argentinos</h3>
                 <p>
-                    Todos los precios en pesos argentinos (ARS$) son aproximados ya que cada banco/entidad tiene su propia cotización del dólar. De acuerdo al banco/aplicación que uses, es posible que pagues más o menos que el monto indicado.
+                    Todos los precios en pesos argentinos mostrados por Steamcito son aproximados muy cercanos ya que cada banco/billetera digital tiene su propia cotización del dólar. <br/><br/>Por esta razón terminarás pagando un monto muy cercano al indicado en esta sección.
                 </p>
                 
             </div>`
@@ -65,6 +51,7 @@
     
     
     function showCart() {
+        
         let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
         let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
     
@@ -91,8 +78,32 @@
     }
     
     function showTaxes() {
+
+        let staticExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+        let newExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+
+        standardTaxes &&
+        standardTaxes.forEach(tax => {
+            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        })
+
+        provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            newExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        })
+
+
         let taxesContainer =
             `<div class="tax-container">
+
+            <h3>Cotización del dólar: 1 USD ≈ ${newExchangeRate} ARS </h3>
+            <ul class="cotizacion-dolar">
+                <li>Esta cotización  referencial es provista por Steamcito e incluye todos los impuestos listados abajo.</li>
+            </ul>
+            <span class="taxes-separator"></span>
+
+
+
             <h3>Impuestos Nacionales</h3>
             <ul class="impuestos-nacionales"></ul>
     

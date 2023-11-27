@@ -137,12 +137,12 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    ¿Cómo se calculó esta cotización?<br><br>
-                    <span class="name-white">1) Promedio del dólar oficial minorista <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">BCRA</a></span> <br>
+                    Resultado de dólar oficial más todos los impuestos<br><br>
+                    <span class="name-white">- Cotización promedio del dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
                     1 USD = ${staticExchangeRate}
-                    ${exchangeRateDate ? `<span class="name-smaller">(${exchangeRateDate})</span>` : ""}
+                    ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
                     <br><br>
-                    <span class="name-white">2) Total de impuestos nacionales y provinciales</span><br>
+                    <span class="name-white">- Total de impuestos nacionales y provinciales</span><br>
                     ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
                     ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
                     ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}

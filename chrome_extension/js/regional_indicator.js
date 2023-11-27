@@ -137,7 +137,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
                 <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Resultado de dólar oficial más todos los impuestos<br><br>
+                    Resultado de dólar oficial más impuestos<br><br>
                     <span class="name-white">- Cotización promedio del dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
                     1 USD = ${staticExchangeRate}
                     ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}

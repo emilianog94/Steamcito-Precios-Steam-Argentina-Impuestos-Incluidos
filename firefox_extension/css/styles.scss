@@ -203,6 +203,15 @@
       }
     }
   }
+
+  // Search autocomplete
+
+  .search_area{
+
+    .match_subtitle{
+      max-width: fit-content;
+    }
+  }  
   
   // URLS /SEARCH/
   
@@ -711,6 +720,34 @@
   // Regional Indicator
   
   .regional-meter-wrapper {
+
+    &.barra-minificada.cotizacion-wrapper{
+      .reason:before{
+        opacity: 1;
+      }
+    }
+  
+    &.barra-minificada{
+      cursor: pointer;
+      max-height: 30px;
+      transition: max-height 1s ease;
+      overflow: hidden;
+  
+      .reason:before{
+        pointer-events: none;
+        opacity: 0;
+        overflow:hidden
+      }
+  
+      &:hover{
+        max-height: 600px;
+  
+        .reason:before{
+          opacity: 1;
+        }
+      }
+    }
+
     .reason.against,
     .reason.for,
     .reason.info {
@@ -724,6 +761,10 @@
         &.name-span {
           color: #ddd;
           font-weight: 400;
+        }
+
+        &.name-white{
+          color: #ddd;
         }
 
         &.name-smaller{

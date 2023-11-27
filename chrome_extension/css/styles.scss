@@ -740,9 +740,11 @@ body {
     overflow: hidden;
 
     .reason:before{
+      pointer-events: none;
       opacity: 0;
+      overflow:hidden
     }
-  
+
     &:hover{
       max-height: 600px;
 

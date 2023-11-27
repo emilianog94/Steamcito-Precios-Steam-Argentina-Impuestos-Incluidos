@@ -554,7 +554,9 @@ body.menu-enabled .responsive_page_frame {
   overflow: hidden;
 }
 .regional-meter-wrapper.barra-minificada .reason:before {
+  pointer-events: none;
   opacity: 0;
+  overflow: hidden;
 }
 .regional-meter-wrapper.barra-minificada:hover {
   max-height: 600px;

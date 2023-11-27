@@ -88,7 +88,7 @@
         let taxesContainer =
             `<div class="tax-container">
 
-            <h3>Cotización del dólar tarjeta: 1 USD ≈ ${newExchangeRate} ARS </h3>
+            <h3>Cotización del dólar tarjeta: 1 USD ≈ ${newExchangeRate.toFixed(2)} ARS </h3>
             <ul class="cotizacion-dolar">
                 <li>Esta cotización  referencial es provista por Steamcito e incluye todos los impuestos listados abajo.</li>
             </ul>

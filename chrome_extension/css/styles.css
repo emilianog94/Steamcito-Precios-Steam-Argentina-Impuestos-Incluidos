@@ -575,7 +575,7 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.against span.name-white,
 .regional-meter-wrapper .reason.for span.name-white,
 .regional-meter-wrapper .reason.info span.name-white {
-  color: #fff;
+  color: #ddd;
 }
 .regional-meter-wrapper .reason.against span.name-span,
 .regional-meter-wrapper .reason.for span.name-span,

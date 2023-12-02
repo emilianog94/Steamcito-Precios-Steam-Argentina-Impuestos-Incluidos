@@ -297,7 +297,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
             <div class="">
                 <p class="reason info">
-                El precio de <span class="name-span">${appData.name}</span> en nuestra región LATAM es igual al de Estados Unidos. <br><br> Es muy probable que ${appData.publisher || "el publisher" } se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minuto y avisale!</span>
+                El precio de <span class="name-span">${appData.name}</span> en nuestra región es igual al de Estados Unidos. <br><br> Es muy probable que ${appData.publisher || "el publisher" } se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minuto y avisale!</span>
 
                 <span class="notify-publisher-button green-steamcito-button">Escribir a ${appData.publisher}</span>
                 </p>
@@ -395,7 +395,8 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         let modal = document.querySelector('.notify-publisher-popup');
         let openModalButton = document.querySelector('.notify-publisher-button');
         let closeModalButton = document.querySelector('.publisher-popup-close-button');
-        openModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'))
+        openModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'));
+        
 
         closeModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'))
     }

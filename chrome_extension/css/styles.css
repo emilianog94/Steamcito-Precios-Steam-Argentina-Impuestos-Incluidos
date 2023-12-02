@@ -560,6 +560,7 @@ body.menu-enabled .responsive_page_frame {
   line-height: 36px !important;
   font-weight: 200 !important;
   color: #fff !important;
+  margin-bottom: 1.5rem !important;
 }
 .notify-publisher-popup h5 {
   font-size: 20px !important;
@@ -572,18 +573,42 @@ body.menu-enabled .responsive_page_frame {
   line-height: 19px;
   color: #cfd2d3;
 }
-.notify-publisher-popup .contact-method-container .publisher-email {
-  margin-top: 0.75rem;
+.notify-publisher-popup hr {
+  height: 1px;
+  margin: 1rem 0;
+  border: none;
+  background-color: rgba(207, 210, 211, 0.25);
+}
+.notify-publisher-popup .publisher-popup-flex-container {
+  display: flex;
+  align-items: center;
+}
+.notify-publisher-popup .contact-method-container button {
+  margin-left: 1rem;
+}
+.notify-publisher-popup .contact-method-container .publisher-contact-method {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.notify-publisher-popup .contact-method-container .publisher-contact-method .publisher-email {
   display: inline-block;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 2px;
   padding: 0.5rem 1rem;
+  border-right: none !important;
 }
-.notify-publisher-popup .email-template-container {
-  margin-top: 2rem;
+.notify-publisher-popup .email-template-container-subheader {
+  margin-bottom: 0;
+}
+.notify-publisher-popup .email-template-container-subheader button {
+  margin-left: 1rem;
+}
+.notify-publisher-popup .green-steamcito-button {
+  margin-top: 0;
 }
 
-.regional-meter-wrapper .notify-publisher-steamcito {
+.green-steamcito-button {
   border-radius: 2px;
   display: block;
   background: linear-gradient(to right, #75b022 5%, #588a1b 95%);
@@ -594,10 +619,13 @@ body.menu-enabled .responsive_page_frame {
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   font-family: "Motiva Sans", sans-serif;
+  outline: none;
+  border: none;
 }
-.regional-meter-wrapper .notify-publisher-steamcito:hover {
+.green-steamcito-button:hover {
   color: #fff !important;
 }
+
 .regional-meter-wrapper .reason.against,
 .regional-meter-wrapper .reason.for,
 .regional-meter-wrapper .reason.info {

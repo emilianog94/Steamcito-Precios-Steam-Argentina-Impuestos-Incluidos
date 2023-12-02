@@ -82,6 +82,13 @@ const getAppPricing = async (appInitialData) => {
             regionalStatus: undefined
         }
 
+        if(!appData.support_email.includes('@')){
+            // Si el mail no incluye una @, es porque lo cargó mal
+            !appData.support_url ? appData.support_url = appData.support_email : ""
+            appData.support_email = "";
+
+        }
+
         console.log("appdata es");
         console.log(appData);
 
@@ -281,18 +288,18 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
     </div>
 
-    ${appData.usdPrice == appData.arsPrice 
+    ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
         ?
         `<div class="block responsive_apppage_details_right heading">
-        Notificar posible error
+        Notificar posible error en precio
         </div>
         
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
             <div class="">
                 <p class="reason info">
-                El precio de <span class="name-span">${appData.name}</span> en Argentina es igual al de Estados Unidos. <br><br> Es muy probable que el publisher se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minutito para avisarle!</span>
+                El precio de <span class="name-span">${appData.name}</span> en nuestra región LATAM es igual al de Estados Unidos. <br><br> Es muy probable que ${appData.publisher || "el publisher" } se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minuto y avisale!</span>
 
-                <span class="notify-publisher-steamcito">Escribir a ${appData.publisher}</span>
+                <span class="notify-publisher-steamcito green-steamcito-button">Escribir a ${appData.publisher}</span>
                 </p>
             </div>
         </div>
@@ -300,34 +307,62 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <div class="notify-publisher-popup">
 
 
-            <h4>Contactar a ${appData.publisher}</h4>
+            <h4>Notificar posible error en precio a ${appData.publisher}</h4>
 
             <div class="contact-method-container">
-                <h5>Medio de contacto</h5>
-                <p>Este es el medio de contacto que ${appData.publisher} suministró:
-                <br>
-    
-                <span class="publisher-email">${appData.support_email}</span>
+                <h5>Medio de contacto</h5>  
+                <div class="publisher-popup-flex-container">
+                    ${appData.support_email 
+                        ? `<p class="publisher-email">${appData.support_email}</p>`
+                        : `<a target=_blank href="${appData.support_url}">${appData.support_url}</a>`
+                    }  
+                    ${appData.support_email ? `<button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-email">Copiar</button>` : ""}
+                </div>
+
             </div>
 
-
+            <hr>
 
             <div class="email-template-container">
-                <h5>Plantilla recomendada</h5>
+                
+                ${appData.support_email ? 
+                `<div class="email-template-container-subheader">
+                    <h5>Asunto</h5> 
+                    <div class="publisher-popup-flex-container">
+                        <p class="publisher-subject">Question about new regional pricing on ${appData.name}</p> 
+                        <button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-subject">Copiar</button>
+                    </div>
+                </div>
+                <hr>
+
+                `
+                :
+                ""
+                }
+
+                
+
+
+                <div class="email-template-container-subheader">
+                    <div class="publisher-popup-flex-container">
+                        <h5>Cuerpo del Mensaje</h5>
+                        <button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="email-template">Copiar</button>
+                    </div>
+
+                </div>
                 <p class="email-template">
+                    Hi there! <br>
+                    <br>
 
-                Hi there! <br>
-                <br>
+                    I am a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes the weakest economies in Latin America, such as my country, Argentina.
+                    <br><br> 
 
-                I'm a Steam user from Argentina and I wanted to bring something to your attention that could have slipped through the cracks. Steam recently introduced a new region called LATAM a few days ago, encompassing the weakest economies in Latin America, including my country, Argentina.
-                <br><br> 
+                    Currently, ${appData.name} seems to have inherited the standard price in US dollars since no price was set for our region.<br><br>
 
-                Currently, ${appData.name} seems to have inherited the price of the United States, which poses a challenge for many people who wish to purchase the game. <br><br>
+                    I was wondering if you could consider setting a price for our region when you get a chance. This would be greatly appreciated by players across Latin America! <br><br>
 
-                I was wondering if you could consider setting a price for our region when you get a chance.This would be greatly appreciated by players across Latin America! <br><br>
-
-                Thank you for your time! <br>
-                Kind regards,
+                    Thank you for your time! <br>
+                    Kind regards,
                 </p>
             </div>
         </div>
@@ -336,12 +371,27 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         :
             ""
-
-
     }
 
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
+
+    if(appData.support_email || appData.support_url){
+
+        let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
+        clipboardHandlers.forEach(handler => {
+            let valueToCopy = document.querySelector(`.${handler.dataset.clipboard}`)
+            console.log('valuetocopy is ', valueToCopy);
+            handler.addEventListener('click', () => {
+                navigator.clipboard.writeText(valueToCopy.innerText);
+                handler.innerText = '✔ ¡Copiado! '
+                setTimeout( () => {
+                    handler.innerText = "Copiar"
+                },3000)
+            })
+        })
+    }
+
 }
 
 if(isStoreDolarized()){

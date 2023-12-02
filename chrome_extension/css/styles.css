@@ -555,6 +555,9 @@ body.menu-enabled .responsive_page_frame {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   font-family: "Motiva Sans", sans-serif;
 }
+.notify-publisher-popup.notify-publisher-popup--hidden {
+  display: none;
+}
 .notify-publisher-popup h4 {
   font-size: 28px !important;
   line-height: 36px !important;
@@ -582,6 +585,16 @@ body.menu-enabled .responsive_page_frame {
 .notify-publisher-popup .publisher-popup-flex-container {
   display: flex;
   align-items: center;
+}
+.notify-publisher-popup .publisher-popup-close-button {
+  position: absolute;
+  right: 1.5rem;
+  opacity: 0.5;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.notify-publisher-popup .publisher-popup-close-button:hover {
+  opacity: 1;
 }
 .notify-publisher-popup .contact-method-container button {
   margin-left: 1rem;

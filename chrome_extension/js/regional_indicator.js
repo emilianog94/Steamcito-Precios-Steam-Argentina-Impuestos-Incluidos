@@ -299,15 +299,16 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 <p class="reason info">
                 El precio de <span class="name-span">${appData.name}</span> en nuestra región LATAM es igual al de Estados Unidos. <br><br> Es muy probable que ${appData.publisher || "el publisher" } se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minuto y avisale!</span>
 
-                <span class="notify-publisher-steamcito green-steamcito-button">Escribir a ${appData.publisher}</span>
+                <span class="notify-publisher-button green-steamcito-button">Escribir a ${appData.publisher}</span>
                 </p>
             </div>
         </div>
         
-        <div class="notify-publisher-popup">
+        <div class="notify-publisher-popup notify-publisher-popup--hidden">
+            <span class="publisher-popup-close-button">X</span>
 
-
-            <h4>Notificar posible error en precio a ${appData.publisher}</h4>
+            <h4>Notificar posible error en precio a ${appData.publisher} 
+            </h4>
 
             <div class="contact-method-container">
                 <h5>Medio de contacto</h5>  
@@ -376,7 +377,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
 
-    if(appData.support_email || appData.support_url){
+    if(appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)){
 
         let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
         clipboardHandlers.forEach(handler => {
@@ -390,7 +391,17 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 },3000)
             })
         })
+
+        let modal = document.querySelector('.notify-publisher-popup');
+        let openModalButton = document.querySelector('.notify-publisher-button');
+        let closeModalButton = document.querySelector('.publisher-popup-close-button');
+        openModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'))
+
+        closeModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'))
     }
+
+
+
 
 }
 

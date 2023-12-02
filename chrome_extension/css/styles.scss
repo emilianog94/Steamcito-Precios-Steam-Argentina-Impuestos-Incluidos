@@ -730,6 +730,10 @@ body {
   box-shadow: 0 0 15px rgba(0,0,0,.4);
   font-family: 'Motiva Sans',sans-serif;
 
+  &.notify-publisher-popup--hidden{
+    display: none;
+  }
+
   h4{
     font-size: 28px !important;
     line-height: 36px !important;
@@ -761,6 +765,18 @@ body {
   .publisher-popup-flex-container{
     display: flex;
     align-items: center;
+  }
+
+  .publisher-popup-close-button{
+    position: absolute;
+    right: 1.5rem;
+    opacity: .5;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover{
+      opacity: 1;
+    }
   }
 
   .contact-method-container{

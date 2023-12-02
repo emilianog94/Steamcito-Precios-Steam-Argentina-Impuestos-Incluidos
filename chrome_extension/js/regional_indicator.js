@@ -1,4 +1,5 @@
 const url = window.location.pathname;
+let indicatorStyle = localStorage.getItem('estilo-barra');
 
 const getAppData = (url) => {
     let appData = {
@@ -125,26 +126,43 @@ const getAppPricing = async (appInitialData) => {
 
 const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
+
+    let staticExchangeRate = exchangeRate;
+
+    standardTaxes &&
+    standardTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
     let container = `
         <div class="block responsive_apppage_details_right heading">
-            Cotización del dólar referencial
+            Cotización del dólar de Steamcito
         </div>
 
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle}">
             <p class="reason info">
-                <span class="name-span">1 USD ≈ ${exchangeRate} ARS</span>
+                <span class="name-span">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
-                <span class="name-smaller">Promedio de tipo de cambio minorista <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp" target="_blank">(BCRA)</a></span><br>
-                ${exchangeRateDate ? `<span class="name-smaller">Último cierre hábil: ${exchangeRateDate}</span>` : ""}
+                <span class="name-smaller">
+                    Resultado de dólar oficial más impuestos<br><br>
+                    <span class="name-white">- Cotización promedio del dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
+                    1 USD = ${staticExchangeRate}
+                    ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
+                    <br><br>
+                    <span class="name-white">- Total de impuestos nacionales y provinciales</span><br>
+                    ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
+                    ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
+                    ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
+
+
+                </span>
+
             </p>
-
-            <div class="DRM_notice">
-                <div>
-                    Todos los precios en pesos argentinos (ARS$) son aproximados ya que cada banco/entidad tiene su propia cotización del dólar.
-                     <b></b>
-                </div>
-            </div>
-
         </div>
     
     `;
@@ -161,7 +179,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     <div class="block responsive_apppage_details_right heading">
         ¿Cómo es el precio regional?
     </div>
-    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle}">
         <div class="regional-meter-container">
             <div class="regional-meter-bar regional-meter-bar--cheap ${appData.regionalStatus == "cheap" && "regional-meter-bar--selected"}">
                 <span>Barato</span>

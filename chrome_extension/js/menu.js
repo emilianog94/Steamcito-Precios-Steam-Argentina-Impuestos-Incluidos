@@ -20,7 +20,7 @@ function createMenus(){
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" placeholder="100"/>
+                                <input id="national-tax" type="number" name="national-tax" placeholder="155"/>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
@@ -59,6 +59,18 @@ function createMenus(){
                             </div>
                             <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
                         </div>
+
+                        <div class="opcion">
+                            <div>
+                                <label for="estilo-barra">Información en barra lateral</label>
+                                <select name="estilo-barra" id="estilo-barra">
+                                    <option value="barra-normal">Normal</option>
+                                    <option value="barra-minificada">Minificada</option>
+                                </select>
+                            </div>
+                            <small>Seleccioná "Minificada" para que la información de cotización del dólar y precios regionales ocupe menos espacio.</small>
+                        </div>
+
                     </div>
 
                     <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
@@ -98,7 +110,11 @@ function setInitialLocalStates(){
     localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
+    localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
+}
 
+function changeBarStyleState(){
+    selectBarStyle.value == 'barra-normal' ? localStorage.setItem('estilo-barra','barra-normal') : localStorage.setItem('estilo-barra','barra-minificada');
 }
 
 function changeEmojiState(){
@@ -170,8 +186,11 @@ const menu = document.querySelector(".menu-steamcito");
 const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual")
 let selectEmoji = document.querySelector("#estilo-emoji");
+let selectBarStyle = document.querySelector("#estilo-barra");
+
 selectEmoji.addEventListener('input',changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
+selectBarStyle.addEventListener('input',changeBarStyleState);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);

@@ -3,7 +3,7 @@ const attributeName = "data-original-price";
 let standardTaxes = [
     {
         name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
-        value: 45,
+        value: 100,
         moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
     },
     {

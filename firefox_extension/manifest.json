@@ -1,6 +1,6 @@
  {
  	"name": "Steamcito: Steam con impuestos Argentina 2023",
- 	"version": "3.10",
+ 	"version": "3.13",
  	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
  	"manifest_version": 2,
  	"background": {
@@ -43,7 +43,7 @@
  		{
 			"matches": ["https://store.steampowered.com/sub/*"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js","js/helpers.js", "js/regional_indicator.js"],
+			"js": ["js/purify.min.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"],
 			"css": ["css/styles.css"]
 		},
  		{
@@ -70,7 +70,7 @@
  		{
 			"matches": ["https://store.steampowered.com/app/*"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js", "js/subscriptions.js","js/helpers.js", "js/regional_indicator.js"]
+			"js": ["js/purify.min.js", "js/subscriptions.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"]
 		},		
  		{
  			"matches": ["https://store.steampowered.com/account/subscriptions/*"],

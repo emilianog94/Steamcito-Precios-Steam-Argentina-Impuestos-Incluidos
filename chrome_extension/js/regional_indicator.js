@@ -309,15 +309,17 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
         ?
         `<div class="block responsive_apppage_details_right heading">
-        Notificar posible error en precio
+        Solicitar precio regional
         </div>
         
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
             <div class="">
                 <p class="reason info">
-                El precio de <span class="name-span">${appData.name}</span> en nuestra región es igual al de Estados Unidos. <br><br> Es muy probable que ${appData.publisher || "el publisher" } se haya olvidado de cargar el precio por error. <span class="name-span">¡Tomate un minuto y avisale!</span>
+                <span class="name-span">${appData.name}</span> tiene el mismo precio en nuestro país que en Estados Unidos: <span class="name-span">${appData.usdPrice} USD</span> <br><br> 
+                
+                El publisher probablemente se olvidó de cargar un precio para nuestro región. ¡Avisale para que considere cargarlo!
 
-                <span class="notify-publisher-button green-steamcito-button">Escribir a ${appData.publisher}</span>
+                <span class="notify-publisher-button green-steamcito-button">Avisar a ${appData.publisher}</span>
                 </p>
             </div>
         </div>
@@ -373,7 +375,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                     Hi there! <br>
                     <br>
 
-                    I am a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes the weakest economies in Latin America, such as my country, Argentina.
+                    I'm a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes the weakest economies in Latin America, such as my country, Argentina.
                     <br><br> 
 
                     Currently, ${appData.name} seems to have inherited the standard price in US dollars since no price was set for our region.<br><br>

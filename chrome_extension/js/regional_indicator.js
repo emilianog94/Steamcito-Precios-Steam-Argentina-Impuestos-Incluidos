@@ -137,11 +137,11 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     })
 
     let container = `
-        <div class="block responsive_apppage_details_right heading">
+        <div class="block responsive_apppage_details_right heading heading_steamcito_3">
             Cotización del dólar de Steamcito
         </div>
 
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle}">
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
             <p class="reason info">
                 <span class="name-span">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
@@ -173,10 +173,10 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
     let container =
         `
-    <div class="block responsive_apppage_details_right heading">
+    <div class="block responsive_apppage_details_right heading heading_steamcito_1">
         ¿Cómo es el precio regional?
     </div>
-    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle}">
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle} content_steamcito_1">
         <div class="regional-meter-container">
             <div class="regional-meter-bar regional-meter-bar--cheap ${appData.regionalStatus == "cheap" && "regional-meter-bar--selected"}">
                 <span>Barato</span>
@@ -324,11 +324,11 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
     ${appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)
         ?
-        `<div class="block responsive_apppage_details_right heading">
+        `<div class="block responsive_apppage_details_right heading heading_steamcito_2">
         Solicitar precio regional
         </div>
         
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper">
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle} content_steamcito_2">
             <div class="">
                 <p class="reason info">
                 <span class="name-span">${appData.name}</span> tiene el mismo precio en nuestro país que en Estados Unidos: <span class="name-span">${appData.usdPrice} USD</span> <br><br> 

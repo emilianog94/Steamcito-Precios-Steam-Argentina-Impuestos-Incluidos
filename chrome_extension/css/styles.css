@@ -643,7 +643,7 @@ body.menu-enabled .responsive_page_frame {
   color: #fff !important;
 }
 
-.regional-meter-wrapper.barra-minificada.cotizacion-wrapper .reason:before {
+.regional-meter-wrapper.barra-minificada.cotizacion-wrapper .reason:before, .regional-meter-wrapper.barra-minificada.content_steamcito_2 .reason:before {
   opacity: 1;
 }
 .regional-meter-wrapper.barra-minificada {
@@ -716,6 +716,29 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .DRM_notice a {
   color: #fff !important;
   text-decoration: underline;
+}
+
+.rightcol.game_meta_data {
+  display: flex;
+  flex-direction: column;
+}
+.rightcol.game_meta_data .heading_steamcito_1 {
+  order: -6;
+}
+.rightcol.game_meta_data .content_steamcito_1 {
+  order: -5;
+}
+.rightcol.game_meta_data .heading_steamcito_2 {
+  order: -4;
+}
+.rightcol.game_meta_data .content_steamcito_2 {
+  order: -3;
+}
+.rightcol.game_meta_data .heading_steamcito_3 {
+  order: -2;
+}
+.rightcol.game_meta_data .content_steamcito_3 {
+  order: -1;
 }
 
 .regional-meter-container {

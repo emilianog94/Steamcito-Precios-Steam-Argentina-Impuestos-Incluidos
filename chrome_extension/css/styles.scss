@@ -849,7 +849,7 @@ body {
 
 .regional-meter-wrapper {
 
-  &.barra-minificada.cotizacion-wrapper{
+  &.barra-minificada.cotizacion-wrapper, &.barra-minificada.content_steamcito_2{
     .reason:before{
       opacity: 1;
     }
@@ -929,6 +929,34 @@ body {
 
 .rightcol.game_meta_data {
   //   font-family: "Motiva Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+
+  .heading_steamcito_1{
+    order: -6;
+  }
+
+  .content_steamcito_1{
+    order: -5;
+  }
+
+  .heading_steamcito_2{
+    order: -4;
+  }
+
+  .content_steamcito_2{
+    order: -3;
+  }
+
+  .heading_steamcito_3{
+    order: -2;
+  }
+
+  .content_steamcito_3{
+    order: -1;
+  }
+
+
 }
 
 .regional-meter-container {

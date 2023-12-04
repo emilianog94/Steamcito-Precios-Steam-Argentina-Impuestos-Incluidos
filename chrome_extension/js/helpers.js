@@ -279,7 +279,7 @@ let regionalPricingChartLatam = [
     },
     {
         usdPrice: 19.99,
-        argPrice: 10.99
+        argPrice: 10.49
     },
     {
         usdPrice: 24.99,

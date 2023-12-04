@@ -83,7 +83,7 @@ const getAppPricing = async (appInitialData) => {
             regionalStatus: undefined
         }
 
-        if(!appData.support_email.includes('@')){
+        if(appData.publisher != "El publisher" && !appData.support_email.includes('@')){
             // Si el mail no incluye una @, es porque lo cargó mal
             !appData.support_url ? appData.support_url = appData.support_email : ""
             appData.support_email = "";

@@ -412,7 +412,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
 
-    if(appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)){
+    if(appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)){
 
         let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
         clipboardHandlers.forEach(handler => {

@@ -353,14 +353,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                         ? `<p class="publisher-email">${appData.support_email}</p>`
                         : `<a target=_blank href="${appData.support_url}">${appData.support_url}</a>`
                     }  
-                    ${appData.support_email 
-						? `<button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-email">Copiar</button>
-						<button class="copiar-texto-steamcito green-steamcito-button" type="button" onclick="window.open('mailto:${appData.support_email}?subject=Question about new regional pricing on ${appData.name}&body=Hi there!%0A%0A` + 
-						`I%27m a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.%0A%0A` +
-						`Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.%0A%0AWould you please consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America!%0A%0A` +
-						`Kind regards,');">Enviar Mail</button>` 
-						: ""
-					}
+                    ${appData.support_email ? `<button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-email">Copiar</button>` : ""}
                 </div>
 
             </div>
@@ -408,8 +401,26 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                     Kind regards,
                 </p>
             </div>
-        </div>
-
+			
+			${appData.support_email ? 
+			`<hr>
+			<div class="email-send-container">
+				<h5>Enviar mail a a ${appData.publisher}</h5> 
+				<div class="publisher-popup-flex-container">
+					<p><a href="https://www.activationtrouble.com/es/use-gmail-para-abrir-el-enlace-mailto-enviar-correo-a-en-la-pc" target="_blank">Configurar link de "enviar correo a"</a></p>&emsp;
+					<button class="copiar-texto-steamcito green-steamcito-button" type="button" onclick="window.open('mailto:${appData.support_email}?subject=Question about new regional pricing on ${appData.name}&body=Hi there!%0A%0A` + 
+					`I%27m a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.%0A%0A` +
+					`Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.%0A%0AWould you please consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America!%0A%0A` +
+					`Kind regards,');">Enviar</button>
+				</div>
+			</div>
+			`
+			:
+			""
+			}
+		
+		</div>
+		
         `
 
         :

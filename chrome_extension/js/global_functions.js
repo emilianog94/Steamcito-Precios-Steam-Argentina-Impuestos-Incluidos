@@ -31,7 +31,7 @@ function monthStrToNumber(month)
 	}
 	else
 	{
-		return ["JAN","FEB","MAR","APP","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(month) + 1;
+		return ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(month) + 1;
 	}
 }
 
@@ -164,7 +164,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
 
         }
 
-
     },250);
 }
 
@@ -217,4 +216,3 @@ async function getUsdExchangeRate(){
 
     }
 }
-

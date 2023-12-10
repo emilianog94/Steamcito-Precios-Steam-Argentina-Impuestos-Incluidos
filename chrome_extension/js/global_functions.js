@@ -24,7 +24,15 @@ function getPrices(){
 // Pasa de un stirng de iniciales de un mes al número de mes. Ejemplo: AGO (Agosto) será 8
 function monthStrToNumber(month)
 {
-	return ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;
+	let esp = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;
+	if(esp >= 0)
+	{
+		return esp;
+	}
+	else
+	{
+		return ["JAN","FEB","MAR","APP","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(month) + 1;
+	}
 }
 
 // Pasa de un string del formato 15 ENE 2023 a un json { day:15, month:1, year:2023}

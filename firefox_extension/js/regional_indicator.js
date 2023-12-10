@@ -77,9 +77,19 @@ const getAppPricing = async (appInitialData) => {
             baseArsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
             usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
             arsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
+            support_url: appIdResponse?.support_info?.url,
+            support_email: appIdResponse?.support_info?.email,
             recommendedArsPrice: undefined,
             regionalStatus: undefined
         }
+
+        if(appData.publisher != "El publisher" && !appData.support_email.includes('@')){
+            // Si el mail no incluye una @, es porque lo cargó mal
+            !appData.support_url ? appData.support_url = appData.support_email : ""
+            appData.support_email = "";
+
+        }
+
 
         const nearestOption = regionalPricingOptionsLatam.reduce((prev, curr) => Math.abs(curr - appData.baseUsdPrice) < Math.abs(prev - appData.baseUsdPrice) ? curr : prev);
 
@@ -128,11 +138,11 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     })
 
     let container = `
-        <div class="block responsive_apppage_details_right heading">
+        <div class="block responsive_apppage_details_right heading heading_steamcito_3">
             Cotización del dólar de Steamcito
         </div>
 
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle}">
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper content_steamcito_3 ${indicatorStyle}">
             <p class="reason info">
                 <span class="name-span">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
@@ -162,10 +172,10 @@ const renderRegionalIndicator = (appData,exchangeRate) => {
     let container =
         `
 
-    <div class="block responsive_apppage_details_right heading">
+    <div class="block responsive_apppage_details_right heading heading_steamcito_1">
         ¿Cómo es el precio regional?
     </div>
-    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle}">
+    <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper content_steamcito_1 ${indicatorStyle}">
         <div class="regional-meter-container">
             <div class="regional-meter-bar regional-meter-bar--cheap ${appData.regionalStatus == "cheap" && "regional-meter-bar--selected"}">
                 <span>Barato</span>
@@ -183,14 +193,12 @@ const renderRegionalIndicator = (appData,exchangeRate) => {
             `
         <p class="reason against">
             <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
-        </p>
         ${appData.usdPrice == appData.arsPrice 
             ?
-                `<hr><p class="reason against">
-                El precio en Argentina es igual al de Estados Unidos. Es posible que <span class="name-span">${appData.publisher}</span> se haya olvidado y lo corrija en el futuro.
-                </p>`
+            `<br><br>El precio en nuestra región es el mismo que en Estados Unidos.`
             :   ``
         }
+        </p>
         <hr>
         <p class="reason info">
             Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
@@ -199,10 +207,16 @@ const renderRegionalIndicator = (appData,exchangeRate) => {
         <p class="reason info">
             Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
-        <hr>
-        <p class="reason info">
-            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
-        </p> 
+        ${appData.usdPrice != appData.arsPrice
+            ? `
+            <hr>
+            <p class="reason info">
+                Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
+            </p>   
+            `
+            :
+            ""
+        }
         `
             : ""
         }
@@ -284,8 +298,121 @@ const renderRegionalIndicator = (appData,exchangeRate) => {
             </div>
         </div>
     </div>
+
+    ${appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)
+        ?
+        `<div class="block responsive_apppage_details_right heading heading_steamcito_2">
+        Solicitar precio regional
+        </div>
+        
+        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle} content_steamcito_2">
+            <div class="">
+                <p class="reason info">
+                <span class="name-span">${appData.name}</span> tiene el mismo precio en nuestro país que en Estados Unidos: <span class="name-span">${appData.usdPrice} USD</span> <br><br> 
+                
+                <span class="name-span">${appData.publisher}</span> todavía no cargó un precio para nuestro región. ¡Avisale para que considere hacerlo!
+
+                <span class="notify-publisher-button green-steamcito-button">Avisar a ${appData.publisher}</span>
+                </p>
+            </div>
+        </div>
+        
+        <div class="notify-publisher-popup notify-publisher-popup--hidden">
+            <span class="publisher-popup-close-button">X</span>
+
+            <h4>Solicitar precio regional a ${appData.publisher} 
+            </h4>
+
+            <div class="contact-method-container">
+                <h5>Medio de contacto</h5>  
+                <div class="publisher-popup-flex-container">
+                    ${appData.support_email 
+                        ? `<p class="publisher-email">${appData.support_email}</p>`
+                        : `<a target=_blank href="${appData.support_url}">${appData.support_url}</a>`
+                    }  
+                    ${appData.support_email ? `<button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-email">Copiar</button>` : ""}
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="email-template-container">
+                
+                ${appData.support_email ? 
+                `<div class="email-template-container-subheader">
+                    <h5>Asunto</h5> 
+                    <div class="publisher-popup-flex-container">
+                        <p class="publisher-subject">Question about new regional pricing on ${appData.name}</p> 
+                        <button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-subject">Copiar</button>
+                    </div>
+                </div>
+                <hr>
+
+                `
+                :
+                ""
+                }
+
+                
+
+
+                <div class="email-template-container-subheader">
+                    <div class="publisher-popup-flex-container">
+                        <h5>Cuerpo del Mensaje</h5>
+                        <button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="email-template">Copiar</button>
+                    </div>
+
+                </div>
+                <p class="email-template">
+                    Hi there! <br>
+                    <br>
+
+                    I'm a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.
+                    <br><br> 
+
+                    Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.<br><br>
+
+                    Would you please consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America! <br><br>
+
+                    Kind regards,
+                </p>
+            </div>
+        </div>
+
+        `
+
+        :
+            ""
+    }
+    
     `
     sidebar.insertAdjacentHTML('afterbegin', DOMPurify.sanitize(container));
+
+    if(appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)){
+
+        let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
+        clipboardHandlers.forEach(handler => {
+            let valueToCopy = document.querySelector(`.${handler.dataset.clipboard}`)
+            handler.addEventListener('click', () => {
+                navigator.clipboard.writeText(valueToCopy.innerText);
+                handler.innerText = '✔ ¡Copiado! '
+                setTimeout( () => {
+                    handler.innerText = "Copiar"
+                },3000)
+            })
+        })
+
+        let modal = document.querySelector('.notify-publisher-popup');
+        let openModalButton = document.querySelector('.notify-publisher-button');
+        let closeModalButton = document.querySelector('.publisher-popup-close-button');
+        openModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'));
+        
+
+        closeModalButton.addEventListener('click', () => modal.classList.toggle('notify-publisher-popup--hidden'))
+    }
+
+
 }
 
 if(isStoreDolarized()){

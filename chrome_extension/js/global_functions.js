@@ -168,8 +168,6 @@ function switchPrices(selector,first,second,symbol,isDolarized){
     },250);
 }
 
-
-
 function evaluateDate(){
     if(localStorage.getItem('steamcito-cotizacion')){
         let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))

@@ -2,7 +2,8 @@ function changeRangeValue() {
     let currentNumber = document.querySelector('input#maxprice_input');
 
     if (!isNaN(currentNumber.value) && currentNumber.value) {
-        rangeDisplayTextSteamcito.innerText = `Menos de ARS$ ${(currentNumber.value * totalTaxes).toFixed(2)} 🧉`;
+		let numeroArgentino = calcularImpuestos(currentNumber.value,hoy);
+        rangeDisplayTextSteamcito.innerText = `Menos de ARS$ ${numeroArgentino.toFixed(2)} 🧉`;
     } else {
         rangeDisplayTextSteamcito.innerText = "";
     }

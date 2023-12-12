@@ -24,7 +24,7 @@ function check(element,start = 0){
         let finNumero = element.innerHTML.indexOf(" ",inicioNumero);
         let numeroOriginal = element.innerHTML.substring(inicioNumero,finNumero);
         let numeroWallet = sanitize(element.innerHTML.substring(inicioNumero,finNumero));
-        let numeroArgentino = calcularImpuestos(stringToNumber(numeroWallet,"none")/100);
+        let numeroArgentino = calcularImpuestos(stringToNumber(numeroWallet,"none")/100,hoy);
 
         element.innerHTML = element.innerHTML.replace(
             numeroOriginal,`<span class="suscription-price" data-argentina-price="${numeroArgentino}" data-original-price="${numeroWallet}">${numeroWallet}</span>`

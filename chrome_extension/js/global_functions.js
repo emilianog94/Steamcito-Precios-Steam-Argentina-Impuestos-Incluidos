@@ -188,3 +188,33 @@ async function getUsdExchangeRate(){
     }
 }
 
+
+let currentDate = new Date();
+const hoy = {
+			day: currentDate.getDate(),
+			month: currentDate.getMonth()+1,
+			year: currentDate.getFullYear()
+};
+
+// Pasa de un stirng de iniciales de un mes al número de mes. Ejemplo: AGO (Agosto) será 8
+function monthStrToNumber(month)
+{
+    if(month.indexOf(',')){
+        let commaPosition = month.indexOf(',');
+        let monthSanitized = (month.slice(0,commaPosition)).toUpperCase();
+        return ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(monthSanitized) + 1;
+    } else{
+        return ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;
+    }
+}
+
+// Pasa de un string del formato 15 ENE 2023 a un json { day:15, month:1, year:2023}
+function stringToDate(dateStr)
+{
+	let dateArr = dateStr.split(" ");
+	return {
+		day:Number(dateArr[0]),
+		month:monthStrToNumber(dateArr[1]),
+		year:Number(dateArr[2])
+	};
+}

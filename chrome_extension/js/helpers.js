@@ -328,14 +328,13 @@ function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
     let match = string.match(regexFindNumber);
     if(match){
-        return match[0].replace(/,/g, '');
+        return parseFloat(match[0].replace(/,/g, ''));
     }
 
 
 }
 
 function stringToNumber(number, positionArs = 5) {
-
     if(!number.innerText.includes('ARS')){
         return extractNumberFromString(number.innerText);
     }

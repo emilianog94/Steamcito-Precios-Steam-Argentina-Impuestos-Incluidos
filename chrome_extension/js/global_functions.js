@@ -40,6 +40,7 @@ function renderPrices(price){
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
     let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
 
+
     // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
     if (price.classList.contains("was")) sanitizePromoLists();
     
@@ -49,7 +50,7 @@ function renderPrices(price){
         price.style.cursor="pointer";
     }
 
-    if(walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')){
+    if(walletBalance > parseFloat(price.dataset.originalPrice) && !price.classList.contains('discount_original_price')){
 
         // Fix para Search View
         if(price.matches('.discounted.responsive_secondrow')){
@@ -79,6 +80,8 @@ function renderPrices(price){
 
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
+            price.classList.add("xd");
+            // price.innerText = 
 
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 

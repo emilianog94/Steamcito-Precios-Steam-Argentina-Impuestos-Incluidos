@@ -328,7 +328,7 @@ function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
     let match = string.match(regexFindNumber);
     if(match){
-        return parseFloat(match[0].replace(/,/g, ''));
+        return match[0].replace(/,/g, '');
     }
 
 

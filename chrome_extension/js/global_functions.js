@@ -62,9 +62,10 @@ function renderPrices(price){
         else{
             price.innerHTML = originalPrice + emojiWallet;     
             price.classList.add("original");
+            price.classList.add("jeje");
 
             if(price.previousElementSibling){
-                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice); 
+                if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToStringUsd(price.previousElementSibling.dataset.originalPrice); 
             }
         }
     } 
@@ -80,19 +81,21 @@ function renderPrices(price){
 
             price.innerHTML = argentinaPrice + emojiMate;
             price.classList.add("argentina");
-            price.classList.add("xd");
-            // price.innerText = 
+
+
+
 
             if(price.previousElementSibling){
                 if(isInsideString(price.previousElementSibling,"ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
             }
+
         }
     }
 
     // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
     setTimeout(function(){
-        if(price.classList.contains('argentina') && !price.innerText.includes("ARS")){
-            renderPrices(price);
+        if(price.classList.contains('argentina') && !price.innerText.includes("ARS") && price.closest('.dynamic_bundle_description')){
+            setArgentinaPrice(price);
         }
     },1500)
 

@@ -1,8 +1,11 @@
 let precios = document.querySelectorAll(".updateSubscriptionOptionPrice,.transactionRowAmountDue,.itemSubtext,.game_area_purchase_game_dropdown_menu_item_text,.game_area_purchase_game_dropdown_selection span");
-precios.forEach(precio => {
-    precio.innerHTML = precio.innerHTML + " &nbsp;"; // Previene errores
-    check(precio);
-});
+
+// Desactivo función temporalmente
+// precios.forEach(precio => {
+    
+//     precio.innerHTML = precio.innerHTML + " &nbsp;"; // Previene errores
+//     check(precio);
+// });
 let spans = document.querySelectorAll(".suscription-price");
 spans.forEach(span => {
     if(walletBalance < span.innerText){

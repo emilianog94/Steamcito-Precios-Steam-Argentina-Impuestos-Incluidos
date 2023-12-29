@@ -17,16 +17,14 @@ function getPrices(){
 async function setArgentinaPrice(price){
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
+        // Ignoro los juegos sin precio (Ejemplo: F2Ps)
+        if(price.innerText.includes('$')){
+            let baseNumericPrice = extractNumberFromString(price.innerText)
+            price.dataset.originalPrice = baseNumericPrice;
+            price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
+            renderPrices(price);
+        }
 
-
-    // Update 20/11 si los precios están en una currency distinta a ARS
-    if(price.innerText.includes("$")){
-        let baseNumericPrice = extractNumberFromString(price.innerText)
-        price.dataset.originalPrice = baseNumericPrice;
-        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
-        price.dataset.isDolarized = "dolarized";
-        renderPrices(price);
-    }
 }
 
 function sanitizePromoLists() {
@@ -36,57 +34,57 @@ function sanitizePromoLists() {
 
 function renderPrices(price) {
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
-    let originalPrice = price.dataset.isDolarized == "dolarized" ? numberToStringUsd(price.dataset.originalPrice) : numberToString(price.dataset.originalPrice);
+    let originalPrice = numberToStringUsd(price.dataset.originalPrice);
+
+    price.addEventListener('click', showSecondaryPrice);
+    price.style.cursor = "pointer";   
+
     // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
-    if (price.classList.contains("was")) sanitizePromoLists();
+    price.classList.contains("was") && sanitizePromoLists();
 
-    // Agrego Listener para switchear precios con click
-    if (!price.classList.contains('discount_original_price') || !price.classList.contains('responsive_secondrow')) {
-        price.addEventListener('click', showSecondaryPrice);
-        price.style.cursor = "pointer";
-    }
 
-    if (walletBalance > price.dataset.originalPrice && !price.classList.contains('discount_original_price')) {
 
-        // Fix para Search View
-        if (price.matches('.discounted.responsive_secondrow')) {
-            let precioTachado = price.querySelector("strike");
+    // Si el saldo te alcanza para comprar el juego
+    if(walletBalance > parseFloat(price.dataset.originalPrice)){
 
-            if (precioTachado) price.innerHTML = DOMPurify.sanitize(`<strike style="color: #888888;">${precioTachado.innerText}</strike> <br> ${originalPrice} ${emojiWallet}`);
-            price.removeEventListener('click', showSecondaryPrice);
-        }
-        else {
-            price.innerHTML = DOMPurify.sanitize(originalPrice + emojiWallet);
-            price.classList.add("original");
+        price.innerHTML = DOMPurify.sanitize(originalPrice + emojiWallet);
+        price.classList.add("original");
 
-            if (price.previousElementSibling) {
-                if (isInsideString(price.previousElementSibling, "ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.originalPrice);
+        if (price.previousElementSibling) {
+            if(isInsideString(price.previousElementSibling,"$")){
+                price.previousElementSibling.classList.add('original');
+                price.previousElementSibling.classList.remove('argentina');
+                price.previousElementSibling.innerText = numberToStringUsd(price.previousElementSibling.dataset.originalPrice); 
             }
         }
+        
     }
     else {
-        // Fix para Search View
-        if (price.matches('.discounted.responsive_secondrow')) {
-            let precioTachado = price.querySelector("strike");
-            if (precioTachado) price.innerHTML = DOMPurify.sanitize(`<strike style="color: #888888;"> ${argentinizar(calcularImpuestos(stringToNumber(precioTachado)), false)} </strike> <br> ${argentinaPrice} ${emojiMate}`);
-            price.removeEventListener('click', showSecondaryPrice);
+        price.innerHTML = DOMPurify.sanitize(argentinaPrice + emojiMate);
+        price.classList.add("argentina");
 
-        } else {
-
-            price.innerHTML = DOMPurify.sanitize(argentinaPrice + emojiMate);
-            price.classList.add("argentina");
-
-            if (price.previousElementSibling) {
-                if (isInsideString(price.previousElementSibling, "ARS$")) price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice);
+        // Si tiene un descuento
+        if (price.previousElementSibling) {
+            if(isInsideString(price.previousElementSibling,"$")){
+                price.previousElementSibling.classList.remove('original');
+                price.previousElementSibling.classList.add('argentina');
+                price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
             }
         }
+        
     }
 
     // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
     setTimeout(function(){
-        if(price.classList.contains('argentina') && !price.innerText.includes("ARS")){
-            renderPrices(price);
+
+        if(price.classList.contains('argentina') && !price.innerText.includes("ARS") && price.closest('.dynamic_bundle_description')){
+            setArgentinaPrice(price);
         }
+
+        if(price.classList.contains('original') && !price.innerText.includes(emojiWallet) && price.closest('.dynamic_bundle_description')){
+            setArgentinaPrice(price);
+        }
+
     },1500)
 
 }
@@ -97,39 +95,25 @@ function showSecondaryPrice(e){
     selectedPrice.classList.add("transition-effect");
     selectedPrice.style.opacity = 0;
     if(selectedPrice.classList.contains("argentina")){
-        switchPrices(selectedPrice,"argentina","original",emojiWallet,selectedPrice.dataset.isDolarized);
+        switchPrices(selectedPrice,"argentina","original",emojiWallet);
     }
     else if(selectedPrice.classList.contains("original")){
-        switchPrices(selectedPrice,"original","argentina",emojiMate,selectedPrice.dataset.isDolarized);
+        switchPrices(selectedPrice,"original","argentina",emojiMate);
     }
 }
 
 
-function switchPrices(selector,first,second,symbol,isDolarized){
+function switchPrices(selector,first,second,symbol){
     setTimeout(function(){
         selector.style.opacity=1;
         selector.classList.remove(first);
         selector.classList.add(second);
 
-        if(isDolarized == "dolarized"){
-            if(selector.classList.contains("suscription-price")){
-                selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
-            } else{
-                selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol))  ;
-            }            
-        }
-
-        else{
-
-            if(selector.classList.contains("suscription-price")){
-                selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
-            } else{
-                selector.innerHTML = DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol)) ;
-            }
-
-        }
-
-
+        if(selector.classList.contains("suscription-price")){
+            selector.innerHTML = DOMPurify.sanitize(numberToStringSub(selector.dataset[second+"Price"] + symbol));
+        } else{
+            selector.innerHTML = first == "argentina" ? numberToStringUsd(selector.dataset[second+"Price"] + symbol) : DOMPurify.sanitize(numberToString(selector.dataset[second+"Price"] + symbol))  ;
+        }            
     },250);
 }
 

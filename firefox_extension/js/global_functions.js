@@ -157,9 +157,9 @@ async function getUsdExchangeRate(){
         }
         catch(err){
             localStorage.setItem('steamcito-cotizacion', JSON.stringify({
-                rate:367.93,
-                rateDateProvided:"13/11/2023 - 16:05",
-                date:1699919573049
+                rate:851.01,
+                rateDateProvided:"02/02/2024 - 15:57",
+                date:1704237682000
             }));
         }
 

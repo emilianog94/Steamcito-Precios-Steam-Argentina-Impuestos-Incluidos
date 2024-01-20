@@ -52,7 +52,7 @@
     
     function showCart() {
         
-        let estimatedTotalDisplay = walletBalance < cartTotal ? "hide" : "show";
+        let estimatedTotalDisplay = walletBalance < parseFloat(cartTotal) ? "hide" : "show";
         let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
     
         let newCart =

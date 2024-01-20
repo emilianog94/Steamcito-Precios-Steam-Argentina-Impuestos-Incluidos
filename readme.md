@@ -9,7 +9,7 @@
 
 
 
-# Steamcito - La extensión que convierte Steam a pesos argentinos con cotización del dólar e impuestos incluidos (2023)
+# Steamcito - La extensión que convierte Steam a pesos argentinos con cotización del dólar e impuestos incluidos (2024)
 Steamcito es una extensión para todos los navegadores que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con la cotización del dólar del día y todos los impuestos incluidos, entre otras funcionalidades que te van a hacer comprar de forma más inteligente.
 
 [Ver vídeos e imágenes de todas las funcionalidades en Steamcito.com.ar](https://www.steamcito.com.ar)

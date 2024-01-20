@@ -4,54 +4,6 @@ function getTransactions(){
     setTransactionType(transactions);
 }
 
-let devoluciones = [
-	{
-		value: 1,
-		day: 1,
-		month: 1,
-		year: 2019
-	},
-	{
-		value: 45,
-		day: 1,
-		month: 1,
-		year: 2023
-	}
-]
-
-function calcularDevoluciones(initialPrice, date)
-{
-	let impGanancias = 0;
-	let devolucion = 0;
-	for(let t = 0; t < impuestosGanancias.length; t++)
-	{
-		let currentTax = impuestosGanancias[t];
-		if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
-		{
-			// tax tendrá el valor del impuesto
-			impGanancias = currentTax.value;
-		}
-		else
-		{
-			break;
-		}
-	}
-	for(let d = 0; d < devoluciones.length; d++)
-	{
-		let currentTax = devoluciones[d];
-		if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
-		{
-			// tax tendrá el valor del impuesto
-			devolucion = currentTax.value;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return initialPrice * (impGanancias / 100) * (devolucion/100);
-}
-
 let standardTaxesDetail = [
 	{
 		name: "Impuesto PAIS - RG AFIP N° 4659/2020",
@@ -136,7 +88,6 @@ function setTransactionType(transactions){
             let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
             let date = stringToDate(transaction.querySelector('.wht_date').innerText);
-            console.log("La fecha de la transacción es", date);
             transaction.dataset.originalValue = ccValue.innerText;
             let contenedorTotal = transaction.querySelector('.wht_total');
             contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestosHistorial(stringToNumber(ccValue),date))}`;
@@ -165,7 +116,6 @@ function setTransactionType(transactions){
 
 
 function calcularImpuestosHistorial(initialPrice,date) {
-    console.log("Date is", date);
 	// Hago una variable para guardar la suma de los impuestos.
 	let totalTaxesForTransaction = 0;
 
@@ -182,7 +132,6 @@ function calcularImpuestosHistorial(initialPrice,date) {
         }
     })
 
-    console.log(`El total de taxes para la transacción de precio ${initialPrice} con fecha ${date} es ${totalTaxesForTransaction}`);
 	let finalPrice = (initialPrice) * (1 + (totalTaxesForTransaction / 100));
     return finalPrice.toFixed(2);
 }
@@ -267,27 +216,25 @@ function showCalculoHtml(pickedYear){
     // Agarro todas las transacciones elegibles (Split y CC)
     let transactionElements = Array.from(document.querySelectorAll('.split-purchase:not(.picked),.cc-purchase:not(.picked)'));
     transactionElements.forEach(transaction => transaction.classList.add('picked'));
-    let transacciones = transactionElements
+    let total = transactionElements
 
     // Mapeo creando un objeto con los valores que me interesan
     .map(transaction => {
     return {
-            date: stringToDate(transaction.querySelector('.wht_date').innerText),
+            date: transaction.querySelector('.wht_date').innerText,
             status: transaction.querySelector('*[class*=refunded]') ? "refunded" : "valid",
             originalValue: stringToNumber2(transaction.dataset.originalValue)
         }
     })
 
     // Filtro para no tomar en cuenta las refundeadas y las de años anteriores
-    .filter(transaction => transaction.status === "valid" && transaction.date.year == pickedYear);
+    .filter(transaction => transaction.status === "valid" && transaction.date.includes(pickedYear))
 
-    // Sumo el total de los montos originales
-	let total = transacciones.reduce( (acumulado,item) => acumulado + item.originalValue , 0);
-	
-	// Sumo el total de los montos originales multiplicados por sus impuestos para calcular el total de impuestos aplicados
-	let totalImpuestos = transacciones.reduce( (acumulado,item) => acumulado + Number(calcularImpuestos(item.originalValue,item.date)) , 0);
-    
-    let totalDevolucion = transacciones.reduce( (acumulado,item) => acumulado + Number(calcularDevoluciones(item.originalValue,item.date)) , 0);
+    // Sumo el total de los montos originales 
+    .reduce( (acumulado,item) => acumulado + item.originalValue , 0);
+
+    let totalImpuestos =  (total * totalTaxes) - total;
+    let totalDevolucion = total * 0.35;
     let totalFinal = total + totalImpuestos;
     let rightContainer = document.querySelector('.right');
     let leftContainer = document.querySelector('.left');
@@ -308,7 +255,7 @@ function showCalculoHtml(pickedYear){
                 <span>${numberToString(totalFinal.toFixed(2))}</span>
             </div>                
             <div>
-                <p>Devolución del 45% correspondiente</p>
+                <p>Devolución del 35% correspondiente</p>
                 <span class="bold">${numberToString(totalDevolucion.toFixed(2))}</span>
             </div>
         </div>
@@ -334,9 +281,9 @@ const showDevolucionHtml = () => {
             <p>
                 ${currentDay > lastDay 
                 ? 
-                    `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 30% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> ` 
+                    `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 35% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> ` 
                 : 
-                   `Ya podés solicitar que AFIP te devuelva el 30% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
+                   `Ya podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
                 }
 
             </p>

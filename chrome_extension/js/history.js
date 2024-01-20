@@ -283,7 +283,7 @@ const showDevolucionHtml = () => {
                 ? 
                     `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 35% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> ` 
                 : 
-                   `Ya podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
+                   `Ya podés solicitar que AFIP te devuelva el 35% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
                 }
 
             </p>

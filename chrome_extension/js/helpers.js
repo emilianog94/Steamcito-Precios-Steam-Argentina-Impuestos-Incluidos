@@ -273,56 +273,6 @@ function calcularImpuestos(initialPrice) {
     return finalPrice.toFixed(2);
 }
 
-function calcularImpuestosHistorial(initialPrice,date) {
-	// Hago una variable para guardar la suma de los impuestos.
-	let taxes = 0;
-	// Recorro el arreglo del historial de impuestos
-	for(let t = 0; t < standardTaxesDetail.length; t++)
-	{
-		// Obtengo el impuesto en la posición actual
-		let currentTaxes = standardTaxesDetail[t].values;
-		// Inicializo una variable tax para almacenar el impuesto que corresponderá según la fecha al finalizar el loop.
-		let tax = 0;
-		// Recorro el arreglo de valores de impuestos para comprobar las fechas
-		for(let v = 0; v < currentTaxes.length; v++)
-		{
-			// Impuesto actual
-			let currentTax = currentTaxes[v];
-			// Comparo la fecha del impuesto con la de la compra.
-			// Si el año de la compra es mayor que la del impuesto.
-			// O: coinciden los años
-			// 		Y: el mes de la compra es mayor que la del impuesto
-			//			O: coinciden los meses
-			//				Y: el dia de la compra es mayor o igual que la del impuesto
-			if(date.year > currentTax.year || (date.year == currentTax.year && (date.month > currentTax.month || (date.month == currentTax.month && date.day >= currentTax.day))))
-			{
-				// tax tendrá el valor del impuesto
-				tax = currentTax.value;
-			}
-			else
-			{
-				// Si ya no coincide ningún impuesto, dejo de recorrer el arreglo, como está ordenado de más viejo al más nuevo, donde haya un impuesto más nuevo que la compra se cortará el loop.
-				break;
-			}
-		}
-		// Si tax no es 0, quiere decir que se encontró algún impuesto que se aplica.
-		if(tax != 0)
-		{
-			// Sumo el impuesto a la variable de impuestos a aplicar.
-			taxes += tax;
-		}
-	}
-	let finalPrice = (initialPrice) * (1 + (taxes / 100));
-    return finalPrice.toFixed(2);
-
-    // Deshabilito provinceTaxes para el historial
-    // provinceTaxes &&
-    //     provinceTaxes.forEach(tax => {
-    //         finalPrice += parseFloat(((initialPrice) * tax.value / 100).toFixed(2));
-    //     })
-}
-
-
  function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
 
     if(exchangeRate=="unset"){

@@ -57,7 +57,7 @@ let standardTaxesDetail = [
 		name: "Impuesto PAIS - RG AFIP N° 4659/2020",
 		values: [
 			{
-				value: 30,
+				percentage: 30,
 				day: 21,
 				month: 12,
 				year: 2019
@@ -69,25 +69,25 @@ let standardTaxesDetail = [
 		name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
         values: [
 			{
-				value: 35,
+				percentage: 35,
 				day: 15,
-				month: 09,
+				month: 9,
 				year: 2020
 			},
 			{
-				value: 45,
+				percentage: 45,
 				day: 13,
-				month: 07,
+				month: 7,
 				year: 2022
 			},
 			{
-				value: 100,
+				percentage: 100,
 				day: 23,
 				month: 11,
 				year: 2023
 			},
             {
-				value: 30,
+				percentage: 30,
 				day: 13,
 				month: 12,
 				year: 2023
@@ -99,13 +99,13 @@ let standardTaxesDetail = [
         name: "Percepción de Bienes Personales - RG AFIP Nº 5430/2023",
         values: [
 			{
-				value: 25,
+				percentage: 25,
 				day: 10,
 				month: 10,
 				year: 2023
 			},
             {
-				value: 0,
+				percentage: 0,
 				day: 13,
 				month: 12,
 				year: 2023
@@ -161,6 +161,33 @@ function setTransactionType(transactions){
         calculateTotals(transaction);
     })
 }
+
+
+function calcularImpuestosHistorial(initialPrice,date) {
+	// Hago una variable para guardar la suma de los impuestos.
+	let totalTaxesForTransaction = 0;
+
+    standardTaxesDetail.forEach( (tax) => {
+        let taxValue = 0;
+        tax.values.forEach( (value ) => {
+			if(date.year > value.year || (date.year == value.year && (date.month > value.month || (date.month == value.month && date.day >= value.day)))){
+			    return taxValue = value.percentage;
+			}
+            return;
+        })
+        if(taxValue != 0){
+            totalTaxesForTransaction += taxValue;
+        }
+    })
+
+    console.log(`El total de taxes para la transacción de precio ${initialPrice} con fecha ${date} es ${totalTaxesForTransaction}`);
+	let finalPrice = (initialPrice) * (1 + (totalTaxesForTransaction / 100));
+    return finalPrice.toFixed(2);
+}
+
+
+
+
 
 function calculateTotals(transaction){
     if(transaction.classList.contains('cc-purchase')){

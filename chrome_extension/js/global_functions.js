@@ -176,7 +176,7 @@ function monthStrToNumber(month)
 {
     if(month.indexOf(',')){
         let commaPosition = month.indexOf(',');
-        let monthSanitized = (month.slice(0,commaPosition)).toUpperCase();
+        let monthSanitized = commaPosition != -1 ? (month.slice(0,commaPosition)).toUpperCase() : month.toUpperCase();
         return ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(monthSanitized) + 1;
     } else{
         return ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;

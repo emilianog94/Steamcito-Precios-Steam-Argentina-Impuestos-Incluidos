@@ -136,6 +136,7 @@ function setTransactionType(transactions){
             let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
             let date = stringToDate(transaction.querySelector('.wht_date').innerText);
+            console.log("La fecha de la transacción es", date);
             transaction.dataset.originalValue = ccValue.innerText;
             let contenedorTotal = transaction.querySelector('.wht_total');
             contenedorTotal.innerHTML += `<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestosHistorial(stringToNumber(ccValue),date))}`;
@@ -164,6 +165,7 @@ function setTransactionType(transactions){
 
 
 function calcularImpuestosHistorial(initialPrice,date) {
+    console.log("Date is", date);
 	// Hago una variable para guardar la suma de los impuestos.
 	let totalTaxesForTransaction = 0;
 
@@ -332,9 +334,9 @@ const showDevolucionHtml = () => {
             <p>
                 ${currentDay > lastDay 
                 ? 
-                    `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> ` 
+                    `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 30% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> ` 
                 : 
-                   `Tenés tiempo hasta el ${lastDayNumber} de Marzo de ${currentYear} para solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
+                   `Ya podés solicitar que AFIP te devuelva el 30% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear-1}`
                 }
 
             </p>

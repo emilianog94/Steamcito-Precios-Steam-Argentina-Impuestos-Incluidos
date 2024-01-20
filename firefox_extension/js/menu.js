@@ -86,11 +86,12 @@ function createMenus() {
                 <div class="ayuda-steamcito"> 
                     <div class="grupo-opciones">
                         <h3>Enlaces Útiles</h3>
-                        <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuestos anual 🧾</a>
-                        <a href="https://steamcito.com.ar" target="_blank">Sitio Web de Steamcito 🧉</a>
+                        <a href="https://cafecito.app/steamcito" target="_blank">Donar a Steamcito ☕</a>
+                        <a href="https://twitter.com/steamcito_ar" target="_blank">Seguime en Twitter 🐦</a>
+                        <a href="https://steamcito.com.ar" target="_blank">Web de Steamcito 🧉</a>
                         <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones 📄</a>
                         <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug 🐛</a>
-                        <a href="https://cafecito.app/steamcito" target="_blank">Donar a Steamcito ❤️</a>
+                        <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuestos anual 🧾</a>
                         ${getReviewLink()} 
                     </div>
                 </div>

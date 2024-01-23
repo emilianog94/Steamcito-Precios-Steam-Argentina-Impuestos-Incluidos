@@ -38,15 +38,28 @@
     function showExchangeRate() {
         
         let exchangeRateContainer = 
-            `<div class="tax-container">
-                <h3>Aclaración sobre los precios en pesos argentinos</h3>
-                <p>
-                    Todos los precios en pesos argentinos mostrados por Steamcito son aproximados muy cercanos ya que cada banco/billetera digital tiene su propia cotización del dólar. <br/><br/>Por esta razón terminarás pagando un monto muy cercano al indicado en esta sección.
-                </p>
-                
-            </div>`
-    
-            oldCart.insertAdjacentHTML('afterend', exchangeRateContainer);
+        `
+        <div class="price-spread-container">
+            <h3>Acerca del precio aproximado en pesos</h3>
+            <p>Cada banco/billetera virtual tiene su propia cotización del dólar. Por esta razón el precio final a pagar varía de acuerdo a cada tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más información</a></p>
+
+            <div class="price-spread-bar-container">
+                <div class="price-spread-bar-labels">
+                    <span>Bancos baratos</span>
+                    <span>Banco promedio</span>
+                    <span>Bancos caros</span>
+                </div>
+                <div class="price-spread-bar"></div>
+                <div class="price-spread-bar-amounts">
+                    <span>Desde ${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
+                    <span class="amount-approximate">${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
+                    <span>Hasta ${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
+                </div>                    
+            </div>
+        </div>
+        `;
+
+         oldCart.insertAdjacentHTML('afterend', exchangeRateContainer);
     }
     
     

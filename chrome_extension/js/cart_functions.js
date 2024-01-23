@@ -39,9 +39,10 @@
         
         let exchangeRateContainer = 
         `
+        <hr>
         <div class="price-spread-container">
-            <h3>Acerca del precio aproximado en pesos</h3>
-            <p>Cada banco/billetera virtual tiene su propia cotización del dólar. Por esta razón el precio final a pagar varía de acuerdo a cada tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más información</a></p>
+            <h3>Precio aproximado de tu carrito: ${numberToString(cartTotalCreditCard)} ${emojiMate} </h3>
+            <p>Cada banco/billetera virtual tiene su propia cotización del dólar. Por esta razón el precio final a pagar varía de acuerdo a la entidad emisora de tu tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más información</a></p>
 
             <div class="price-spread-bar-container">
                 <div class="price-spread-bar-labels">
@@ -109,7 +110,7 @@
         let taxesContainer =
             `<div class="tax-container">
 
-            <h3>Cotización del dólar tarjeta: 1 USD ≈ ${newExchangeRate.toFixed(2)} ARS </h3>
+            <h3 class="main-title">Cotización del dólar tarjeta: 1 USD ≈ ${newExchangeRate.toFixed(2)} ARS </h3>
             <ul class="cotizacion-dolar">
                 <li>Esta cotización  referencial es provista por Steamcito e incluye todos los impuestos listados abajo.</li>
             </ul>

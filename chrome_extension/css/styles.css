@@ -100,15 +100,18 @@ body.menu-enabled .responsive_page_frame {
   opacity: 0.75;
 }
 .cart_area_body .tax-container h3 {
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  font-size: 16px;
+}
+.cart_area_body .tax-container h3.main-title {
   font-size: 19px;
 }
 .cart_area_body .tax-container .taxes-separator {
   width: 100%;
   display: block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 .cart_area_body .tax-container span.final-total {
   font-size: 1.4em;
@@ -138,7 +141,7 @@ body.menu-enabled .responsive_page_frame {
   list-style-type: none;
   display: flex;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
 }
 .cart_area_body .tax-container ul li .value {
   margin-left: auto;

@@ -66,21 +66,33 @@ body.menu-enabled .responsive_page_frame {
 .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-labels span, .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-amounts span {
   flex-basis: 33.3%;
   text-align: center;
-  color: #fff;
 }
 .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-labels span:first-child, .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-amounts span:first-child {
   text-align: left;
+}
+.cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-labels span:nth-child(2), .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-amounts span:nth-child(2) {
+  color: rgb(230, 207, 15);
 }
 .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-labels span:last-child, .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar-amounts span:last-child {
   text-align: right;
 }
 .cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar {
-  border-radius: 0.5rem;
+  position: relative;
   margin: 0.5rem 0;
   width: 100%;
   height: 15px;
   background: rgb(43, 167, 0);
-  background: linear-gradient(90deg, rgb(43, 167, 0) 0%, rgb(232, 255, 0) 50%, rgb(249, 71, 0) 100%, rgb(255, 0, 0) 100%);
+  background: linear-gradient(90deg, rgb(63, 212, 13) 0%, rgb(230, 207, 15) 50%, rgb(249, 71, 0) 100%, rgb(255, 0, 0) 100%);
+}
+.cart_area_body .price-spread-container .price-spread-bar-container .price-spread-bar:after {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 12px solid rgb(230, 207, 15);
 }
 .cart_area_body .tax-container {
   padding: 16px;
@@ -110,8 +122,8 @@ body.menu-enabled .responsive_page_frame {
   width: 100%;
   display: block;
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 .cart_area_body .tax-container span.final-total {
   font-size: 1.4em;

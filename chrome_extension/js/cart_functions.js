@@ -1,16 +1,27 @@
 (async() => {
     await getUsdExchangeRate();
+    await getBnaExchangeRate();
 
     let oldCart = document.querySelector(".estimated_total_box");
     let walletElement = document.querySelector('#cart_estimated_total');
     let cartTotal = getCartTotal();
     let cartTotalCreditCard = setCartTotalCC(cartTotal);
     let cartTotalMixed = setMixedCartTotal(cartTotal);
+    let cartTotalBna = setCartTotalBna(cartTotal);
     
 
 
     function getCartTotal() {
         return stringToNumber(walletElement);
+    }
+
+    function setCartTotalBna(cartValue) {
+        if(!walletElement.innerText.includes('ARS')){
+            walletElement.dataset.currency = "usd"
+            return calculateTaxesAndExchangeBna(cartValue)
+        }
+        walletElement.dataset.currency = "ars"
+        return calcularImpuestos(cartValue);
     }
     
     function setCartTotalCC(cartValue) {
@@ -39,9 +50,8 @@
         
         let exchangeRateContainer = 
         `
-        <hr>
         <div class="price-spread-container">
-            <h3>Precio aproximado de tu carrito: ${numberToString(cartTotalCreditCard)} ${emojiMate} </h3>
+            <h3>Precio aproximado de tu carrito</h3>
             <p>Cada banco/billetera virtual tiene su propia cotización del dólar. Por esta razón el precio final a pagar varía de acuerdo a la entidad emisora de tu tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más información</a></p>
 
             <div class="price-spread-bar-container">
@@ -52,9 +62,9 @@
                 </div>
                 <div class="price-spread-bar"></div>
                 <div class="price-spread-bar-amounts">
-                    <span>Desde ${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
+                    <span>Desde ${numberToString(cartTotalBna)} ${emojiMate}</span>
                     <span class="amount-approximate">${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
-                    <span>Hasta ${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
+                    <span>Hasta ${numberToString( (cartTotalBna*1.1).toFixed(2))} ${emojiMate}</span>
                 </div>                    
             </div>
         </div>

@@ -294,6 +294,27 @@ function calcularImpuestos(initialPrice) {
     return finalPrice.toFixed(2);
 }
 
+function calculateTaxesAndExchangeBna(initialPrice,exchangeRate = "unset") {
+
+    if(exchangeRate=="unset"){
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-bna')).rate;
+    }
+
+    let arsPriceBeforeTaxes = initialPrice * exchangeRate
+    let finalPrice = initialPrice * exchangeRate;
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    return finalPrice.toFixed(2);
+}
+
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");

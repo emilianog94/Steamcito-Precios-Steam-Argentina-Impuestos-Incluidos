@@ -86,10 +86,13 @@ body {
         span{
           flex-basis: 33.3%;
           text-align: center;
-          color: #fff;
 
           &:first-child{
             text-align: left;
+          }
+
+          &:nth-child(2){
+            color: rgba(230, 207, 15);
           }
 
           &:last-child{
@@ -99,12 +102,23 @@ body {
       }
 
       .price-spread-bar{
-        border-radius: .5rem;
+        position: relative;
         margin: .5rem 0;
         width: 100%;
         height: 15px;
         background: rgb(43,167,0);
-        background: linear-gradient(90deg, rgba(43,167,0,1) 0%, rgba(232,255,0,1) 50%, rgba(249,71,0,1) 100%, rgba(255,0,0,1) 100%);        
+        background: linear-gradient(90deg, rgb(63, 212, 13) 0%, rgba(230, 207, 15) 50%, rgba(249,71,0,1) 100%, rgba(255,0,0,1) 100%);      
+        
+        &:after{
+          content: "";
+          position: absolute;
+          top: 0.6rem;
+          left: 50%;
+          transform: translateX(-50%);
+          border-left: 6px solid transparent;
+          border-right: 6px solid transparent;
+          border-top: 12px solid rgb(230, 207, 15);
+        }
       }
     }
   }
@@ -141,8 +155,8 @@ body {
       width: 100%;
       display: block;
       border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-      margin-top: .75rem;
-      margin-bottom: .75rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
 
     span.final-total {

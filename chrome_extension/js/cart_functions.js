@@ -51,20 +51,20 @@
         let exchangeRateContainer = 
         `
         <div class="price-spread-container">
-            <h3>Precio aproximado de tu carrito</h3>
-            <p>Cada banco/billetera virtual tiene su propia cotización del dólar. Por esta razón el precio final a pagar varía de acuerdo a la entidad emisora de tu tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más información</a></p>
+            <h3>Estimación de precio pagando con tarjeta</h3>
+            <p>El precio final a pagar varía de acuerdo a la cotización del dólar de tu tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más</a></p>
 
             <div class="price-spread-bar-container">
                 <div class="price-spread-bar-labels">
-                    <span>Bancos baratos</span>
-                    <span>Banco promedio</span>
-                    <span>Bancos caros</span>
+                    <span>Con bancos baratos</span>
+                    <span>Promedio</span>
+                    <span>Con bancos caros</span>
                 </div>
                 <div class="price-spread-bar"></div>
                 <div class="price-spread-bar-amounts">
-                    <span>Desde ${numberToString(cartTotalBna)} ${emojiMate}</span>
+                    <span>Desde ${numberToString(cartTotalBna,false)} ${emojiMate}</span>
                     <span class="amount-approximate">${numberToString(cartTotalCreditCard)} ${emojiMate}</span>
-                    <span>Hasta ${numberToString( (cartTotalBna*1.1).toFixed(2))} ${emojiMate}</span>
+                    <span>Hasta ${numberToString( (cartTotalBna*1.1),false)} ${emojiMate}</span>
                 </div>                    
             </div>
         </div>
@@ -83,17 +83,17 @@
         `<div class="estimated_total_extension">
     
             <div class="total_wallet"> 
-                <p>Total Final pagando con Steam Wallet </p>
+                <p>Total exacto pagando con Steam Wallet </p>
                 <span class="green">${walletElement.dataset.currency == "ars" ? numberToString(cartTotal.toFixed(2)) : numberToStringUsd(cartTotal)} ${emojiWallet}</span>
             </div>
     
             <div class="total_cc">
-                <p>Total Aproximado pagando con Tarjeta</p>
+                <p>Total aproximado pagando con Tarjeta</p>
                 <span>${numberToString(cartTotalCreditCard)} ${emojiMate}</span>        
             </div>
     
             <div class="total_mixed ${totalMixedDisplay}">
-                <p>Total Aproximado pagando con Steam Wallet + Tarjeta</p>
+                <p>Total aproximado pagando con Steam Wallet + Tarjeta</p>
                 <span> <span class="green">${walletElement.dataset.currency == "ars" ? numberToString(walletBalance) : numberToStringUsd(walletBalance)} ${emojiWallet} </span> + &nbsp;${numberToString(cartTotalMixed)} ${emojiMate}</span>        
             </div>
     
@@ -122,7 +122,7 @@
 
             <h3 class="main-title">Cotización del dólar tarjeta: 1 USD ≈ ${newExchangeRate.toFixed(2)} ARS </h3>
             <ul class="cotizacion-dolar">
-                <li>Esta cotización  referencial es provista por Steamcito e incluye todos los impuestos listados abajo.</li>
+                <li>Esta cotización es un promedio de todos los bancos e incluye todos los impuestos listados abajo</li>
             </ul>
             <span class="taxes-separator"></span>
 

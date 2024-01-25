@@ -390,8 +390,11 @@ function stringToNumber2(number, positionArs = 5) {
     return parseFloat(number.slice(positionArs).replace(".", "").replace(",", "."));
 }
 
-function numberToString(number) {
+function numberToString(number, keepDecimals = true) {
     if (number) {
+        if(!keepDecimals){
+            number= Math.round(number);
+        }
         let parts = number.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return 'ARS$ ' + parts.join(",");

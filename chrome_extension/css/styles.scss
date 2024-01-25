@@ -60,9 +60,11 @@ body {
   }
 
   .price-spread-container{
-    margin: 1rem 0 2rem 0;
+    padding: 1rem 1rem 1.5rem 1rem;
+    background: rgba(0,0,0,0.15);
+    margin: .5rem 0 0rem 0;
     h3{
-      margin-bottom: .5rem;
+      margin-bottom: .25rem;
       font-size: 19px;
       color: #c6d4df;
     }
@@ -71,8 +73,14 @@ body {
       width: 100%;
       display: flex;
       flex-direction: column;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
 
+
+      .price-spread-bar-labels{
+        span:nth-child(2){
+          color: #c6d4df !important;
+        }
+      }
 
       .price-spread-bar-labels,.price-spread-bar-amounts{
         display: flex;
@@ -107,7 +115,8 @@ body {
         width: 100%;
         height: 15px;
         background: rgb(43,167,0);
-        background: linear-gradient(90deg, rgb(63, 212, 13) 0%, rgba(230, 207, 15) 50%, rgba(249,71,0,1) 100%, rgba(255,0,0,1) 100%);      
+        background: linear-gradient(90deg, rgb(63, 212, 13) 0%, rgba(230, 207, 15) 50%, rgba(249,71,0,1) 100%, rgba(255,0,0,1) 100%);
+        opacity: .75;
         
         &:after{
           content: "";

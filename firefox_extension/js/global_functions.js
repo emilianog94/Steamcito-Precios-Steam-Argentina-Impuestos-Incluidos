@@ -117,9 +117,9 @@ function switchPrices(selector,first,second,symbol){
     },250);
 }
 
-function evaluateDate(){
-    if(localStorage.getItem('steamcito-cotizacion')){
-        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+function evaluateDate(localStorageItem){
+    if(localStorage.getItem(localStorageItem)){
+        let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
         let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
         let currentTimestamp = Date.now()/1000;
@@ -136,7 +136,7 @@ function evaluateDate(){
 
 async function getUsdExchangeRate(){
 
-    let shouldGetNewRate = evaluateDate();
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion');
 
     if(shouldGetNewRate){
         try{
@@ -166,6 +166,38 @@ async function getUsdExchangeRate(){
 
     }
 }
+
+async function getBnaExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion-bna');
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarnacion/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+
+        localStorage.setItem('steamcito-cotizacion-bna', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-bna', JSON.stringify({
+                rate:841.25,
+                rateDateProvided:"23/01/2024 - 15:57",
+                date:1704237682000
+            }));
+        }
+    }
+}
+
 
 let currentDate = new Date();
 const hoy = {

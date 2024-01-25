@@ -164,7 +164,6 @@ async function getUsdExchangeRate(){
 }
 
 async function getBnaExchangeRate(){
-    console.log("entré a getbnaexchange");
 
     let shouldGetNewRate = evaluateDate('steamcito-cotizacion-bna');
 

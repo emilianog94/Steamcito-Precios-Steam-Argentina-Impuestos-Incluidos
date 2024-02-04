@@ -170,7 +170,7 @@
     
     showCart();
     showTaxes();
-    if(isStoreDolarized()){
+    if(cartTotal != "0.00"){
         showExchangeRate();
     }
 

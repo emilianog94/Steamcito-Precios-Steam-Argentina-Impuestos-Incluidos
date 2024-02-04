@@ -159,8 +159,8 @@
     
     showCart();
     showTaxes();
-    if(isStoreDolarized() && exchangeRateJSON){
-        showExchangeRate(exchangeRateJSON);
+    if(cartTotal != "0.00"){
+        showExchangeRate();
     }
     
     let taxChangeShortcut = document.querySelector("#tax-change");

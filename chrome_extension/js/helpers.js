@@ -337,14 +337,6 @@ function getBalance() {
     return 0;
 }
 
-function isStoreDolarized(){
-    // Si la tienda no está dolarizada
-    if(Date.now() < 1700449200000){
-        return false;
-    }
-    return true;
-}
-
 function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
     let match = string.match(regexFindNumber);

@@ -56,9 +56,9 @@
 
             <div class="price-spread-bar-container">
                 <div class="price-spread-bar-labels">
-                    <span>Con bancos baratos</span>
+                    <span title="Ejemplo: Banco Nación, Banco Ciudad">Con tarjetas baratas</span>
                     <span>Promedio</span>
-                    <span>Con bancos caros</span>
+                    <span title="Ejemplo: Tarjeta prepaga de MercadoPago">Con tarjetas caras</span>
                 </div>
                 <div class="price-spread-bar"></div>
                 <div class="price-spread-bar-amounts">

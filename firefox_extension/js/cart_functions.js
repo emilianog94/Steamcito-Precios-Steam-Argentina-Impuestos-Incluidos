@@ -52,9 +52,9 @@
                 <p>El precio final a pagar varía de acuerdo a la cotización del dólar de tu tarjeta. <a href="https://twitter.com/steamcito_ar/status/1737591400336892248" target="_blank">Ver más</a></p>
                 <div class="price-spread-bar-container">
                     <div class="price-spread-bar-labels">
-                        <span>Con bancos baratos</span>
+                        <span title="Ejemplo: Banco Nación, Banco Ciudad">Con tarjetas baratas</span>
                         <span>Promedio</span>
-                        <span>Con bancos caros</span>
+                        <span title="Ejemplo: Tarjeta prepaga de MercadoPago">Con tarjetas caras</span>
                     </div>
                     <div class="price-spread-bar"></div>
                     <div class="price-spread-bar-amounts">

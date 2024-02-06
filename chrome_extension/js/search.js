@@ -12,14 +12,3 @@ let rangeInput = document.querySelector('input#price_range');
 let rangeDisplayText = document.querySelector('#price_range_display');
 rangeDisplayText.insertAdjacentHTML('afterend', `<p class="range_display range_display_steamcito"></p>`)
 let rangeDisplayTextSteamcito = document.querySelector('.range_display_steamcito');
-
-if(!isStoreDolarized()){
-    changeRangeValue();
-}
-
-if(!isStoreDolarized()){
-    rangeInput.addEventListener('input', () => {
-        changeRangeValue();
-    })
-}
-

@@ -4,6 +4,71 @@ function getTransactions() {
     setTransactionType(transactions);
 }
 
+let standardTaxesDetail = [
+	{
+		name: "Impuesto PAIS - RG AFIP N° 4659/2020",
+		values: [
+			{
+				percentage: 30,
+				day: 21,
+				month: 12,
+				year: 2019
+			}
+		],
+		moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/224404/20200107"
+	},
+	{
+		name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5232/2022",
+        values: [
+			{
+				percentage: 35,
+				day: 15,
+				month: 9,
+				year: 2020
+			},
+			{
+				percentage: 45,
+				day: 13,
+				month: 7,
+				year: 2022
+			},
+			{
+				percentage: 100,
+				day: 23,
+				month: 11,
+				year: 2023
+			},
+            {
+				percentage: 30,
+				day: 13,
+				month: 12,
+				year: 2023
+			}
+		],
+        moreInfo: "https://www.boletinoficial.gob.ar/detalleAviso/primera/266506/20220714"
+	},
+	{
+        name: "Percepción de Bienes Personales - RG AFIP Nº 5430/2023",
+        values: [
+			{
+				percentage: 25,
+				day: 10,
+				month: 10,
+				year: 2023
+			},
+            {
+				percentage: 0,
+				day: 13,
+				month: 12,
+				year: 2023
+			}
+		],
+        moreInfo: "https://www.boletinoficial.gob.ar/#!DetalleNorma/295840/20231010"
+    }
+]
+
+let impuestosGanancias = standardTaxesDetail[1].values;
+
 function setTransactionType(transactions) {
     transactions.forEach(transaction => {
         transaction.classList.add('processed');
@@ -22,8 +87,9 @@ function setTransactionType(transactions) {
             let walletValue = transaction.querySelector('.wht_type .wth_payment > div:first-child');
             let ccValue = transaction.querySelector('.wht_type .wth_payment > div:last-child');
             transaction.dataset.originalValue = ccValue.innerText;
+            let date = stringToDate(transaction.querySelector('.wht_date').innerText);
             let contenedorTotal = transaction.querySelector('.wht_total');
-            contenedorTotal.innerHTML += DOMPurify.sanitize(`<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestos(stringToNumber(ccValue)))}`);
+            contenedorTotal.innerHTML += DOMPurify.sanitize(`<b>(Precio Steam)</b> <br><br> ${steamizar(stringToNumber(walletValue))} <br> ${argentinizar(calcularImpuestosHistorial(stringToNumber(ccValue),date))}`);
         }
 
         // One-Method Purchase
@@ -34,8 +100,9 @@ function setTransactionType(transactions) {
             if (transaction.querySelector('.wht_total').innerText == "") {
                 return;
             }
-
-            if (paymentType.innerText.indexOf('Master') == -1 && paymentType.innerText.indexOf('Visa') == -1) {
+            
+            // Evito que las transacciones de la cartera sean tomadas en cuenta
+            if(!paymentType.innerText.includes('Master') && !paymentType.innerText.includes('Visa')){
                 transaction.classList.add('wallet-purchase');
             } else {
                 transaction.dataset.originalValue = transaction.querySelector('.wht_total').innerText;
@@ -46,10 +113,32 @@ function setTransactionType(transactions) {
     })
 }
 
+function calcularImpuestosHistorial(initialPrice,date) {
+	// Hago una variable para guardar la suma de los impuestos.
+	let totalTaxesForTransaction = 0;
+
+    standardTaxesDetail.forEach( (tax) => {
+        let taxValue = 0;
+        tax.values.forEach( (value ) => {
+			if(date.year > value.year || (date.year == value.year && (date.month > value.month || (date.month == value.month && date.day >= value.day)))){
+			    return taxValue = value.percentage;
+			}
+            return;
+        })
+        if(taxValue != 0){
+            totalTaxesForTransaction += taxValue;
+        }
+    })
+
+	let finalPrice = (initialPrice) * (1 + (totalTaxesForTransaction / 100));
+    return finalPrice.toFixed(2);
+}
+
 function calculateTotals(transaction) {
     if (transaction.classList.contains('cc-purchase')) {
         const precio = transaction.querySelector('.wht_total');
-        precio.innerHTML = DOMPurify.sanitize(argentinizar(calcularImpuestos(stringToNumber(precio))));
+        let date = stringToDate(transaction.querySelector('.wht_date').innerText);
+        precio.innerHTML = DOMPurify.sanitize(argentinizar(calcularImpuestosHistorial(stringToNumber(precio),date)));
     }
 
     else if (transaction.classList.contains('wallet-purchase')) {
@@ -140,7 +229,7 @@ function showCalculoHtml(pickedYear) {
         .reduce((acumulado, item) => acumulado + item.originalValue, 0);
 
     let totalImpuestos = (total * totalTaxes) - total;
-    let totalDevolucion = total * 0.45;
+    let totalDevolucion = total * 0.35;
     let totalFinal = total + totalImpuestos;
     let rightContainer = document.querySelector('.right');
     let leftContainer = document.querySelector('.left');
@@ -161,7 +250,7 @@ function showCalculoHtml(pickedYear) {
                 <span>${numberToString(totalFinal.toFixed(2))}</span>
             </div>                
             <div>
-                <p>Devolución del 45% correspondiente</p>
+                <p>Devolución del 35% correspondiente</p>
                 <span class="bold">${numberToString(totalDevolucion.toFixed(2))}</span>
             </div>
         </div>
@@ -187,9 +276,9 @@ const showDevolucionHtml = () => {
             <p>
                 ${currentDay > lastDay
             ?
-            `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> `
+            `En ${currentYear + 1} podés solicitar que AFIP te devuelva el 35% de tus compras realizadas con tarjetas de crédito y débito que realizaste en el transcurso de ${currentYear}.<b> (RG AFIP Nº 5232/2022)</b> `
             :
-            `Tenés tiempo hasta el ${lastDayNumber} de Marzo de ${currentYear} para solicitar que AFIP te devuelva el 45% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear - 1}`
+            `Ya podés solicitar que AFIP te devuelva el 35% de tus compras realizadas con tarjetas de crédito y débito del ${currentYear - 1}`
         }
 
             </p>

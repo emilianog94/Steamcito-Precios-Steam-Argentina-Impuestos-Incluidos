@@ -294,6 +294,27 @@ function calcularImpuestos(initialPrice) {
     return finalPrice.toFixed(2);
 }
 
+function calculateTaxesAndExchangeBna(initialPrice,exchangeRate = "unset") {
+
+    if(exchangeRate=="unset"){
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-bna')).rate;
+    }
+
+    let arsPriceBeforeTaxes = initialPrice * exchangeRate
+    let finalPrice = initialPrice * exchangeRate;
+    standardTaxes &&
+        standardTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    provinceTaxes &&
+        provinceTaxes.forEach(tax => {
+            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
+        })
+
+    return finalPrice.toFixed(2);
+}
+
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
@@ -314,14 +335,6 @@ function getBalance() {
         return stringToNumber(walletBalance);
     }
     return 0;
-}
-
-function isStoreDolarized(){
-    // Si la tienda no está dolarizada
-    if(Date.now() < 1700449200000){
-        return false;
-    }
-    return true;
 }
 
 function extractNumberFromString(string){
@@ -369,8 +382,11 @@ function stringToNumber2(number, positionArs = 5) {
     return parseFloat(number.slice(positionArs).replace(".", "").replace(",", "."));
 }
 
-function numberToString(number) {
+function numberToString(number, keepDecimals = true) {
     if (number) {
+        if(!keepDecimals){
+            number= Math.round(number);
+        }
         let parts = number.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         return 'ARS$ ' + parts.join(",");
@@ -403,7 +419,7 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
-const currentChange = "patch"; // patch | minor | major
+const currentChange = "minor"; // patch | minor | major
 
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {

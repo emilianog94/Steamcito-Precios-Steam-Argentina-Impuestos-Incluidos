@@ -440,9 +440,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
 }
 
-if(isStoreDolarized()){
-    getExchangeRate();
-}
+getExchangeRate();
 
 const appData = getAppData(url);
 getAppPricing(appData);

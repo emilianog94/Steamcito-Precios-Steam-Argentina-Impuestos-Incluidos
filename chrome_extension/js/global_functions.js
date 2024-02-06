@@ -113,9 +113,9 @@ function switchPrices(selector,first,second,symbol){
 
 
 
-function evaluateDate(){
-    if(localStorage.getItem('steamcito-cotizacion')){
-        let exchangeRateJSON = JSON.parse(localStorage.getItem('steamcito-cotizacion'))
+function evaluateDate(localStorageItem){
+    if(localStorage.getItem(localStorageItem)){
+        let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
         let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
         let currentTimestamp = Date.now()/1000;
@@ -132,7 +132,7 @@ function evaluateDate(){
 
 async function getUsdExchangeRate(){
 
-    let shouldGetNewRate = evaluateDate();
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion');
 
     if(shouldGetNewRate){
         try{
@@ -163,3 +163,64 @@ async function getUsdExchangeRate(){
     }
 }
 
+async function getBnaExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion-bna');
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarnacion/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion-bna', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-bna', JSON.stringify({
+                rate:841.25,
+                rateDateProvided:"23/01/2024 - 15:57",
+                date:1704237682000
+            }));
+        }
+    }
+}
+
+
+let currentDate = new Date();
+const hoy = {
+			day: currentDate.getDate(),
+			month: currentDate.getMonth()+1,
+			year: currentDate.getFullYear()
+};
+
+// Pasa de un stirng de iniciales de un mes al número de mes. Ejemplo: AGO (Agosto) será 8
+function monthStrToNumber(month)
+{
+    if(month.indexOf(',')){
+        let commaPosition = month.indexOf(',');
+        let monthSanitized = commaPosition != -1 ? (month.slice(0,commaPosition)).toUpperCase() : month.toUpperCase();
+        return ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"].indexOf(monthSanitized) + 1;
+    } else{
+        return ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"].indexOf(month) + 1;
+    }
+}
+
+// Pasa de un string del formato 15 ENE 2023 a un json { day:15, month:1, year:2023}
+function stringToDate(dateStr)
+{
+	let dateArr = dateStr.split(" ");
+	return {
+		day:Number(dateArr[0]),
+		month:monthStrToNumber(dateArr[1]),
+		year:Number(dateArr[2])
+	};
+}

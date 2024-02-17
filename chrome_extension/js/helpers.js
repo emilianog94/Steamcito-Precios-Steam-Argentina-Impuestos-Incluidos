@@ -245,7 +245,7 @@ const priceContainers = `
         .match_subtitle:not([${attributeName}]),
         .regional-meter-price:not([${attributeName}]),
         .StoreSalePriceWidgetContainer.Discounted >div >div:not([${attributeName}]),
-        .StoreSalePriceWidgetContainer >div:not([${attributeName}]),
+        .StoreSalePriceWidgetContainer:not(.Discounted) >div:not([${attributeName}]),
         .AppCapsuleCtn >span >span:not([${attributeName}])
         `;
 

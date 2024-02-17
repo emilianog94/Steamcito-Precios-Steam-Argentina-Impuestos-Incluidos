@@ -243,7 +243,10 @@ const priceContainers = `
         .apphub_StorePrice .price:not([${attributeName}]),
         .item_def_price:not([${attributeName}]),
         .match_subtitle:not([${attributeName}]),
-        .regional-meter-price:not([${attributeName}])        
+        .regional-meter-price:not([${attributeName}]),
+        .StoreSalePriceWidgetContainer.Discounted >div >div:not([${attributeName}]),
+        .StoreSalePriceWidgetContainer >div:not([${attributeName}]),
+        .AppCapsuleCtn >span >span:not([${attributeName}])
         `;
 
 

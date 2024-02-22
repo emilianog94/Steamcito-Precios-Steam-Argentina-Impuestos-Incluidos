@@ -35,6 +35,23 @@ body {
   }
 }
 
+// Ficha de Producto
+
+.game_area_purchase_game_dropdown_subscription{
+  .game_purchase_action{
+
+    // Fix de Overflow en packages
+    .btn_packageinfo{
+      span{
+        max-width: 110px;
+        text-overflow: ellipsis;
+        overflow: hidden;        
+      }
+    }
+  }
+}
+
+
 // CART
 .cart_area_body {
   .cart_item {

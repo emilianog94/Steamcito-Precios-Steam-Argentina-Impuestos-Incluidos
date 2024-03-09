@@ -249,7 +249,6 @@ const priceContainers = `
         .AppCapsuleCtn >span >span:not([${attributeName}])
         `;
 
-
 function getTotalTaxes() {
     function reducer(total, num) {
         return total + num;

@@ -1,12 +1,12 @@
 // Corro función por primera vez
 (async() => {
   await getUsdExchangeRate();
-  getPrices();
+  getPrices("standard");;
 
   // Trigger recursivo
   MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
   const observer = new MutationObserver(function(mutations, observer) {
-      getPrices();
+    getPrices("standard");
   });
 
   observer.observe(document, {

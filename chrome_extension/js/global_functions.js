@@ -1,9 +1,15 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function getPrices(){
-
-    let prices = document.querySelectorAll(priceContainers);
+function getPrices(type){
+    let prices;
+    if (type == "standard"){
+        prices = document.querySelectorAll(priceContainers);
+    } else{
+        let dynamicClasses = Array.from(document.querySelectorAll('div:not(:has(*))'));
+        let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$")
+        prices = filteredDynamicClasses
+    }
     
     // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
     let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
@@ -12,6 +18,7 @@ function getPrices(){
             setArgentinaPrice(dlcPrice);
         }
     });
+
     prices.forEach(price => setArgentinaPrice(price));
 }
 

@@ -100,13 +100,13 @@ const getAppPricing = async (appInitialData) => {
         appData.recommendedArsPrice = recommendedArsPrice;
 
         // Tiene el mismo precio que en Estados Unidos
-        if (appData.arsPrice == appData.recommendedArsPrice) {
+        if (appData.arsPrice == appData.usdPrice) {
             appData.regionalDifference = 0;
             appData.regionalStatus = "expensive"
         }
 
         // Está más caro que lo esperado
-        if (appData.arsPrice > appData.recommendedArsPrice && appData.arsPrice != appData.recommendedArsPrice ) {
+        if (appData.arsPrice > appData.recommendedArsPrice && appData.arsPrice != appData.usdPrice ) {
             appData.regionalDifference = Math.round((parseFloat((appData.arsPrice - appData.recommendedArsPrice)) / appData.recommendedArsPrice) * 100);
             appData.regionalDifference <= 25 ? appData.regionalStatus = "fair" : appData.regionalStatus = "semifair";
         }
@@ -206,7 +206,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         </p>
         <hr>
         <p class="reason against">
-        <span class="name-span"> ${appData.publisher}</span> cargó en nuestra región el mismo precio que en Estados Unidos.
+        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestro región.
         </p>
         <hr>
         <p class="reason info">
@@ -357,7 +357,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         <div class="DRM_notice">
             <div>
-                Cálculo hecho por Steamcito en base a la
+                Hecho por Steamcito en base a la <br>
                 <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
             </div>
         </div>

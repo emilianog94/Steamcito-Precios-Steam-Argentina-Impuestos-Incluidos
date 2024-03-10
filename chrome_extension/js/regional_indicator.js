@@ -249,7 +249,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
+            Precio regional actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">
@@ -313,7 +313,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         </p>
         <hr>
         <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
+            Precio regional actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">

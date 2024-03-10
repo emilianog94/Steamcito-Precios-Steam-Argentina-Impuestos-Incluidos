@@ -5,71 +5,83 @@ function getPrices(type){
     let prices;
     if (type == "standard"){
         prices = document.querySelectorAll(priceContainers);
+
+        // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
+        let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
+        standardDlcPrices.forEach(dlcPrice => { 
+            if(!dlcPrice.querySelector("div")){
+                setArgentinaPrice(dlcPrice);
+            }
+        });
+
+        prices.forEach(price => setArgentinaPrice(price));
     } else{
-        let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
-        let cartSidebar = document.querySelector('.Panel.Focusable > div:has(> button.Primary)')
+        return renderCart();
+    }
+ 
+}
 
-        console.log("Content is", cartContent);
-        console.log("Cart Sidebar is", cartSidebar);
-
-
-        if(cartSidebar && cartContent){
-
-            let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
-            if(total?.innerText){
-                let totalWallet = stringToNumber(total)
-                let totalCC = calculateTaxesAndExchange(totalWallet)
-                let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
+function renderCart(){
     
-                if(!document.querySelector('.steamcito_cart')){
-                    cartSidebar.insertAdjacentHTML('beforebegin', `
-                    
-                    <div class="steamcito_cart">
-                        <div class="steamcito_cart_wallet">
-                            <p class="steamcito_cart_wallet_label">Total Exacto pagando con Steam Wallet</p>
-                            <span class="steamcito_cart_wallet_value"></span>
-                        </div>
-                        <div class="steamcito_cart_cc">
-                            <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
-                            <span class="steamcito_cart_cc_value"></span>
-                        </div>
-                        <div class="steamcito_cart_mixed">
-                            <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
-                            <span class="steamcito_cart_mixed_value"></span>
-                        </div>
-                    </div>`)
-                }
-    
-                let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
-                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
+    let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
+    let cartSidebar = document.querySelector('.Panel.Focusable > div:has(> button.Primary)')
 
-                let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
-                cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
+    console.log("Content is", cartContent);
+    console.log("Cart Sidebar is", cartSidebar);
 
-                let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
-                cartTotalMixedContainer.innerText = `${numberToString(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+
+    if(cartSidebar && cartContent){
+
+        let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
+        if(total?.innerText){
+            let totalWallet = stringToNumber(total)
+            let totalCC = calculateTaxesAndExchange(totalWallet)
+            let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
+
+            let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
+            let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
+
+            if(!document.querySelector('.steamcito_cart')){
+                cartSidebar.insertAdjacentHTML('beforebegin', `
+                
+                <div class="steamcito_cart">
+                    <div class="steamcito_cart_wallet">
+                        <p class="steamcito_cart_wallet_label">Total Exacto pagando con Steam Wallet</p>
+                        <span class="steamcito_cart_wallet_value"></span>
+                    </div>
+                    <div class="steamcito_cart_cc">
+                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
+                        <span class="steamcito_cart_cc_value"></span>
+                    </div>
+                    <div class="steamcito_cart_mixed ${totalMixedDisplay}">
+                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
+                        <span class="steamcito_cart_mixed_value"></span>
+                    </div>
+                </div>`)
             }
 
-            let dynamicClasses = Array.from(cartContent.querySelectorAll('div:not(:has(*))'));
-            let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$")
-            prices = filteredDynamicClasses
-            prices.forEach(price => setArgentinaPrice(price));
-            return;
-        }
-        else{
-            return;
-        }
-    }
-    
-    // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
-    let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
-    standardDlcPrices.forEach(dlcPrice => { 
-        if(!dlcPrice.querySelector("div")){
-            setArgentinaPrice(dlcPrice);
-        }
-    });
+            let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
+            cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
 
-    prices.forEach(price => setArgentinaPrice(price));
+            let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
+            cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
+
+            let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
+            cartTotalMixedContainer.innerText = `${numberToString(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+
+            
+        }
+
+        let dynamicClasses = Array.from(cartContent.querySelectorAll('div:not(:has(*))'));
+        let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$")
+        prices = filteredDynamicClasses
+        prices.forEach(price => setArgentinaPrice(price));
+        return;
+    }
+    else{
+        return;
+    }
+
 }
 
 async function setArgentinaPrice(price){

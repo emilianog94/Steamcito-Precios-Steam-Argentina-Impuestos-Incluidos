@@ -32,7 +32,7 @@
  		{
  			"matches": ["https://store.steampowered.com/cart*"],
  			"run_at": "document_idle",
- 			"js": ["js/cart_trigger.js","js/cart_functions.js"]
+ 			"js": ["js/cart_trigger.js"]
  		},
  		{
  			"matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*"],

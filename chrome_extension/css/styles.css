@@ -50,6 +50,9 @@ body.menu-enabled .responsive_page_frame {
 .steamcito_cart div:last-child {
   margin-bottom: 0;
 }
+.steamcito_cart .hide {
+  display: none;
+}
 
 .cart_area_body .cart_item {
   min-height: 90px;

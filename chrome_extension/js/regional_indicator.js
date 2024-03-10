@@ -271,7 +271,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <hr>
 
 
-            ${appData.arsPrice > appData.recommendedArsPrice
+            ${appData.arsPrice > appData.recommendedArsPrice && appData.regionalDifference != 1
                 ?
                 `
             <p class="reason info">
@@ -283,7 +283,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 ""
             }
 
-            ${appData.arsPrice < appData.recommendedArsPrice && appData.regionalDifference != 0
+            ${appData.arsPrice < appData.recommendedArsPrice && appData.regionalDifference != 0  && appData.regionalDifference != 1
                 ?
                 `
             <p class="reason for">
@@ -295,11 +295,11 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 ""
             }
 
-            ${appData.arsPrice == appData.recommendedArsPrice
+            ${appData.arsPrice == appData.recommendedArsPrice || appData.regionalDifference == 1
                 ?
                 `
             <p class="reason for">
-                <span class="name-span"> ${appData.publisher}</span> respeta a rajatabla el precio sugerido por Valve.
+                <span class="name-span"> ${appData.publisher}</span> cargó el precio sugerido por Valve.
             </p>
             <hr>                
             `
@@ -307,11 +307,19 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 ""
             }
 
+        ${appData.regionalDifference != 1 && appData.regionalDifference != 0 
+        
+        ?
+            `<p class="reason info">
+                Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
+            </p>
+            <hr>
+            `
+    
+        :
+            ""
+        }
 
-        <p class="reason info">
-            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
-        </p>
-        <hr>
         <p class="reason info">
             Precio regional actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
@@ -389,7 +397,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             </h4>
 
             <div class="contact-method-container">
-                <h5>Medio de contacto</h5>  
+                <h5>Medio de contacto oficial</h5>  
                 <div class="publisher-popup-flex-container">
                     ${appData.support_email 
                         ? `<p class="publisher-email">${appData.support_email}</p>`

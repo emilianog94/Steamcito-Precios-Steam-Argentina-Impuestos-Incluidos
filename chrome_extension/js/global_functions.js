@@ -22,13 +22,24 @@ function getPrices(type){
 }
 
 function renderCart(){
-    
+
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+
+    let staticExchangeRate = exchangeRate;
+
+    standardTaxes &&
+    standardTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
     let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
     let cartSidebar = document.querySelector('.Panel.Focusable > div:has(> button.Primary)')
-
-    console.log("Content is", cartContent);
-    console.log("Cart Sidebar is", cartSidebar);
-
 
     if(cartSidebar && cartContent){
 
@@ -57,7 +68,31 @@ function renderCart(){
                         <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
-                </div>`)
+                </div>
+                
+                <div class="steamcito_cart_exchangerate">
+
+                    <p>Cotización promedio del dólar tarjeta</p>
+                    <span class="exchangerate_value">1 USD ≈ ${exchangeRate.toFixed(2)} ARS ${emojiMate}</span>
+                    <br><br>
+
+                        <div>
+                            <span class="name-white">Cotización promedio dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
+                            1 USD ≈ ${staticExchangeRate}
+                            ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
+                            <br><br>
+                            <span class="name-white">Total de impuestos nacionales y provinciales</span><br>
+                            ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
+                            ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
+                            ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
+                        </div>
+
+                
+                </div>                
+                
+                
+                
+                `)
             }
 
             let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
@@ -69,7 +104,7 @@ function renderCart(){
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
             cartTotalMixedContainer.innerText = `${numberToString(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
 
-            
+
         }
 
         let dynamicClasses = Array.from(cartContent.querySelectorAll('div:not(:has(*))'));

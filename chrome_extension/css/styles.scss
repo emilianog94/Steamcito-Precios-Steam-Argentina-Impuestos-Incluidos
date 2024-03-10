@@ -52,7 +52,26 @@ body {
 }
 
 // 2024 React Cart
+
+.steamcito_cart_exchangerate{
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+
+  p{
+    color: white;
+  }
+
+  span.exchangerate_value{
+    font-weight: 700;
+    color: #fff;
+    font-size: 15px;    
+  }
+}
+
 .steamcito_cart{
+  max-width: 280px;
   background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   padding: 15px;
@@ -79,6 +98,8 @@ body {
     display: none;
   }
 }
+
+
 
 
 // CART

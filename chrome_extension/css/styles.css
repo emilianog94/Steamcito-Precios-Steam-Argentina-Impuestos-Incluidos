@@ -31,7 +31,23 @@ body.menu-enabled .responsive_page_frame {
   overflow: hidden;
 }
 
+.steamcito_cart_exchangerate {
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+}
+.steamcito_cart_exchangerate p {
+  color: white;
+}
+.steamcito_cart_exchangerate span.exchangerate_value {
+  font-weight: 700;
+  color: #fff;
+  font-size: 15px;
+}
+
 .steamcito_cart {
+  max-width: 280px;
   background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   padding: 15px;

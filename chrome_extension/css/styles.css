@@ -31,6 +31,26 @@ body.menu-enabled .responsive_page_frame {
   overflow: hidden;
 }
 
+.steamcito_cart {
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+}
+.steamcito_cart div {
+  margin-bottom: 1rem;
+}
+.steamcito_cart div p {
+  color: white;
+}
+.steamcito_cart div span {
+  font-weight: 700;
+  color: #fff;
+  font-size: 15px;
+}
+.steamcito_cart div:last-child {
+  margin-bottom: 0;
+}
+
 .cart_area_body .cart_item {
   min-height: 90px;
 }

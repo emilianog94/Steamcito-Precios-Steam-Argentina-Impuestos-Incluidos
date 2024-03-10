@@ -2,6 +2,9 @@
     await getUsdExchangeRate();
     await getBnaExchangeRate();
 
+
+    
+
     let oldCart = document.querySelector(".estimated_total_box");
     let walletElement = document.querySelector('#cart_estimated_total');
     let cartTotal = getCartTotal();

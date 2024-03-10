@@ -817,6 +817,11 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.info .regional-meter-reason--yellow {
   color: #e6cf0f;
 }
+.regional-meter-wrapper .reason.against .regional-meter-reason--orange,
+.regional-meter-wrapper .reason.for .regional-meter-reason--orange,
+.regional-meter-wrapper .reason.info .regional-meter-reason--orange {
+  color: #e68f0d;
+}
 .regional-meter-wrapper .DRM_notice {
   font-size: 12px;
 }
@@ -876,6 +881,13 @@ body.menu-enabled .responsive_page_frame {
 }
 .regional-meter-container .regional-meter-bar--fair.regional-meter-bar--selected::before {
   border-top: 12px solid #e6cf0f;
+}
+.regional-meter-container .regional-meter-bar--semifair {
+  border-color: #e68f0d;
+  color: #e68f0d;
+}
+.regional-meter-container .regional-meter-bar--semifair.regional-meter-bar--selected::before {
+  border-top: 12px solid #e68f0d;
 }
 .regional-meter-container .regional-meter-bar--expensive {
   border-color: #b94b53;

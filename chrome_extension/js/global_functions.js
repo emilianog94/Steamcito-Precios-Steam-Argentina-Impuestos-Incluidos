@@ -48,7 +48,7 @@ function renderCart(){
             let totalWallet = stringToNumber(total)
             let totalCC = calculateTaxesAndExchange(totalWallet)
             let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
-
+            
             let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
             let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
 
@@ -64,7 +64,7 @@ function renderCart(){
                         <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
                         <span class="steamcito_cart_cc_value"></span>
                     </div>
-                    <div class="steamcito_cart_mixed ${totalMixedDisplay}">
+                    <div class="steamcito_cart_mixed">
                         <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
@@ -101,8 +101,14 @@ function renderCart(){
             let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
             cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
 
+            let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
-            cartTotalMixedContainer.innerText = `${numberToString(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+            cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+            if(totalMixedDisplay == "hide"){
+                mixedWrapper.style.display = "none";
+            } else{
+                mixedWrapper.style.display = "block";
+            }
 
 
         }

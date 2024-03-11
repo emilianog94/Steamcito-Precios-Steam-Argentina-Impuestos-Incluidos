@@ -159,7 +159,7 @@ const renderCryptoPrice = (appData) => {
     `<a class="steamcito_saving_tip_url" href="#" target="_blank">
         <div class="steamcito_saving_tip">
 
-            Podés comprar ${appData.name} por <span class="steamcito_saving_tip_green">≈${numberToString(cryptoPrice)}</span> usando Dólar Crypto.
+            Podés comprar ${appData.name} por <span class="steamcito_saving_tip_green">≈${numberToString(cryptoPrice)} 🧉</span> pagando con Dólar Crypto.
 
             <br> 
             
@@ -426,7 +426,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
     </div>
 
-    ${appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)
+    ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
         ?
         `<div class="block responsive_apppage_details_right heading heading_steamcito_2">
         Solicitar precio regional
@@ -516,7 +516,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
 
-    if(appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)){
+    if(appData.usdPrice == appData.arsPrice  && (appData.support_email || appData.support_url)){
 
         let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
         clipboardHandlers.forEach(handler => {

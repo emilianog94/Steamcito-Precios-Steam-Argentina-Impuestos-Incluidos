@@ -37,6 +37,45 @@ body {
 
 // Ficha de Producto
 
+
+.steamcito_saving_tip{
+  // border: 1px solid #BEEE11;
+  background: rgb(0,0,0,0.2);
+  transition: all .25s ease;
+  border-radius: 3px;
+  padding: 16px;
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: normal;
+  margin-bottom: 1rem;
+
+  &:hover{
+    background: rgb(0,0,0,0.4);
+
+  }
+}
+
+.steamcito_saving_tip_white{
+  color: #fff;
+}
+
+.steamcito_saving_tip_url{
+  color: #acb2b8;
+  transition: all .25s ease;
+  &:hover{
+    color: #acb2b8;
+  }
+}
+
+.steamcito_crypto_exchangerate{
+  font-size: .75rem;
+  opacity: 0.75
+}
+
+.steamcito_saving_tip_green{
+  font-weight: normal;
+  color: #BEEE11;
+}
+
 .game_area_purchase_game_dropdown_subscription{
   .game_purchase_action{
 

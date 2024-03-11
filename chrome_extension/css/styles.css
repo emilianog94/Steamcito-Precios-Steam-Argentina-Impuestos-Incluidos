@@ -25,6 +25,41 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
+.steamcito_saving_tip {
+  background: rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease;
+  border-radius: 3px;
+  padding: 16px;
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: normal;
+  margin-bottom: 1rem;
+}
+.steamcito_saving_tip:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.steamcito_saving_tip_white {
+  color: #fff;
+}
+
+.steamcito_saving_tip_url {
+  color: #acb2b8;
+  transition: all 0.25s ease;
+}
+.steamcito_saving_tip_url:hover {
+  color: #acb2b8;
+}
+
+.steamcito_crypto_exchangerate {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}
+
+.steamcito_saving_tip_green {
+  font-weight: normal;
+  color: #BEEE11;
+}
+
 .game_area_purchase_game_dropdown_subscription .game_purchase_action .btn_packageinfo span {
   max-width: 110px;
   text-overflow: ellipsis;

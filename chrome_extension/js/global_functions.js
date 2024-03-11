@@ -267,6 +267,41 @@ async function getUsdExchangeRate(){
     }
 }
 
+
+async function getCryptoUsdExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion-crypto');
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate * 1.075,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
+                rate:1040,
+                rateDateProvided:"10/03/2024 - 16:00",
+                date:1704237682000
+            }));
+        }
+
+
+    }
+}
+
+
 async function getBnaExchangeRate(){
 
     let shouldGetNewRate = evaluateDate('steamcito-cotizacion-bna');

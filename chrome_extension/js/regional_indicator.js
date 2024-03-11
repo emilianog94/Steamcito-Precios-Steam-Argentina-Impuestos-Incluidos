@@ -120,12 +120,66 @@ const getAppPricing = async (appInitialData) => {
         }
 
         renderRegionalIndicator(appData, exchangeRate);
-
+        renderCryptoPrice(appData)
         return appData;
 
     }
 }
 
+
+
+const renderCryptoPrice = (appData) => {
+
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+
+    let staticExchangeRate = exchangeRate;
+
+    standardTaxes &&
+    standardTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    let cryptoExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let cryptoExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
+    let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
+    let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
+
+    if(cryptoExchangeRate > exchangeRate || cardPrice - cryptoPrice < 1500  ){
+        return;
+    }
+
+    let gamePurchaseArea = document.querySelector('.game_area_purchase');
+    let CryptoPriceContainer = 
+    `<a class="steamcito_saving_tip_url" href="#" target="_blank">
+        <div class="steamcito_saving_tip">
+
+            Podés comprar ${appData.name} por <span class="steamcito_saving_tip_green">≈${numberToString(cryptoPrice)}</span> usando Dólar Crypto.
+
+            <br> 
+            
+            <span class="steamcito_crypto_exchangerate">Cotización promedio del Dólar Crypto: 
+                <span class="steamcito_saving_tip_white"> 1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS </span>  (${cryptoExchangeRateDate})
+            </span>
+
+            <br>
+
+            <span class="steamcito_crypto_exchangerate">Cotización promedio del Dólar Tarjeta: 
+                <span class="steamcito_saving_tip_white"> 1 USD ≈ ${exchangeRate.toFixed(2)} ARS </span>  (${exchangeRateDate})
+            </span>
+
+        </div>
+    </a>
+    `;
+
+    gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
+
+   }
 
 const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');

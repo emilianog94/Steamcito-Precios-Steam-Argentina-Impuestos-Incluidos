@@ -1,7 +1,8 @@
 // Corro función por primera vez
 (async() => {
   await getUsdExchangeRate();
-  getPrices("standard");;
+  await getCryptoUsdExchangeRate();
+  getPrices("standard");
 
   // Trigger recursivo
   MutationObserver = window.MutationObserver || window.WebKitMutationObserver;

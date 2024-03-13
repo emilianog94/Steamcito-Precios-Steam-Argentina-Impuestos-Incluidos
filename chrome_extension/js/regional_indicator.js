@@ -171,9 +171,10 @@ const renderCryptoPrice = (appData) => {
                     Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
                 </p>
 
-                <span class="steamcito_crypto_exchangerate">Cotización Promedio Dólar Crypto: 
-                     1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  (${cryptoExchangeRateDate})
+                <span class="steamcito_crypto_exchangerate">Cotización Promedio del Dólar Crypto:
+                     1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  <span class="steamcito_crypto_cta">(Ver más información)</span>
                 </span>
+                
 
             </div>
             

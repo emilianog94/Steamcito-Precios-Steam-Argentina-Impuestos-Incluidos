@@ -31,7 +31,7 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .steamcito_saving_tip {
-  background: linear-gradient(to right, rgba(163, 207, 6, 0.6) 0%, rgba(75, 106, 33, 0.6) 100%);
+  background-color: #4c6b22;
   transition: all 0.25s ease;
   border-radius: 3px;
   padding: 16px;
@@ -50,7 +50,7 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.25s ease;
 }
 .steamcito_saving_tip .steamcito_saving_tip_text_main {
-  color: white;
+  color: #BEEE11;
 }
 
 .steamcito_saving_tip_white {
@@ -61,17 +61,26 @@ body.menu-enabled .responsive_page_frame {
   color: #acb2b8;
   transition: all 0.25s ease;
 }
+.steamcito_saving_tip_url:hover .steamcito_crypto_cta {
+  text-decoration: underline;
+  opacity: 0.75;
+}
 .steamcito_saving_tip_url:hover .steamcito_saving_tip_icon {
   transform: scale(1.1) rotate(20deg);
 }
 
 .steamcito_crypto_exchangerate {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgb(255, 255, 255);
+}
+
+.steamcito_crypto_cta {
+  font-size: 0.75rem;
+  color: rgb(255, 255, 255);
+  transition: all 0.25s ease;
 }
 
 .steamcito_saving_tip_green {
-  font-weight: normal;
   color: #BEEE11;
 }
 

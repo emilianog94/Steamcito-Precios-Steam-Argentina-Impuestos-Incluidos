@@ -37,19 +37,33 @@ body {
 
 // Ficha de Producto
 
+.steamcito_saving_tip_url + .game_area_purchase_game{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
 
 .steamcito_saving_tip{
-  background: rgb(0,0,0,0.2);
+  background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
   transition: all .25s ease;
   border-radius: 3px;
   padding: 16px;
   font-family: "Motiva Sans", Sans-serif;
   font-weight: normal;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 
-  &:hover{
-    background: rgb(0,0,0,0.4);
+  .steamcito_saving_tip_icon{
+    font-size: 1.5rem;
+    transition: all .25s ease;
+  }
 
+  .steamcito_saving_tip_text_main{
+    color: white;
   }
 }
 
@@ -61,13 +75,15 @@ body {
   color: #acb2b8;
   transition: all .25s ease;
   &:hover{
-    color: #acb2b8;
+    .steamcito_saving_tip_icon{
+      transform: scale(1.10) rotate(20deg);
+    }
   }
 }
 
 .steamcito_crypto_exchangerate{
   font-size: .75rem;
-  opacity: 0.75
+  color: rgba(255,255,255,.75);
 }
 
 .steamcito_saving_tip_green{
@@ -96,6 +112,7 @@ body {
   background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   padding: 15px;
+  color: #ccd5e0;
 
   p{
     color: white;

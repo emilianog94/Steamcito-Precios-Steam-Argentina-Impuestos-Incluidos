@@ -120,7 +120,9 @@ const getAppPricing = async (appInitialData) => {
         }
 
         renderRegionalIndicator(appData, exchangeRate);
-        renderCryptoPrice(appData)
+        if(walletBalance < appData.arsPrice){
+            renderCryptoPrice(appData)
+        }
         return appData;
 
     }
@@ -154,25 +156,27 @@ const renderCryptoPrice = (appData) => {
         return;
     }
 
-    let gamePurchaseArea = document.querySelector('.game_area_purchase');
+    let gamePurchaseArea = document.querySelector('.game_area_purchase_game_wrapper .game_area_purchase_game');
     let CryptoPriceContainer = 
     `<a class="steamcito_saving_tip_url" href="#" target="_blank">
+
         <div class="steamcito_saving_tip">
 
-            Podés comprar ${appData.name} por <span class="steamcito_saving_tip_green">≈${numberToString(cryptoPrice)} 🧉</span> pagando con Dólar Crypto.
+            <div class="steamcito_saving_tip_icon">
+                🧉
+            </div>
 
-            <br> 
+            <div class="steamcito_saving_tip_text">
+                <p class="steamcito_saving_tip_text_main">
+                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
+                </p>
+
+                <span class="steamcito_crypto_exchangerate">Cotización Promedio Dólar Crypto: 
+                     1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  (${cryptoExchangeRateDate})
+                </span>
+
+            </div>
             
-            <span class="steamcito_crypto_exchangerate">Cotización promedio del Dólar Crypto: 
-                <span class="steamcito_saving_tip_white"> 1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS </span>  (${cryptoExchangeRateDate})
-            </span>
-
-            <br>
-
-            <span class="steamcito_crypto_exchangerate">Cotización promedio del Dólar Tarjeta: 
-                <span class="steamcito_saving_tip_white"> 1 USD ≈ ${exchangeRate.toFixed(2)} ARS </span>  (${exchangeRateDate})
-            </span>
-
         </div>
     </a>
     `;
@@ -198,7 +202,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotización del dólar de Steamcito
+            Cotización del Dólar Tarjeta
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">

@@ -157,7 +157,7 @@ const renderCryptoPrice = (appData) => {
 
     let gamePurchaseArea = document.querySelector('.game_area_purchase_game_wrapper .game_area_purchase_game');
     let CryptoPriceContainer = 
-    `<a class="steamcito_saving_tip_url" href="#" target="_blank">
+    `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
 
         <div class="steamcito_saving_tip">
 

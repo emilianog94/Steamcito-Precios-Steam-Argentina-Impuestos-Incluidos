@@ -46,6 +46,7 @@ const getExchangeRate = async () => {
 }
 
 const getAppPricing = async (appInitialData) => {
+    await getCryptoUsdExchangeRate();
     await getUsdExchangeRate();
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
@@ -133,7 +134,6 @@ const getAppPricing = async (appInitialData) => {
 const renderCryptoPrice = (appData) => {
 
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
 
     let staticExchangeRate = exchangeRate;
 
@@ -148,11 +148,10 @@ const renderCryptoPrice = (appData) => {
     })
 
     let cryptoExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
-    let cryptoExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
-    if(cryptoExchangeRate > exchangeRate || cardPrice - cryptoPrice < 1500  ){
+    if(cryptoExchangeRate > exchangeRate || cardPrice - cryptoPrice < 1000  ){
         return;
     }
 

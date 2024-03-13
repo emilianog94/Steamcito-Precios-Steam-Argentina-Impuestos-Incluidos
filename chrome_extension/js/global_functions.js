@@ -287,7 +287,7 @@ async function getCryptoUsdExchangeRate(){
             exchangeRate = parseFloat(exchangeRate.replace(',','.'));
             
             let exchangeRateJSON = {
-                rate : exchangeRate * 1.075,
+                rate : exchangeRate * 1.05,
                 rateDateProvided: exchangeRateDate,
                 date: Date.now()
             }

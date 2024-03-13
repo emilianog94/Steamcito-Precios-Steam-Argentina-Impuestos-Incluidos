@@ -46,6 +46,7 @@ const getExchangeRate = async () => {
 }
 
 const getAppPricing = async (appInitialData) => {
+    await getCryptoUsdExchangeRate();
     await getUsdExchangeRate();
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
@@ -99,10 +100,16 @@ const getAppPricing = async (appInitialData) => {
 
         appData.recommendedArsPrice = recommendedArsPrice;
 
+        // Tiene el mismo precio que en Estados Unidos
+        if (appData.arsPrice == appData.usdPrice) {
+            appData.regionalDifference = 0;
+            appData.regionalStatus = "expensive"
+        }
+
         // Está más caro que lo esperado
-        if (appData.arsPrice > appData.recommendedArsPrice) {
+        if (appData.arsPrice > appData.recommendedArsPrice && appData.arsPrice != appData.usdPrice ) {
             appData.regionalDifference = Math.round((parseFloat((appData.arsPrice - appData.recommendedArsPrice)) / appData.recommendedArsPrice) * 100);
-            appData.regionalDifference <= 35 ? appData.regionalStatus = "fair" : appData.regionalStatus = "expensive";
+            appData.regionalDifference <= 25 ? appData.regionalStatus = "fair" : appData.regionalStatus = "semifair";
         }
         else if (appData.arsPrice < appData.recommendedArsPrice) {
             appData.regionalDifference = Math.round((parseFloat((appData.recommendedArsPrice - appData.arsPrice)) / appData.recommendedArsPrice) * 100);
@@ -114,12 +121,69 @@ const getAppPricing = async (appInitialData) => {
         }
 
         renderRegionalIndicator(appData, exchangeRate);
-
+        if(walletBalance < appData.arsPrice){
+            renderCryptoPrice(appData)
+        }
         return appData;
 
     }
 }
 
+
+
+const renderCryptoPrice = (appData) => {
+
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+
+    let staticExchangeRate = exchangeRate;
+
+    standardTaxes &&
+    standardTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    let cryptoExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
+    let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
+
+    if(cryptoExchangeRate > exchangeRate || cardPrice - cryptoPrice < 1000  ){
+        return;
+    }
+
+    let gamePurchaseArea = document.querySelector('.game_area_purchase_game_wrapper .game_area_purchase_game');
+    let CryptoPriceContainer = 
+    `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
+
+        <div class="steamcito_saving_tip">
+
+            <div class="steamcito_saving_tip_icon">
+                🧉
+            </div>
+
+            <div class="steamcito_saving_tip_text">
+                <p class="steamcito_saving_tip_text_main">
+                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
+                </p>
+
+                <span class="steamcito_crypto_exchangerate">Cotización Promedio del Dólar Crypto:
+                     1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  <span class="steamcito_crypto_cta">(Ver más información)</span>
+                </span>
+                
+
+            </div>
+            
+        </div>
+    </a>
+    `;
+
+    gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
+
+   }
 
 const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
@@ -138,7 +202,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotización del dólar de Steamcito
+            Cotización del Dólar Tarjeta
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
@@ -184,8 +248,11 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             <div class="regional-meter-bar regional-meter-bar--fair ${appData.regionalStatus == "fair" && "regional-meter-bar--selected"}">
                 <span>Adecuado</span>
             </div>
+            <div class="regional-meter-bar regional-meter-bar--semifair ${appData.regionalStatus == "semifair" && "regional-meter-bar--selected"}">
+                <span>Alto</span>
+            </div>            
             <div class="regional-meter-bar regional-meter-bar--expensive ${appData.regionalStatus == "expensive" && "regional-meter-bar--selected"}">
-                <span>Caro</span>
+                <span>No tiene</span>
             </div>
         </div>
         <hr>
@@ -193,17 +260,12 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             ?
             `
         <p class="reason against">
-        <span class="name-span">${appData.name}${appData.publisher != "El publisher" ? `, de ${appData.publisher},` : ""} </span> es <span class="regional-meter-reason--red">${appData.regionalDifference}%</span> más caro en Argentina que lo sugerido por Valve.
-
-        ${appData.usdPrice == appData.arsPrice
-            ?
-            `<br><br>El precio en nuestra región es el mismo que en Estados Unidos.`
-            :
-            ""
-        }
-        
+            <span class="name-span">${appData.name}</span> no tiene precio regional.
         </p>
-
+        <hr>
+        <p class="reason against">
+        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestro región.
+        </p>
         <hr>
         <p class="reason info">
             Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
@@ -224,55 +286,100 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             ""
         }
 
-
-
-
         `
             : ""
         }
+
+
+        ${appData.regionalStatus == "semifair"
+            ?
+            `
+        <p class="reason against">
+            <span class="name-span">${appData.name}</span> tiene un precio regional relativamente alto.
+        </p>
+        <hr>
+        <p class="reason against">
+        <span class="name-span"> ${appData.publisher}</span> cargó un precio <span class="regional-meter-reason--orange">${appData.regionalDifference}% más caro</span> que lo sugerido en nuestra región.
+        </p>
+        <hr>
+        <p class="reason info">
+            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
+        </p>
+        <hr>
+        <p class="reason info">
+            Precio regional actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
+        </p> 
+        <hr>
+        <p class="reason info">
+            Precio actual en Estados Unidos<br><span>USD$ ${appData.usdPrice} </span> 
+        </p>   
+        `
+        : 
+        ""
+        }
+        
 
         ${appData.regionalStatus == "fair"
             ?
             `
         <p class="reason for">
         
-        <span class="name-span">${appData.name}</span> está a un precio accesible, siguiendo de cerca la sugerencia de precios de Valve.
+        <span class="name-span">${appData.name}</span> tiene un precio regional accesible.
+        </p>
+        <hr>
+
+
+            ${appData.arsPrice > appData.recommendedArsPrice && appData.regionalDifference != 1
+                ?
+                `
+            <p class="reason info">
+                <span class="name-span"> ${appData.publisher}</span> cargó un precio <span class="regional-meter-reason--yellow">${appData.regionalDifference}% más caro</span> que lo sugerido en nuestra región.
+            </p>
+            <hr>                
+            `
+                :
+                ""
+            }
+
+            ${appData.arsPrice < appData.recommendedArsPrice && appData.regionalDifference != 0  && appData.regionalDifference != 1
+                ?
+                `
+            <p class="reason for">
+                <span class="name-span"> ${appData.publisher}</span> cargó un precio <span class="regional-meter-reason--yellow">${appData.regionalDifference}% más barato</span> que lo sugerido en nuestra región.
+            </p>
+            <hr>                
+            `
+                :
+                ""
+            }
+
+            ${appData.arsPrice == appData.recommendedArsPrice || appData.regionalDifference == 1
+                ?
+                `
+            <p class="reason for">
+                <span class="name-span"> ${appData.publisher}</span> cargó el precio sugerido por Valve.
+            </p>
+            <hr>                
+            `
+                :
+                ""
+            }
+
+        ${appData.regionalDifference != 1 && appData.regionalDifference != 0 
         
-        ${appData.publisher != "El publisher" ? `<span class="name-span">¡Gracias ${appData.publisher}!</span>` : ""}
-        </p>
-        <hr>
-
-
-        ${appData.arsPrice > appData.recommendedArsPrice
-                ?
-                `
-            <p class="reason info">
-                El precio es solamente <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más caro que lo sugerido. 
+        ?
+            `<p class="reason info">
+                Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
             </p>
-            <hr>                
+            <hr>
             `
-                :
-                ""
-            }
-
-            ${appData.arsPrice < appData.recommendedArsPrice && appData.regionalDifference != 0
-                ?
-                `
-            <p class="reason info">
-                Está <span class="regional-meter-reason--yellow">${appData.regionalDifference}%</span> más barato que lo sugerido. 
-            </p>
-            <hr>                
-            `
-                :
-                ""
-            }
+    
+        :
+            ""
+        }
 
         <p class="reason info">
-            Precio regional sugerido para Argentina <br><span class="regional-meter-price">ARS$ ${appData.recommendedArsPrice.toFixed(2)}</span>
-        </p>
-        <hr>
-        <p class="reason info">
-            Precio actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
+            Precio regional actual en Argentina<br><span class="regional-meter-price">ARS$ ${appData.arsPrice.toFixed(2)} </span>
         </p> 
         <hr>
         <p class="reason info">
@@ -289,11 +396,12 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             ?
             `
         <p class="reason for">
-        <span class="name-span">${appData.name}</span> es <span class="regional-meter-reason--green">${appData.regionalDifference}%</span> más barato en Argentina que lo sugerido por Valve.<br>
+        <span class="name-span">${appData.name}</span> tiene un precio regional barato.<br>
+
         </p>
         <hr>
         <p class="reason info">
-        <span class="name-span">${appData.publisher}</span> cargó manualmente un precio más barato que el sugerido. <br><br> ¡Te quiero mucho ${appData.publisher}!
+        <span class="name-span">${appData.publisher}</span> cargó un precio <span class="regional-meter-reason--green">${appData.regionalDifference}% más bajo </span> que el sugerido por Valve.<br><br> ¡Te quiero mucho ${appData.publisher}!
         </p>
         <hr>
         <p class="reason info">
@@ -315,14 +423,14 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         <div class="DRM_notice">
             <div>
-                Cálculo hecho por Steamcito en base a la
+                Hecho por Steamcito en base a la <br>
                 <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
             </div>
         </div>
 
     </div>
 
-    ${appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)
+    ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
         ?
         `<div class="block responsive_apppage_details_right heading heading_steamcito_2">
         Solicitar precio regional
@@ -347,7 +455,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             </h4>
 
             <div class="contact-method-container">
-                <h5>Medio de contacto</h5>  
+                <h5>Medio de contacto oficial</h5>  
                 <div class="publisher-popup-flex-container">
                     ${appData.support_email 
                         ? `<p class="publisher-email">${appData.support_email}</p>`
@@ -412,7 +520,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     `
     sidebar.insertAdjacentHTML('afterbegin', container);
 
-    if(appData.usdPrice == appData.arsPrice && appData.arsPrice == appData.baseArsPrice  && (appData.support_email || appData.support_url)){
+    if(appData.usdPrice == appData.arsPrice  && (appData.support_email || appData.support_url)){
 
         let clipboardHandlers = document.querySelectorAll('.copiar-texto-steamcito');
         clipboardHandlers.forEach(handler => {

@@ -1,21 +1,132 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function getPrices(){
+function getPrices(type){
+    let prices;
+    if (type == "standard"){
+        prices = document.querySelectorAll(priceContainers);
 
-    let prices = document.querySelectorAll(priceContainers);
-    
-    // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
-    let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
-    standardDlcPrices.forEach(dlcPrice => { 
-        if(!dlcPrice.querySelector("div")){
-            setArgentinaPrice(dlcPrice);
+        // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
+        let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
+        standardDlcPrices.forEach(dlcPrice => { 
+            if(!dlcPrice.querySelector("div")){
+                setArgentinaPrice(dlcPrice);
+            }
+        });
+
+        prices.forEach(price => setArgentinaPrice(price));
+    } else{
+        return renderCart();
+    }
+ 
+}
+
+function renderCart(){
+
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+
+    let staticExchangeRate = exchangeRate;
+
+    standardTaxes &&
+    standardTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
+    let cartSidebar = document.querySelector('.Panel.Focusable > div:has(> button.Primary)')
+
+    if(cartSidebar && cartContent){
+
+        let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
+        if(total?.innerText){
+            let totalWallet = stringToNumber(total)
+            let totalCC = calculateTaxesAndExchange(totalWallet)
+            let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
+            
+            let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
+            let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
+
+            if(!document.querySelector('.steamcito_cart')){
+                cartSidebar.insertAdjacentHTML('beforebegin', `
+                
+                <div class="steamcito_cart">
+                    <div class="steamcito_cart_wallet">
+                        <p class="steamcito_cart_wallet_label">Total Exacto pagando con Steam Wallet</p>
+                        <span class="steamcito_cart_wallet_value"></span>
+                    </div>
+                    <div class="steamcito_cart_cc">
+                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
+                        <span class="steamcito_cart_cc_value"></span>
+                    </div>
+                    <div class="steamcito_cart_mixed">
+                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
+                        <span class="steamcito_cart_mixed_value"></span>
+                    </div>
+                </div>
+                
+                <div class="steamcito_cart_exchangerate">
+
+                    <p>Cotización promedio del dólar tarjeta</p>
+                    <span class="exchangerate_value">1 USD ≈ ${exchangeRate.toFixed(2)} ARS ${emojiMate}</span>
+                    <br><br>
+
+                        <div>
+                            <span class="name-white">Cotización promedio dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
+                            1 USD ≈ ${staticExchangeRate}
+                            ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
+                            <br><br>
+                            <span class="name-white">Total de impuestos nacionales y provinciales</span><br>
+                            ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
+                            ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
+                            ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
+                        </div>
+
+                
+                </div>                
+                
+                
+                
+                `)
+            }
+
+            let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
+            cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
+
+            let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
+            cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
+
+            let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
+            let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
+            cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+            if(totalMixedDisplay == "hide"){
+                mixedWrapper.style.display = "none";
+            } else{
+                mixedWrapper.style.display = "block";
+            }
+
+
         }
-    });
-    prices.forEach(price => setArgentinaPrice(price));
+
+        let dynamicClasses = Array.from(cartContent.querySelectorAll('div:not(:has(*))'));
+        let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$")
+        prices = filteredDynamicClasses
+        prices.forEach(price => setArgentinaPrice(price));
+        return;
+    }
+    else{
+        return;
+    }
+
 }
 
 async function setArgentinaPrice(price){
+    await getUsdExchangeRate();
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
@@ -162,6 +273,41 @@ async function getUsdExchangeRate(){
 
     }
 }
+
+
+async function getCryptoUsdExchangeRate(){
+
+    let shouldGetNewRate = evaluateDate('steamcito-cotizacion-crypto');
+
+    if(shouldGetNewRate){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate * 1.05,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+    
+        localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
+                rate:1040,
+                rateDateProvided:"10/03/2024 - 16:00",
+                date:1704237682000
+            }));
+        }
+
+
+    }
+}
+
 
 async function getBnaExchangeRate(){
 

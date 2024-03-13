@@ -249,7 +249,6 @@ const priceContainers = `
         .AppCapsuleCtn >span >span:not([${attributeName}])
         `;
 
-
 function getTotalTaxes() {
     function reducer(total, num) {
         return total + num;
@@ -422,7 +421,7 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
-const currentChange = "minor"; // patch | minor | major
+const currentChange = "major"; // patch | minor | major
 
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {

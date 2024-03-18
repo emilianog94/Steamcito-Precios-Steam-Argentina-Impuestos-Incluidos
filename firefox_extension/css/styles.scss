@@ -38,6 +38,73 @@
 
   // Ficha de Producto
 
+  .steamcito_saving_tip_url + .game_area_purchase_game{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  .steamcito_saving_tip{
+    // background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
+    background-color: #4c6b22;
+    transition: all .25s ease;
+    border-radius: 3px;
+    padding: 16px;
+    font-family: "Motiva Sans", Sans-serif;
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  
+    .steamcito_saving_tip_icon{
+      font-size: 1.5rem;
+      transition: all .25s ease;
+    }
+  
+    .steamcito_saving_tip_text_main{
+      // color: white;
+      color: #BEEE11;
+    }
+  }
+  
+  .steamcito_saving_tip_white{
+    color: #fff;
+  }
+  
+  .steamcito_saving_tip_url{
+    color: #acb2b8;
+    transition: all .25s ease;
+    &:hover{
+  
+      .steamcito_crypto_cta{
+        text-decoration: underline;
+        opacity: .75;
+      }
+  
+      .steamcito_saving_tip_icon{
+        transform: scale(1.10) rotate(20deg);
+      }
+    }
+  }
+  
+  .steamcito_crypto_exchangerate{
+    font-size: .75rem;
+    color: rgba(255,255,255,1);
+  }
+  
+  .steamcito_crypto_cta{
+    font-size: .75rem;
+    color: rgba(255,255,255,1);
+    transition: all .25s ease;
+  }
+  
+  .steamcito_saving_tip_green{
+    color: #BEEE11;
+  }
+
   .game_area_purchase_game_dropdown_subscription{
     .game_purchase_action{
 
@@ -51,6 +118,56 @@
       }
     }
   }  
+
+// 2024 React Cart
+
+.steamcito_cart_exchangerate{
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+  color: #ccd5e0;
+
+  p{
+    color: white;
+  }
+
+  span.exchangerate_value{
+    font-weight: 700;
+    color: #fff;
+    font-size: 15px;    
+  }
+}
+
+.steamcito_cart{
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+
+  div{
+    margin-bottom: 1rem;
+
+    p{
+      color: white;
+    }
+
+    span{
+      font-weight: 700;
+      color: #fff;
+      font-size: 15px;
+    }
+  }
+
+  div:last-child{
+    margin-bottom: 0;
+  }
+
+  .hide{
+    display: none;
+  }
+}  
+
   
   // CART
   .cart_area_body {
@@ -990,6 +1107,11 @@
       .regional-meter-reason--yellow {
         color: #e6cf0f;
       }
+
+      .regional-meter-reason--orange {
+        color: #e68f0d;
+      }
+
     }
   
     .DRM_notice {
@@ -1061,7 +1183,16 @@
           border-top: 12px solid #e6cf0f;
         }
       }
+
+      &--semifair {
+        border-color: #e68f0d;
+        color: #e68f0d;
   
+        &.regional-meter-bar--selected::before {
+          border-top: 12px solid #e68f0d;
+        }
+      }
+
       &--expensive {
         border-color: #b94b53;
         color: #b94b53;

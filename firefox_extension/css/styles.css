@@ -25,10 +25,109 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
+.steamcito_saving_tip_url + .game_area_purchase_game {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.steamcito_saving_tip {
+  background-color: #4c6b22;
+  transition: all 0.25s ease;
+  border-radius: 3px;
+  padding: 16px;
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: normal;
+  margin-bottom: 0;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.steamcito_saving_tip .steamcito_saving_tip_icon {
+  font-size: 1.5rem;
+  transition: all 0.25s ease;
+}
+.steamcito_saving_tip .steamcito_saving_tip_text_main {
+  color: #BEEE11;
+}
+
+.steamcito_saving_tip_white {
+  color: #fff;
+}
+
+.steamcito_saving_tip_url {
+  color: #acb2b8;
+  transition: all 0.25s ease;
+}
+.steamcito_saving_tip_url:hover .steamcito_crypto_cta {
+  text-decoration: underline;
+  opacity: 0.75;
+}
+.steamcito_saving_tip_url:hover .steamcito_saving_tip_icon {
+  transform: scale(1.1) rotate(20deg);
+}
+
+.steamcito_crypto_exchangerate {
+  font-size: 0.75rem;
+  color: rgb(255, 255, 255);
+}
+
+.steamcito_crypto_cta {
+  font-size: 0.75rem;
+  color: rgb(255, 255, 255);
+  transition: all 0.25s ease;
+}
+
+.steamcito_saving_tip_green {
+  color: #BEEE11;
+}
+
 .game_area_purchase_game_dropdown_subscription .game_purchase_action .btn_packageinfo span {
   max-width: 110px;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+
+.steamcito_cart_exchangerate {
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+  color: #ccd5e0;
+}
+.steamcito_cart_exchangerate p {
+  color: white;
+}
+.steamcito_cart_exchangerate span.exchangerate_value {
+  font-weight: 700;
+  color: #fff;
+  font-size: 15px;
+}
+
+.steamcito_cart {
+  max-width: 280px;
+  background-color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  padding: 15px;
+}
+.steamcito_cart div {
+  margin-bottom: 1rem;
+}
+.steamcito_cart div p {
+  color: white;
+}
+.steamcito_cart div span {
+  font-weight: 700;
+  color: #fff;
+  font-size: 15px;
+}
+.steamcito_cart div:last-child {
+  margin-bottom: 0;
+}
+.steamcito_cart .hide {
+  display: none;
 }
 
 .cart_area_body .cart_item {
@@ -793,6 +892,11 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.info .regional-meter-reason--yellow {
   color: #e6cf0f;
 }
+.regional-meter-wrapper .reason.against .regional-meter-reason--orange,
+.regional-meter-wrapper .reason.for .regional-meter-reason--orange,
+.regional-meter-wrapper .reason.info .regional-meter-reason--orange {
+  color: #e68f0d;
+}
 .regional-meter-wrapper .DRM_notice {
   font-size: 12px;
 }
@@ -858,6 +962,13 @@ body.menu-enabled .responsive_page_frame {
 }
 .regional-meter-container .regional-meter-bar--fair.regional-meter-bar--selected::before {
   border-top: 12px solid #e6cf0f;
+}
+.regional-meter-container .regional-meter-bar--semifair {
+  border-color: #e68f0d;
+  color: #e68f0d;
+}
+.regional-meter-container .regional-meter-bar--semifair.regional-meter-bar--selected::before {
+  border-top: 12px solid #e68f0d;
 }
 .regional-meter-container .regional-meter-bar--expensive {
   border-color: #b94b53;

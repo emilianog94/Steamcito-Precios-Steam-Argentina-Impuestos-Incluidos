@@ -189,7 +189,7 @@ function renderPrices(price){
             setArgentinaPrice(price);
         }
 
-        if(price.classList.contains('original') && !price.innerText.includes(emojiWallet) && price.closest('.dynamic_bundle_description')){
+        if(price.classList.contains('original') && !price.innerText.includes("USD") && price.closest('.dynamic_bundle_description')){
             setArgentinaPrice(price);
         }
     },1500)

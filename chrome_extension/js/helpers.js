@@ -421,7 +421,7 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
-const currentChange = "major"; // patch | minor | major
+const currentChange = "patch"; // patch | minor | major
 
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {

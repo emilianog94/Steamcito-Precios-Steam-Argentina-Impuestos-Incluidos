@@ -151,9 +151,6 @@ const renderCryptoPrice = (appData) => {
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
-    console.log("Crypto is", cryptoExchangeRate);
-    console.log("Normal is", exchangeRate);
-
     if(cryptoExchangeRate > exchangeRate ){
         return;
     }

@@ -185,7 +185,7 @@ function renderPrices(price){
     // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
     setTimeout(function(){
         if(price.classList.contains('argentina') && !price.innerText.includes("ARS") && price.closest('.dynamic_bundle_description')){
-            // setArgentinaPrice(price);
+            setArgentinaPrice(price);
         }
 
         if(price.classList.contains('original') && !price.innerText.includes("USD") && price.closest('.dynamic_bundle_description')){

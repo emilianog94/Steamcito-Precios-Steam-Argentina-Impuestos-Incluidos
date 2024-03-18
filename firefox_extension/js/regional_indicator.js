@@ -151,7 +151,7 @@ const renderCryptoPrice = (appData) => {
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
-    if(cryptoExchangeRate > exchangeRate || cardPrice - cryptoPrice < 1000  ){
+    if(cryptoExchangeRate > exchangeRate){
         return;
     }
 

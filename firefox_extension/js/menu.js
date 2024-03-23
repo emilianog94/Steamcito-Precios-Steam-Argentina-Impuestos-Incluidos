@@ -74,6 +74,14 @@ function createMenus() {
                             <small>Seleccioná "Minificada" para que la información de cotización del dólar y precios regionales ocupe menos espacio.</small>
                         </div>
 
+                        <div class="opcion">
+                            <div>
+                                <input type="checkbox" name="ocultar-crypto" id="ocultar-crypto" style="width: unset; margin-left: unset; margin-top: unset; margin-right: 1rem"/>
+                                <label for="ocultar-crypto">Ocultar Dolar Crypto</label>
+                            </div>
+                            <small>Ocultar banner con cotización de Dolar Crypto.</small>
+                        </div>
+
                     </div>
 
                     <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
@@ -117,6 +125,7 @@ function setInitialLocalStates() {
     localStorage.getItem('province-tax') ? provinceTax.value = localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value = localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
+    localStorage.getItem('ocultar-crypto') ? selectBarStyle.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 
 }
 
@@ -126,6 +135,10 @@ function changeBarStyleState(){
 
 function changeEmojiState() {
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji', 'unicode') : localStorage.setItem('steamcito-emoji', 'fallback');
+}
+
+function changeDolarCryptoVisibility() {
+    localStorage.setItem('ocultar-crypto', String(checkboxDolarCrypto.checked));
 }
 
 function changeManualModeState() {
@@ -194,10 +207,12 @@ const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual")
 let selectEmoji = document.querySelector("#estilo-emoji");
 let selectBarStyle = document.querySelector("#estilo-barra");
+let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
 
 selectEmoji.addEventListener('input', changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
+checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input', changeNationalTax);

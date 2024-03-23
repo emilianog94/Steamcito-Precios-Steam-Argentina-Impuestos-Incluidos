@@ -125,7 +125,7 @@ function setInitialLocalStates() {
     localStorage.getItem('province-tax') ? provinceTax.value = localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value = localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('ocultar-crypto') ? selectBarStyle.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
+    localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.checked=JSON.parse(localStorage.getItem('ocultar-crypto')) : localStorage.removeItem('ocultar-crypto');
 
 }
 

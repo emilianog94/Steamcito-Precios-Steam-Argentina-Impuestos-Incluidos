@@ -138,6 +138,10 @@ const getAppPricing = async (appInitialData) => {
 
 
 const renderCryptoPrice = (appData) => {
+    let cryptoPriceHidden = Boolean(JSON.parse(localStorage.getItem('ocultar-crypto')));
+    if (cryptoPriceHidden) {
+        return;
+    }
 
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
 

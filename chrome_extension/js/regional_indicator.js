@@ -46,7 +46,6 @@ const getExchangeRate = async () => {
 }
 
 const getAppPricing = async (appInitialData) => {
-    await getCryptoUsdExchangeRate();
     await getUsdExchangeRate();
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
@@ -225,7 +224,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotización del Dólar Tarjeta
+            Cotización del Dólar
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">

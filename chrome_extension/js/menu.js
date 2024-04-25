@@ -16,7 +16,20 @@ function createMenus(){
                 <div class="opciones-avanzadas-steamcito">
 
                     <div class="grupo-opciones">
-                        <h3> Opciones de Impuestos </h3>
+                        <h3> Opciones de Cotización e Impuestos </h3>
+
+                        <div class="opcion" id="metodo-de-pago">
+                            <div>
+                                <label for="metodo-de-pago-opciones">Tu método de pago</label>
+                                <select name="" id="metodo-de-pago-opciones">
+                                    <option value="tarjeta">Tarjeta</option>
+                                    <option value="dolar-crypto">Dólar Crypto (El más barato)</option>
+                                    <option value="dolar-mep">Dólar Billete/MEP</option>
+                                </select>
+                            </div>
+                            <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
+                        </div>
+
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
@@ -68,7 +81,7 @@ function createMenus(){
                                     <option value="ocultar">Ocultar</option>
                                 </select>
                             </div>
-                            <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo (Ejemplo: Dólar Crypto, Dólar MEP)</small>
+                            <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo.</small>
                         </div>
 
                         <div class="opcion" id="informacion-en-barra-lateral">
@@ -123,11 +136,18 @@ function setInitialLocalStates(){
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
+    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','tarjeta');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 
+
+
 function changeBarStyleState(){
     selectBarStyle.value == 'barra-normal' ? localStorage.setItem('estilo-barra','barra-normal') : localStorage.setItem('estilo-barra','barra-minificada');
+}
+
+function changePaymentMethodState(e){
+    localStorage.setItem('metodo-de-pago', e.currentTarget.value)
 }
 
 function changeEmojiState(){
@@ -201,14 +221,16 @@ createMenus();
 const menu = document.querySelector(".menu-steamcito");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
-let selectManualMode = document.querySelector("#modo-manual")
+let selectManualMode = document.querySelector("#modo-manual");
 let selectEmoji = document.querySelector("#estilo-emoji");
 let selectBarStyle = document.querySelector("#estilo-barra");
+let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
 
 selectEmoji.addEventListener('input',changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
+selectPaymentMethod.addEventListener('input', changePaymentMethodState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
 
 let nationalTax = document.querySelector("#national-tax");

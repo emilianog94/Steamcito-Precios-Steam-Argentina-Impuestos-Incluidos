@@ -40,8 +40,12 @@ const getExchangeRate = async () => {
     await getUsdExchangeRate();
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
     let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
+    let exchangeRateMepDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rateDateProvided;
 
-    renderExchangeIndicator(exchangeRate,exchangeRateDate)
+    renderExchangeIndicator(exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate)
     
 }
 
@@ -207,7 +211,7 @@ const renderCryptoPrice = (appData) => {
 
    }
 
-const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
+const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let staticExchangeRate = exchangeRate;
@@ -224,29 +228,53 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate) => {
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotización del Dólar
+            Elegí tu método de pago preferido
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
             <p class="reason info">
-                <span class="name-span">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
+                <span class="name-span">
+                    Dólar Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Resultado de dólar oficial más impuestos<br><br>
-                    <span class="name-white">- Cotización promedio del dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
-                    1 USD = ${staticExchangeRate}
-                    ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
-                    <br><br>
-                    <span class="name-white">- Total de impuestos nacionales y provinciales</span><br>
-                    ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
-                    ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
-                    ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
+                    Incluye todos los impuestos (60%)<br>
+                    Última actualización: ${exchangeRateDate}
+                </span>
+            </p>
+            <br>
 
+            <p class="reason info">
+                <span class="name-span">
+                    Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                <br>
+                <span class="name-smaller">
+                    Libre de impuestos<br>
+                    Última actualización: ${exchangeRateCryptoDate}
 
                 </span>
-
             </p>
+            <br>
+
+            <p class="reason info">
+                <span class="name-span">
+                    Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
+                <br>
+                <span class="name-smaller">
+                    Incluye IVA a los Servicios Digitales (21%)<br>
+                    Última actualización: ${exchangeRateMepDate}
+                </span>
+            </p>
+
+            <div class="DRM_notice">
+                <div>
+                    Conocé cómo pagar con estos métodos en
+                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía - mejor método de pago en Steam</a>
+                </div>
+            </div>
+
         </div>
+
+
     
     `;
 

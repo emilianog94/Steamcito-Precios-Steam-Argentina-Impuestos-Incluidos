@@ -936,6 +936,7 @@ body {
 
 // Regional Indicator
 
+
 .notify-publisher-popup{
   padding: 1.5rem;
   position: fixed;
@@ -1096,6 +1097,33 @@ body {
       // color: #67c1f5;
       color: #fff;
       // font-weight: 700;
+
+
+      &.steamcito-strikethrough-price{
+        position: relative;
+        color: #738895 !important;
+        font-size: .75rem;
+      
+        &::before{
+          content: '';
+          left: 0px;
+          right: 0px;
+          position: absolute;
+          top: 43%;
+          border-bottom: 1.5px solid #738895;
+          transform: skewY(-8deg);
+          box-shadow: 0 0 2px black;
+        }
+      }
+      // .highlight:not(:has(~ .highlight)
+
+      &.regional-meter-price,&.regional-meter-price-us{
+        color: #c6d4df;
+      } 
+      
+      &.regional-meter-price:has(+ span),&.regional-meter-price-us:has(+ span){
+        color: #BEEE11;
+      }
 
       &.name-white{
         color: #ddd;

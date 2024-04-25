@@ -840,6 +840,39 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.info span {
   color: #fff;
 }
+.regional-meter-wrapper .reason.against span.steamcito-strikethrough-price,
+.regional-meter-wrapper .reason.for span.steamcito-strikethrough-price,
+.regional-meter-wrapper .reason.info span.steamcito-strikethrough-price {
+  position: relative;
+  color: #738895 !important;
+  font-size: 0.75rem;
+}
+.regional-meter-wrapper .reason.against span.steamcito-strikethrough-price::before,
+.regional-meter-wrapper .reason.for span.steamcito-strikethrough-price::before,
+.regional-meter-wrapper .reason.info span.steamcito-strikethrough-price::before {
+  content: "";
+  left: 0px;
+  right: 0px;
+  position: absolute;
+  top: 43%;
+  border-bottom: 1.5px solid #738895;
+  transform: skewY(-8deg);
+  box-shadow: 0 0 2px black;
+}
+.regional-meter-wrapper .reason.against span.regional-meter-price, .regional-meter-wrapper .reason.against span.regional-meter-price-us,
+.regional-meter-wrapper .reason.for span.regional-meter-price,
+.regional-meter-wrapper .reason.for span.regional-meter-price-us,
+.regional-meter-wrapper .reason.info span.regional-meter-price,
+.regional-meter-wrapper .reason.info span.regional-meter-price-us {
+  color: #c6d4df;
+}
+.regional-meter-wrapper .reason.against span.regional-meter-price:has(+ span), .regional-meter-wrapper .reason.against span.regional-meter-price-us:has(+ span),
+.regional-meter-wrapper .reason.for span.regional-meter-price:has(+ span),
+.regional-meter-wrapper .reason.for span.regional-meter-price-us:has(+ span),
+.regional-meter-wrapper .reason.info span.regional-meter-price:has(+ span),
+.regional-meter-wrapper .reason.info span.regional-meter-price-us:has(+ span) {
+  color: #BEEE11;
+}
 .regional-meter-wrapper .reason.against span.name-white,
 .regional-meter-wrapper .reason.for span.name-white,
 .regional-meter-wrapper .reason.info span.name-white {

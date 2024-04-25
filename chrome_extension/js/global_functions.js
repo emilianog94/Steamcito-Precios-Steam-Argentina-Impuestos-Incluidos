@@ -96,14 +96,20 @@ function renderCart(){
             }
 
             let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
-            cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
-
             let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
-            cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
-
             let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
-            cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+
+            if(localStorage.getItem('steamcito-emoji') == "fallback"){
+                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
+                cartTotalCCContainer.innerText = `${numberToString(totalCC)}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalCCMixed)}`
+            } else{
+                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
+                cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+            }
+
             if(totalMixedDisplay == "hide"){
                 mixedWrapper.style.display = "none";
             } else{

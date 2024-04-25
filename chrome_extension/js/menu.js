@@ -37,7 +37,7 @@ function createMenus(){
                     <div class="grupo-opciones">
                         <h3> Opciones Visuales </h3>
 
-                        <div class="opcion">
+                        <div class="opcion" id="preferencia-de-precios">
                             <div>
                                 <label for="modo-manual">Preferencia de precios</label>
                                 <select name="" id="modo-manual">
@@ -49,7 +49,7 @@ function createMenus(){
                             <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
                         </div>
 
-                        <div class="opcion">
+                        <div class="opcion" id="estilo-de-emojis">
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
                                 <select name="estilo-emoji" id="estilo-emoji">
@@ -60,7 +60,7 @@ function createMenus(){
                             <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
                         </div>
 
-                        <div class="opcion">
+                        <div class="opcion" id="tips-de-ahorro">
                             <div>
                                 <label for="ocultar-crypto">Tips de ahorro</label>
                                 <select name="ocultar-crypto" id="ocultar-crypto">
@@ -71,7 +71,7 @@ function createMenus(){
                             <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo (Ejemplo: Dólar Crypto, Dólar MEP)</small>
                         </div>
 
-                        <div class="opcion">
+                        <div class="opcion" id="informacion-en-barra-lateral">
                             <div>
                                 <label for="estilo-barra">Información en barra lateral</label>
                                 <select name="estilo-barra" id="estilo-barra">

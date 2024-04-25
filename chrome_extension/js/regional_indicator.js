@@ -170,7 +170,7 @@ const renderCryptoPrice = (appData) => {
     `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
 
         <div class="steamcito_saving_tip">
-
+            <span class="steamcito_saving_tip_close">X</span>
             <div class="steamcito_saving_tip_icon">
                 🧉
             </div>
@@ -192,6 +192,18 @@ const renderCryptoPrice = (appData) => {
     `;
 
     gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
+
+    let savingTipCloseButton = document.querySelector('.steamcito_saving_tip_close');
+    if(savingTipCloseButton){
+        savingTipCloseButton.addEventListener('click', (e) =>{
+            e.preventDefault();
+            setTimeout(function () {
+                steamcitoIcon.click();
+                let savingTipToggler = document.querySelector('.opcion#tips-de-ahorro')
+                savingTipToggler.classList.add('opcion-highlighted')
+            }, 1);
+        })
+    }
 
    }
 

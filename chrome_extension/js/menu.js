@@ -62,6 +62,17 @@ function createMenus(){
 
                         <div class="opcion">
                             <div>
+                                <label for="ocultar-crypto">Tips de ahorro</label>
+                                <select name="ocultar-crypto" id="ocultar-crypto">
+                                    <option value="mostrar">Mostrar</option>
+                                    <option value="ocultar">Ocultar</option>
+                                </select>
+                            </div>
+                            <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo (Ejemplo: Dólar Crypto, Dólar MEP)</small>
+                        </div>
+
+                        <div class="opcion">
+                            <div>
                                 <label for="estilo-barra">Información en barra lateral</label>
                                 <select name="estilo-barra" id="estilo-barra">
                                     <option value="barra-normal">Normal</option>
@@ -69,14 +80,6 @@ function createMenus(){
                                 </select>
                             </div>
                             <small>Seleccioná "Minificada" para que la información de cotización del dólar y precios regionales ocupe menos espacio.</small>
-                        </div>
-
-                        <div class="opcion">
-                            <div>
-                                <input type="checkbox" name="ocultar-crypto" id="ocultar-crypto" style="width: unset; margin-left: unset; margin-top: unset; margin-right: 1rem"/>
-                                <label for="ocultar-crypto">Ocultar Dolar Crypto</label>
-                            </div>
-                            <small>Ocultar banner con cotización de Dolar Crypto.</small>
                         </div>
 
                     </div>
@@ -120,7 +123,7 @@ function setInitialLocalStates(){
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.checked=JSON.parse(localStorage.getItem('ocultar-crypto')) : localStorage.removeItem('ocultar-crypto');
+    localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 
 function changeBarStyleState(){
@@ -132,7 +135,7 @@ function changeEmojiState(){
 }
 
 function changeDolarCryptoVisibility() {
-  localStorage.setItem('ocultar-crypto', String(checkboxDolarCrypto.checked));
+    checkboxDolarCrypto.value == 'mostrar' ? localStorage.setItem('ocultar-crypto','mostrar') : localStorage.setItem('ocultar-crypto','ocultar');
 }
 
 function changeManualModeState(){

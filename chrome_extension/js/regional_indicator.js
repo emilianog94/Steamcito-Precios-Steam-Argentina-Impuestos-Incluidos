@@ -138,8 +138,8 @@ const getAppPricing = async (appInitialData) => {
 
 
 const renderCryptoPrice = (appData) => {
-    let cryptoPriceHidden = Boolean(JSON.parse(localStorage.getItem('ocultar-crypto')));
-    if (cryptoPriceHidden) {
+    let cryptoPriceHidden = localStorage.getItem('ocultar-crypto');
+    if (cryptoPriceHidden == "ocultar") {
         return;
     }
 

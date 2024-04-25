@@ -73,6 +73,7 @@ const getAppPricing = async (appInitialData) => {
             name: appIdResponse.name,
             discount: (appIdResponse[type == "sub" ? "price" : "price_overview"].discount_percent),
             publisher: appIdResponse.publishers?.[0] || "El publisher",
+            releaseDate: appIdResponse.release_date?.date || "Sin fecha de lanzamiento",
             baseUsdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
             baseArsPrice: (appIdArgResponse[type == "sub" ? "price" : "price_overview"].initial) / 100,
             usdPrice: (appIdResponse[type == "sub" ? "price" : "price_overview"].final) / 100,
@@ -462,7 +463,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 <div class="publisher-popup-flex-container">
                     ${appData.support_email 
                         ? `<p class="publisher-email">${appData.support_email}</p>`
-                        : `<a target=_blank href="${appData.support_url}">${appData.support_url}</a>`
+                        : `<a target=_blank href="${appData.support_url}">${appData.support_url}</a> &nbsp; (${appData.publisher} no brinda un mail de contacto público)`
                     }  
                     ${appData.support_email ? `<button class="copiar-texto-steamcito green-steamcito-button" type="button" data-clipboard="publisher-email">Copiar</button>` : ""}
                 </div>
@@ -502,10 +503,16 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                     Hi there! <br>
                     <br>
 
-                    I'm a Steam user and I would like to bring something to your attention that may have been overlooked. Recently, Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.
+                    I'm a Steam user and I would like to bring something to your attention that may have been overlooked. Last year Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.
                     <br><br> 
 
-                    Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.<br><br>
+                    ${appData.releaseDate.includes("2024")
+                        ?
+                        `Currently, ${appData.name} has the same price as in the United States in our region.<br><br>`
+                        :
+                        `Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.<br><br>`
+                    }                    
+
 
                     Would you please consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America! <br><br>
 

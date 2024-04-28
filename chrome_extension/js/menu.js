@@ -22,9 +22,9 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="tarjeta">Tarjeta</option>
-                                    <option value="dolar-crypto">Dólar Crypto (El más barato)</option>
-                                    <option value="dolar-mep">Dólar Billete/MEP</option>
+                                    <option value="steamcito-cotizacion">Tarjeta</option>
+                                    <option value="steamcito-cotizacion-crypto">Dólar Crypto (El más barato)</option>
+                                    <option value="steamcito-cotizacion-mep">Dólar Billete/MEP</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
@@ -132,11 +132,11 @@ function getReviewLink(){
 
 function setInitialLocalStates(){
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
-    localStorage.getItem('national-tax') ? nationalTax.value=localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
+    localStorage.getItem('national-tax') ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','tarjeta');
+    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 

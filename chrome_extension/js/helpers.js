@@ -208,8 +208,6 @@ function setNationalTax() {
     if (localStorage.hasOwnProperty('national-tax')) {
         let taxValue = localStorage.getItem('national-tax');
 
-        if (taxValue == 0) return standardTaxes;
-
         standardTaxes = [{
             name: "Impuestos Nacionales personalizados por vos",
             value: taxValue

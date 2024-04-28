@@ -234,7 +234,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
             <p class="reason info">
                 <span class="name-span">
-                    Dólar Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
+                    Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye todos los impuestos (60%)<br>
@@ -450,40 +450,20 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
             : ""
         }
 
-
-
-        <div class="DRM_notice">
-            <div>
-                Calculado por Steamcito en base a la <br>
-                <a href="https://steamcito.com.ar/precios-regionales-steam-argentina" target="_blank">Valve Regional Pricing Recommendation</a>
-            </div>
-        </div>
+        ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
+            ?
+            `<span class="notify-publisher-button green-steamcito-button">Solicitar precio regional</span>`
+            : 
+            ""
+        }
 
     </div>
 
     ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
         ?
-        `<div class="block responsive_apppage_details_right heading heading_steamcito_2">
-        Solicitar precio regional
-        </div>
-        
-        <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle} content_steamcito_2">
-            <div class="">
-                <p class="reason info">
-                <span class="name-span">${appData.name}</span> tiene el mismo precio en nuestro país que en Estados Unidos: <span class="name-span">${appData.usdPrice} USD</span> <br><br> 
-                
-                <span class="name-span">${appData.publisher}</span> todavía no cargó un precio para nuestro región. ¡Avisale para que considere hacerlo!
-
-                <span class="notify-publisher-button green-steamcito-button">Avisar a ${appData.publisher}</span>
-                </p>
-            </div>
-        </div>
-        
+        `
         <div class="notify-publisher-popup notify-publisher-popup--hidden">
             <span class="publisher-popup-close-button">X</span>
-
-            <h4>Solicitar precio regional a ${appData.publisher} 
-            </h4>
 
             <div class="contact-method-container">
                 <h5>Medio de contacto oficial</h5>  

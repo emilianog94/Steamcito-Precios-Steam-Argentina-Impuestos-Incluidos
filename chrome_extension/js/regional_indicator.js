@@ -14,6 +14,60 @@ const getAppData = (url) => {
     return appData;
 }
 
+// Checks if the game was developed in Argentina
+const isFromArgentina = () => {
+    if(localStorage.getItem('steamcito-argentina-games')) {
+        let argentinaGames = JSON.parse(localStorage.getItem('steamcito-argentina-games'));
+        if(argentinaGames.games.length){
+            if(window.location.href.includes('/app/')){
+                let url = window.location.href;
+                let regex = /\/app\/(\d+)\//;
+                let match = url.match(regex);
+                if (match) {
+                    let appId = match[1];
+                    let matchingGame = argentinaGames.games.find(game => game.appId == appId);
+                    console.log(matchingGame);
+                    matchingGame && renderArgentinaIndicator(matchingGame);
+                } else {
+                    return;
+                }
+            }
+        }
+    }
+}
+
+const renderArgentinaIndicator = (matchingGame) => {
+    let gameName = document.querySelector('#appHubAppName');
+    let targetContainer = document.querySelector('.leftcol.game_description_column');
+    let gameHasInformationUrl = matchingGame.informationUrl;
+
+    if(matchingGame.informationUrl) {
+        let argentinaIndicator = 
+        `
+        <a class="franchise_notice franchise_notice_with_description" target=_"blank" href="${matchingGame.informationUrl}">
+            <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
+            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 💖</div>
+            <div class="franchise_description">Conocé más sobre su desarrollador [pressover.news]</div>
+        </a>    
+        `
+        targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)
+    } else{
+        let argentinaIndicator = 
+        `
+        <a class="franchise_notice franchise_notice_without_description" href="#">
+            <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
+            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 💖</div>
+        </a>    
+        `
+        targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)
+
+
+    }
+
+
+
+}
+
 const criticizePublisher = (margin,publisher) => {
 
     const phrases = [
@@ -549,6 +603,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 }
 
 getExchangeRate();
+isFromArgentina();
 
 const appData = getAppData(url);
 getAppPricing(appData);

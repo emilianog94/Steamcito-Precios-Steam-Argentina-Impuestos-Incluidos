@@ -25,12 +25,29 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
+.franchise_notice.franchise_notice_with_description .franchise_name {
+  padding-top: 8px;
+}
+.franchise_notice.franchise_notice_with_description .franchise_description {
+  padding-top: 30px;
+  padding-left: 16px;
+  font-size: 11px;
+}
+.franchise_notice.franchise_notice_with_description .franchise_description:hover {
+  color: #fff;
+}
+
+.franchise_notice.franchise_notice_without_description {
+  cursor: default;
+}
+
 .steamcito_saving_tip_url + .game_area_purchase_game {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
 .steamcito_saving_tip {
+  display: none !important;
   background-color: #4c6b22;
   transition: all 0.25s ease;
   border-radius: 3px;

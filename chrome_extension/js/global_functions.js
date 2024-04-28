@@ -125,6 +125,45 @@ function renderCart(){
 
 }
 
+async function getArgentinaGames(){
+    let shouldRefreshArgentinaList = evaluateDate('steamcito-argentina-games',86400);
+
+    if(shouldRefreshArgentinaList){
+        try{
+            let argentinaGames = await fetch('/curator/44965472/ajaxgetfilteredrecommendations/?query&start=0&count=1000')
+            let argentinaGamesJSON = await argentinaGames.json();
+            if(argentinaGamesJSON.results_html){
+                let sanitizedDOM = argentinaGamesJSON.results_html.replace(/[\r\n\t]/g, '');
+                let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
+                let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
+                if(gamesElements){
+                    let gamesElementsArray = Array.from(gamesElements)
+                    let gamesList = gamesElementsArray.map(recomendacion => {
+                        let itemElement = recomendacion.querySelector('div > a');
+                        let item = itemElement.dataset.dsAppid;
+                        let urlElement = recomendacion.querySelector('.recommendation_desc');
+                        let url = urlElement.innerText;
+                        return({ 
+                            appId: item,
+                            informationUrl: url
+                        })
+                    })
+                    let finalObject = {
+                        games: gamesList,
+                        date: Date.now()
+                    }            
+                    console.log(gamesList);
+                    gamesList.length && localStorage.setItem('steamcito-argentina-games',JSON.stringify(finalObject))
+                }
+            }
+        } catch(error){
+            console.log("Hubo un error al obtener el JSON");
+        }
+    }
+
+}
+
+
 async function setArgentinaPrice(price){
     await getUsdExchangeRate();
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
@@ -224,7 +263,7 @@ function switchPrices(selector,first,second,symbol){
 
 
 
-function evaluateDate(localStorageItem){
+function evaluateDate(localStorageItem, seconds = 3600){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
@@ -232,7 +271,7 @@ function evaluateDate(localStorageItem){
         let currentTimestamp = Date.now()/1000;
         let difference = currentTimestamp - savedTimestamp;
 
-        if(difference >= 3600){
+        if(difference >= 86400){
             return true;
         } else{
             return false;
@@ -370,3 +409,6 @@ function stringToDate(dateStr)
 		year:Number(dateArr[2])
 	};
 }
+
+
+getArgentinaGames();

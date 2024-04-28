@@ -36,6 +36,27 @@ body {
 }
 
 // Ficha de Producto
+.franchise_notice.franchise_notice_with_description{
+
+  .franchise_name{
+    padding-top: 8px;
+  }
+
+  .franchise_description{
+    padding-top: 30px;
+    padding-left: 16px;
+    font-size: 11px;
+
+    &:hover{
+      color: #fff;
+    }
+  }
+}
+
+.franchise_notice.franchise_notice_without_description{
+  cursor: default;
+}
+
 
 .steamcito_saving_tip_url + .game_area_purchase_game{
   border-top-left-radius: 0;
@@ -43,6 +64,8 @@ body {
 }
 
 .steamcito_saving_tip{
+  display: none !important; // Temporal
+
   // background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
   background-color: #4c6b22;
   transition: all .25s ease;

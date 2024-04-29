@@ -39,7 +39,19 @@ const isFromArgentina = () => {
 const renderArgentinaIndicator = (matchingGame) => {
     let gameName = document.querySelector('#appHubAppName');
     let targetContainer = document.querySelector('.leftcol.game_description_column');
-    let gameHasInformationUrl = matchingGame.informationUrl;
+    
+    function getUrlHostname(urlString){
+        try{
+            let url = new URL(urlString) 
+            if(url){ 
+                return url.hostname
+            }  
+        } catch(error) {
+            return "";
+        }     
+    }
+
+    let urlHostname = getUrlHostname(matchingGame.informationUrl)
 
     if(matchingGame.informationUrl) {
         let argentinaIndicator = 
@@ -47,7 +59,7 @@ const renderArgentinaIndicator = (matchingGame) => {
         <a class="franchise_notice franchise_notice_with_description" target=_"blank" href="${matchingGame.informationUrl}">
             <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
             <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 💖</div>
-            <div class="franchise_description">Conocé más sobre su desarrollador [pressover.news]</div>
+            <div class="franchise_description">Conocé más sobre su desarrollador [${urlHostname}] </div>
         </a>    
         `
         targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)
@@ -60,8 +72,6 @@ const renderArgentinaIndicator = (matchingGame) => {
         </a>    
         `
         targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)
-
-
     }
 
 

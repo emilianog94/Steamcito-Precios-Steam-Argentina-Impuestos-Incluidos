@@ -25,6 +25,34 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
+.steamcito_argentina_owned_games {
+  margin-bottom: 125px !important;
+}
+.steamcito_argentina_owned_games .focus {
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar {
+  height: 15px;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+}
+.steamcito_argentina_owned_games img {
+  transition: all 0.5s ease;
+}
+.steamcito_argentina_owned_games img:hover {
+  transform: scale(1.1);
+}
+
+.franchise_notice.franchise_notice_with_description .background_image {
+  opacity: 0.75;
+}
 .franchise_notice.franchise_notice_with_description .franchise_name {
   padding-top: 8px;
 }
@@ -39,6 +67,9 @@ body.menu-enabled .responsive_page_frame {
 
 .franchise_notice.franchise_notice_without_description {
   cursor: default;
+}
+.franchise_notice.franchise_notice_without_description .background_image {
+  opacity: 0.75;
 }
 
 .steamcito_saving_tip_url + .game_area_purchase_game {

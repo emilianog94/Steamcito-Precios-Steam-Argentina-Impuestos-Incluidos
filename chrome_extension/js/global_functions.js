@@ -160,7 +160,27 @@ async function getArgentinaGames(){
             console.log("Hubo un error al obtener el JSON");
         }
     }
+}
 
+async function getOwnedGames(){
+    // Si el usuario está logueado
+    if(document.querySelector("#header_wallet_balance")){
+        let shouldRefreshOwnedList = evaluateDate('steamcito-owned-games',86400);
+        if(shouldRefreshOwnedList){
+            const ownedGames = await fetch('/dynamicstore/userdata/')
+            const ownedGamesJSON = await ownedGames.json();
+            if(ownedGamesJSON.rgOwnedApps && ownedGamesJSON.rgOwnedApps.length){
+                const ownedGamesObject = {
+                    games: ownedGamesJSON.rgOwnedApps,
+                    date: Date.now()
+                }
+                localStorage.setItem('steamcito-owned-games',JSON.stringify(ownedGamesObject))
+            }
+        }
+    } else{
+        // El usuario no está logueado, limpiar la listita local
+        localStorage.removeItem('steamcito-owned-games')
+    }
 }
 
 
@@ -412,3 +432,4 @@ function stringToDate(dateStr)
 
 
 getArgentinaGames();
+getOwnedGames();

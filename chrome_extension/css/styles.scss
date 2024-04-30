@@ -35,9 +35,45 @@ body {
   }
 }
 
+// Home
+
+.steamcito_argentina_owned_games{
+  margin-bottom: 125px !important;
+
+  .focus{
+    overflow-x:auto;
+    padding-bottom: 20px;
+
+    &::-webkit-scrollbar{
+      height: 15px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,.75);
+      cursor: pointer;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.5);
+      border-radius: .5rem;
+    }
+  }
+
+  img{
+    transition: all .5s ease;
+    
+    &:hover{
+      transform: scale(1.1);
+    }
+  }
+}
+
 // Ficha de Producto
 .franchise_notice.franchise_notice_with_description{
-
+  .background_image{
+    opacity: .75;
+  }
+  
   .franchise_name{
     padding-top: 8px;
   }
@@ -55,6 +91,11 @@ body {
 
 .franchise_notice.franchise_notice_without_description{
   cursor: default;
+
+  .background_image{
+    opacity: .75;
+  }
+
 }
 
 

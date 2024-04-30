@@ -63,6 +63,11 @@
  			"js": ["js/updates.js"]
  		},
  		{
+			"matches": ["https://store.steampowered.com/","https://store.steampowered.com/?*"],
+			"run_at": "document_idle",
+			"js": ["js/menu.js","js/helpers.js", "js/global_functions.js","js/home.js"]
+		},
+ 		{
  			"matches": ["https://store.steampowered.com/checkout/approvetxn*"],
  			"run_at": "document_idle",
  			"js": ["js/microtransactions.js"]

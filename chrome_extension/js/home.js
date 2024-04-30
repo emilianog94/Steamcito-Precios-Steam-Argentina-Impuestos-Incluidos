@@ -34,8 +34,8 @@ function renderOwnedArgentinaGames(gamesIds){
     <div class="top_new_releases_banner_ctn">
         <div class="top_new_releases_background" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag-background.png")}');">
         </div>
-        <a href="https://store.steampowered.com/sale/top_march_2024?snr=1_4_4__148" class="top_new_releases_banner_click">
-            <div class="title">Juegos hechos en Argentina 💖</div>
+        <a href="#" class="top_new_releases_banner_click">
+            <div class="title">Desarrollados en Argentina</div>
             <div class="dateline">Tenés ${gamesIds.length} juegos argentinos en tu biblioteca</div>
         </a>
     </div>

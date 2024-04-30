@@ -59,12 +59,26 @@ body {
     }
   }
 
+  .top_new_releases_banner_click{
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .top_new_releases_banner_ctn .dateline{
+    letter-spacing: 2px;
+  }
+
   img{
     transition: all .5s ease;
     
     &:hover{
       transform: scale(1.1);
     }
+  }
+
+  .ds_owned_flag, .ds_options{
+    display: none;
+
   }
 }
 

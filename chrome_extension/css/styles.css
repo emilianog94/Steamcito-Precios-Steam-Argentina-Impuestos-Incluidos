@@ -43,11 +43,21 @@ body.menu-enabled .responsive_page_frame {
   background: rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
 }
+.steamcito_argentina_owned_games .top_new_releases_banner_click {
+  cursor: default;
+  pointer-events: none;
+}
+.steamcito_argentina_owned_games .top_new_releases_banner_ctn .dateline {
+  letter-spacing: 2px;
+}
 .steamcito_argentina_owned_games img {
   transition: all 0.5s ease;
 }
 .steamcito_argentina_owned_games img:hover {
   transform: scale(1.1);
+}
+.steamcito_argentina_owned_games .ds_owned_flag, .steamcito_argentina_owned_games .ds_options {
+  display: none;
 }
 
 .franchise_notice.franchise_notice_with_description .background_image {

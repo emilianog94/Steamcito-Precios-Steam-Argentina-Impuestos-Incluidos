@@ -16,9 +16,10 @@ function getPrices(type){
 
         prices.forEach(price => setArgentinaPrice(price));
     } else{
-        return renderCart();
+        setTimeout(() => {
+            return renderCart();
+        },500)
     }
- 
 }
 
 function setPaymentMethodName(){

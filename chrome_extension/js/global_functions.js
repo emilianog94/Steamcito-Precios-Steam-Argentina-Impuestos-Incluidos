@@ -131,7 +131,7 @@ function renderCart(){
                 cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
             }
 
-            if(neededWalletAmount >= 0){
+            if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
                 paymentAlertContainer.style.display="block";
                 paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Dólar Crypto. Cargá ${getNeededWalletAmount(neededWalletAmount)} USD en tu Steam Wallet para avanzar. \r\n\r\n Clickea acá para aprender a cargar saldo usando Dólar Crypto.` 
             }

@@ -21,21 +21,41 @@ function getPrices(type){
  
 }
 
+function setPaymentMethodName(){
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
+    if(paymentMethod == "steamcito-cotizacion"){
+        return ["Tarjeta"]
+    } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+        return ["Dólar Crypto"]   
+    } else if(paymentMethod == "steamcito-cotizacion-mep"){
+        return ["Dólar Bancario"]   
+    } 
+    return ["Tarjeta"];
+}
+
 function renderCart(){
 
+    let paymentMethod = setPaymentMethodName();
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
+
 
     let staticExchangeRate = exchangeRate;
+    if(paymentMethod == "Dólar Crypto"){
+        staticExchangeRate = exchangeRateCrypto
+    } else if(paymentMethod == "Dólar Bancario"){
+        staticExchangeRate = exchangeRateMep
+    }
 
     standardTaxes &&
     standardTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
     })
 
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
     })
 
     let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
@@ -61,33 +81,24 @@ function renderCart(){
                         <span class="steamcito_cart_wallet_value"></span>
                     </div>
                     <div class="steamcito_cart_cc">
-                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
+                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con ${paymentMethod} </p>
                         <span class="steamcito_cart_cc_value"></span>
                     </div>
                     <div class="steamcito_cart_mixed">
-                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
+                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + ${paymentMethod} </p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
                 </div>
                 
                 <div class="steamcito_cart_exchangerate">
 
-                    <p>Cotización promedio del dólar tarjeta</p>
-                    <span class="exchangerate_value">1 USD ≈ ${exchangeRate.toFixed(2)} ARS ${emojiMate}</span>
-                    <br><br>
+                    <p>Cotización aproximada con ${paymentMethod} </p>
+                    <span class="exchangerate_value">1 USD ≈ ${staticExchangeRate.toFixed(2)} ARS ${emojiMate}</span>
+                    <br>
 
-                        <div>
-                            <span class="name-white">Cotización promedio dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
-                            1 USD ≈ ${staticExchangeRate}
-                            ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
-                            <br><br>
-                            <span class="name-white">Total de impuestos nacionales y provinciales</span><br>
-                            ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
-                            ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
-                            ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
-                        </div>
+                        
 
-                
+        
                 </div>                
                 
                 

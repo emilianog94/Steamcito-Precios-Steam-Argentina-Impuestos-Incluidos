@@ -222,19 +222,23 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotizaciones del dólar hoy
+            ¿Cuál es tu método de pago?
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
 
-            <p>Elegí tu método de pago favorito</p><br>
-
             <p class="reason for dolar_tarjeta">
-                <span class="name-span">Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
+                <span class="name-span">Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye 60% de impuestos (${exchangeRateDate})
-                </span>
+                </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
             </p>
             <br>
 
@@ -243,7 +247,14 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <br>
                 <span class="name-smaller">
                     Libre de impuestos (${exchangeRateCryptoDate})
-                </span>
+                </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
+
             </p>
             <br>
 
@@ -252,13 +263,20 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <br>
                 <span class="name-smaller">
                     Incluye 21% de impuestos (${exchangeRateMepDate})
-                </span>
+                </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
+
             </p>
 
             <div class="DRM_notice">
                 <div>
-                    Conocé cómo pagar más barato en <br>
-                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía - mejor método de pago en Steam</a>
+                    Conocé cómo pagar con cada método en <br>
+                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía - Mejor método de pago en Steam</a>
                 </div>
             </div>
 
@@ -273,7 +291,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     let dolarTarjetaItem = document.querySelector('.dolar_tarjeta');
     let dolarCryptoItem = document.querySelector('.dolar_crypto');
     let dolarMepItem = document.querySelector('.dolar_mep');
-    
+
     dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion'))
 
     dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-crypto'))

@@ -764,10 +764,7 @@ body {
           }
 
           > div {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
+            display: block
 
             label {
               color: #c6d4df;
@@ -786,12 +783,13 @@ body {
               border: 1px solid #000;
               border-radius: 3px;
               box-shadow: 1px 1px 0px #45556c;
-              margin-left: 1rem;
+              margin-left: 0;
               padding: 5px;
-              margin-top: 3px;
+              margin-top: 10px;
+              margin-bottom: 4px;
               font-size: 16px;
               line-height: 21px;
-              width: 50%;
+              width: 100%;
               font-size: 0.9rem;
             }
 
@@ -1169,6 +1167,10 @@ body {
         font-size: .73rem;
         color: #969696;
 
+        &.name-smaller-green{
+          color: #BEEE11;
+        }
+
         a{
           color: #fff;
         }
@@ -1231,11 +1233,6 @@ body {
 
     .reason .name-span:hover{
       color: #66c0f4;
-    }
-
-    >p:first-child{
-      color: rgb(221, 221, 221);
-      font-weight: 700;
     }
 
     .for{

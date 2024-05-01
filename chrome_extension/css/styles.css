@@ -586,15 +586,9 @@ body.menu-enabled .responsive_page_frame {
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-}
-.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div label,
-.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div label {
-  color: #c6d4df;
-  min-width: 125px;
+  display: block label;
+  display-color: #c6d4df;
+  display-min-width: 125px;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div select,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div select {
@@ -603,12 +597,13 @@ body.menu-enabled .responsive_page_frame {
   border: 1px solid #000;
   border-radius: 3px;
   box-shadow: 1px 1px 0px #45556c;
-  margin-left: 1rem;
+  margin-left: 0;
   padding: 5px;
-  margin-top: 3px;
+  margin-top: 10px;
+  margin-bottom: 4px;
   font-size: 16px;
   line-height: 21px;
-  width: 50%;
+  width: 100%;
   font-size: 0.9rem;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input,
@@ -918,6 +913,11 @@ body.menu-enabled .responsive_page_frame {
   font-size: 0.73rem;
   color: #969696;
 }
+.regional-meter-wrapper .reason.against span.name-smaller.name-smaller-green,
+.regional-meter-wrapper .reason.for span.name-smaller.name-smaller-green,
+.regional-meter-wrapper .reason.info span.name-smaller.name-smaller-green {
+  color: #BEEE11;
+}
 .regional-meter-wrapper .reason.against span.name-smaller a,
 .regional-meter-wrapper .reason.for span.name-smaller a,
 .regional-meter-wrapper .reason.info span.name-smaller a {
@@ -975,10 +975,6 @@ body.menu-enabled .responsive_page_frame {
 }
 .rightcol.game_meta_data .content_steamcito_3 .reason .name-span:hover {
   color: #66c0f4;
-}
-.rightcol.game_meta_data .content_steamcito_3 > p:first-child {
-  color: rgb(221, 221, 221);
-  font-weight: 700;
 }
 .rightcol.game_meta_data .content_steamcito_3 .for {
   cursor: pointer;

@@ -22,9 +22,9 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion">Tarjeta</option>
+                                    <option value="steamcito-cotizacion">Tarjetas (El más caro)</option>
                                     <option value="steamcito-cotizacion-crypto">Dólar Crypto (El más barato)</option>
-                                    <option value="steamcito-cotizacion-mep">Dólar Billete/MEP</option>
+                                    <option value="steamcito-cotizacion-mep">Dólar Billete/MEP (Equilibrado)</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
@@ -35,7 +35,7 @@ function createMenus(){
                                 <label for="national-tax">Impuestos nacionales</label>
                                 <input id="national-tax" type="number" name="national-tax" disabled placeholder="60"/>
                             </div>
-                            <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
+                            <small>Se carga automáticamente de acuerdo al método de pago seleccionado. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">

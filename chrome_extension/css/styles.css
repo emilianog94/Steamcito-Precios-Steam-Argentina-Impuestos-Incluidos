@@ -985,6 +985,7 @@ body.menu-enabled .responsive_page_frame {
   text-align: center;
   padding-top: 5px;
   margin: 0 3px;
+  min-width: fit-content;
 }
 .regional-meter-container .regional-meter-bar--cheap {
   border-color: #84b114;

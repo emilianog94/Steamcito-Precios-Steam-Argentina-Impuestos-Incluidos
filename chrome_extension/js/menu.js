@@ -33,7 +33,7 @@ function createMenus(){
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" placeholder="60"/>
+                                <input id="national-tax" type="number" name="national-tax" disabled placeholder="60"/>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
@@ -148,6 +148,25 @@ function changeBarStyleState(){
 
 function changePaymentMethodState(e){
     localStorage.setItem('metodo-de-pago', e.currentTarget.value)
+    switch (e.currentTarget.value) {
+        case "steamcito-cotizacion": 
+            localStorage.setItem('national-tax',60)
+            nationalTax.value = 60;
+            break;
+
+        case "steamcito-cotizacion-crypto": 
+            localStorage.setItem('national-tax',0)
+            nationalTax.value = 0;
+            break;            
+ 
+        case "steamcito-cotizacion-mep": 
+            localStorage.setItem('national-tax',21)
+            nationalTax.value = 21;
+            break;                    
+
+        default: localStorage.setItem('national-tax',60)
+            break;
+    }
 }
 
 function changeEmojiState(){
@@ -189,13 +208,25 @@ function hideMenu(e){
     }
 }
 
+function setEmojiByPaymentMethod(){
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
+    if(paymentMethod == "steamcito-cotizacion"){
+        return [" 🧉"," 💲"]
+    } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+        return [" 🪙"," 💲"]   
+    } else if(paymentMethod == "steamcito-cotizacion-mep"){
+        return [" 💸"," 💲"]   
+    } 
+    return [" 🧉"," 💲"];
+}
+
 function setEmojis(){
     let OSversion = window.navigator.userAgent;
     if(!localStorage.hasOwnProperty('steamcito-emoji')){
         if(OSversion.indexOf("NT 10.0") != -1){
             localStorage.setItem('steamcito-emoji','unicode');
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
+            return setEmojiByPaymentMethod();
         } else{
             localStorage.setItem('steamcito-emoji','compatibility');
             selectEmoji.value = "fallback";
@@ -205,7 +236,7 @@ function setEmojis(){
     else{
         if(localStorage.getItem('steamcito-emoji') == 'unicode'){
             selectEmoji.value = "unicode";
-            return [" 🧉"," 💲"];
+            return setEmojiByPaymentMethod();
         }
         else{
             selectEmoji.value = "fallback";

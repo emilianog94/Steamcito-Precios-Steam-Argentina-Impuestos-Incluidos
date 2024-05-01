@@ -198,14 +198,13 @@ const renderCryptoPrice = (appData) => {
     gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
 
     let savingTipCloseButton = document.querySelector('.steamcito_saving_tip_close');
+    let savingTipElement = document.querySelector('.steamcito_saving_tip_url')
     if(savingTipCloseButton){
         savingTipCloseButton.addEventListener('click', (e) =>{
             e.preventDefault();
-            setTimeout(function () {
-                steamcitoIcon.click();
-                let savingTipToggler = document.querySelector('.opcion#tips-de-ahorro')
-                savingTipToggler.classList.add('opcion-highlighted')
-            }, 1);
+            localStorage.setItem('ocultar-crypto','ocultar');
+            savingTipElement && savingTipElement.insertAdjacentHTML('beforebegin','<span>Podés habilitar la opción nuevamente desde el Menú de Opciones -> Tips de Ahorro</span><br><br>')
+            savingTipElement && savingTipElement.remove();
         })
     }
 
@@ -216,11 +215,6 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
     let staticExchangeRate = exchangeRate;
 
-    standardTaxes &&
-    standardTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-    })
-
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
         exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
@@ -228,13 +222,13 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Elegí tu método de pago preferido
+            Cotizaciones del Dólar
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
-            <p class="reason info">
+            <p class="reason for">
                 <span class="name-span">
-                    Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
+                    🧉 Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye todos los impuestos (60%)<br>
@@ -243,9 +237,9 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             </p>
             <br>
 
-            <p class="reason info">
+            <p class="reason for">
                 <span class="name-span">
-                    Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                    🪙 Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Libre de impuestos<br>
@@ -255,9 +249,9 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             </p>
             <br>
 
-            <p class="reason info">
+            <p class="reason for">
                 <span class="name-span">
-                    Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
+                    💸 Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye IVA a los Servicios Digitales (21%)<br>
@@ -267,7 +261,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
             <div class="DRM_notice">
                 <div>
-                    Conocé cómo pagar con estos métodos en
+                    Conocé cómo pagar más barato en <br>
                     <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía - mejor método de pago en Steam</a>
                 </div>
             </div>
@@ -328,10 +322,10 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
     <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper ${indicatorStyle} content_steamcito_1">
         <div class="regional-meter-container">
             <div class="regional-meter-bar regional-meter-bar--cheap ${appData.regionalStatus == "cheap" && "regional-meter-bar--selected"}">
-                <span>Bajo</span>
+                <span>Muy bueno</span>
             </div>
             <div class="regional-meter-bar regional-meter-bar--fair ${appData.regionalStatus == "fair" && "regional-meter-bar--selected"}">
-                <span>Adecuado</span>
+                <span>Normal</span>
             </div>
             <div class="regional-meter-bar regional-meter-bar--semifair ${appData.regionalStatus == "semifair" && "regional-meter-bar--selected"}">
                 <span>Alto</span>

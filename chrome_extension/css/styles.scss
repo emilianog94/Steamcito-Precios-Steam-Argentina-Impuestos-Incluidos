@@ -1088,6 +1088,10 @@ body {
 
 .regional-meter-wrapper {
 
+  &.barra-minificada.content_steamcito_3{
+    max-height: 65px;
+  }
+
   &.barra-minificada.cotizacion-wrapper, &.barra-minificada.content_steamcito_2{
     .reason:before{
       opacity: 1;
@@ -1102,7 +1106,7 @@ body {
 
     .reason:before{
       pointer-events: none;
-      opacity: 0;
+      opacity: 0 !important;
       overflow:hidden
     }
 
@@ -1110,7 +1114,7 @@ body {
       max-height: 600px;
 
       .reason:before{
-        opacity: 1;
+        opacity: 1 !important;
       }
     }
   }
@@ -1224,6 +1228,37 @@ body {
 
   .content_steamcito_3{
     order: -1;
+
+    .reason .name-span:hover{
+      color: #66c0f4;
+    }
+
+    >p:first-child{
+      color: rgb(221, 221, 221);
+      font-weight: 700;
+    }
+
+    .for{
+      cursor: pointer;
+
+      &:before{
+        background-image: none;
+      }
+
+      &.dolar_tarjeta:before{
+        content:'🧉'
+      }
+
+      &.dolar_crypto:before{
+        content:'🪙'
+      }
+
+      &.dolar_mep:before{
+        content: '💸'
+      }
+
+    }
+
   }
 
 

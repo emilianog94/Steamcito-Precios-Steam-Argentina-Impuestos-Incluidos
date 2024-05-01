@@ -147,8 +147,10 @@ function changeBarStyleState(){
 }
 
 function changePaymentMethodState(e){
-    localStorage.setItem('metodo-de-pago', e.currentTarget.value)
-    switch (e.currentTarget.value) {
+    let value = e?.currentTarget?.value || e
+
+    localStorage.setItem('metodo-de-pago', value)
+    switch (value) {
         case "steamcito-cotizacion": 
             localStorage.setItem('national-tax',60)
             nationalTax.value = 60;
@@ -167,6 +169,7 @@ function changePaymentMethodState(e){
         default: localStorage.setItem('national-tax',60)
             break;
     }
+    window.location.reload()
 }
 
 function changeEmojiState(){

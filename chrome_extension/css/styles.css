@@ -835,6 +835,9 @@ body.menu-enabled .responsive_page_frame {
   color: #fff !important;
 }
 
+.regional-meter-wrapper.barra-minificada.content_steamcito_3 {
+  max-height: 65px;
+}
 .regional-meter-wrapper.barra-minificada.cotizacion-wrapper .reason:before, .regional-meter-wrapper.barra-minificada.content_steamcito_2 .reason:before {
   opacity: 1;
 }
@@ -846,14 +849,14 @@ body.menu-enabled .responsive_page_frame {
 }
 .regional-meter-wrapper.barra-minificada .reason:before {
   pointer-events: none;
-  opacity: 0;
+  opacity: 0 !important;
   overflow: hidden;
 }
 .regional-meter-wrapper.barra-minificada:hover {
   max-height: 600px;
 }
 .regional-meter-wrapper.barra-minificada:hover .reason:before {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .regional-meter-wrapper .reason.against,
 .regional-meter-wrapper .reason.for,
@@ -969,6 +972,28 @@ body.menu-enabled .responsive_page_frame {
 }
 .rightcol.game_meta_data .content_steamcito_3 {
   order: -1;
+}
+.rightcol.game_meta_data .content_steamcito_3 .reason .name-span:hover {
+  color: #66c0f4;
+}
+.rightcol.game_meta_data .content_steamcito_3 > p:first-child {
+  color: rgb(221, 221, 221);
+  font-weight: 700;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for {
+  cursor: pointer;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for:before {
+  background-image: none;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_tarjeta:before {
+  content: "🧉";
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_crypto:before {
+  content: "🪙";
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_mep:before {
+  content: "💸";
 }
 
 .regional-meter-container {

@@ -222,40 +222,36 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotizaciones del Dólar
+            Cotizaciones del dólar hoy
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
-            <p class="reason for">
-                <span class="name-span">
-                    🧉 Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
+
+            <p>Elegí tu método de pago favorito</p><br>
+
+            <p class="reason for dolar_tarjeta">
+                <span class="name-span">Dólar Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Incluye todos los impuestos (60%)<br>
-                    Última actualización: ${exchangeRateDate}
+                    Incluye 60% de impuestos (${exchangeRateDate})
                 </span>
             </p>
             <br>
 
-            <p class="reason for">
-                <span class="name-span">
-                    🪙 Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+            <p class="reason for dolar_crypto">
+                <span class="name-span">Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Libre de impuestos<br>
-                    Última actualización: ${exchangeRateCryptoDate}
-
+                    Libre de impuestos (${exchangeRateCryptoDate})
                 </span>
             </p>
             <br>
 
-            <p class="reason for">
-                <span class="name-span">
-                    💸 Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
+            <p class="reason for dolar_mep">
+                <span class="name-span">Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Incluye IVA a los Servicios Digitales (21%)<br>
-                    Última actualización: ${exchangeRateMepDate}
+                    Incluye 21% de impuestos (${exchangeRateMepDate})
                 </span>
             </p>
 
@@ -273,6 +269,16 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     `;
 
     sidebar.insertAdjacentHTML('afterbegin', container);
+
+    let dolarTarjetaItem = document.querySelector('.dolar_tarjeta');
+    let dolarCryptoItem = document.querySelector('.dolar_crypto');
+    let dolarMepItem = document.querySelector('.dolar_mep');
+    
+    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion'))
+
+    dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-crypto'))
+
+    dolarMepItem && dolarMepItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-mep'))
 }
 
 

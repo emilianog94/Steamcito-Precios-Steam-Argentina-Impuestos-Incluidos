@@ -22,6 +22,10 @@ function getPrices(type){
     }
 }
 
+function getNeededWalletAmount(currentWalletAmount){
+    return Math.ceil(currentWalletAmount / 5) * 5;
+}
+
 function setPaymentMethodName(){
     let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
     if(paymentMethod == "steamcito-cotizacion"){
@@ -91,6 +95,9 @@ function renderCart(){
                     </div>
                 </div>
                 
+                <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_payment_alert">
+                </a>
+
                 <div class="steamcito_cart_exchangerate">
 
                     <p>Cotización aproximada con ${paymentMethod} </p>
@@ -111,6 +118,8 @@ function renderCart(){
             let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
             let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
+            let paymentAlertContainer = document.querySelector('.steamcito_payment_alert');
+            let neededWalletAmount = totalWallet - walletBalance;
 
             if(localStorage.getItem('steamcito-emoji') == "fallback"){
                 cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
@@ -120,6 +129,14 @@ function renderCart(){
                 cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
                 cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
                 cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+            }
+
+            if(neededWalletAmount >= 0){
+                paymentAlertContainer.style.display="block";
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Dólar Crypto. Cargá ${getNeededWalletAmount(neededWalletAmount)} USD en tu Steam Wallet para avanzar. \r\n\r\n Clickea acá para aprender a cargar saldo usando Dólar Crypto.` 
+            }
+            else{
+                paymentAlertContainer.style.display="none";
             }
 
             if(totalMixedDisplay == "hide"){

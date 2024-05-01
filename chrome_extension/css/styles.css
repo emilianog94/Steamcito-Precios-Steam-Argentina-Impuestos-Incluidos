@@ -116,6 +116,17 @@ body.menu-enabled .responsive_page_frame {
   font-size: 15px;
 }
 
+.steamcito_payment_alert {
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7e4400 100%);
+  color: #fff;
+}
+.steamcito_payment_alert:hover {
+  color: #fff;
+}
+
 .steamcito_cart {
   max-width: 280px;
   background-color: rgba(0, 0, 0, 0.25);

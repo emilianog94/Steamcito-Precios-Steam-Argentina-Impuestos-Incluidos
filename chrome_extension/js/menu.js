@@ -22,9 +22,9 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion">Tarjetas (El más caro)</option>
-                                    <option value="steamcito-cotizacion-crypto">Dólar Crypto (El más barato)</option>
-                                    <option value="steamcito-cotizacion-mep">Dólar Billete/MEP (Equilibrado)</option>
+                                    <option value="steamcito-cotizacion">🧉 Tarjetas (El más caro)</option>
+                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto (El más barato)</option>
+                                    <option value="steamcito-cotizacion-mep">💸 Dólar Billete/MEP (Equilibrado)</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>

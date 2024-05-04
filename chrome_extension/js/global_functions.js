@@ -53,11 +53,6 @@ function renderCart(){
         staticExchangeRate = exchangeRateMep
     }
 
-    standardTaxes &&
-    standardTaxes.forEach(tax => {
-        staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-    })
-
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
         staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
@@ -71,8 +66,11 @@ function renderCart(){
         let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
         if(total?.innerText){
             let totalWallet = stringToNumber(total)
-            let totalCC = calculateTaxesAndExchange(totalWallet)
-            let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
+            let totalWithCurrentPaymentMethod = calculateTaxesAndExchange(totalWallet,staticExchangeRate)
+            let totalMixed = calculateTaxesAndExchange(totalWallet - walletBalance, staticExchangeRate)
+            let totalCreditCard = calculateTaxesAndExchange(totalWallet, exchangeRate);
+            let totalMep = calculateTaxesAndExchange(totalWallet, exchangeRateMep);
+            let totalCrypto = calculateTaxesAndExchange(totalWallet, exchangeRateCrypto);
             
             let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
             let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
@@ -85,29 +83,27 @@ function renderCart(){
                         <p class="steamcito_cart_wallet_label">Total Exacto pagando con Steam Wallet</p>
                         <span class="steamcito_cart_wallet_value"></span>
                     </div>
-                    <div class="steamcito_cart_cc">
-                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con ${paymentMethod} </p>
-                        <span class="steamcito_cart_cc_value"></span>
+                    <div class="steamcito_cart_currentmethod">
+                        <p class="steamcito_cart_currentmethod_label">Total Aproximado pagando con ${paymentMethod} </p>
+                        <span class="steamcito_cart_currentmethod_value"></span>
                     </div>
                     <div class="steamcito_cart_mixed">
                         <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + ${paymentMethod} </p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
                 </div>
-                
                 <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_payment_alert">
                 </a>
 
-                <div class="steamcito_cart_exchangerate">
+                <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_crypto_savings">
+                </a>
 
+
+                <div class="steamcito_cart_exchangerate">
                     <p>Cotización aproximada con ${paymentMethod} </p>
                     <span class="exchangerate_value">1 USD ≈ ${staticExchangeRate.toFixed(2)} ARS ${emojiMate}</span>
                     <br>
-
-                        
-
-        
-                </div>                
+                </div>        
                 
                 
                 
@@ -115,25 +111,36 @@ function renderCart(){
             }
 
             let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
-            let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
+            let cartTotalCurrentMethodContainer = document.querySelector('.steamcito_cart_currentmethod_value');
             let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
             let paymentAlertContainer = document.querySelector('.steamcito_payment_alert');
             let neededWalletAmount = totalWallet - walletBalance;
+            let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
+            let cryptoSavings = totalWithCurrentPaymentMethod - totalCrypto;
+            console.log("Crypto savings are", cryptoSavings);
 
             if(localStorage.getItem('steamcito-emoji') == "fallback"){
                 cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
-                cartTotalCCContainer.innerText = `${numberToString(totalCC)}`
-                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalCCMixed)}`
+                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
             } else{
                 cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
-                cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
-                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`
+                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)} ${emojiMate}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalMixed)} ${emojiMate}`
+            }
+
+            if(paymentMethod == "Tarjeta"){
+                cryptoSavingsContainer.style.display="block";
+                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Dólar Crypto.` 
+            }
+            else{
+                cryptoSavingsContainer.style.display="none";
             }
 
             if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
                 paymentAlertContainer.style.display="block";
-                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Dólar Crypto. Cargá ${getNeededWalletAmount(neededWalletAmount)} USD en tu Steam Wallet para avanzar. \r\n\r\n Clickea acá para aprender a cargar saldo usando Dólar Crypto.` 
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Dólar Crypto. Cargá ${getNeededWalletAmount(neededWalletAmount)} USD en tu Steam Wallet para avanzar.` 
             }
             else{
                 paymentAlertContainer.style.display="none";
@@ -286,7 +293,7 @@ async function getUsdExchangeRate(){
             let exchangeRateJson = await exchangeRateResponse.json();
             let exchangeRate = exchangeRateJson.venta;
             let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.6);
             
             let exchangeRateJSON = {
                 rate : exchangeRate,
@@ -339,7 +346,7 @@ async function getUsdExchangeRate(){
             let exchangeRateJson = await exchangeRateResponse.json();
             let exchangeRate = exchangeRateJson.venta;
             let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
+            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.21);
             
             let exchangeRateJSON = {
                 rate : exchangeRate,

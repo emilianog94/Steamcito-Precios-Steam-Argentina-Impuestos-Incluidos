@@ -151,11 +151,6 @@ const renderCryptoPrice = (appData) => {
 
     let staticExchangeRate = exchangeRate;
 
-    standardTaxes &&
-    standardTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-    })
-
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
         exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
@@ -228,7 +223,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
 
             <p class="reason for dolar_tarjeta">
-                <span class="name-span">Tarjeta: 1 USD ≈ ${(exchangeRate * 1.6).toFixed(2)} ARS</span>
+                <span class="name-span">Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye 60% de impuestos (${exchangeRateDate})
@@ -259,7 +254,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             <br>
 
             <p class="reason for dolar_mep">
-                <span class="name-span">Dólar Bancario: 1 USD ≈ ${(exchangeRateMep * 1.21).toFixed(2)} ARS</span>
+                <span class="name-span">Dólar Bancario: 1 USD ≈ ${exchangeRateMep.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Incluye 21% de impuestos (${exchangeRateMepDate})

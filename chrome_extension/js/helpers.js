@@ -260,10 +260,7 @@ function getTotalTaxes() {
 
 function calcularImpuestos(initialPrice) {
     let finalPrice = initialPrice;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((initialPrice * tax.value / 100).toFixed(2));
-        })
+
 
     provinceTaxes &&
         provinceTaxes.forEach(tax => {
@@ -281,10 +278,6 @@ function calcularImpuestos(initialPrice) {
 
     let arsPriceBeforeTaxes = initialPrice * exchangeRate
     let finalPrice = initialPrice * exchangeRate;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
-        })
 
     provinceTaxes &&
         provinceTaxes.forEach(tax => {

@@ -116,6 +116,17 @@ body.menu-enabled .responsive_page_frame {
   font-size: 15px;
 }
 
+.steamcito_crypto_savings {
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background-color: #4c6b22;
+  color: #fff;
+}
+.steamcito_crypto_savings:hover {
+  color: #fff;
+}
+
 .steamcito_payment_alert {
   max-width: 280px;
   margin-bottom: 1rem;
@@ -610,8 +621,8 @@ body.menu-enabled .responsive_page_frame {
   box-shadow: 1px 1px 0px #45556c;
   margin-left: 0;
   padding: 5px;
-  margin-top: 10px;
-  margin-bottom: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-size: 16px;
   line-height: 21px;
   width: 100%;
@@ -620,13 +631,14 @@ body.menu-enabled .responsive_page_frame {
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div input {
   background-color: rgba(0, 0, 0, 0.4);
+  display: block;
   color: #fff;
   border: 1px solid #000;
   border-radius: 3px;
   box-shadow: 1px 1px 0px #45556c;
-  margin-left: 1rem;
+  margin-left: 0;
   padding: 5px;
-  margin-top: 3px;
+  margin-top: 5px;
   font-size: 16px;
   line-height: 21px;
   width: 40px;

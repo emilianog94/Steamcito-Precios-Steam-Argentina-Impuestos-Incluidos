@@ -70,7 +70,7 @@ function createMenus(){
                                     <option value="fallback">Retrocompatibles</option>
                                 </select>
                             </div>
-                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
+                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯</small>
                         </div>
 
                         <div class="opcion" id="tips-de-ahorro">

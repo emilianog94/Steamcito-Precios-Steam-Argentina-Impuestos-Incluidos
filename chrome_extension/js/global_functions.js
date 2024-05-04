@@ -130,7 +130,7 @@ function renderCart(){
                 cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalMixed)} ${emojiMate}`
             }
 
-            if(paymentMethod == "Tarjeta"){
+            if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
                 cryptoSavingsContainer.style.display="block";
                 cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Dólar Crypto.` 
             }
@@ -140,13 +140,13 @@ function renderCart(){
 
             if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
                 paymentAlertContainer.style.display="block";
-                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Dólar Crypto. Cargá ${getNeededWalletAmount(neededWalletAmount)} USD en tu Steam Wallet para avanzar.` 
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Crypto.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString(getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto)}) en tu Wallet usando Dólar Crypto para avanzar.` 
             }
             else{
                 paymentAlertContainer.style.display="none";
             }
 
-            if(totalMixedDisplay == "hide"){
+            if(totalMixedDisplay == "hide" || paymentMethod == "Dólar Crypto" ){
                 mixedWrapper.style.display = "none";
             } else{
                 mixedWrapper.style.display = "block";

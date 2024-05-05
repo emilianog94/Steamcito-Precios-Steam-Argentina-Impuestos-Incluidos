@@ -10,8 +10,14 @@
   font-family: "steamcito-emojis";
   text-transform: uppercase;
 }
+.emojis.dolarbancario {
+  color: rgb(147, 228, 147);
+}
+.emojis.crypto {
+  color: rgb(233, 233, 75);
+}
 .emojis.mate {
-  color: red;
+  color: rgb(175, 143, 55);
 }
 .emojis.saldo {
   color: lightgreen;

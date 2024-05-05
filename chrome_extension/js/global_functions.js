@@ -118,7 +118,6 @@ function renderCart(){
             let neededWalletAmount = totalWallet - walletBalance;
             let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
             let cryptoSavings = totalWithCurrentPaymentMethod - totalCrypto;
-            console.log("Crypto savings are", cryptoSavings);
 
             if(localStorage.getItem('steamcito-emoji') == "fallback"){
                 cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`

@@ -211,40 +211,29 @@ function hideMenu(e){
     }
 }
 
-function setEmojiByPaymentMethod(){
-    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
-    if(paymentMethod == "steamcito-cotizacion"){
-        return [" 🧉"," 💲"]
-    } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return [" 🪙"," 💲"]   
-    } else if(paymentMethod == "steamcito-cotizacion-mep"){
-        return [" 💸"," 💲"]   
-    } 
-    return [" 🧉"," 💲"];
-}
-
 function setEmojis(){
-    let OSversion = window.navigator.userAgent;
-    if(!localStorage.hasOwnProperty('steamcito-emoji')){
-        if(OSversion.indexOf("NT 10.0") != -1){
-            localStorage.setItem('steamcito-emoji','unicode');
-            selectEmoji.value = "unicode";
-            return setEmojiByPaymentMethod();
-        } else{
-            localStorage.setItem('steamcito-emoji','compatibility');
-            selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
-        }
-    }
-    else{
-        if(localStorage.getItem('steamcito-emoji') == 'unicode'){
-            selectEmoji.value = "unicode";
-            return setEmojiByPaymentMethod();
-        }
-        else{
-            selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];
-        }
+
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
+    let preferedEmojis = localStorage.getItem('steamcito-emoji') || "unicode";
+    
+    if(preferedEmojis == "unicode"){
+        if(paymentMethod == "steamcito-cotizacion"){
+            return [" 🧉"," 💲"]
+        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+            return [" 🪙"," 💲"]   
+        } else if(paymentMethod == "steamcito-cotizacion-mep"){
+            return [" 💸"," 💲"]   
+        } 
+        return [" 🧉"," 💲"];
+    } else{
+        if(paymentMethod == "steamcito-cotizacion"){
+            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>']
+        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+            return ['<span class="emojis crypto"> C </span>','<span class="emojis saldo"> B </span>']
+        } else if(paymentMethod == "steamcito-cotizacion-mep"){
+            return ['<span class="emojis dolarbancario"> D </span>','<span class="emojis saldo"> B </span>']   
+        } 
+        return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];        
     }
 }
 

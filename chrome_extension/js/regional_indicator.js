@@ -26,7 +26,6 @@ const isFromArgentina = () => {
                 if (match) {
                     let appId = match[1];
                     let matchingGame = argentinaGames.games.find(game => game.appId == appId);
-                    console.log(matchingGame);
                     matchingGame && renderArgentinaIndicator(matchingGame);
                 } else {
                     return;

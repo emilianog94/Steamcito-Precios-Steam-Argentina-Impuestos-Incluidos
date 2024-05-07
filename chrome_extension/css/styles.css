@@ -971,6 +971,10 @@ body.menu-enabled .responsive_page_frame {
   order: -1;
 }
 
+.store_nav .tab > span {
+  padding: 0 9px !important;
+}
+
 .regional-meter-container {
   display: flex;
   justify-content: space-between;

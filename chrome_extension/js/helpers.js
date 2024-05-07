@@ -421,6 +421,24 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
+
+function renderArgentinaShortcut(){
+    let navbar = document.querySelector('.store_nav');
+    let navbarFirstItem = navbar.querySelector('div:first-child');
+    let navbarLastItem = navbar.querySelector('a[href*="https://store.steampowered.com/labs"]');
+
+    if(navbar && navbarFirstItem && navbarLastItem){
+        let argentinaShortcut = `
+        <a class="tab" href="https://store.steampowered.com/curator/44965472-Juegos-Made-in-Argentina/">
+            <span>Juegos Argentinos 🧉</span>
+        </a>
+        `    
+    
+        navbarFirstItem.insertAdjacentHTML('afterend',argentinaShortcut)
+        navbarLastItem.remove();
+    }
+}
+
 const currentChange = "patch"; // patch | minor | major
 
 function showUpdate() {

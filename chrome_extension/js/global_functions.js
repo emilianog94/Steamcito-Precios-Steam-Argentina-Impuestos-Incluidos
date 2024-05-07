@@ -141,8 +141,12 @@ async function getArgentinaGames(){
                     let gamesList = gamesElementsArray.map(recomendacion => {
                         let itemElement = recomendacion.querySelector('div > a');
                         let item = itemElement.dataset.dsAppid;
-                        let urlElement = recomendacion.querySelector('.recommendation_desc');
-                        let url = urlElement.innerText;
+                        let urlElement = recomendacion.querySelector('.recommendation_readmore a[target=_blank]');
+                        let url = urlElement?.href || "";
+                        if(url){
+                            url = url.replace('https://steamcommunity.com/linkfilter/?u=','');
+                            url = decodeURIComponent(url);
+                        }
                         return({ 
                             appId: item,
                             informationUrl: url
@@ -152,12 +156,12 @@ async function getArgentinaGames(){
                         games: gamesList,
                         date: Date.now()
                     }            
-                    console.log(gamesList);
                     gamesList.length && localStorage.setItem('steamcito-argentina-games',JSON.stringify(finalObject))
                 }
             }
         } catch(error){
             console.log("Hubo un error al obtener el JSON");
+            console.log(error);
         }
     }
 }
@@ -433,3 +437,4 @@ function stringToDate(dateStr)
 
 getArgentinaGames();
 getOwnedGames();
+renderArgentinaShortcut();

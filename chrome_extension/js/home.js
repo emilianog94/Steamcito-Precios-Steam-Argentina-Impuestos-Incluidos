@@ -22,10 +22,9 @@ function shuffleArray(array) {
     return array; 
   }; 
 
-
 function renderOwnedArgentinaGames(gamesIds){
     gamesIds = shuffleArray(gamesIds)
-    let targetItem = document.querySelector('.top_new_releases.home_ctn')
+    let targetItem = document.querySelector('.home_ctn.tab_container')
     if(targetItem){
         let ownedArgentinaGamesElement = 
         `
@@ -61,7 +60,7 @@ function renderOwnedArgentinaGames(gamesIds){
         
         `
 
-    targetItem.insertAdjacentHTML('beforebegin',ownedArgentinaGamesElement)
+    targetItem.insertAdjacentHTML('afterend',ownedArgentinaGamesElement)
 
     }
 

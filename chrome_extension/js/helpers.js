@@ -430,7 +430,7 @@ function renderArgentinaShortcut(){
     if(navbar && navbarFirstItem && navbarLastItem){
         let argentinaShortcut = `
         <a class="tab" href="https://store.steampowered.com/curator/44965472-Juegos-Made-in-Argentina/">
-            <span>Juegos Argentinos 🧉</span>
+            <span>🧉 Juegos argentinos </span>
         </a>
         `    
     

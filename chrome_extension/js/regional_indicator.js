@@ -160,7 +160,7 @@ const renderCryptoPrice = (appData) => {
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
-    if(cryptoExchangeRate > exchangeRate ){
+    if(cryptoExchangeRate > exchangeRate || cryptoPriceHidden ){
         return;
     }
 
@@ -350,7 +350,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 <span>Alto</span>
             </div>            
             <div class="regional-meter-bar regional-meter-bar--expensive ${appData.regionalStatus == "expensive" && "regional-meter-bar--selected"}">
-                <span>No tiene</span>
+                <span>Inexistente</span>
             </div>
         </div>
         <hr>

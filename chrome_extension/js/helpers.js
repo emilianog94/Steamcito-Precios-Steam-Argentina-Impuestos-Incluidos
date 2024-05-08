@@ -273,7 +273,7 @@ function calcularImpuestos(initialPrice) {
  function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
 
     if(exchangeRate=="unset"){
-        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
     }
 
     let arsPriceBeforeTaxes = initialPrice * exchangeRate

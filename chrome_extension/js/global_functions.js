@@ -27,26 +27,27 @@ function getNeededWalletAmount(currentWalletAmount){
 }
 
 function setPaymentMethodName(){
-    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
-    if(paymentMethod == "steamcito-cotizacion"){
-        return ["Tarjeta"]
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+    if(paymentMethod == "steamcito-cotizacion-tarjeta"){
+        return "Tarjeta"
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return ["Dólar Crypto"]   
+        return "Dólar Crypto" 
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
-        return ["Dólar Bancario"]   
+        return "Dólar Bancario"   
     } 
-    return ["Tarjeta"];
+    return "Tarjeta";
 }
 
 function renderCart(){
+    console.log("entré a rendercart");
 
     let paymentMethod = setPaymentMethodName();
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
 
 
-    let staticExchangeRate = exchangeRate;
+    let staticExchangeRate = exchangeRateTarjeta;
     if(paymentMethod == "Dólar Crypto"){
         staticExchangeRate = exchangeRateCrypto
     } else if(paymentMethod == "Dólar Bancario"){
@@ -68,8 +69,6 @@ function renderCart(){
             let totalWallet = stringToNumber(total)
             let totalWithCurrentPaymentMethod = calculateTaxesAndExchange(totalWallet,staticExchangeRate)
             let totalMixed = calculateTaxesAndExchange(totalWallet - walletBalance, staticExchangeRate)
-            let totalCreditCard = calculateTaxesAndExchange(totalWallet, exchangeRate);
-            let totalMep = calculateTaxesAndExchange(totalWallet, exchangeRateMep);
             let totalCrypto = calculateTaxesAndExchange(totalWallet, exchangeRateCrypto);
             
             let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
@@ -139,7 +138,7 @@ function renderCart(){
 
             if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
                 paymentAlertContainer.style.display="block";
-                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Crypto.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString(getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto)}) en tu Wallet usando Dólar Crypto para avanzar.` 
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Crypto.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) en tu Wallet usando Dólar Crypto para avanzar.` 
             }
             else{
                 paymentAlertContainer.style.display="none";
@@ -168,7 +167,7 @@ function renderCart(){
 
 async function setArgentinaPrice(price){
     await getUsdExchangeRate();
-    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
+    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
     let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
@@ -285,7 +284,7 @@ function evaluateDate(localStorageItem){
 
 async function getUsdExchangeRate(){
 
-    let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion');
+    let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
     if(shouldGetNewRateDolarTarjeta){
         try{
             let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
@@ -300,10 +299,10 @@ async function getUsdExchangeRate(){
                 date: Date.now()
             }
 
-        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
+        localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify(exchangeRateJSON));
         }
         catch(err){
-            localStorage.setItem('steamcito-cotizacion', JSON.stringify({
+            localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
                 rate:851.01,
                 rateDateProvided:"02/02/2024 - 15:57",
                 date:1704237682000

@@ -22,7 +22,7 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion">🧉 Tarjetas (El más caro)</option>
+                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas (El más caro)</option>
                                     <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto (El más barato)</option>
                                     <option value="steamcito-cotizacion-mep">💸 Dólar Billete/MEP (Equilibrado)</option>
                                 </select>
@@ -136,7 +136,7 @@ function setInitialLocalStates(){
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion');
+    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 
@@ -151,7 +151,7 @@ function changePaymentMethodState(e){
 
     localStorage.setItem('metodo-de-pago', value)
     switch (value) {
-        case "steamcito-cotizacion": 
+        case "steamcito-cotizacion-tarjeta": 
             localStorage.setItem('national-tax',60)
             nationalTax.value = 60;
             break;
@@ -213,11 +213,11 @@ function hideMenu(e){
 
 function setEmojis(){
 
-    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion";
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
     let preferedEmojis = localStorage.getItem('steamcito-emoji') || "unicode";
     
     if(preferedEmojis == "unicode"){
-        if(paymentMethod == "steamcito-cotizacion"){
+        if(paymentMethod == "steamcito-cotizacion-tarjeta"){
             return [" 🧉"," 💲"]
         } else if(paymentMethod == "steamcito-cotizacion-crypto"){
             return [" 🪙"," 💲"]   

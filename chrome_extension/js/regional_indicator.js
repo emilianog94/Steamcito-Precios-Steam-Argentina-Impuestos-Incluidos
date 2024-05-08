@@ -38,8 +38,8 @@ const criticizePublisher = (margin,publisher) => {
 
 const getExchangeRate = async () => {
     await getUsdExchangeRate();
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rateDateProvided;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
     let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
@@ -59,7 +59,7 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
 
 
     let appIdResponse = await appIdFetch.json();
@@ -147,7 +147,7 @@ const renderCryptoPrice = (appData) => {
         return;
     }
 
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
 
     let staticExchangeRate = exchangeRate;
 
@@ -160,7 +160,8 @@ const renderCryptoPrice = (appData) => {
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
-    if(cryptoExchangeRate > exchangeRate || cryptoPriceHidden ){
+    if(cryptoExchangeRate > exchangeRate){
+        console.log("Retorno");
         return;
     }
 
@@ -228,7 +229,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-smaller">
                     Incluye 60% de impuestos (${exchangeRateDate})
                 </span><br>
-                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion"
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-tarjeta"
                     ?
                     `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
                     :
@@ -287,7 +288,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     let dolarCryptoItem = document.querySelector('.dolar_crypto');
     let dolarMepItem = document.querySelector('.dolar_mep');
 
-    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion'))
+    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-tarjeta'))
 
     dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-crypto'))
 
@@ -353,6 +354,14 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                 <span>Inexistente</span>
             </div>
         </div>
+
+        ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
+            ?
+            `<span class="notify-publisher-button green-steamcito-button">Solicitar precio regional</span>`
+            : 
+            ""
+        }
+
         <hr>
         ${appData.regionalStatus == "expensive"
             ?
@@ -360,6 +369,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
         <p class="reason against">
             <span class="name-span">${appData.name}</span> no tiene precio regional.
         </p>
+
         <hr>
         <p class="reason against">
         <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestro región.
@@ -461,13 +471,6 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         `
             : ""
-        }
-
-        ${appData.usdPrice == appData.arsPrice && (appData.support_email || appData.support_url)
-            ?
-            `<span class="notify-publisher-button green-steamcito-button">Solicitar precio regional</span>`
-            : 
-            ""
         }
 
     </div>

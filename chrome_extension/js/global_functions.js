@@ -303,7 +303,7 @@ async function getUsdExchangeRate(){
             localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
                 rate:851.01,
                 rateDateProvided:"02/02/2024 - 15:57",
-                date:1704237682000
+                date: Date.now()
             }));
         }
     }
@@ -330,7 +330,7 @@ async function getUsdExchangeRate(){
             localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
                 rate:851.01,
                 rateDateProvided:"02/02/2024 - 15:57",
-                date:1704237682000
+                date:Date.now()
             }));
         }
     }
@@ -356,7 +356,7 @@ async function getUsdExchangeRate(){
             localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify({
                 rate:851.01,
                 rateDateProvided:"02/02/2024 - 15:57",
-                date:1704237682000
+                date:Date.now()
             }));
         }
     }
@@ -390,7 +390,7 @@ async function getBnaExchangeRate(){
             localStorage.setItem('steamcito-cotizacion-bna', JSON.stringify({
                 rate:841.25,
                 rateDateProvided:"23/01/2024 - 15:57",
-                date:1704237682000
+                date:Date.now()
             }));
         }
     }

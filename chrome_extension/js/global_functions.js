@@ -18,7 +18,7 @@ function getPrices(type){
     } else{
         setTimeout(() => {
             return renderCart();
-        },500)
+        },1000)
     }
 }
 
@@ -39,8 +39,6 @@ function setPaymentMethodName(){
 }
 
 function renderCart(){
-    console.log("entré a rendercart");
-
     let paymentMethod = setPaymentMethodName();
     let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;

@@ -1,6 +1,6 @@
  {
  	"name": "Steamcito: Steam con impuestos Argentina 2024",
- 	"version": "3.42",
+ 	"version": "3.50",
  	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
  	"manifest_version": 3,
  	"background": {
@@ -32,7 +32,7 @@
  		{
  			"matches": ["https://store.steampowered.com/cart*"],
  			"run_at": "document_idle",
- 			"js": ["js/cart_trigger.js"]
+ 			"js": ["js/helpers.js", "js/menu.js", "js/global_functions.js","js/cart_trigger.js"]
  		},
  		{
  			"matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*"],

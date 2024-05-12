@@ -19,13 +19,27 @@ function createMenus() {
                 <div class="opciones-avanzadas-steamcito">
 
                     <div class="grupo-opciones">
-                        <h3> Opciones de Impuestos </h3>
-                        <div class="opcion">
+
+                        <h3> Opciones de Cotización e Impuestos </h3>
+                        <div class="opcion" id="metodo-de-pago">
                             <div>
-                                <label for="national-tax">Impuestos nacionales</label>
+                                <label for="metodo-de-pago-opciones">Tu método de pago</label>
+                                <select name="" id="metodo-de-pago-opciones">
+                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas (El más caro)</option>
+                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto (El más barato)</option>
+                                    <option value="steamcito-cotizacion-mep">💸 Dólar Bancario (Equilibrado)</option>
+                                </select>
+                            </div>
+                            <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
+                        </div>
+
+
+                        <div class="opcion" id="preferencia-de-precios">
+                            <div>
+                                <label for="national-tax" disabled placeholder="60">Impuestos nacionales</label>
                                 <input id="national-tax" type="number" name="national-tax" placeholder="60"/>
                             </div>
-                            <small><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
+                            <small>Se carga automáticamente de acuerdo al método de pago seleccionado. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">
@@ -52,7 +66,7 @@ function createMenus() {
                             <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
                         </div>
 
-                        <div class="opcion">
+                        <div class="opcion" id="estilo-de-emojis">
                             <div>
                                 <label for="estilo-emoji">Estilo de Emojis</label>
                                 <select name="estilo-emoji" id="estilo-emoji">
@@ -60,8 +74,21 @@ function createMenus() {
                                     <option value="fallback">Retrocompatibles</option>
                                 </select>
                             </div>
-                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯. Pensado para versiones antiguas de Windows que no tienen emojis.</small>
+                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯</small>
                         </div>
+
+                        <div class="opcion" id="tips-de-ahorro">
+                            <div>
+                                <label for="ocultar-crypto">Tips de ahorro</label>
+                                <select name="ocultar-crypto" id="ocultar-crypto">
+                                    <option value="mostrar">Mostrar</option>
+                                    <option value="ocultar">Ocultar</option>
+                                </select>
+                            </div>
+                            <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo.</small>
+                        </div>
+                        <div class="opcion" id="informacion-en-barra-lateral">
+
 
                         <div class="opcion">
                             <div>
@@ -72,14 +99,6 @@ function createMenus() {
                                 </select>
                             </div>
                             <small>Seleccioná "Minificada" para que la información de cotización del dólar y precios regionales ocupe menos espacio.</small>
-                        </div>
-
-                        <div class="opcion">
-                            <div>
-                                <input type="checkbox" name="ocultar-crypto" id="ocultar-crypto" style="width: unset; margin-left: unset; margin-top: unset; margin-right: 1rem"/>
-                                <label for="ocultar-crypto">Ocultar Dolar Crypto</label>
-                            </div>
-                            <small>Ocultar banner con cotización de Dolar Crypto.</small>
                         </div>
 
                     </div>
@@ -121,11 +140,12 @@ function getReviewLink() {
 
 function setInitialLocalStates() {
     localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value = 'unicode' : selectEmoji.value = 'fallback';
-    localStorage.getItem('national-tax') ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.removeItem('national-tax');
+    localStorage.getItem('national-tax') ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.setItem('national-tax',60);
     localStorage.getItem('province-tax') ? provinceTax.value = localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value = localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.checked=JSON.parse(localStorage.getItem('ocultar-crypto')) : localStorage.removeItem('ocultar-crypto');
+    localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
+    localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 
 }
 
@@ -133,12 +153,38 @@ function changeBarStyleState(){
     selectBarStyle.value == 'barra-normal' ? localStorage.setItem('estilo-barra','barra-normal') : localStorage.setItem('estilo-barra','barra-minificada');
 }
 
+function changePaymentMethodState(e){
+    let value = e?.currentTarget?.value || e
+
+    localStorage.setItem('metodo-de-pago', value)
+    switch (value) {
+        case "steamcito-cotizacion-tarjeta": 
+            localStorage.setItem('national-tax',60)
+            nationalTax.value = 60;
+            break;
+
+        case "steamcito-cotizacion-crypto": 
+            localStorage.setItem('national-tax',0)
+            nationalTax.value = 0;
+            break;            
+
+        case "steamcito-cotizacion-mep": 
+            localStorage.setItem('national-tax',21)
+            nationalTax.value = 21;
+            break;                    
+
+        default: localStorage.setItem('national-tax',60)
+            break;
+    }
+    window.location.reload()
+}
+
 function changeEmojiState() {
     selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji', 'unicode') : localStorage.setItem('steamcito-emoji', 'fallback');
 }
 
 function changeDolarCryptoVisibility() {
-    localStorage.setItem('ocultar-crypto', String(checkboxDolarCrypto.checked));
+    checkboxDolarCrypto.value == 'mostrar' ? localStorage.setItem('ocultar-crypto','mostrar') : localStorage.setItem('ocultar-crypto','ocultar');
 }
 
 function changeManualModeState() {
@@ -172,28 +218,29 @@ function hideMenu(e) {
     }
 }
 
-function setEmojis() {
-    let OSversion = window.navigator.userAgent;
-    if (!localStorage.hasOwnProperty('steamcito-emoji')) {
-        if (OSversion.indexOf("NT 10.0") != -1) {
-            localStorage.setItem('steamcito-emoji', 'unicode');
-            selectEmoji.value = "unicode";
-            return [" 🧉", " 💲"];
-        } else {
-            localStorage.setItem('steamcito-emoji', 'compatibility');
-            selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>', '<span class="emojis saldo"> B </span>'];
-        }
-    }
-    else {
-        if (localStorage.getItem('steamcito-emoji') == 'unicode') {
-            selectEmoji.value = "unicode";
-            return [" 🧉", " 💲"];
-        }
-        else {
-            selectEmoji.value = "fallback";
-            return ['<span class="emojis mate"> A </span>', '<span class="emojis saldo"> B </span>'];
-        }
+function setEmojis(){
+
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+    let preferedEmojis = localStorage.getItem('steamcito-emoji') || "unicode";
+
+    if(preferedEmojis == "unicode"){
+        if(paymentMethod == "steamcito-cotizacion-tarjeta"){
+            return [" 🧉"," 💲"]
+        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+            return [" 🪙"," 💲"]   
+        } else if(paymentMethod == "steamcito-cotizacion-mep"){
+            return [" 💸"," 💲"]   
+        } 
+        return [" 🧉"," 💲"];
+    } else{
+        if(paymentMethod == "steamcito-cotizacion"){
+            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>']
+        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+            return ['<span class="emojis crypto"> C </span>','<span class="emojis saldo"> B </span>']
+        } else if(paymentMethod == "steamcito-cotizacion-mep"){
+            return ['<span class="emojis dolarbancario"> D </span>','<span class="emojis saldo"> B </span>']   
+        } 
+        return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];        
     }
 }
 
@@ -204,14 +251,16 @@ createMenus();
 const menu = document.querySelector(".menu-steamcito");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
-let selectManualMode = document.querySelector("#modo-manual")
+let selectManualMode = document.querySelector("#modo-manual");
 let selectEmoji = document.querySelector("#estilo-emoji");
 let selectBarStyle = document.querySelector("#estilo-barra");
+let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
 
 selectEmoji.addEventListener('input', changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
+selectPaymentMethod.addEventListener('input', changePaymentMethodState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
 
 let nationalTax = document.querySelector("#national-tax");

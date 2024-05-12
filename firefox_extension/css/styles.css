@@ -10,8 +10,14 @@
   font-family: "steamcito-emojis";
   text-transform: uppercase;
 }
+.emojis.dolarbancario {
+  color: rgb(147, 228, 147);
+}
+.emojis.crypto {
+  color: rgb(233, 233, 75);
+}
 .emojis.mate {
-  color: red;
+  color: rgb(175, 143, 55);
 }
 .emojis.saldo {
   color: lightgreen;
@@ -31,6 +37,7 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .steamcito_saving_tip {
+  position: relative;
   background-color: #4c6b22;
   transition: all 0.25s ease;
   border-radius: 3px;
@@ -44,6 +51,15 @@ body.menu-enabled .responsive_page_frame {
   gap: 1rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.steamcito_saving_tip .steamcito_saving_tip_close {
+  color: rgb(172, 178, 184);
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+}
+.steamcito_saving_tip .steamcito_saving_tip_close:hover {
+  color: #fff;
 }
 .steamcito_saving_tip .steamcito_saving_tip_icon {
   font-size: 1.5rem;
@@ -104,6 +120,28 @@ body.menu-enabled .responsive_page_frame {
   font-weight: 700;
   color: #fff;
   font-size: 15px;
+}
+
+.steamcito_crypto_savings {
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background-color: #4c6b22;
+  color: #fff;
+}
+.steamcito_crypto_savings:hover {
+  color: #fff;
+}
+
+.steamcito_payment_alert {
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7e4400 100%);
+  color: #fff;
+}
+.steamcito_payment_alert:hover {
+  color: #fff;
 }
 
 .steamcito_cart {
@@ -464,7 +502,7 @@ body.menu-enabled .responsive_page_frame {
   right: -30%;
   top: 0;
   height: 100vh;
-  width: 30%;
+  width: 25%;
   background-color: #16202d;
   -webkit-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
@@ -548,6 +586,21 @@ body.menu-enabled .responsive_page_frame {
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion {
   margin-bottom: 2em;
 }
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion.opcion-highlighted,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion.opcion-highlighted {
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7e4400 100%);
+  padding: 0.5rem;
+  border-radius: 0.1rem;
+  color: #fff;
+}
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion.opcion-highlighted label,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion.opcion-highlighted label {
+  color: #fff;
+}
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion.opcion-highlighted small,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion.opcion-highlighted small {
+  opacity: 1;
+}
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion small,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion small {
   margin-top: 0.5em;
@@ -557,10 +610,7 @@ body.menu-enabled .responsive_page_frame {
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+  display: block;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div label,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div label {
@@ -574,24 +624,26 @@ body.menu-enabled .responsive_page_frame {
   border: 1px solid #000;
   border-radius: 3px;
   box-shadow: 1px 1px 0px #45556c;
-  margin-left: 1rem;
+  margin-left: 0;
   padding: 5px;
-  margin-top: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   font-size: 16px;
   line-height: 21px;
-  width: 50%;
+  width: 100%;
   font-size: 0.9rem;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div input {
   background-color: rgba(0, 0, 0, 0.4);
+  display: block;
   color: #fff;
   border: 1px solid #000;
   border-radius: 3px;
   box-shadow: 1px 1px 0px #45556c;
-  margin-left: 1rem;
+  margin-left: 0;
   padding: 5px;
-  margin-top: 3px;
+  margin-top: 5px;
   font-size: 16px;
   line-height: 21px;
   width: 40px;
@@ -825,6 +877,9 @@ body.menu-enabled .responsive_page_frame {
   text-align: left;
 }
 
+.regional-meter-wrapper.barra-minificada.content_steamcito_3 {
+  max-height: 40px;
+}
 .regional-meter-wrapper.barra-minificada.cotizacion-wrapper .reason:before {
   opacity: 1;
 }
@@ -836,14 +891,14 @@ body.menu-enabled .responsive_page_frame {
 }
 .regional-meter-wrapper.barra-minificada .reason:before {
   pointer-events: none;
-  opacity: 0;
+  opacity: 0 !important;
   overflow: hidden;
 }
 .regional-meter-wrapper.barra-minificada:hover {
   max-height: 600px;
 }
 .regional-meter-wrapper.barra-minificada:hover .reason:before {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .regional-meter-wrapper .reason.against,
 .regional-meter-wrapper .reason.for,
@@ -861,6 +916,39 @@ body.menu-enabled .responsive_page_frame {
   color: #ddd;
   font-weight: 400;
 }
+.regional-meter-wrapper .reason.against span.steamcito-strikethrough-price,
+.regional-meter-wrapper .reason.for span.steamcito-strikethrough-price,
+.regional-meter-wrapper .reason.info span.steamcito-strikethrough-price {
+  position: relative;
+  color: #738895 !important;
+  font-size: 0.75rem;
+}
+.regional-meter-wrapper .reason.against span.steamcito-strikethrough-price::before,
+.regional-meter-wrapper .reason.for span.steamcito-strikethrough-price::before,
+.regional-meter-wrapper .reason.info span.steamcito-strikethrough-price::before {
+  content: "";
+  left: 0px;
+  right: 0px;
+  position: absolute;
+  top: 43%;
+  border-bottom: 1.5px solid #738895;
+  transform: skewY(-8deg);
+  box-shadow: 0 0 2px black;
+}
+.regional-meter-wrapper .reason.against span.regional-meter-price, .regional-meter-wrapper .reason.against span.regional-meter-price-us,
+.regional-meter-wrapper .reason.for span.regional-meter-price,
+.regional-meter-wrapper .reason.for span.regional-meter-price-us,
+.regional-meter-wrapper .reason.info span.regional-meter-price,
+.regional-meter-wrapper .reason.info span.regional-meter-price-us {
+  color: #c6d4df;
+}
+.regional-meter-wrapper .reason.against span.regional-meter-price:has(+ span), .regional-meter-wrapper .reason.against span.regional-meter-price-us:has(+ span),
+.regional-meter-wrapper .reason.for span.regional-meter-price:has(+ span),
+.regional-meter-wrapper .reason.for span.regional-meter-price-us:has(+ span),
+.regional-meter-wrapper .reason.info span.regional-meter-price:has(+ span),
+.regional-meter-wrapper .reason.info span.regional-meter-price-us:has(+ span) {
+  color: #BEEE11;
+}
 .regional-meter-wrapper .reason.against span.name-white,
 .regional-meter-wrapper .reason.for span.name-white,
 .regional-meter-wrapper .reason.info span.name-white {
@@ -871,6 +959,11 @@ body.menu-enabled .responsive_page_frame {
 .regional-meter-wrapper .reason.info span.name-smaller {
   font-size: 0.72rem;
   color: #969696;
+}
+.regional-meter-wrapper .reason.against span.name-smaller.name-smaller-green,
+.regional-meter-wrapper .reason.for span.name-smaller.name-smaller-green,
+.regional-meter-wrapper .reason.info span.name-smaller.name-smaller-green {
+  color: #BEEE11;
 }
 .regional-meter-wrapper .reason.against span.name-smaller a,
 .regional-meter-wrapper .reason.for span.name-smaller a,
@@ -933,6 +1026,24 @@ body.menu-enabled .responsive_page_frame {
 .rightcol.game_meta_data .content_steamcito_3 {
   order: -1;
 }
+.rightcol.game_meta_data .content_steamcito_3 .reason .name-span:hover {
+  color: #66c0f4;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for {
+  cursor: pointer;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for:before {
+  background-image: none;
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_tarjeta:before {
+  content: "🧉";
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_crypto:before {
+  content: "🪙";
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_mep:before {
+  content: "💸";
+}
 
 .regional-meter-container {
   display: flex;
@@ -948,6 +1059,7 @@ body.menu-enabled .responsive_page_frame {
   text-align: center;
   padding-top: 5px;
   margin: 0 3px;
+  min-width: fit-content;
 }
 .regional-meter-container .regional-meter-bar--cheap {
   border-color: #84b114;

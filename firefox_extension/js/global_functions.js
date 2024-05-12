@@ -102,9 +102,6 @@ function renderCart(){
                     <span class="exchangerate_value">1 USD ≈ ${staticExchangeRate.toFixed(2)} ARS ${emojiMate}</span>
                     <br>
                 </div>        
-                
-                
-                )
                 `))
             }
 

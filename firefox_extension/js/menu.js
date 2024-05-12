@@ -36,8 +36,8 @@ function createMenus() {
 
                         <div class="opcion" id="preferencia-de-precios">
                             <div>
-                                <label for="national-tax" disabled placeholder="60">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" placeholder="60"/>
+                                <label for="national-tax">Impuestos nacionales</label>
+                                <input id="national-tax" type="number" name="national-tax" placeholder="60" disabled/>
                             </div>
                             <small>Se carga automáticamente de acuerdo al método de pago seleccionado. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    

@@ -131,7 +131,7 @@ const getAppPricing = async (appInitialData) => {
         }
 
         renderRegionalIndicator(appData, exchangeRate);
-        if(walletBalance < appData.arsPrice){
+        if(walletBalance < appData.arsPrice && localStorage.getItem('metodo-de-pago') != "steamcito-cotizacion-crypto"){
             renderCryptoPrice(appData)
         }
         return appData;

@@ -16,26 +16,46 @@ function getPrices(type){
 
         prices.forEach(price => setArgentinaPrice(price));
     } else{
-        return renderCart();
+        setTimeout(() => {
+            return renderCart();
+        },1000)
     }
  
 }
 
+function getNeededWalletAmount(currentWalletAmount){
+    return Math.ceil(currentWalletAmount / 5) * 5;
+}
+
+function setPaymentMethodName(){
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+    if(paymentMethod == "steamcito-cotizacion-tarjeta"){
+        return "Tarjeta"
+    } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+        return "Dólar Crypto" 
+    } else if(paymentMethod == "steamcito-cotizacion-mep"){
+        return "Dólar Bancario"   
+    } 
+    return "Tarjeta";
+}
+
 function renderCart(){
+    let paymentMethod = setPaymentMethodName();
+    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
 
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
-    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rateDateProvided;
 
-    let staticExchangeRate = exchangeRate;
-
-    standardTaxes &&
-    standardTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
-    })
+    let staticExchangeRate = exchangeRateTarjeta;
+    if(paymentMethod == "Dólar Crypto"){
+        staticExchangeRate = exchangeRateCrypto
+    } else if(paymentMethod == "Dólar Bancario"){
+        staticExchangeRate = exchangeRateMep
+    }
 
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
-        exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
     })
 
     let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
@@ -46,66 +66,81 @@ function renderCart(){
         let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
         if(total?.innerText){
             let totalWallet = stringToNumber(total)
-            let totalCC = calculateTaxesAndExchange(totalWallet)
-            let totalCCMixed = calculateTaxesAndExchange(totalWallet - walletBalance)
+            let totalWithCurrentPaymentMethod = calculateTaxesAndExchange(totalWallet,staticExchangeRate)
+            let totalMixed = calculateTaxesAndExchange(totalWallet - walletBalance, staticExchangeRate)
+            let totalCrypto = calculateTaxesAndExchange(totalWallet, exchangeRateCrypto);
             
             let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
             let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
 
             if(!document.querySelector('.steamcito_cart')){
-                cartSidebar.insertAdjacentHTML('beforebegin', 
-                DOMPurify.sanitize(
-                `
+                cartSidebar.insertAdjacentHTML('beforebegin', DOMPurify.sanitize(`
+                
                 <div class="steamcito_cart">
                     <div class="steamcito_cart_wallet">
                         <p class="steamcito_cart_wallet_label">Total Exacto pagando con Steam Wallet</p>
                         <span class="steamcito_cart_wallet_value"></span>
                     </div>
-                    <div class="steamcito_cart_cc">
-                        <p class="steamcito_cart_cc_label">Total Aproximado pagando con Tarjeta</p>
-                        <span class="steamcito_cart_cc_value"></span>
+                    <div class="steamcito_cart_currentmethod">
+                        <p class="steamcito_cart_currentmethod_label">Total Aproximado pagando con ${paymentMethod} </p>
+                        <span class="steamcito_cart_currentmethod_value"></span>
                     </div>
                     <div class="steamcito_cart_mixed">
-                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + Tarjeta</p>
+                        <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + ${paymentMethod} </p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
                 </div>
-                
+                <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_payment_alert">
+                </a>
+
+                <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_crypto_savings">
+                </a>
+
+
                 <div class="steamcito_cart_exchangerate">
-
-                    <p>Cotización promedio del dólar tarjeta</p>
-                    <span class="exchangerate_value">1 USD ≈ ${exchangeRate.toFixed(2)} ARS ${emojiMate}</span>
-                    <br><br>
-
-                        <div>
-                            <span class="name-white">Cotización promedio dólar oficial <a href="https://www.bcra.gob.ar/PublicacionesEstadisticas/Tipo_de_cambio_minorista.asp"target="_blank">(BCRA)</a></span> <br>
-                            1 USD ≈ ${staticExchangeRate}
-                            ${exchangeRateDate ? `<span class="name-smaller">(Cierre del ${exchangeRateDate})</span>` : ""}
-                            <br><br>
-                            <span class="name-white">Total de impuestos nacionales y provinciales</span><br>
-                            ${((totalTaxes - 1) * 100).toFixed(2)}% ${localStorage.getItem('national-tax') || localStorage.getItem('province-tax') ? "(Personalizados por vos)" : ""}
-                            ${localStorage.getItem('national-tax') ? `<br>Cargaste ${localStorage.getItem('national-tax')}% de impuestos nacionales` : ""}
-                            ${localStorage.getItem('province-tax') ? `<br>Cargaste ${localStorage.getItem('province-tax')}% de impuestos provinciales` : ""}
-                        </div>
-
-                
-                </div>                
-                
-                
-                
+                    <p>Cotización aproximada con ${paymentMethod} </p>
+                    <span class="exchangerate_value">1 USD ≈ ${staticExchangeRate.toFixed(2)} ARS ${emojiMate}</span>
+                    <br>
+                </div>        
                 `))
             }
 
             let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
-            cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
-
-            let cartTotalCCContainer = document.querySelector('.steamcito_cart_cc_value');
-            cartTotalCCContainer.innerText = `${numberToString(totalCC)} ${emojiMate}`
-
+            let cartTotalCurrentMethodContainer = document.querySelector('.steamcito_cart_currentmethod_value');
             let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
-            cartTotalMixedContainer.innerText = DOMPurify.sanitize(`${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalCCMixed)} ${emojiMate}`);
-            if(totalMixedDisplay == "hide"){
+            let paymentAlertContainer = document.querySelector('.steamcito_payment_alert');
+            let neededWalletAmount = totalWallet - walletBalance;
+            let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
+            let cryptoSavings = totalWithCurrentPaymentMethod - totalCrypto;
+
+            if(localStorage.getItem('steamcito-emoji') == "fallback"){
+                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
+                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
+            } else{
+                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
+                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)} ${emojiMate}`
+                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalMixed)} ${emojiMate}`
+            }
+
+            if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
+                cryptoSavingsContainer.style.display="block";
+                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Dólar Crypto.` 
+            }
+            else{
+                cryptoSavingsContainer.style.display="none";
+            }
+
+            if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
+                paymentAlertContainer.style.display="block";
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Crypto.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) en tu Wallet usando Dólar Crypto para avanzar.` 
+            }
+            else{
+                paymentAlertContainer.style.display="none";
+            }
+
+            if(totalMixedDisplay == "hide" || paymentMethod == "Dólar Crypto" ){
                 mixedWrapper.style.display = "none";
             } else{
                 mixedWrapper.style.display = "block";
@@ -128,7 +163,8 @@ function renderCart(){
 
 async function setArgentinaPrice(price){
     await getUsdExchangeRate();
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
         if(price.innerText.includes('$')){
@@ -185,7 +221,7 @@ function renderPrices(price){
 
     // Fix para reprocesar bundles dinámicos cuyo precio se carga de manera asíncrona
     setTimeout(function(){
-        if(price.classList.contains('argentina') && !price.innerText.includes("ARS") && price.closest('.dynamic_bundle_description')){
+        if(price.classList.contains('argentina') && !price.innerText.includes("ARS") && (price.closest('.dynamic_bundle_description') || price.closest('div[data-bundlediscount'))){
             setArgentinaPrice(price);
         }
 
@@ -223,8 +259,6 @@ function switchPrices(selector,first,second,symbol){
     },250);
 }
 
-
-
 function evaluateDate(localStorageItem){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
@@ -244,11 +278,37 @@ function evaluateDate(localStorageItem){
 
 async function getUsdExchangeRate(){
 
-    let shouldGetNewRate = evaluateDate('steamcito-cotizacion');
-
-    if(shouldGetNewRate){
+    let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
+    if(shouldGetNewRateDolarTarjeta){
         try{
             let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.6);
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+        localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
+                rate:851.01,
+                rateDateProvided:"02/02/2024 - 15:57",
+                date: Date.now()
+            }));
+        }
+    }
+
+
+    let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
+    if(shouldGetNewRateDolarCrypto){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
             let exchangeRateJson = await exchangeRateResponse.json();
             let exchangeRate = exchangeRateJson.venta;
             let exchangeRateDate = exchangeRateJson.fecha
@@ -260,54 +320,48 @@ async function getUsdExchangeRate(){
                 date: Date.now()
             }
 
-    
-        localStorage.setItem('steamcito-cotizacion', JSON.stringify(exchangeRateJSON));
-        }
-        catch(err){
-            localStorage.setItem('steamcito-cotizacion', JSON.stringify({
-                rate:851.01,
-                rateDateProvided:"02/02/2024 - 15:57",
-                date:1704237682000
-            }));
-        }
-
-
-    }
-}
-
-
-async function getCryptoUsdExchangeRate(){
-
-    let shouldGetNewRate = evaluateDate('steamcito-cotizacion-crypto');
-
-    if(shouldGetNewRate){
-        try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
-            let exchangeRateJson = await exchangeRateResponse.json();
-            let exchangeRate = exchangeRateJson.venta;
-            let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
-            
-            let exchangeRateJSON = {
-                rate : exchangeRate * 1.05,
-                rateDateProvided: exchangeRateDate,
-                date: Date.now()
-            }
-
-    
         localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
         }
         catch(err){
             localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
-                rate:1040,
-                rateDateProvided:"10/03/2024 - 16:00",
-                date:1704237682000
+                rate:851.01,
+                rateDateProvided:"02/02/2024 - 15:57",
+                date:Date.now()
             }));
         }
-
-
     }
+
+    let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
+    if(shouldGetNewRateDolarMep){
+        try{
+            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarrava/mep/variacion');
+            let exchangeRateJson = await exchangeRateResponse.json();
+            let exchangeRate = exchangeRateJson.venta;
+            let exchangeRateDate = exchangeRateJson.fecha
+            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.21);
+            
+            let exchangeRateJSON = {
+                rate : exchangeRate,
+                rateDateProvided: exchangeRateDate,
+                date: Date.now()
+            }
+
+        localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify(exchangeRateJSON));
+        }
+        catch(err){
+            localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify({
+                rate:851.01,
+                rateDateProvided:"02/02/2024 - 15:57",
+                date:Date.now()
+            }));
+        }
+    }
+
 }
+
+
+
+
 
 
 async function getBnaExchangeRate(){

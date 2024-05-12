@@ -1,7 +1,6 @@
 // Corro función por primera vez
 (async() => {
   await getUsdExchangeRate();
-  await getCryptoUsdExchangeRate();
   getPrices("standard");
 
   // Trigger recursivo

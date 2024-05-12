@@ -161,12 +161,10 @@ function renderCart(){
 
 }
 
-
-
-
 async function setArgentinaPrice(price){
     await getUsdExchangeRate();
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
         if(price.innerText.includes('$')){

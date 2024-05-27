@@ -169,7 +169,6 @@ function changePaymentMethodState(e){
         default: localStorage.setItem('national-tax',60)
             break;
     }
-    window.location.reload()
 }
 
 function changeEmojiState(){

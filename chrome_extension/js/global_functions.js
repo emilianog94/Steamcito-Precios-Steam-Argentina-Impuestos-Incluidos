@@ -300,11 +300,18 @@ async function getUsdExchangeRate(){
         localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify(exchangeRateJSON));
         }
         catch(err){
-            localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
-                rate:1500.00,
-                rateDateProvided:"11/06/2024 - 16:00",
-                date: Date.now()
-            }));
+            if(!localStorage.getItem('steamcito-cotizacion-tarjeta')){
+                localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
+                    rate:1500.00,
+                    rateDateProvided:"11/06/2024 - 16:00",
+                    date: Date.now()
+                }));
+            } else{
+                console.log("Solamente actualizar timestamp");
+                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'));
+                currentRateValue.date = Date.now();
+                localStorage.setItem('steamcito-cotizacion-tarjeta',JSON.stringify(currentRateValue));
+            }
         }
     }
 
@@ -327,11 +334,18 @@ async function getUsdExchangeRate(){
         localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
         }
         catch(err){
-            localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
-                rate:1300.00,
-                rateDateProvided:"11/06/2024 - 16:00",
-                date:Date.now()
-            }));
+            if(!localStorage.getItem('steamcito-cotizacion-crypto')){
+                localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
+                    rate:1300.00,
+                    rateDateProvided:"11/06/2024 - 16:00",
+                    date:Date.now()
+                }));
+            } else{
+                console.log("Solamente actualizar timestamp");
+                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
+                currentRateValue.date = Date.now();
+                localStorage.setItem('steamcito-cotizacion-crypto',JSON.stringify(currentRateValue));                
+            }
         }
     }
 
@@ -353,11 +367,18 @@ async function getUsdExchangeRate(){
         localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify(exchangeRateJSON));
         }
         catch(err){
-            localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify({
-                rate:1550.00,
-                rateDateProvided:"11/06/2024 - 16:00",
-                date:Date.now()
-            }));
+            if(!localStorage.getItem('steamcito-cotizacion-mep')){
+                localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify({
+                    rate:1550.00,
+                    rateDateProvided:"11/06/2024 - 16:00",
+                    date:Date.now()
+                }));
+            } else{
+                console.log("Solamente actualizar timestamp");
+                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'));
+                currentRateValue.date = Date.now();
+                localStorage.setItem('steamcito-cotizacion-mep',JSON.stringify(currentRateValue));                           
+            }
         }
     }
 

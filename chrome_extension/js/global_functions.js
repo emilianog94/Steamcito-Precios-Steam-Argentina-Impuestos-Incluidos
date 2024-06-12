@@ -170,7 +170,9 @@ async function setArgentinaPrice(price){
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
         if(price.innerText.includes('$')){
+            console.log("Price is", price.innerText);
             let baseNumericPrice = extractNumberFromString(price.innerText)
+            console.log(baseNumericPrice);
             price.dataset.originalPrice = baseNumericPrice;
             price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
             renderPrices(price);

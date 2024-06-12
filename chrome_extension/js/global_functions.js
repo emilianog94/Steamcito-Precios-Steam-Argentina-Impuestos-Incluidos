@@ -170,9 +170,7 @@ async function setArgentinaPrice(price){
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
         if(price.innerText.includes('$')){
-            console.log("Price is", price.innerText);
             let baseNumericPrice = extractNumberFromString(price.innerText)
-            console.log(baseNumericPrice);
             price.dataset.originalPrice = baseNumericPrice;
             price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
             renderPrices(price);
@@ -309,7 +307,6 @@ async function getUsdExchangeRate(){
                     date: Date.now()
                 }));
             } else{
-                console.log("Solamente actualizar timestamp");
                 let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'));
                 currentRateValue.date = Date.now();
                 localStorage.setItem('steamcito-cotizacion-tarjeta',JSON.stringify(currentRateValue));
@@ -343,7 +340,6 @@ async function getUsdExchangeRate(){
                     date:Date.now()
                 }));
             } else{
-                console.log("Solamente actualizar timestamp");
                 let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
                 currentRateValue.date = Date.now();
                 localStorage.setItem('steamcito-cotizacion-crypto',JSON.stringify(currentRateValue));                
@@ -376,7 +372,6 @@ async function getUsdExchangeRate(){
                     date:Date.now()
                 }));
             } else{
-                console.log("Solamente actualizar timestamp");
                 let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'));
                 currentRateValue.date = Date.now();
                 localStorage.setItem('steamcito-cotizacion-mep',JSON.stringify(currentRateValue));                           

@@ -161,7 +161,7 @@ const renderCryptoPrice = (appData) => {
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
     if(cryptoExchangeRate > exchangeRate){
-        console.log("Retorno");
+        // console.log("Retorno");
         return;
     }
 

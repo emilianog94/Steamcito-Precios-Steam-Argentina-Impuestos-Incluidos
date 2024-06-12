@@ -130,7 +130,7 @@ async function getArgentinaGames(){
 
     if(shouldRefreshArgentinaList){
         try{
-            let argentinaGames = await fetch('/curator/44965472/ajaxgetfilteredrecommendations/?query&start=0&count=1000')
+            let argentinaGames = await fetch('/curator/45013169/ajaxgetfilteredrecommendations/?query&start=0&count=1000')
             let argentinaGamesJSON = await argentinaGames.json();
             if(argentinaGamesJSON.results_html){
                 let sanitizedDOM = argentinaGamesJSON.results_html.replace(/[\r\n\t]/g, '');

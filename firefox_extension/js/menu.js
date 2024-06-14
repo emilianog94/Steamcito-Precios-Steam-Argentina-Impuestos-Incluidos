@@ -48,7 +48,10 @@ function createMenus() {
                                 <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
                             </div>
                             <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
-                        </div>   
+                        </div>  
+                        
+                        <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
+
                     </div>
 
                     <div class="grupo-opciones">
@@ -103,8 +106,6 @@ function createMenus() {
 
                     </div>
 
-                    <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
-                    
                     <br>
 
 

@@ -284,11 +284,11 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     let dolarCryptoItem = document.querySelector('.dolar_crypto');
     let dolarMepItem = document.querySelector('.dolar_mep');
 
-    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-tarjeta'))
+    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-tarjeta');window.location.reload()} )
 
-    dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-crypto'))
+    dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-crypto');window.location.reload()} )
 
-    dolarMepItem && dolarMepItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-mep'))
+    dolarMepItem && dolarMepItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-mep');window.location.reload()} )
 }
 
 

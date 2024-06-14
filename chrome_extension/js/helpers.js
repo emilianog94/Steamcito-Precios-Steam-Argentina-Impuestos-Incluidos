@@ -332,7 +332,7 @@ function getBalance() {
 
 function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
-    let match = string.replace(',','.').match(regexFindNumber);
+    let match = string.match(regexFindNumber);
     if(match){
         return match[0].replace(/,/g, '');
     }
@@ -412,7 +412,7 @@ function steamizar(contenedor, emoji = true) {
     return numberToString(contenedor) + emojiStatus;
 }
 
-const currentChange = "major"; // patch | minor | major
+const currentChange = "patch"; // patch | minor | major
 
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {

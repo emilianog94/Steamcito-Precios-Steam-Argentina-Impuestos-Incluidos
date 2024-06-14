@@ -173,16 +173,12 @@ const renderCryptoPrice = (appData) => {
 
         <span class="steamcito_saving_tip_close">X</span>
 
-            <div class="steamcito_saving_tip_icon">
-                🧉
-            </div>
-
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
                     Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
                 </p>
 
-                <span class="steamcito_crypto_exchangerate">Cotización Promedio del Dólar Crypto:
+                <span class="steamcito_crypto_exchangerate">Cotización del Dólar Crypto:
                      1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  <span class="steamcito_crypto_cta">(Ver más información)</span>
                 </span>
                 
@@ -287,11 +283,11 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     let dolarCryptoItem = document.querySelector('.dolar_crypto');
     let dolarMepItem = document.querySelector('.dolar_mep');
 
-    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-tarjeta'))
+    dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-tarjeta');window.location.reload()} )
 
-    dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-crypto'))
+    dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-crypto');window.location.reload()} )
 
-    dolarMepItem && dolarMepItem.addEventListener('click', () => changePaymentMethodState('steamcito-cotizacion-mep'))
+    dolarMepItem && dolarMepItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-mep');window.location.reload()} )
 
 }
 

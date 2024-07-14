@@ -11,6 +11,7 @@
   font-style: normal;
 }
 
+
 .emojis {
   font-family: "steamcito-emojis";
   text-transform: uppercase;
@@ -126,9 +127,8 @@ body {
   border-top-right-radius: 0;
 }
 
-.steamcito_saving_tip{
-  display: none !important; // Temporal
 
+.steamcito_saving_tip{
   // background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
   position: relative;
   background-color: #4c6b22;

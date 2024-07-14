@@ -31,9 +31,6 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
-.steamcito_argentina_owned_games {
-  margin-bottom: 125px !important;
-}
 .steamcito_argentina_owned_games .focus {
   overflow-x: auto;
   padding-bottom: 20px;
@@ -52,6 +49,10 @@ body.menu-enabled .responsive_page_frame {
 .steamcito_argentina_owned_games .top_new_releases_banner_click {
   cursor: default;
   pointer-events: none;
+}
+.steamcito_argentina_owned_games .top_new_releases_banner_click .title_ico {
+  max-width: 35px;
+  border-radius: 0.2rem;
 }
 .steamcito_argentina_owned_games .top_new_releases_banner_ctn .dateline {
   letter-spacing: 2px;

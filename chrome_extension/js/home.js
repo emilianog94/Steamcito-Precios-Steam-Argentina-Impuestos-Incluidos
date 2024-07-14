@@ -31,11 +31,12 @@ function renderOwnedArgentinaGames(gamesIds){
         <div class="top_new_releases steamcito_argentina_owned_games home_ctn below_tabs">
 		<div class="home_page_content">
     <div class="top_new_releases_banner_ctn">
-        <div class="top_new_releases_background" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag-background.png")}');">
-        </div>
         <a href="#" class="top_new_releases_banner_click">
-            <div class="title">Desarrollados en Argentina</div>
-            <div class="dateline">Tenés ${gamesIds.length} juegos argentinos en tu biblioteca</div>
+            <div class="title">
+            <img class="title_ico" src="${chrome.runtime.getURL("emojis/argentina-flag-ico.png")}"/> Desarrollados en Argentina <img class="title_ico" src="${chrome.runtime.getURL("emojis/argentina-flag-ico.png")}"/>
+            
+            </div>
+            <div class="dateline">Tenés ${gamesIds.length} juegos argentinos en tu biblioteca de Steam</div>
         </a>
     </div>
 
@@ -46,20 +47,17 @@ function renderOwnedArgentinaGames(gamesIds){
                     ${gamesIds.map(game => 
                         `
                         <a target="_blank" class="store_capsule responsive_scroll_snap_start broadcast_capsule app_impression_tracked" data-ds-appid="${game} target="_blank" href="https://store.steampowered.com/app/${game}">
-                            <div class="capsule headerv5"><img src="https://cdn.akamai.steamstatic.com/steam/apps/${game}/header_292x136.jpg"></img></div>
+                        <div class="capsule headerv5"><img src="https://cdn.akamai.steamstatic.com/steam/apps/${game}/header_292x136.jpg"></img></div>
                         </a>                              
                         `
                     )}
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 	</div>
-        
         `
-
     targetItem.insertAdjacentHTML('afterend',ownedArgentinaGamesElement)
 
     }

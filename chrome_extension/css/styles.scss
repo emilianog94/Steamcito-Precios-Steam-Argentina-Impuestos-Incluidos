@@ -47,7 +47,7 @@ body {
 // Home
 
 .steamcito_argentina_owned_games{
-  margin-bottom: 125px !important;
+  
 
   .focus{
     overflow-x:auto;
@@ -71,6 +71,12 @@ body {
   .top_new_releases_banner_click{
     cursor: default;
     pointer-events: none;
+
+    .title_ico{
+      max-width: 35px;
+      border-radius: .2rem;
+    }
+
   }
 
   .top_new_releases_banner_ctn .dateline{

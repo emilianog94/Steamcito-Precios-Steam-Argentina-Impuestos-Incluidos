@@ -11,7 +11,6 @@
   
     observer.observe(document, {
       subtree: true,
-      attributes: true,
       characterData: true
     });
   

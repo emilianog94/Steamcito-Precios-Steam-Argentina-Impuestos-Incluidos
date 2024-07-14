@@ -15,8 +15,16 @@
   font-family: "steamcito-emojis";
   text-transform: uppercase;
 
+  &.dolarbancario{
+    color: rgb(147, 228, 147)
+  }
+
+  &.crypto {
+    color: rgb(233, 233, 75)
+  }
+
   &.mate {
-    color: red;
+    color: rgb(175, 143, 55);
   }
 
   &.saldo {
@@ -122,6 +130,7 @@ body {
   display: none !important; // Temporal
 
   // background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
+  position: relative;
   background-color: #4c6b22;
   transition: all .25s ease;
   border-radius: 3px;
@@ -135,6 +144,17 @@ body {
   gap: 1rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+
+  .steamcito_saving_tip_close{
+    color: rgb(172, 178, 184);
+    position: absolute;
+    right: 1rem;
+    top: .5rem;
+
+    &:hover{
+      color: #fff;
+    }
+  }
 
   .steamcito_saving_tip_icon{
     font-size: 1.5rem;
@@ -213,6 +233,30 @@ body {
     font-weight: 700;
     color: #fff;
     font-size: 15px;    
+  }
+}
+
+.steamcito_crypto_savings{
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background-color: #4c6b22;
+  color: #fff;
+
+  &:hover{
+    color: #fff;
+  }
+}
+
+.steamcito_payment_alert{
+  max-width: 280px;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background: linear-gradient(90deg, #cc8b0c 5.43%, #7e4400 100%);
+  color: #fff;
+
+  &:hover{
+    color: #fff;
   }
 }
 
@@ -715,7 +759,7 @@ body {
   right: -30%;
   top: 0;
   height: 100vh;
-  width: 30%;
+  width: 25%;
   background-color: #16202d;
   -webkit-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -12px -1px 22px -8px rgba(0, 0, 0, 0.75);
@@ -807,6 +851,21 @@ body {
         .opcion {
           margin-bottom: 2em;
 
+          &.opcion-highlighted{
+            background: linear-gradient(90deg, #cc8b0c 5.43%, #7e4400 100%);
+            padding: .5rem;
+            border-radius: .1rem;
+            color: #fff;
+
+            label{
+              color: #fff;
+            }
+
+            small{
+              opacity: 1;
+            }
+          }
+
           small {
             margin-top: 0.5em;
             display: block;
@@ -815,10 +874,7 @@ body {
           }
 
           > div {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
+            display: block
 
             label {
               color: #c6d4df;
@@ -837,24 +893,26 @@ body {
               border: 1px solid #000;
               border-radius: 3px;
               box-shadow: 1px 1px 0px #45556c;
-              margin-left: 1rem;
+              margin-left: 0;
               padding: 5px;
-              margin-top: 3px;
+              margin-top: 5px;
+              margin-bottom: 5px;
               font-size: 16px;
               line-height: 21px;
-              width: 50%;
+              width: 100%;
               font-size: 0.9rem;
             }
 
             input {
               background-color: rgba(0, 0, 0, 0.4);
+              display: block;
               color: #fff;
               border: 1px solid #000;
               border-radius: 3px;
               box-shadow: 1px 1px 0px #45556c;
-              margin-left: 1rem;
+              margin-left: 0;
               padding: 5px;
-              margin-top: 3px;
+              margin-top: 5px;
               font-size: 16px;
               line-height: 21px;
               width: 40px;
@@ -1014,6 +1072,7 @@ body {
 
 // Regional Indicator
 
+
 .notify-publisher-popup{
   padding: 1.5rem;
   position: fixed;
@@ -1138,6 +1197,10 @@ body {
 
 .regional-meter-wrapper {
 
+  &.barra-minificada.content_steamcito_3{
+    max-height: 40px;
+  }
+
   &.barra-minificada.cotizacion-wrapper, &.barra-minificada.content_steamcito_2{
     .reason:before{
       opacity: 1;
@@ -1152,7 +1215,7 @@ body {
 
     .reason:before{
       pointer-events: none;
-      opacity: 0;
+      opacity: 0 !important;
       overflow:hidden
     }
 
@@ -1160,7 +1223,7 @@ body {
       max-height: 600px;
 
       .reason:before{
-        opacity: 1;
+        opacity: 1 !important;
       }
     }
   }
@@ -1175,6 +1238,33 @@ body {
       color: #fff;
       // font-weight: 700;
 
+
+      &.steamcito-strikethrough-price{
+        position: relative;
+        color: #738895 !important;
+        font-size: .75rem;
+      
+        &::before{
+          content: '';
+          left: 0px;
+          right: 0px;
+          position: absolute;
+          top: 43%;
+          border-bottom: 1.5px solid #738895;
+          transform: skewY(-8deg);
+          box-shadow: 0 0 2px black;
+        }
+      }
+      // .highlight:not(:has(~ .highlight)
+
+      &.regional-meter-price,&.regional-meter-price-us{
+        color: #c6d4df;
+      } 
+      
+      &.regional-meter-price:has(+ span),&.regional-meter-price-us:has(+ span){
+        color: #BEEE11;
+      }
+
       &.name-white{
         color: #ddd;
       }
@@ -1187,6 +1277,10 @@ body {
       &.name-smaller{
         font-size: .73rem;
         color: #969696;
+
+        &.name-smaller-green{
+          color: #BEEE11;
+        }
 
         a{
           color: #fff;
@@ -1247,6 +1341,32 @@ body {
 
   .content_steamcito_3{
     order: -1;
+
+    .reason .name-span:hover{
+      color: #66c0f4;
+    }
+
+    .for{
+      cursor: pointer;
+
+      &:before{
+        background-image: none;
+      }
+
+      &.dolar_tarjeta:before{
+        content:'🧉'
+      }
+
+      &.dolar_crypto:before{
+        content:'🪙'
+      }
+
+      &.dolar_mep:before{
+        content: '💸'
+      }
+
+    }
+
   }
 
 
@@ -1271,6 +1391,7 @@ body {
     text-align: center;
     padding-top: 5px;
     margin: 0 3px;
+    min-width: fit-content;
 
     &--cheap {
       border-color: #84b114;

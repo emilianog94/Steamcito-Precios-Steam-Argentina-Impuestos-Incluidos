@@ -8,14 +8,42 @@
 ![GitHub Release Date](https://img.shields.io/github/release-date/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos?label=Fecha)
 
 
+# Steamcito - Conocé el precio final de todos los juegos de Steam con cotización del dólar e impuestos incluidos
+Steamcito es una extensión de navegador libre, gratuita, sin publicidad y de código abierto que transforma radicalmente tu experiencia en Steam calculando automáticamente los precios  de todos los juegos con la última cotización del dólar e impuestos incluidos.
 
-# Steamcito - La extensión que convierte Steam a pesos argentinos con cotización del dólar e impuestos incluidos (2024)
-Steamcito es una extensión para todos los navegadores que te permite visualizar el precio final de todos los productos de la tienda de Steam en precios argentinos con la cotización del dólar del día y todos los impuestos incluidos, entre otras funcionalidades que te van a hacer comprar de forma más inteligente.
+Con Steamcito ya no vas a tener que entrar a portales financieros para conocer la cotización del dólar e impuestos actuales para saber el precio final de un juego. ¡Steamcito hace por vos todo esto y mucho más!
 
-[Ver vídeos e imágenes de todas las funcionalidades en Steamcito.com.ar](https://www.steamcito.com.ar)
+**Si te gusta la extensión, podés apoyar el desarrollo del proyecto desde Cafecito en el siguiente link:**
 
-[![Invitame un café en cafecito.app](https://cdn.cafecito.app/imgs/buttons/button_3.svg)](https://cafecito.app/steamcito)
+[![Invitame un café en cafecito.app](https://cdn.cafecito.app/imgs/buttons/button_6.svg)](https://cafecito.app/steamcito)
 
+
+## Funcionalidades
+- Visualización automática de todos los precios en pesos argentinos.
+- Selección de método de pago preferido: Tarjetas, Dólar Crypto y Dólar Bancario.
+- Sincronización automática cada una hora de cotizaciones del dólar e impuestos vigentes.
+- Análisis de precios de los juegos en base a la sugerencia de precios de Valve para saber si un juego está barato, adecuado o caro en términos estrictamente relativos.
+- Botón para solicitar precio regional al publicador de un juego cuando este no cuente con precio regional.
+- Tips de ahorro para cuidar el bolsillo indicándote potencial ahorro utilizando métodos de pago alternativos a pagar con tarjeta.
+- Cálculo de precios inteligente basado en tu saldo Steam Wallet.
+- Conversión manual en un click de USD a ARS y viceversa.
+
+[Ver listado completo de funcionalidades con imágenes y vídeos en steamcito.com.ar](https://www.steamcito.com.ar)
+
+***
+
+## Secciones Incluidas
+Steamcito funciona en absolutamente todas las secciones donde se visualicen precios de juegos.
+- Home
+- Secciones de Eventos y Ofertas
+- Fichas de Producto 
+- Fichas de Bundles 
+- Buscador predictivo
+- Buscador general 
+- Carrito 
+- Historial 
+- Páginas de Publishers y Developers
+- Listas de Mentores
 
 ***
 
@@ -29,36 +57,16 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 ***
 
 ## Dispositivos Compatibles
-- Compatible en Windows, Linux y Mac
-- Compatible en Android utilizando el navegador Kiwi Browser (este acepta complementos de Chrome) 
+- Compatible en Windows, Linux y Mac utilizando navegadores basados en Chromium o Firefox
+- Compatible en Android utilizando el navegador Kiwi Browser
 
 ***
 
 ## Instrucciones de instalación y uso
 1. Instalá Steamcito [en tu navegador favorito](https://www.steamcito.com.ar)
 2. ¡Listo! Ya podés entrar a la tienda de Steam desde tu navegador y Steamcito estará funcionando.
-3. Opcionalmente podés personalizar los impuestos y otras opciones desde el mate que se encuentra arriba a la derecha en la tienda de Steam
-
 
 ***
-
-
-## Listado de Funcionalidades
-[Clickeá acá para ver imágenes y vídeos de todas las funcionalidades en acción](https://www.steamcito.com.ar)
-
-***
-
-## ¿Por qué usar Steamcito?
-- Siempre vas a ver el precio final de todos los productos de Steam con la cotización del dólar del día y todos los impuestos incluidos
-- Información y cálculo basados en la cotización del dólar del día actualizado cada una hora. 
-- Contás con un análisis regional que te indica si el juego que estás viendo tiene un precio barato, adecuado o caro en términos estrictamente relativos basado en la sugerencia de precios regionales de Valve. 
-- Es compatible con todas las vistas de la tienda de Steam
-- Si tenés saldo en la Steam Wallet te calcula automáticamente las dos opciones de compra disponibles: todo con tarjeta y parte saldo/parte tarjeta.
-- Algunos entes emisores de tarjetas tienen diferencias en el cálculo del porcentaje de impuestos. En Steamcito podés personalizar tus impuestos para calcular siempre de forma correcta.
-- Tiene un matecito 🧉
-
-***
-
 
 ## ¿Tenés planeado hacer algo similar para Origin, Microsoft, Epic Store, Playstation Store, etc?
 ¡Ya existe una muy buena extensión para otras tiendas! <a href="https://github.com/lucasromerodb/impuestito">Te recomiendo usar Impuestito</a> que aún está en desarrollo y hace los cálculos de impuestos para la mayoría de las tiendas 😀
@@ -75,20 +83,7 @@ Steamcito es una extensión para todos los navegadores que te permite visualizar
 
 ***
 
-## Roadmap 
-Estos son algunos ítems que quedaron a mejorar tras la dolarización de Steam el 20/11:
-
-- Reactivar Steamcito en la sección Suscripciones y productos de Suscripción
-- Reactivar Steamcito en la sección Search
-- Mejorar el cálculo en la sección Historial de Compras teniendo en cuenta los diferentes impuestos históricos y no el valor del impuesto actual
-- Mejoras generales del código
-
-
 ## Últimas Actualizaciones
 Conocé todos los detalles de las últimas actualizaciones de Steamcito
 
-[Ver changelog](https://emilianog94.github.io/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/landing/changelog.html)
-
-
-
-
+[Ver changelog](https://steamcito.com.ar/changelog)

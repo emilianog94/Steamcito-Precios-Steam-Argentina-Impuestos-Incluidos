@@ -208,8 +208,6 @@ function setNationalTax() {
     if (localStorage.hasOwnProperty('national-tax')) {
         let taxValue = localStorage.getItem('national-tax');
 
-        if (taxValue == 0) return standardTaxes;
-
         standardTaxes = [{
             name: "Impuestos Nacionales personalizados por vos",
             value: taxValue
@@ -262,10 +260,7 @@ function getTotalTaxes() {
 
 function calcularImpuestos(initialPrice) {
     let finalPrice = initialPrice;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((initialPrice * tax.value / 100).toFixed(2));
-        })
+
 
     provinceTaxes &&
         provinceTaxes.forEach(tax => {
@@ -278,15 +273,11 @@ function calcularImpuestos(initialPrice) {
  function calculateTaxesAndExchange(initialPrice,exchangeRate = "unset") {
 
     if(exchangeRate=="unset"){
-        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion')).rate;
+        exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
     }
 
     let arsPriceBeforeTaxes = initialPrice * exchangeRate
     let finalPrice = initialPrice * exchangeRate;
-    standardTaxes &&
-        standardTaxes.forEach(tax => {
-            finalPrice += parseFloat((arsPriceBeforeTaxes * tax.value / 100).toFixed(2));
-        })
 
     provinceTaxes &&
         provinceTaxes.forEach(tax => {
@@ -341,7 +332,7 @@ function getBalance() {
 
 function extractNumberFromString(string){
     let regexFindNumber = /(\d{1,3}(,\d{3})*(\.\d+)?)/;
-    let match = string.replace(',','.').match(regexFindNumber);
+    let match = string.match(regexFindNumber);
     if(match){
         return match[0].replace(/,/g, '');
     }

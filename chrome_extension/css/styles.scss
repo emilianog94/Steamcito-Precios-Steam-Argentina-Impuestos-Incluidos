@@ -1372,9 +1372,31 @@ body {
 
 }
 
+// Menú Header de Steam
+
+.store_nav{
+  overflow: hidden;
+}
+
 .store_nav .tab > span{
   padding: 0 9px !important;
   // font-size: 12px !important;
+}
+
+.store_nav .tab-videojuegos-argentinos span{
+  display: flex !important;
+  align-items: center;
+
+  img{
+    margin-right: 6px;
+    border-radius: .125rem;
+    max-width:25px;
+  }
+}
+
+.store_nav > a.tab[href*=labs]{
+  max-width: 30px;
+  overflow: hidden;
 }
 
 .regional-meter-container {

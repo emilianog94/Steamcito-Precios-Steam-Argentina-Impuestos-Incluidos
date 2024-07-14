@@ -1078,8 +1078,27 @@ body.menu-enabled .responsive_page_frame {
   content: "💸";
 }
 
+.store_nav {
+  overflow: hidden;
+}
+
 .store_nav .tab > span {
   padding: 0 9px !important;
+}
+
+.store_nav .tab-videojuegos-argentinos span {
+  display: flex !important;
+  align-items: center;
+}
+.store_nav .tab-videojuegos-argentinos span img {
+  margin-right: 6px;
+  border-radius: 0.125rem;
+  max-width: 25px;
+}
+
+.store_nav > a.tab[href*=labs] {
+  max-width: 30px;
+  overflow: hidden;
 }
 
 .regional-meter-container {

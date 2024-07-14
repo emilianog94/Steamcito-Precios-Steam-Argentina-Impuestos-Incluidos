@@ -39,26 +39,52 @@ const renderArgentinaIndicator = (matchingGame) => {
     let gameName = document.querySelector('#appHubAppName');
     let targetContainer = document.querySelector('.leftcol.game_description_column');
     
-    function getUrlHostname(urlString){
+    function validateUrl(urlString){
         try{
             let url = new URL(urlString) 
             if(url){ 
-                return url.hostname
+                console.log(url);
+                let parameters = new URLSearchParams(url.search);
+                if(parameters){
+                    if(parameters.get('coverType') && parameters.get('guest')){
+                        return {
+                            hostname: url.hostname,
+                            coverType: parameters.get('coverType'),
+                            guest: parameters.get('guest')
+                        } 
+                    }
+                }
             }  
         } catch(error) {
             return "";
         }     
     }
 
-    let urlHostname = getUrlHostname(matchingGame.informationUrl)
+    let finalURL = validateUrl(matchingGame.informationUrl)
+    console.log(finalURL);
 
-    if(matchingGame.informationUrl) {
+    if(finalURL) {
         let argentinaIndicator = 
         `
         <a class="franchise_notice franchise_notice_with_description" target=_"blank" href="${matchingGame.informationUrl}">
             <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
-            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 💖</div>
-            <div class="franchise_description">Conocé más sobre su desarrollador [${urlHostname}] </div>
+            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 🧉</div>
+            ${finalURL.hostname == "youtube.com"
+                ?
+                `
+                <div class="franchise_description">${finalURL.coverType == "entrevista" ? "Mirá la entrevista " : "Conocé más sobre " } ${finalURL.guest.replaceAll('-',' ')} [${finalURL.hostname}] </div>
+                `
+                : ""
+            }
+
+            ${finalURL.hostname == "pressover.news"
+                ?
+                `
+                <div class="franchise_description">${finalURL.coverType == "entrevista" ? "Leé la nota " : "Conocé más sobre " } ${finalURL.guest.replaceAll('-',' ')} [${finalURL.hostname}] </div>
+                `
+                : ""
+            }
+
         </a>    
         `
         targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)

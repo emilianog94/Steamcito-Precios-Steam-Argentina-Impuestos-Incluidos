@@ -68,7 +68,7 @@ const renderArgentinaIndicator = (matchingGame) => {
         `
         <a class="franchise_notice franchise_notice_with_description" target=_"blank" href="${matchingGame.informationUrl}">
             <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
-            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 🧉</div>
+            <div class="franchise_name">${gameName.innerText} es un juego argentino 💖</div>
             ${finalURL.hostname == "youtube.com"
                 ?
                 `
@@ -93,7 +93,7 @@ const renderArgentinaIndicator = (matchingGame) => {
         `
         <a class="franchise_notice franchise_notice_without_description" href="#">
             <div class="background_image" style="background-image: url('${chrome.runtime.getURL("emojis/argentina-flag.png")}');"></div>
-            <div class="franchise_name">${gameName.innerText} es un juego hecho en Argentina 💖</div>
+            <div class="franchise_name">${gameName.innerText} es un juego argentino 💖</div>
         </a>    
         `
         targetContainer.insertAdjacentHTML('afterbegin', argentinaIndicator)

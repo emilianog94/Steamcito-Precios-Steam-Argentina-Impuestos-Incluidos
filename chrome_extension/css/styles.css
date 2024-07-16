@@ -31,6 +31,64 @@ body.menu-enabled .responsive_page_frame {
   transition: all 0.5s ease;
 }
 
+.steamcito_argentina_owned_games .focus {
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar {
+  height: 15px;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+}
+.steamcito_argentina_owned_games .focus::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+}
+.steamcito_argentina_owned_games .top_new_releases_banner_click {
+  cursor: default;
+  pointer-events: none;
+}
+.steamcito_argentina_owned_games .top_new_releases_banner_click .title_ico {
+  max-width: 35px;
+  border-radius: 0.2rem;
+}
+.steamcito_argentina_owned_games .top_new_releases_banner_ctn .dateline {
+  letter-spacing: 2px;
+}
+.steamcito_argentina_owned_games img {
+  transition: all 0.5s ease;
+}
+.steamcito_argentina_owned_games img:hover {
+  transform: scale(1.1);
+}
+.steamcito_argentina_owned_games .ds_owned_flag, .steamcito_argentina_owned_games .ds_options {
+  display: none;
+}
+
+.franchise_notice.franchise_notice_with_description .background_image {
+  opacity: 0.75;
+}
+.franchise_notice.franchise_notice_with_description .franchise_name {
+  padding-top: 8px;
+}
+.franchise_notice.franchise_notice_with_description .franchise_description {
+  padding-top: 30px;
+  padding-left: 16px;
+  font-size: 11px;
+}
+.franchise_notice.franchise_notice_with_description .franchise_description:hover {
+  color: #fff;
+}
+
+.franchise_notice.franchise_notice_without_description {
+  cursor: default;
+}
+.franchise_notice.franchise_notice_without_description .background_image {
+  opacity: 0.75;
+}
+
 .steamcito_saving_tip_url + .game_area_purchase_game {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -1019,6 +1077,29 @@ body.menu-enabled .responsive_page_frame {
 }
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_mep:before {
   content: "💸";
+}
+
+.store_nav {
+  overflow: hidden;
+}
+
+.store_nav .tab > span {
+  padding: 0 9px !important;
+}
+
+.store_nav .tab-videojuegos-argentinos span {
+  display: flex !important;
+  align-items: center;
+}
+.store_nav .tab-videojuegos-argentinos span img {
+  margin-right: 6px;
+  border-radius: 0.125rem;
+  max-width: 25px;
+}
+
+.store_nav > a.tab[href*=labs] {
+  max-width: 30px;
+  overflow: hidden;
 }
 
 .regional-meter-container {

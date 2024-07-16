@@ -209,7 +209,7 @@ async function getOwnedGames(){
     if(document.querySelector("#header_wallet_balance")){
         let shouldRefreshOwnedList = evaluateDate('steamcito-owned-games',86400);
         if(shouldRefreshOwnedList){
-            const ownedGames = await fetch('/dynamicstore/userdata/')
+            const ownedGames = await fetch(`/dynamicstore/userdata/?time=${Date.now()}`)
             const ownedGamesJSON = await ownedGames.json();
             if(ownedGamesJSON.rgOwnedApps && ownedGamesJSON.rgOwnedApps.length){
                 const ownedGamesObject = {

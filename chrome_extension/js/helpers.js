@@ -415,16 +415,19 @@ function steamizar(contenedor, emoji = true) {
 
 function renderArgentinaShortcut(){
     let navbar = document.querySelector('.store_nav');
-    let navbarFirstItem = navbar.querySelector('div:first-child');
+    if(navbar){
+        let navbarFirstItem = navbar.querySelector('div:first-child');
 
-    if(navbar && navbarFirstItem){
-        let argentinaShortcut = `
-        <a class="tab tab-videojuegos-argentinos" href="https://steamcito.com.ar/videojuegos-argentinos" target="_blank">
-            <span> <img src="${chrome.runtime.getURL("emojis/argentina-flag-ico.png")}"/> Juegos Argentinos </span>
-        </a>
-        `    
-        navbarFirstItem.insertAdjacentHTML('afterend',argentinaShortcut)
+        if(navbar && navbarFirstItem){
+            let argentinaShortcut = `
+            <a class="tab tab-videojuegos-argentinos" href="https://steamcito.com.ar/videojuegos-argentinos" target="_blank">
+                <span> <img src="${chrome.runtime.getURL("emojis/argentina-flag-ico.png")}"/> Juegos Argentinos </span>
+            </a>
+            `    
+            navbarFirstItem.insertAdjacentHTML('afterend',argentinaShortcut)
+        }
     }
+
 }
 
 const currentChange = "patch"; // patch | minor | major

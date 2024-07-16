@@ -4,9 +4,9 @@ function createMenus(){
     `<div class="ico-steamcito"> 
         <img src="${chrome.runtime.getURL("emojis/mate-emoji.png")}" />
     </div>`;
-    oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
+    oldMenu && oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
     steamcitoIcon = document.querySelector(".ico-steamcito");
-    steamcitoIcon.addEventListener('click',showMenu);
+    steamcitoIcon && steamcitoIcon.addEventListener('click',showMenu);
 
     let steamcitoMenu = `
     <div class="menu-steamcito">

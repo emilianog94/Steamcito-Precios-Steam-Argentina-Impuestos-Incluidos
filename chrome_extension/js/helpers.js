@@ -430,7 +430,7 @@ function renderArgentinaShortcut(){
 
 }
 
-const currentChange = "patch"; // patch | minor | major
+const currentChange = "major"; // patch | minor | major
 
 function showUpdate() {
     chrome.storage.local.get(['justUpdated'], function (result) {

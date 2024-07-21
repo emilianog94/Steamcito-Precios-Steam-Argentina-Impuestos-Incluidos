@@ -161,6 +161,69 @@ function renderCart(){
 
 }
 
+
+async function getArgentinaGames(){
+    let shouldRefreshArgentinaList = evaluateDate('steamcito-argentina-games',86400);
+
+    if(shouldRefreshArgentinaList){
+        try{
+            let argentinaGames = await fetch('https://store.steampowered.com/curator/45013169/ajaxgetfilteredrecommendations/?query&start=0&count=1000')
+            let argentinaGamesJSON = await argentinaGames.json();
+            if(argentinaGamesJSON.results_html){
+                let sanitizedDOM = argentinaGamesJSON.results_html.replace(/[\r\n\t]/g, '');
+                let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
+                let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
+                if(gamesElements){
+                    let gamesElementsArray = Array.from(gamesElements)
+                    let gamesList = gamesElementsArray.map(recomendacion => {
+                        let itemElement = recomendacion.querySelector('div > a');
+                        let item = itemElement.dataset.dsAppid;
+                        let urlElement = recomendacion.querySelector('.recommendation_readmore a[target=_blank]');
+                        let url = urlElement?.href || "";
+                        if(url){
+                            url = url.replace('https://steamcommunity.com/linkfilter/?u=','');
+                            url = decodeURIComponent(url);
+                        }
+                        return({ 
+                            appId: item,
+                            informationUrl: url
+                        })
+                    })
+                    let finalObject = {
+                        games: gamesList,
+                        date: Date.now()
+                    }            
+                    gamesList.length && localStorage.setItem('steamcito-argentina-games',JSON.stringify(finalObject))
+                }
+            }
+        } catch(error){
+            console.log("Hubo un error al obtener el JSON");
+            console.log(error);
+        }
+    }
+}
+
+async function getOwnedGames(){
+    // Si el usuario está logueado
+    if(document.querySelector("#header_wallet_balance")){
+        let shouldRefreshOwnedList = evaluateDate('steamcito-owned-games',86400);
+        if(shouldRefreshOwnedList){
+            const ownedGames = await fetch(`https://store.steampowered.com/dynamicstore/userdata/?time=${Date.now()}`)
+            const ownedGamesJSON = await ownedGames.json();
+            if(ownedGamesJSON.rgOwnedApps && ownedGamesJSON.rgOwnedApps.length){
+                const ownedGamesObject = {
+                    games: ownedGamesJSON.rgOwnedApps,
+                    date: Date.now()
+                }
+                localStorage.setItem('steamcito-owned-games',JSON.stringify(ownedGamesObject))
+            }
+        }
+    } else{
+        // El usuario no está logueado, limpiar la listita local
+        localStorage.removeItem('steamcito-owned-games')
+    }
+}
+
 async function setArgentinaPrice(price){
     await getUsdExchangeRate();
     let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
@@ -259,7 +322,7 @@ function switchPrices(selector,first,second,symbol){
     },250);
 }
 
-function evaluateDate(localStorageItem){
+function evaluateDate(localStorageItem,seconds = 3600){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
@@ -267,7 +330,7 @@ function evaluateDate(localStorageItem){
         let currentTimestamp = Date.now()/1000;
         let difference = currentTimestamp - savedTimestamp;
 
-        if(difference >= 3600){
+        if(difference >= seconds){
             return true;
         } else{
             return false;
@@ -443,3 +506,7 @@ function stringToDate(dateStr)
 		year:Number(dateArr[2])
 	};
 }
+
+getArgentinaGames();
+getOwnedGames();
+renderArgentinaShortcut();

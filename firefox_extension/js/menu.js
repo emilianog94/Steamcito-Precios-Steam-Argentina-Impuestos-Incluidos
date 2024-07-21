@@ -5,11 +5,11 @@ function createMenus() {
     let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
     let steamcitoIcon =
         `<div class="ico-steamcito"> </div>`;
-    oldMenu.insertAdjacentHTML('afterend', DOMPurify.sanitize(steamcitoIcon));
+    oldMenu && oldMenu.insertAdjacentHTML('afterend', DOMPurify.sanitize(steamcitoIcon));
     let contenedorIcono = document.querySelector('.ico-steamcito');
     contenedorIcono.appendChild(nodoImagen);
     steamcitoIcon = document.querySelector(".ico-steamcito");
-    steamcitoIcon.addEventListener('click', showMenu);
+    steamcitoIcon && steamcitoIcon.addEventListener('click', showMenu);
 
     let steamcitoMenu = `
     <div class="menu-steamcito">
@@ -25,9 +25,9 @@ function createMenus() {
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas (El más caro)</option>
-                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto (El más barato)</option>
-                                    <option value="steamcito-cotizacion-mep">💸 Dólar Bancario (Equilibrado)</option>
+                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas</option>
+                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto</option>
+                                    <option value="steamcito-cotizacion-mep">💸 Dólar Bancario</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>

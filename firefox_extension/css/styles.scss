@@ -543,6 +543,7 @@
   // Search autocomplete
 
   .search_area{
+    flex-shrink: 1 !important;
 
     .match_subtitle{
       max-width: fit-content;
@@ -1373,9 +1374,10 @@
     }
   }
 
-  .store_nav > a.tab[href*=labs]{
-    max-width: 30px;
+  .store_nav > a.tab[href*=labs] span{
+    max-width: 40px;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   

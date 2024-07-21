@@ -334,7 +334,7 @@ function evaluateDate(localStorageItem, seconds = 3600){
         let currentTimestamp = Date.now()/1000;
         let difference = currentTimestamp - savedTimestamp;
 
-        if(difference >= 86400){
+        if(difference >= seconds){
             return true;
         } else{
             return false;

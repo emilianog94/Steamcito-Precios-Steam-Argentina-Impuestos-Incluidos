@@ -43,7 +43,6 @@ const renderArgentinaIndicator = (matchingGame) => {
         try{
             let url = new URL(urlString) 
             if(url){ 
-                console.log(url);
                 let parameters = new URLSearchParams(url.search);
                 if(parameters){
                     if(parameters.get('coverType') && parameters.get('guest')){
@@ -61,7 +60,6 @@ const renderArgentinaIndicator = (matchingGame) => {
     }
 
     let finalURL = validateUrl(matchingGame.informationUrl)
-    console.log(finalURL);
 
     if(finalURL) {
         let argentinaIndicator = 

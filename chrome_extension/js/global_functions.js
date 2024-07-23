@@ -330,8 +330,8 @@ function evaluateDate(localStorageItem, seconds = 3600){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
-        let savedTimestamp = parseInt(exchangeRateJSON.date) / 1000;
-        let currentTimestamp = Date.now()/1000;
+        let savedTimestamp = Math.floor(parseInt(exchangeRateJSON.date) / 1000);
+        let currentTimestamp = Math.floor(Date.now()/1000);
         let difference = currentTimestamp - savedTimestamp;
 
         if(difference >= seconds){

@@ -551,7 +551,7 @@ body {
 // Search autocomplete
 
 .search_area{
- 
+  flex-shrink: 1 !important;
   .match_subtitle{
     max-width: fit-content;
   }
@@ -1385,7 +1385,7 @@ body {
 }
 
 .store_nav .tab > span{
-  padding: 0 9px !important;
+  padding: 0 7px !important;
   // font-size: 12px !important;
 }
 
@@ -1396,13 +1396,14 @@ body {
   img{
     margin-right: 6px;
     border-radius: .125rem;
-    max-width:25px;
+    max-width:20px;
   }
 }
 
-.store_nav > a.tab[href*=labs]{
-  max-width: 30px;
+.store_nav > a.tab[href*=labs] span{
+  max-width: 40px;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .regional-meter-container {

@@ -44,7 +44,89 @@
   }
 
 
+  // Home
+
+  .steamcito_argentina_owned_games{
+
+
+    .focus{
+      overflow-x:auto;
+      padding-bottom: 20px;
+
+      &::-webkit-scrollbar{
+        height: 15px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255,255,255,.75);
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.5);
+        border-radius: .5rem;
+      }
+    }
+
+    .top_new_releases_banner_click{
+      cursor: default;
+      pointer-events: none;
+
+      .title_ico{
+        max-width: 35px;
+        border-radius: .2rem;
+      }
+
+    }
+
+    .top_new_releases_banner_ctn .dateline{
+      letter-spacing: 2px;
+    }
+
+    img{
+      transition: all .5s ease;
+
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+
+    .ds_owned_flag, .ds_options{
+      display: none;
+
+    }
+  }
+
   // Ficha de Producto
+  .franchise_notice.franchise_notice_with_description{
+    .background_image{
+      opacity: .75;
+    }
+
+    .franchise_name{
+      padding-top: 8px;
+    }
+
+    .franchise_description{
+      padding-top: 30px;
+      padding-left: 16px;
+      font-size: 11px;
+
+      &:hover{
+        color: #fff;
+      }
+    }
+  }
+
+  .franchise_notice.franchise_notice_without_description{
+    cursor: default;
+
+    .background_image{
+      opacity: .75;
+    }
+
+  }
+  
 
   .steamcito_saving_tip_url + .game_area_purchase_game{
     border-top-left-radius: 0;
@@ -461,6 +543,7 @@
   // Search autocomplete
 
   .search_area{
+    flex-shrink: 1 !important;
 
     .match_subtitle{
       max-width: fit-content;
@@ -1268,6 +1351,35 @@
 
   }
 
+
+  // Menú Header de Steam
+
+  .store_nav{
+    overflow: hidden;
+  }
+
+  .store_nav .tab > span{
+    padding: 0 9px !important;
+    // font-size: 12px !important;
+  }
+
+  .store_nav .tab-videojuegos-argentinos span{
+    display: flex !important;
+    align-items: center;
+
+    img{
+      margin-right: 6px;
+      border-radius: .125rem;
+      max-width:20px;
+    }
+  }
+
+  .store_nav > a.tab[href*=labs] span{
+    max-width: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
   
   .regional-meter-container {
     display: flex;

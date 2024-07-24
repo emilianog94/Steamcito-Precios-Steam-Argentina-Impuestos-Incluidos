@@ -412,6 +412,9 @@ body.menu-enabled .responsive_page_frame {
   z-index: 100;
 }
 
+.search_area {
+  flex-shrink: 1 !important;
+}
 .search_area .match_subtitle {
   max-width: fit-content;
 }
@@ -1084,7 +1087,7 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .store_nav .tab > span {
-  padding: 0 9px !important;
+  padding: 0 7px !important;
 }
 
 .store_nav .tab-videojuegos-argentinos span {
@@ -1094,12 +1097,13 @@ body.menu-enabled .responsive_page_frame {
 .store_nav .tab-videojuegos-argentinos span img {
   margin-right: 6px;
   border-radius: 0.125rem;
-  max-width: 25px;
+  max-width: 20px;
 }
 
-.store_nav > a.tab[href*=labs] {
-  max-width: 30px;
+.store_nav > a.tab[href*=labs] span {
+  max-width: 40px;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .regional-meter-container {

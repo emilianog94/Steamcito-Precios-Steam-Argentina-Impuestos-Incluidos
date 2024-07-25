@@ -9,6 +9,7 @@ function createMenus(){
     steamcitoIcon && steamcitoIcon.addEventListener('click',showMenu);
 
     let steamcitoMenu = `
+    <div class="menu-steamcito-background"></div>
     <div class="menu-steamcito">
             <div class="internal-menu">
                 <span class="titulo">CONFIGURACIÓN DE STEAMCITO <br><span class="titulo__version"> Versión ${chrome.runtime.getManifest().version}</span></span>
@@ -199,6 +200,7 @@ function changeProvinceTax(){
 
 function showMenu(e){
     menu.classList.add('enabled');
+    menuBackground.classList.add('menu-steamcito-background-enabled');
     document.body.classList.add('menu-enabled');
     document.addEventListener('click',hideMenu);
 }
@@ -206,6 +208,7 @@ function showMenu(e){
 function hideMenu(e){
     if(!menu.contains(e.target) && !steamcitoIcon.contains(e.target)) {
         menu.classList.remove('enabled');
+        menuBackground.classList.remove('menu-steamcito-background-enabled');
         document.body.classList.remove('menu-enabled');
         document.removeEventListener('click',hideMenu);
     }
@@ -242,6 +245,7 @@ createMenus();
 
 // Selecciono los botones del menú y les asigno eventos
 const menu = document.querySelector(".menu-steamcito");
+const menuBackground = document.querySelector(".menu-steamcito-background");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual");

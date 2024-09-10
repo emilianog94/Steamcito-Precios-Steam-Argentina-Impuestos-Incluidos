@@ -455,7 +455,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         <hr>
         <p class="reason against">
-        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestro región.
+        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestra región.
         </p>
         <hr>
         ${renderPriceIndicators(appData)}

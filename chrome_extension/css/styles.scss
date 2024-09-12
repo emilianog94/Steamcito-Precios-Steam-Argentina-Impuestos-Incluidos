@@ -1,4 +1,11 @@
 @font-face {
+  font-family: 'steamcito-emojis-noto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=Yq6P-KqIXTD0t4D9z1ESnKM3-HpFabt0-yAtYT8dG2Qyr9iC5Ue3K5AOyg&skey=a373f7129eaba270&v=v32) format('woff2');
+}
+
+@font-face {
   font-family: "steamcito-emojis";
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot");
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot?#iefix")
@@ -13,24 +20,9 @@
 
 
 .emojis {
-  font-family: "steamcito-emojis";
+  font-family: "steamcito-emojis-noto",sans-serif;
   text-transform: uppercase;
-
-  &.dolarbancario{
-    color: rgb(147, 228, 147)
-  }
-
-  &.crypto {
-    color: rgb(233, 233, 75)
-  }
-
-  &.mate {
-    color: rgb(175, 143, 55);
-  }
-
-  &.saldo {
-    color: lightgreen;
-  }
+  margin-left: 2px;
 }
 
 body {
@@ -1360,14 +1352,17 @@ body {
       }
 
       &.dolar_tarjeta:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content:'🧉'
       }
 
       &.dolar_crypto:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content:'🪙'
       }
 
       &.dolar_mep:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content: '💸'
       }
 

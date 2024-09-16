@@ -622,6 +622,11 @@ body.menu-enabled .responsive_page_frame {
   font-weight: 400;
   opacity: 0.75;
 }
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones option, .menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones,
+.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones option,
+.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones {
+  font-family: "steamcito-emojis-noto", sans-serif;
+}
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones {
   margin: 2em 0;

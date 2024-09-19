@@ -1,5 +1,11 @@
 @charset "UTF-8";
 @font-face {
+  font-family: "steamcito-emojis-noto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=Yq6P-KqIXTD0t4D9z1ESnKM3-HpFabt0-yAtYT8dG2Qyr9iC5Ue3K5AOyg&skey=a373f7129eaba270&v=v32) format("woff2");
+}
+@font-face {
   font-family: "steamcito-emojis";
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot");
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot?#iefix") format("embedded-opentype"), url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.woff") format("woff"), url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.ttf") format("truetype");
@@ -7,20 +13,9 @@
   font-style: normal;
 }
 .emojis {
-  font-family: "steamcito-emojis";
+  font-family: "steamcito-emojis-noto", sans-serif;
   text-transform: uppercase;
-}
-.emojis.dolarbancario {
-  color: rgb(147, 228, 147);
-}
-.emojis.crypto {
-  color: rgb(233, 233, 75);
-}
-.emojis.mate {
-  color: rgb(175, 143, 55);
-}
-.emojis.saldo {
-  color: lightgreen;
+  margin-left: 2px;
 }
 
 body.menu-enabled {
@@ -28,9 +23,6 @@ body.menu-enabled {
 }
 body.menu-enabled .responsive_page_frame {
   filter: blur(0.35em);
-}
-body .responsive_page_frame {
-  filter: none;
   transition: all 0.5s ease;
 }
 
@@ -579,14 +571,6 @@ body .responsive_page_frame {
   transition: all 0.25s ease;
   padding: 15px 0;
 }
-.menu-steamcito-background-enabled {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 99999;
-}
 @media (min-width: 1440px) {
   .menu-steamcito {
     width: 20%;
@@ -637,6 +621,11 @@ body .responsive_page_frame {
   font-size: 0.85em;
   font-weight: 400;
   opacity: 0.75;
+}
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones option, .menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones,
+.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones option,
+.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones {
+  font-family: "steamcito-emojis-noto", sans-serif;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones {
@@ -1084,12 +1073,15 @@ body .responsive_page_frame {
   background-image: none;
 }
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_tarjeta:before {
+  font-family: "steamcito-emojis-noto", sans-serif;
   content: "🧉";
 }
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_crypto:before {
+  font-family: "steamcito-emojis-noto", sans-serif;
   content: "🪙";
 }
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_mep:before {
+  font-family: "steamcito-emojis-noto", sans-serif;
   content: "💸";
 }
 

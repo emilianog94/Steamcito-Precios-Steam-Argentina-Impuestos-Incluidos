@@ -26,6 +26,11 @@
 }
 
 body {
+
+  .responsive_page_frame {
+    filter: none;
+  }
+
   &.menu-enabled {
     overflow-x: hidden;
 
@@ -34,6 +39,9 @@ body {
       transition: all 0.5s ease;
     }
   }
+
+
+
 }
 
 // Home
@@ -750,6 +758,15 @@ body {
       }
     }
   }
+}
+
+.menu-steamcito-background-enabled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
 }
 
 .menu-steamcito {

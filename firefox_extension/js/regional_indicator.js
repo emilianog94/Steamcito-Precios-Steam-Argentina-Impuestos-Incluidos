@@ -261,7 +261,7 @@ const renderCryptoPrice = (appData) => {
 
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
+                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🪙 </span>
                 </p>
 
                 <span class="steamcito_crypto_exchangerate">Cotización del Dólar Crypto:

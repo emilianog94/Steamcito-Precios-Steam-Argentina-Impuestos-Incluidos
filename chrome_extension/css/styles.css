@@ -18,6 +18,9 @@
   margin-left: 2px;
 }
 
+body .responsive_page_frame {
+  filter: none;
+}
 body.menu-enabled {
   overflow-x: hidden;
 }
@@ -555,6 +558,15 @@ body.menu-enabled .responsive_page_frame {
 }
 #checkout_steam_logo .ico-steamcito img:hover {
   transform: rotate(20deg);
+}
+
+.menu-steamcito-background-enabled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
 }
 
 .menu-steamcito {

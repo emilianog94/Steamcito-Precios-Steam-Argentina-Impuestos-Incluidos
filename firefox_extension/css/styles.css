@@ -532,15 +532,14 @@ body .responsive_page_frame {
   display: flex;
 }
 #global_actions .ico-steamcito {
+  font-family: "steamcito-emojis-noto", sans-serif;
+  font-size: 1.1rem;
+  cursor: pointer;
   margin-top: 7px;
   margin-right: 7px;
-}
-#global_actions .ico-steamcito > img {
-  width: 20px;
-  cursor: pointer;
   transition: all 0.25s ease;
 }
-#global_actions .ico-steamcito > img:hover {
+#global_actions .ico-steamcito:hover {
   transform: rotate(20deg);
 }
 

@@ -1,13 +1,11 @@
 function createMenus() {
 
-    let nodoImagen = document.createElement('img');
-    nodoImagen.src = browser.runtime.getURL("emojis/mate-emoji.png");
     let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
     let steamcitoIcon =
-        `<div class="ico-steamcito"> </div>`;
+    `<div class="ico-steamcito"> 
+        🧉
+    </div>`;
     oldMenu && oldMenu.insertAdjacentHTML('afterend', DOMPurify.sanitize(steamcitoIcon));
-    let contenedorIcono = document.querySelector('.ico-steamcito');
-    contenedorIcono.appendChild(nodoImagen);
     steamcitoIcon = document.querySelector(".ico-steamcito");
     steamcitoIcon && steamcitoIcon.addEventListener('click', showMenu);
 

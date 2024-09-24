@@ -719,17 +719,15 @@
     display: flex;
   
     .ico-steamcito {
+      font-family: 'steamcito-emojis-noto',sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
       margin-top: 7px;
       margin-right: 7px;
+      transition: all 0.25s ease;
   
-      > img {
-        width: 20px;
-        cursor: pointer;
-        transition: all 0.25s ease;
-  
-        &:hover {
-          transform: rotate(20deg);
-        }
+      &:hover {
+        transform: rotate(20deg);
       }
     }
   }

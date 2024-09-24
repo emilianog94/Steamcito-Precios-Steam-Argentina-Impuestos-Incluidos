@@ -2,7 +2,7 @@ function createMenus(){
     let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
     let steamcitoIcon = 
     `<div class="ico-steamcito"> 
-        <img src="${chrome.runtime.getURL("emojis/mate-emoji.png")}" />
+        🧉
     </div>`;
     oldMenu && oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
     steamcitoIcon = document.querySelector(".ico-steamcito");

@@ -261,7 +261,7 @@ const renderCryptoPrice = (appData) => {
 
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🧉 </span>
+                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 🪙 </span>
                 </p>
 
                 <span class="steamcito_crypto_exchangerate">Cotización del Dólar Crypto:
@@ -452,7 +452,7 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
 
         <hr>
         <p class="reason against">
-        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestro región.
+        <span class="name-span"> ${appData.publisher}</span> todavía no cargó un precio para nuestra región.
         </p>
         <hr>
         ${renderPriceIndicators(appData)}
@@ -606,18 +606,10 @@ const renderRegionalIndicator = (appData, exchangeRate) => {
                     Hi there! <br>
                     <br>
 
-                    I'm a Steam user and I would like to bring something to your attention that may have been overlooked. Last year Steam introduced a new region called LATAM which includes many countries in Latin America, including my country, Argentina.
-                    <br><br> 
+                    I'm a Steam user from Argentina and wanted to bring something to your attention. Last year, Steam introduced a new LATAM region which includes many countries in Latin America such as mine, and also added suggested prices to make games more affordable while boosting sales.
+                    <br><br>                 
 
-                    ${appData.releaseDate.includes("2024")
-                        ?
-                        `Currently, ${appData.name} has the same price as in the United States in our region.<br><br>`
-                        :
-                        `Currently, ${appData.name} seems to have inherited the standard price in the United States since no price was set for our region.<br><br>`
-                    }                    
-
-
-                    Would you please consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America! <br><br>
+                    Currently, ${appData.name} doesn't have regional pricing here. Would you consider setting a price for our region when you get a chance? This would be greatly appreciated by players across Latin America! <br><br>
 
                     Kind regards,
                 </p>

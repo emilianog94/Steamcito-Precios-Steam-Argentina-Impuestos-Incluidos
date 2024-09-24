@@ -2,13 +2,14 @@ function createMenus(){
     let oldMenu = document.querySelector("#global_action_menu") || document.querySelector('#checkout_steam_logo span');
     let steamcitoIcon = 
     `<div class="ico-steamcito"> 
-        <img src="${chrome.runtime.getURL("emojis/mate-emoji.png")}" />
+        🧉
     </div>`;
     oldMenu && oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
     steamcitoIcon = document.querySelector(".ico-steamcito");
     steamcitoIcon && steamcitoIcon.addEventListener('click',showMenu);
 
     let steamcitoMenu = `
+    <div class="menu-steamcito-background"></div>
     <div class="menu-steamcito">
             <div class="internal-menu">
                 <span class="titulo">CONFIGURACIÓN DE STEAMCITO <br><span class="titulo__version"> Versión ${chrome.runtime.getManifest().version}</span></span>
@@ -23,8 +24,8 @@ function createMenus(){
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
                                     <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas</option>
-                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto</option>
-                                    <option value="steamcito-cotizacion-mep">💸 Dólar Bancario</option>
+                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar:Crypto</option>
+                                    <option value="steamcito-cotizacion-mep">💸 Dólar:Bancario</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
@@ -63,17 +64,6 @@ function createMenus(){
                                 </select>
                             </div>
                             <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
-                        </div>
-
-                        <div class="opcion" id="estilo-de-emojis">
-                            <div>
-                                <label for="estilo-emoji">Estilo de Emojis</label>
-                                <select name="estilo-emoji" id="estilo-emoji">
-                                    <option value="unicode">Recomendado</option>
-                                    <option value="fallback">Retrocompatibles</option>
-                                </select>
-                            </div>
-                            <small>Modificá esta opción si los emojis te aparecen como un rectángulo así: ▯</small>
                         </div>
 
                         <div class="opcion" id="tips-de-ahorro">
@@ -132,7 +122,6 @@ function getReviewLink(){
 }
 
 function setInitialLocalStates(){
-    localStorage.getItem('steamcito-emoji') == 'unicode' ? selectEmoji.value='unicode' : selectEmoji.value='fallback';
     localStorage.getItem('national-tax') ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.setItem('national-tax',60);
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
@@ -172,10 +161,6 @@ function changePaymentMethodState(e){
     }
 }
 
-function changeEmojiState(){
-    selectEmoji.value == 'unicode' ? localStorage.setItem('steamcito-emoji','unicode') : localStorage.setItem('steamcito-emoji','fallback');
-}
-
 function changeDolarCryptoVisibility() {
     checkboxDolarCrypto.value == 'mostrar' ? localStorage.setItem('ocultar-crypto','mostrar') : localStorage.setItem('ocultar-crypto','ocultar');
 }
@@ -199,6 +184,7 @@ function changeProvinceTax(){
 
 function showMenu(e){
     menu.classList.add('enabled');
+    menuBackground.classList.add('menu-steamcito-background-enabled');
     document.body.classList.add('menu-enabled');
     document.addEventListener('click',hideMenu);
 }
@@ -206,6 +192,7 @@ function showMenu(e){
 function hideMenu(e){
     if(!menu.contains(e.target) && !steamcitoIcon.contains(e.target)) {
         menu.classList.remove('enabled');
+        menuBackground.classList.remove('menu-steamcito-background-enabled');
         document.body.classList.remove('menu-enabled');
         document.removeEventListener('click',hideMenu);
     }
@@ -214,27 +201,15 @@ function hideMenu(e){
 function setEmojis(){
 
     let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
-    let preferedEmojis = localStorage.getItem('steamcito-emoji') || "unicode";
-    
-    if(preferedEmojis == "unicode"){
-        if(paymentMethod == "steamcito-cotizacion-tarjeta"){
-            return [" 🧉"," 💲"]
-        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-            return [" 🪙"," 💲"]   
-        } else if(paymentMethod == "steamcito-cotizacion-mep"){
-            return [" 💸"," 💲"]   
-        } 
-        return [" 🧉"," 💲"];
-    } else{
-        if(paymentMethod == "steamcito-cotizacion"){
-            return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>']
-        } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-            return ['<span class="emojis crypto"> C </span>','<span class="emojis saldo"> B </span>']
-        } else if(paymentMethod == "steamcito-cotizacion-mep"){
-            return ['<span class="emojis dolarbancario"> D </span>','<span class="emojis saldo"> B </span>']   
-        } 
-        return ['<span class="emojis mate"> A </span>','<span class="emojis saldo"> B </span>'];        
-    }
+
+    if(paymentMethod == "steamcito-cotizacion"){
+        return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>']
+    } else if(paymentMethod == "steamcito-cotizacion-crypto"){
+        return ['<span class="emojis">🪙</span>','<span class="emojis">💲</span>']
+    } else if(paymentMethod == "steamcito-cotizacion-mep"){
+        return ['<span class="emojis">💸</span>','<span class="emojis">💲</span>']   
+    } 
+    return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>'];        
 }
 
 // Inicializo Menú 
@@ -242,15 +217,14 @@ createMenus();
 
 // Selecciono los botones del menú y les asigno eventos
 const menu = document.querySelector(".menu-steamcito");
+const menuBackground = document.querySelector(".menu-steamcito-background");
 
 const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual");
-let selectEmoji = document.querySelector("#estilo-emoji");
 let selectBarStyle = document.querySelector("#estilo-barra");
 let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
 
-selectEmoji.addEventListener('input',changeEmojiState);
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
 selectPaymentMethod.addEventListener('input', changePaymentMethodState);

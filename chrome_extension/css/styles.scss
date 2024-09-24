@@ -1,4 +1,11 @@
 @font-face {
+  font-family: 'steamcito-emojis-noto';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/l/font?kit=Yq6P-KqIXTD0t4D9z1ESnKM3-HpFabt0-yAtYT8dG2Qyr9iC5Ue3K5AOyg&skey=a373f7129eaba270&v=v32) format('woff2');
+}
+
+@font-face {
   font-family: "steamcito-emojis";
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot");
   src: url("chrome-extension://__MSG_@@extension_id__/emojis/steamcito-emojis.eot?#iefix")
@@ -13,27 +20,17 @@
 
 
 .emojis {
-  font-family: "steamcito-emojis";
+  font-family: "steamcito-emojis-noto",sans-serif;
   text-transform: uppercase;
-
-  &.dolarbancario{
-    color: rgb(147, 228, 147)
-  }
-
-  &.crypto {
-    color: rgb(233, 233, 75)
-  }
-
-  &.mate {
-    color: rgb(175, 143, 55);
-  }
-
-  &.saldo {
-    color: lightgreen;
-  }
+  margin-left: 2px;
 }
 
 body {
+
+  .responsive_page_frame {
+    filter: none;
+  }
+
   &.menu-enabled {
     overflow-x: hidden;
 
@@ -42,6 +39,9 @@ body {
       transition: all 0.5s ease;
     }
   }
+
+
+
 }
 
 // Home
@@ -728,17 +728,15 @@ body {
   display: flex;
 
   .ico-steamcito {
+    font-family: 'steamcito-emojis-noto',sans-serif;
+    font-size: 1.1rem;
+    cursor: pointer;
     margin-top: 7px;
     margin-right: 7px;
+    transition: all 0.25s ease;
 
-    > img {
-      width: 20px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-
-      &:hover {
-        transform: rotate(20deg);
-      }
+    &:hover {
+      transform: rotate(20deg);
     }
   }
 }
@@ -758,6 +756,15 @@ body {
       }
     }
   }
+}
+
+.menu-steamcito-background-enabled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
 }
 
 .menu-steamcito {
@@ -835,6 +842,11 @@ body {
 
     .opciones-avanzadas-steamcito,
     .ayuda-steamcito {
+
+      #metodo-de-pago-opciones option, #metodo-de-pago-opciones{
+        font-family: 'steamcito-emojis-noto',sans-serif;
+      }
+
       .grupo-opciones {
         margin: 2em 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0);
@@ -1360,14 +1372,17 @@ body {
       }
 
       &.dolar_tarjeta:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content:'🧉'
       }
 
       &.dolar_crypto:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content:'🪙'
       }
 
       &.dolar_mep:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
         content: '💸'
       }
 

@@ -114,15 +114,9 @@ function renderCart(){
             let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
             let cryptoSavings = totalWithCurrentPaymentMethod - totalCrypto;
 
-            if(localStorage.getItem('steamcito-emoji') == "fallback"){
-                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
-                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
-                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
-            } else{
-                cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)} ${emojiWallet}`
-                cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)} ${emojiMate}`
-                cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} ${emojiWallet} + ${numberToString(totalMixed)} ${emojiMate}`
-            }
+            cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
+            cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
+            cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
 
             if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
                 cryptoSavingsContainer.style.display="block";

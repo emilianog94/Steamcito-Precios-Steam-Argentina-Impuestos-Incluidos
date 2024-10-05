@@ -11,7 +11,7 @@ function createMenus(){
 	let exchangesHTML = ``;
 	for(let exchange in Exchanges)
 	{
-		exchangesHTML += `<option value="${exchange}">${exchange}</option>
+		exchangesHTML += `<option value="${exchange}" ${ localStorage.getItem("exchange-crypto") == exchange ? "selected" : "" }>${exchange}</option>
 									`;
 	}
 	
@@ -148,7 +148,7 @@ function setInitialLocalStates(){
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
     localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
-	localStorage.getItem('exchange-crypto') ? selectExchangeCrypto.value=localStorage.getItem('exchange-crypto') : localStorage.setItem('exchange-crypto','lemoncash');
+	localStorage.getItem('exchange-crypto') ? selectExchangeCrypto.value=localStorage.getItem('exchange-crypto') : localStorage.setItem('exchange-crypto','LEMONCASH');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 
@@ -244,10 +244,10 @@ function setEmojis(){
     return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>'];        
 }
 
-// Inicializo Men? 
+// Inicializo Menú
 createMenus();
 
-// Selecciono los botones del men? y les asigno eventos
+// Selecciono los botones del menú y les asigno eventos
 const menu = document.querySelector(".menu-steamcito");
 const menuBackground = document.querySelector(".menu-steamcito-background");
 
@@ -273,7 +273,7 @@ provinceTax.addEventListener('input',changeProvinceTax);
 // Seteo el estado inicial de payment y emojis
 setInitialLocalStates();
 
-// Defino qu? emojis se van a usar
+// Defino qué emojis se van a usar
 const emojis = setEmojis();
 const emojiMate = emojis[0];
 const emojiWallet = emojis[1];

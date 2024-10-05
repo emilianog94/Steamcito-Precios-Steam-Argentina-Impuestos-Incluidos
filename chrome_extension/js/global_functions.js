@@ -1,6 +1,32 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
+
+
+async function obtenerPrecio(exchange, coin)
+{
+	if (!Object.values(Exchanges).map(e => e.name).includes(exchange))
+	{
+		return null;
+	}
+	let selectedExchange = Object.values(Exchanges).find(e => e.name === exchange);
+	
+	if (!Object.values(Cryptos).includes(coin))
+	{
+		return null;
+	}
+	try
+	{
+		let response = await fetch(`https://criptoya.com/api/${exchange}/${coin}/ARS/1`);
+		let data = await response.json();
+		return data;
+	}
+	catch (error)
+	{
+		return null;
+	}
+}
+
 function getPrices(type){
     let prices;
     if (type == "standard"){
@@ -375,15 +401,21 @@ async function getUsdExchangeRate(){
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){
         try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
+            /*let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
             let exchangeRateJson = await exchangeRateResponse.json();
             let exchangeRate = exchangeRateJson.venta;
             let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
-            
+            exchangeRate = parseFloat(exchangeRate.replace(',','.'));*/
+			let selectedExchange = localStorage.getItem("exchange-crypto");
+			let exchangeRateResponse = await obtenerPrecio(selectedExchange ? selectedExchange : "lemoncash",criptos.USDT);
+			let exchangeRate = exchangeRateResponse.totalAsk;
+			let exchangeRateDate = exchangeRateResponse.date;
+			
+			let exchangeRateTime = new Date(exchangeRateResponse.time * 1000).toDateString();
+			
             let exchangeRateJSON = {
                 rate : exchangeRate,
-                rateDateProvided: exchangeRateDate,
+                rateDateProvided: exchangeRateTime,
                 date: Date.now()
             }
 

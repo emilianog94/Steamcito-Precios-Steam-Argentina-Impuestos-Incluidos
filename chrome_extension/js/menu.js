@@ -7,7 +7,14 @@ function createMenus(){
     oldMenu && oldMenu.insertAdjacentHTML('afterend',steamcitoIcon);
     steamcitoIcon = document.querySelector(".ico-steamcito");
     steamcitoIcon && steamcitoIcon.addEventListener('click',showMenu);
-
+	
+	let exchangesHTML = ``;
+	for(let exchange in Exchanges)
+	{
+		exchangesHTML += `<option value="${exchange}" ${ localStorage.getItem("exchange-crypto") == exchange ? "selected" : "" }>${exchange}</option>
+									`;
+	}
+	
     let steamcitoMenu = `
     <div class="menu-steamcito-background"></div>
     <div class="menu-steamcito">
@@ -17,7 +24,7 @@ function createMenus(){
                 <div class="opciones-avanzadas-steamcito">
 
                     <div class="grupo-opciones">
-                        <h3> Opciones de Cotización e Impuestos </h3>
+                        <h3> Opciones de Cotizaci?n e Impuestos </h3>
 
                         <div class="opcion" id="metodo-de-pago">
                             <div>
@@ -45,7 +52,18 @@ function createMenus(){
                                 <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
                             </div>
                             <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
-                        </div>   
+                        </div>    
+						
+												
+						<div class="opcion" id="exchange-crypto" style="display: ${ localStorage.getItem("metodo-de-pago") == "steamcito-cotizacion-crypto" ? "block" : "none" };">
+							<div>
+								<label for="exchange-crypto-opciones">Exchange Crypto</label>
+								<select name="" id="exchange-crypto-opciones">
+									${exchangesHTML}
+								</select>
+								<a id="crypto-update">Sincronizar Precio Crypto</a>
+							</div>
+						</div>
 
                         <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
 
@@ -92,6 +110,10 @@ function createMenus(){
 
                     <br>
 
+                </div>
+
+                    <br>
+
 
                 </div>
 
@@ -127,6 +149,7 @@ function setInitialLocalStates(){
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
     localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
+	localStorage.getItem('exchange-crypto') ? selectExchangeCrypto.value=localStorage.getItem('exchange-crypto') : localStorage.setItem('exchange-crypto','LEMONCASH');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
 }
 
@@ -138,27 +161,76 @@ function changeBarStyleState(){
 
 function changePaymentMethodState(e){
     let value = e?.currentTarget?.value || e
-
+	let selectExchange = document.querySelector("#exchange-crypto");
     localStorage.setItem('metodo-de-pago', value)
     switch (value) {
         case "steamcito-cotizacion-tarjeta": 
             localStorage.setItem('national-tax',60)
             nationalTax.value = 60;
+			selectExchange.style.display = "none";
             break;
 
         case "steamcito-cotizacion-crypto": 
             localStorage.setItem('national-tax',0)
             nationalTax.value = 0;
+			selectExchange.style.display  = "block";
             break;            
  
         case "steamcito-cotizacion-mep": 
             localStorage.setItem('national-tax',21)
             nationalTax.value = 21;
+			selectExchange.style.display = "none";
             break;                    
 
         default: localStorage.setItem('national-tax',60)
+			selectExchange.style.display = "none";
             break;
     }
+}
+
+async function updateCryptoPrice()
+{
+	try
+	{
+		let selectedExchange = localStorage.getItem("exchange-crypto");
+		let exchangeRateResponse = await obtenerPrecio(selectedExchange ? selectedExchange : "LEMONCASH",Cryptos.USDT);
+		let exchangeRate = exchangeRateResponse.totalAsk;
+		let exchangeRateDate = exchangeRateResponse.date;
+
+		let exchangeRateTime = new Date(exchangeRateResponse.time * 1000).toDateString();
+			
+		let exchangeRateJSON =
+		{
+			rate : exchangeRate,
+			rateDateProvided: exchangeRateTime,
+			date: Date.now()
+		}
+		localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
+	}
+	catch(err)
+	{
+		if(!localStorage.getItem('steamcito-cotizacion-crypto'))
+		{
+			localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(
+			{
+				rate:1300.00,
+				rateDateProvided:"11/06/2024 - 16:00",
+				date:Date.now()
+			}));
+		}
+		else
+		{
+			let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
+			currentRateValue.date = Date.now();
+			localStorage.setItem('steamcito-cotizacion-crypto',JSON.stringify(currentRateValue));                
+		}
+	}
+}
+
+function changeExchangeCryptoState(e){
+    let value = e?.currentTarget?.value || e
+
+    localStorage.setItem('exchange-crypto', value);
 }
 
 function changeDolarCryptoVisibility() {
@@ -212,7 +284,7 @@ function setEmojis(){
     return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>'];        
 }
 
-// Inicializo Menú 
+// Inicializo Menú
 createMenus();
 
 // Selecciono los botones del menú y les asigno eventos
@@ -223,12 +295,18 @@ const steamcitoIcon = document.querySelector(".ico-steamcito");
 let selectManualMode = document.querySelector("#modo-manual");
 let selectBarStyle = document.querySelector("#estilo-barra");
 let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
+let selectExchangeCrypto = document.querySelector('#exchange-crypto-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
+
+let cryptoUpdate = document.querySelector('#crypto-update');
 
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
 selectPaymentMethod.addEventListener('input', changePaymentMethodState);
+selectExchangeCrypto.addEventListener('input', changeExchangeCryptoState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
+
+cryptoUpdate.addEventListener("click",updateCryptoPrice);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);
@@ -243,4 +321,3 @@ setInitialLocalStates();
 const emojis = setEmojis();
 const emojiMate = emojis[0];
 const emojiWallet = emojis[1];
-

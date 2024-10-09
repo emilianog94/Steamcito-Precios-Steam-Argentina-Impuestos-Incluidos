@@ -61,6 +61,7 @@ function createMenus(){
 								<select name="" id="exchange-crypto-opciones">
 									${exchangesHTML}
 								</select>
+								<a id="crypto-update">Sincronizar Precio Crypto</a>
 							</div>
 						</div>
 
@@ -187,6 +188,45 @@ function changePaymentMethodState(e){
     }
 }
 
+async function updateCryptoPrice()
+{
+	try
+	{
+		let selectedExchange = localStorage.getItem("exchange-crypto");
+		let exchangeRateResponse = await obtenerPrecio(selectedExchange ? selectedExchange : "LEMONCASH",Cryptos.USDT);
+		let exchangeRate = exchangeRateResponse.totalAsk;
+		let exchangeRateDate = exchangeRateResponse.date;
+
+		let exchangeRateTime = new Date(exchangeRateResponse.time * 1000).toDateString();
+			
+		let exchangeRateJSON =
+		{
+			rate : exchangeRate,
+			rateDateProvided: exchangeRateTime,
+			date: Date.now()
+		}
+		localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
+	}
+	catch(err)
+	{
+		if(!localStorage.getItem('steamcito-cotizacion-crypto'))
+		{
+			localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(
+			{
+				rate:1300.00,
+				rateDateProvided:"11/06/2024 - 16:00",
+				date:Date.now()
+			}));
+		}
+		else
+		{
+			let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
+			currentRateValue.date = Date.now();
+			localStorage.setItem('steamcito-cotizacion-crypto',JSON.stringify(currentRateValue));                
+		}
+	}
+}
+
 function changeExchangeCryptoState(e){
     let value = e?.currentTarget?.value || e
 
@@ -258,11 +298,15 @@ let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let selectExchangeCrypto = document.querySelector('#exchange-crypto-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
 
+let cryptoUpdate = document.querySelector('#crypto-update');
+
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
 selectPaymentMethod.addEventListener('input', changePaymentMethodState);
 selectExchangeCrypto.addEventListener('input', changeExchangeCryptoState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
+
+cryptoUpdate.addEventListener("click",updateCryptoPrice);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);

@@ -407,7 +407,7 @@ async function getUsdExchangeRate(){
             let exchangeRateDate = exchangeRateJson.fecha
             exchangeRate = parseFloat(exchangeRate.replace(',','.'));*/
 			let selectedExchange = localStorage.getItem("exchange-crypto");
-			let exchangeRateResponse = await obtenerPrecio(selectedExchange ? selectedExchange : "lemoncash",criptos.USDT);
+			let exchangeRateResponse = await obtenerPrecio(selectedExchange ? selectedExchange : "LEMONCASH",Cryptos.USDT);
 			let exchangeRate = exchangeRateResponse.totalAsk;
 			let exchangeRateDate = exchangeRateResponse.date;
 			

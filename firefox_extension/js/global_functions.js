@@ -59,8 +59,9 @@ function renderCart(){
     })
 
     let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
-    let cartSidebar = document.querySelector('.Panel.Focusable > div:has(> button.Primary)')
-
+    const cartContentSibling = cartContent.nextElementSibling;
+    let cartSidebar = cartContentSibling && cartContentSibling.querySelector('div:has(> button.Primary)')
+    
     if(cartSidebar && cartContent){
 
         let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")

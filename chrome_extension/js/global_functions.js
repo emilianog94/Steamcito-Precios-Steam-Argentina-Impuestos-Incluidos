@@ -31,7 +31,7 @@ function setPaymentMethodName(){
     if(paymentMethod == "steamcito-cotizacion-tarjeta"){
         return "Tarjeta"
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return "Dólar Crypto" 
+        return "Belo" 
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
         return "Dólar Bancario"   
     } 
@@ -46,7 +46,7 @@ function renderCart(){
 
 
     let staticExchangeRate = exchangeRateTarjeta;
-    if(paymentMethod == "Dólar Crypto"){
+    if(paymentMethod == "Belo"){
         staticExchangeRate = exchangeRateCrypto
     } else if(paymentMethod == "Dólar Bancario"){
         staticExchangeRate = exchangeRateMep
@@ -123,7 +123,7 @@ function renderCart(){
             
             if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
                 cryptoSavingsContainer.style.display="block";
-                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Dólar Crypto.` 
+                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Belo.` 
             }
             else{
                 cryptoSavingsContainer.style.display="none";
@@ -131,7 +131,7 @@ function renderCart(){
 
             if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
                 paymentAlertContainer.style.display="block";
-                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con Crypto.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) en tu Wallet usando Dólar Crypto para avanzar.` 
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con tu método de pago preferido, Belo.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) usando Belo para avanzar.` 
             }
             else{
                 paymentAlertContainer.style.display="none";
@@ -321,7 +321,7 @@ function switchPrices(selector,first,second,symbol){
 
 
 
-function evaluateDate(localStorageItem, seconds = 3600){
+function evaluateDate(localStorageItem, seconds = 1800){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 
@@ -375,21 +375,33 @@ async function getUsdExchangeRate(){
 
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){
-        try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarcripto/variacion');
-            let exchangeRateJson = await exchangeRateResponse.json();
-            let exchangeRate = exchangeRateJson.venta;
-            let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.'));
-            
-            let exchangeRateJSON = {
-                rate : exchangeRate,
-                rateDateProvided: exchangeRateDate,
-                date: Date.now()
-            }
 
-        localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
-        }
+        try{
+            let exchangeRateResponse = await fetch('/curator/45295693/ajaxgetfilteredrecommendations/?query&start=0&count=10')
+            let exchangeRateJson = await exchangeRateResponse.json();
+            if(exchangeRateJson.results_html){
+                let sanitizedDOM = exchangeRateJson.results_html.replace(/[\r\n\t]/g, '');
+                let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
+                let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
+                if(gamesElements.length){
+                    let element = gamesElements[0].querySelector('.recommendation_desc');
+                    console.log(element.innerText);
+                    let rateData = element.innerText.split('|');
+
+                    const formattedDate = new Date(parseInt(rateData[1])).toLocaleString("es-AR", {
+                    day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false 
+                    }).replace(",", " -");
+
+                    let exchangeRateJSON = {
+                        rate : parseFloat(rateData[0]),
+                        rateDateProvided: formattedDate,
+                        date: Date.now()
+                    }
+
+                    localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
+                }
+            }
+        } 
         catch(err){
             if(!localStorage.getItem('steamcito-cotizacion-crypto')){
                 localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
@@ -404,6 +416,9 @@ async function getUsdExchangeRate(){
             }
         }
     }
+        
+
+    
 
     let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
     if(shouldGetNewRateDolarMep){

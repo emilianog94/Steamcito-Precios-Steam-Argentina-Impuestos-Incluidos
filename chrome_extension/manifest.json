@@ -1,6 +1,6 @@
  {
  	"name": "Steamcito: Steam con impuestos Argentina 2024",
- 	"version": "3.72",
+ 	"version": "3.80",
  	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
  	"manifest_version": 3,
  	"background": {

@@ -24,7 +24,7 @@ function createMenus(){
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
                                     <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas</option>
-                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar:Crypto</option>
+                                    <option value="steamcito-cotizacion-crypto">🪙 Belo</option>
                                     <option value="steamcito-cotizacion-mep">💸 Dólar:Bancario</option>
                                 </select>
                             </div>

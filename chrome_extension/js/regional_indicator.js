@@ -244,6 +244,7 @@ const renderCryptoPrice = (appData) => {
     })
 
     let cryptoExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
+    let cryptoExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
 
@@ -258,16 +259,27 @@ const renderCryptoPrice = (appData) => {
 
         <div class="steamcito_saving_tip">
             <span class="steamcito_saving_tip_close">X</span>
+
+            <p class="steamcito_saving_tip_left_emoji">
+            💡
+            </p>
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    Precio aproximado pagando con Dólar Crypto: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} <span class="emojis">🪙</span> </span>
+                    Precio pagando con Belo: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 
+                    
+
+                    </span>
                 </p>
 
-                <span class="steamcito_crypto_exchangerate">Cotización del Dólar Crypto:
-                     1 USD ≈ ${cryptoExchangeRate.toFixed(2)} ARS  <span class="steamcito_crypto_cta">(Ver más información)</span>
+                <span class="steamcito_crypto_exchangerate">
+                    1 USD = ${cryptoExchangeRate.toFixed(2)} ARS <span class="steamcito_crypto_exchangerate_date">(${cryptoExchangeRateDate})<span>
                 </span>
                 
 
+            </div>
+
+            <div class="steamcito_saving_tip_image">
+                <img style="" src="${chrome.runtime.getURL("emojis/belo-logo.png")}"/>
             </div>
             
         </div>
@@ -322,7 +334,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             <br>
 
             <p class="reason for dolar_crypto">
-                <span class="name-span">Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                     Libre de impuestos (${exchangeRateCryptoDate})

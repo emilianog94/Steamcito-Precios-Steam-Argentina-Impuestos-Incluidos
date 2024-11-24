@@ -34,6 +34,11 @@
  			"run_at": "document_idle",
  			"js": ["js/helpers.js", "js/menu.js", "js/global_functions.js","js/cart_trigger.js"]
  		},
+		{
+			"matches": ["https://store.steampowered.com/wishlist*"],
+			"run_at": "document_idle",
+			"js": ["js/helpers.js", "js/menu.js", "js/global_functions.js","js/wishlist_trigger.js"]
+		},
  		{
  			"matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*"],
  			"run_at": "document_idle",

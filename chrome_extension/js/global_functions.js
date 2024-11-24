@@ -5,7 +5,6 @@ function getPrices(type){
     let prices;
     if (type == "standard"){
         prices = document.querySelectorAll(priceContainers);
-
         // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
         let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
         standardDlcPrices.forEach(dlcPrice => { 
@@ -13,11 +12,20 @@ function getPrices(type){
                 setArgentinaPrice(dlcPrice);
             }
         });
-
         prices.forEach(price => setArgentinaPrice(price));
-    } else{
+    } else if(type == "cart"){
         setTimeout(() => {
             return renderCart();
+        },1000)
+    } 
+    else if(type == "wishlist"){
+        setInterval(() => {
+            let divs = document.querySelectorAll('div.Panel[data-rfd-draggable-id*="WishlistItem"] div');
+            divs.forEach(div => {
+                if(div.innerText.slice(0,1) == "$" && div.children.length == 0) {
+                    setArgentinaPrice(div);
+                }
+            })
         },1000)
     }
 }
@@ -129,9 +137,9 @@ function renderCart(){
                 cryptoSavingsContainer.style.display="none";
             }
 
-            if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
+            if(neededWalletAmount >= 0 && paymentMethod == "Belo"){
                 paymentAlertContainer.style.display="block";
-                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} para pagar con tu método de pago preferido, Belo.\r\n\r\n Cargá ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) usando Belo para avanzar.` 
+                paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} en tu cartera de Steam para completar la compra.\r\n\r\n Necesitás cargar ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) usando Belo para avanzar.` 
             }
             else{
                 paymentAlertContainer.style.display="none";

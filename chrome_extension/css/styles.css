@@ -94,35 +94,57 @@ body.menu-enabled .responsive_page_frame {
 
 .steamcito_saving_tip {
   position: relative;
-  background-color: #4c6b22;
+  background-color: #415e19;
   transition: all 0.25s ease;
   border-radius: 3px;
-  padding: 16px;
+  padding: 12px 16px;
   font-family: "Motiva Sans", Sans-serif;
   font-weight: normal;
   margin-bottom: 0;
   margin-top: 1rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.steamcito_saving_tip:hover {
+  background-color: #4c6b22;
 }
 .steamcito_saving_tip .steamcito_saving_tip_close {
   color: rgb(172, 178, 184);
   position: absolute;
-  right: 1rem;
-  top: 0.5rem;
+  right: 0.35rem;
+  top: 0.25rem;
 }
 .steamcito_saving_tip .steamcito_saving_tip_close:hover {
   color: #fff;
 }
 .steamcito_saving_tip .steamcito_saving_tip_icon {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   transition: all 0.25s ease;
 }
 .steamcito_saving_tip .steamcito_saving_tip_text_main {
   color: #BEEE11;
+}
+
+.steamcito_saving_tip_left_emoji {
+  font-size: 1.5rem;
+}
+
+.steamcito_saving_tip_image {
+  margin-left: auto;
+}
+.steamcito_saving_tip_image img {
+  width: 65px;
+  margin-right: 10px;
+  opacity: 0.85;
+}
+
+.steamcito_saving_tip_amount {
+  color: #BEEE11;
+  font-size: 0.75rem;
+  opacity: 0.85;
 }
 
 .steamcito_saving_tip_white {
@@ -142,8 +164,11 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .steamcito_crypto_exchangerate {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: rgb(255, 255, 255);
+  opacity: 0.75;
+  margin-left: auto;
+  margin-right: 0.5rem;
 }
 
 .steamcito_crypto_cta {
@@ -154,6 +179,7 @@ body.menu-enabled .responsive_page_frame {
 
 .steamcito_saving_tip_green {
   color: #BEEE11;
+  font-weight: 700;
 }
 
 .game_area_purchase_game_dropdown_subscription .game_purchase_action .btn_packageinfo span {

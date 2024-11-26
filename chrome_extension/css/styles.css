@@ -94,10 +94,10 @@ body.menu-enabled .responsive_page_frame {
 
 .steamcito_saving_tip {
   position: relative;
-  background-color: #4c6b22;
+  background-color: #415e19;
   transition: all 0.25s ease;
   border-radius: 3px;
-  padding: 16px;
+  padding: 12px 16px;
   font-family: "Motiva Sans", Sans-serif;
   font-weight: normal;
   margin-bottom: 0;
@@ -108,11 +108,14 @@ body.menu-enabled .responsive_page_frame {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+.steamcito_saving_tip:hover {
+  background-color: #4c6b22;
+}
 .steamcito_saving_tip .steamcito_saving_tip_close {
   color: rgb(172, 178, 184);
   position: absolute;
-  right: 0.5rem;
-  top: 0.5rem;
+  right: 0.35rem;
+  top: 0.25rem;
 }
 .steamcito_saving_tip .steamcito_saving_tip_close:hover {
   color: #fff;
@@ -138,6 +141,12 @@ body.menu-enabled .responsive_page_frame {
   opacity: 0.85;
 }
 
+.steamcito_saving_tip_amount {
+  color: #BEEE11;
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+
 .steamcito_saving_tip_white {
   color: #fff;
 }
@@ -155,12 +164,11 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .steamcito_crypto_exchangerate {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: rgb(255, 255, 255);
-}
-
-.steamcito_crypto_exchangerate_date {
   opacity: 0.75;
+  margin-left: auto;
+  margin-right: 0.5rem;
 }
 
 .steamcito_crypto_cta {

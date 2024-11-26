@@ -247,6 +247,7 @@ const renderCryptoPrice = (appData) => {
     let cryptoExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
     let cardPrice = (appData.arsPrice * exchangeRate).toFixed(2)
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
+    let difference = (appData.arsPrice * exchangeRate - appData.arsPrice * cryptoExchangeRate).toFixed(2);
 
     if(cryptoExchangeRate > exchangeRate){
         // console.log("Retorno");
@@ -260,27 +261,29 @@ const renderCryptoPrice = (appData) => {
         <div class="steamcito_saving_tip">
             <span class="steamcito_saving_tip_close">X</span>
 
-            <p class="steamcito_saving_tip_left_emoji">
-            💡
-            </p>
+
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    Precio pagando con Belo: <span class="steamcito_saving_tip_green">${numberToString(cryptoPrice)} 
-                    
-
+                    <span class="steamcito_saving_tip_green">Precio pagando con Belo: ${numberToString(cryptoPrice)}</span>
+                    <br>
+                    <span class="steamcito_saving_tip_amount">
+                        Ahorro total: ${numberToString(difference)}
                     </span>
+
                 </p>
 
-                <span class="steamcito_crypto_exchangerate">
-                    1 USD = ${cryptoExchangeRate.toFixed(2)} ARS <span class="steamcito_crypto_exchangerate_date">(${cryptoExchangeRateDate})<span>
-                </span>
+
                 
 
             </div>
 
-            <div class="steamcito_saving_tip_image">
-                <img style="" src="${chrome.runtime.getURL("emojis/belo-logo.png")}"/>
-            </div>
+
+
+            <span class="steamcito_crypto_exchangerate">
+                1 USD = ${cryptoExchangeRate.toFixed(2)} ARS
+                <br>
+                <span class="steamcito_crypto_exchangerate_date">(${cryptoExchangeRateDate})<span>
+            </span>            
             
         </div>
     </a>

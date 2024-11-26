@@ -20,7 +20,7 @@ function getPrices(type){
     } 
     else if(type == "wishlist"){
         setInterval(() => {
-            let divs = document.querySelectorAll('div.Panel[data-rfd-draggable-id*="WishlistItem"] div');
+            let divs = document.querySelectorAll('div.Panel div');
             divs.forEach(div => {
                 if(div.innerText.slice(0,1) == "$" && div.children.length == 0) {
                     setArgentinaPrice(div);
@@ -401,7 +401,7 @@ async function getUsdExchangeRate(){
                     }).replace(",", " -");
 
                     let exchangeRateJSON = {
-                        rate : parseFloat(rateData[0]),
+                        rate : parseFloat(rateData[0] * 1.01),
                         rateDateProvided: formattedDate,
                         date: Date.now()
                     }

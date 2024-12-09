@@ -135,33 +135,33 @@
   .steamcito_saving_tip{
     // background: linear-gradient(to right,  rgba(163,207,6,0.6) 0%,rgba(75,106,33,0.6) 100%);
     position: relative;
-    background-color: #4c6b22;
+    background-color: #415e19;
     transition: all .25s ease;
     border-radius: 3px;
-    padding: 16px;
+    padding: 12px 16px;
     font-family: "Motiva Sans", Sans-serif;
     font-weight: normal;
     margin-bottom: 0;
     margin-top: 1rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   
     .steamcito_saving_tip_close{
       color: rgb(172, 178, 184);
       position: absolute;
-      right: 1rem;
-      top: .5rem;
+      right: .35rem;
+      top: .25rem;
   
       &:hover{
-        color: #fff;
+        background-color: #4c6b22;
       }
     }
 
     .steamcito_saving_tip_icon{
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       transition: all .25s ease;
     }
   
@@ -170,6 +170,28 @@
       color: #BEEE11;
     }
   }
+
+
+  .steamcito_saving_tip_left_emoji{
+    font-size: 1.5rem;
+  }
+  
+  .steamcito_saving_tip_image{
+    margin-left: auto;
+    img{
+      width: 65px;
+      margin-right: 10px;
+      opacity: .85;
+    }
+  }
+  
+  .steamcito_saving_tip_amount{
+    color: #BEEE11;
+    font-size: .75rem;
+    opacity: .85;
+  
+  }
+
   
   .steamcito_saving_tip_white{
     color: #fff;
@@ -192,9 +214,16 @@
   }
   
   .steamcito_crypto_exchangerate{
-    font-size: .75rem;
+    font-size: .7rem;
     color: rgba(255,255,255,1);
+    opacity: .75;
+    margin-left: auto;
+    margin-right: .5rem;
   }
+
+  .steamcito_crypto_exchangerate_date{
+  }
+
   
   .steamcito_crypto_cta{
     font-size: .75rem;
@@ -204,6 +233,7 @@
   
   .steamcito_saving_tip_green{
     color: #BEEE11;
+    font-weight: 700;
   }
 
   .game_area_purchase_game_dropdown_subscription{

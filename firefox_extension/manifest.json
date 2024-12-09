@@ -1,92 +1,97 @@
- {
- 	"name": "Steamcito: Steam con impuestos Argentina 2024",
- 	"version": "3.72",
- 	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
- 	"manifest_version": 2,
- 	"background": {
- 		"scripts": ["js/background.js"],
- 		"persistent": false
- 	},
- 	"web_accessible_resources": [
- 		"emojis/*.woff",
- 		"emojis/*.eot",
- 		"emojis/*.ttf",
- 		"emojis/*.png"
- 	],
+{
+	"name": "Steamcito: Steam con impuestos Argentina 2024",
+	"version": "3.80",
+	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
+	"manifest_version": 2,
+	"background": {
+		"scripts": ["js/background.js"],
+		"persistent": false
+	},
+	"web_accessible_resources": [
+		"emojis/*.woff",
+		"emojis/*.eot",
+		"emojis/*.ttf",
+		"emojis/*.png"
+	],
 
- 	"icons": {
- 		"128": "icon128.png"
- 	},
- 	"permissions": [
- 		"storage",
-		 "https://mercados.ambito.com/dolar/oficial/variacion"
- 	],
+	"icons": {
+		"128": "icon128.png"
+	},
+	"permissions": [
+		"storage",
+		"https://mercados.ambito.com/dolar/oficial/variacion"
+	],
 
- 	"content_scripts": [{
- 			"matches": ["https://store.steampowered.com/*", "https://steamcommunity.com/app*"],
- 			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*", "https://store.steampowered.com/bundle/*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/helpers.js", "js/menu.js", "js/global_functions.js", "js/trigger.js"],
- 			"css": ["css/styles.css"]
- 		},
- 		{
- 			"matches": ["https://store.steampowered.com/cart*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/helpers.js", "js/menu.js", "js/global_functions.js","js/cart_trigger.js"]
- 		},
- 		{
-			"matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*"],
+	"content_scripts": [{
+			"matches": ["https://store.steampowered.com/*", "https://steamcommunity.com/app*"],
+			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*", "https://store.steampowered.com/bundle/*"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js","js/menu.js", "js/helpers.js", "js/global_functions.js", "js/addfunds_functions.js"],
+			"js": ["js/purify.min.js", "js/helpers.js", "js/menu.js", "js/global_functions.js", "js/trigger.js"],
 			"css": ["css/styles.css"]
 		},
- 		{
-			"matches": ["https://store.steampowered.com/sub/*"],
+		{
+			"matches": ["https://store.steampowered.com/cart*"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"],
+			"js": ["js/purify.min.js", "js/helpers.js", "js/menu.js", "js/global_functions.js","js/cart_trigger.js"]
+		},
+		{
+		   "matches": ["https://store.steampowered.com/wishlist*"],
+		   "run_at": "document_idle",
+		   "js": ["js/helpers.js", "js/menu.js", "js/global_functions.js","js/wishlist_trigger.js"]
+	   },
+		{
+		   "matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*"],
+		   "run_at": "document_idle",
+		   "js": ["js/purify.min.js","js/menu.js", "js/helpers.js", "js/global_functions.js", "js/addfunds_functions.js"],
+		   "css": ["css/styles.css"]
+	   },
+		{
+		   "matches": ["https://store.steampowered.com/sub/*"],
+		   "run_at": "document_idle",
+		   "js": ["js/purify.min.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"],
+		   "css": ["css/styles.css"]
+	   },
+		{
+		   "matches": ["https://store.steampowered.com/search*"],
+		   "run_at": "document_idle",
+		   "js": ["js/purify.min.js","js/global_functions.js", "js/search.js"]
+	   },
+		{
+			"matches": ["https://store.steampowered.com/bundle/*"],
+			"run_at": "document_idle",
+			"js": ["js/purify.min.js", "js/menu.js", "js/helpers.js", "js/global_functions.js", "js/bundle_functions.js"],
 			"css": ["css/styles.css"]
 		},
- 		{
-			"matches": ["https://store.steampowered.com/search*"],
+		{
+			"matches": ["https://store.steampowered.com/?*", "https://store.steampowered.com/"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js","js/global_functions.js", "js/search.js"]
+			"js": ["js/purify.min.js", "js/updates.js"]
 		},
- 		{
- 			"matches": ["https://store.steampowered.com/bundle/*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/menu.js", "js/helpers.js", "js/global_functions.js", "js/bundle_functions.js"],
- 			"css": ["css/styles.css"]
- 		},
- 		{
- 			"matches": ["https://store.steampowered.com/?*", "https://store.steampowered.com/"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/updates.js"]
- 		},
- 		{
-			"matches": ["https://store.steampowered.com/","https://store.steampowered.com/?*"],
+		{
+		   "matches": ["https://store.steampowered.com/","https://store.steampowered.com/?*"],
+		   "run_at": "document_idle",
+		   "js": ["js/menu.js","js/helpers.js", "js/global_functions.js","js/home.js"]
+	   },
+		{
+			"matches": ["https://store.steampowered.com/checkout/approvetxn*"],
 			"run_at": "document_idle",
-			"js": ["js/menu.js","js/helpers.js", "js/global_functions.js","js/home.js"]
+			"js": ["js/purify.min.js", "js/microtransactions.js"]
 		},
- 		{
- 			"matches": ["https://store.steampowered.com/checkout/approvetxn*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/microtransactions.js"]
- 		},
- 		{
-			"matches": ["https://store.steampowered.com/app/*"],
+		{
+		   "matches": ["https://store.steampowered.com/app/*"],
+		   "run_at": "document_idle",
+		   "js": ["js/purify.min.js", "js/subscriptions.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"]
+	   },		
+		{
+			"matches": ["https://store.steampowered.com/account/subscriptions/*"],
 			"run_at": "document_idle",
-			"js": ["js/purify.min.js", "js/subscriptions.js","js/helpers.js", "js/global_functions.js", "js/regional_indicator.js"]
-		},		
- 		{
- 			"matches": ["https://store.steampowered.com/account/subscriptions/*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/subscriptions.js"]
- 		},
- 		{
- 			"matches": ["https://store.steampowered.com/account/history*"],
- 			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/history.js"]
- 		}
+			"js": ["js/purify.min.js", "js/subscriptions.js"]
+		},
+		{
+			"matches": ["https://store.steampowered.com/account/history*"],
+			"run_at": "document_idle",
+			"js": ["js/purify.min.js", "js/history.js"]
+		}
 
- 	]
- }
+	]
+}

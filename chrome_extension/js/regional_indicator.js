@@ -218,10 +218,6 @@ const getAppPricing = async (appInitialData) => {
         }
 
         renderRegionalIndicator(appData, exchangeRate);
-
-        let gamePurchaseArea = document.querySelector('.game_area_purchase_game_wrapper .game_area_purchase_game');
-        gamePurchaseArea.insertAdjacentHTML('beforebegin',`<img class="img-for-tw" src=""/>`)
-
         if(walletBalance < appData.arsPrice && localStorage.getItem('metodo-de-pago') != "steamcito-cotizacion-crypto"){
             renderCryptoPrice(appData)
         }

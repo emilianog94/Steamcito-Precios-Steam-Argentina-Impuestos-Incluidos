@@ -385,23 +385,34 @@ async function getUsdExchangeRate(){
     if(shouldGetNewRateDolarCrypto){
 
         try{
-            let exchangeRateResponse = await fetch('/curator/45295693/ajaxgetfilteredrecommendations/?query&start=0&count=10')
+            let exchangeRateResponse = await fetch('/curator/45349538/ajaxgetfilteredrecommendations/?query&start=0&count=10')
             let exchangeRateJson = await exchangeRateResponse.json();
             if(exchangeRateJson.results_html){
                 let sanitizedDOM = exchangeRateJson.results_html.replace(/[\r\n\t]/g, '');
                 let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
                 let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
                 if(gamesElements.length){
-                    let element = gamesElements[0].querySelector('.recommendation_desc');
-                    console.log(element.innerText);
-                    let rateData = element.innerText.split('|');
 
-                    const formattedDate = new Date(parseInt(rateData[1])).toLocaleString("es-AR", {
+                    let element = Array.from(gamesElements).find( (gameElement,index) => {
+                        let domElement = gamesElements[index].querySelector('.recommendation_desc');
+                        let rateData = domElement.innerText.split('|'); // RateData String Format: Rate|Tax|Name|Timestamp
+                        return rateData[2].includes('Crypto')
+                    })
+
+                    element = element.querySelector('.recommendation_desc');
+                    console.log(element.innerText);
+                    let rateData = element.innerText.split('|'); // RateData String Format: Rate|Tax|Name|Timestamp
+
+                    const taxAmount = rateData[1]
+
+                    const formattedDate = new Date(parseInt(rateData[3])).toLocaleString("es-AR", {
                     day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false 
                     }).replace(",", " -");
 
+
                     let exchangeRateJSON = {
-                        rate : parseFloat(rateData[0] * 1.01),
+                        rate : parseFloat(rateData[0]),
+                        taxAmount: taxAmount,
                         rateDateProvided: formattedDate,
                         date: Date.now()
                     }
@@ -411,6 +422,7 @@ async function getUsdExchangeRate(){
             }
         } 
         catch(err){
+            console.log(err);
             if(!localStorage.getItem('steamcito-cotizacion-crypto')){
                 localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
                     rate:1300.00,

@@ -139,24 +139,28 @@ function changeBarStyleState(){
 function changePaymentMethodState(e){
     let value = e?.currentTarget?.value || e
 
+    let tarjetaTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).taxAmount || 51 
+    let cryptoTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).taxAmount || 0
+    let mepTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).taxAmount || 21
+
     localStorage.setItem('metodo-de-pago', value)
     switch (value) {
         case "steamcito-cotizacion-tarjeta": 
-            localStorage.setItem('national-tax',60)
-            nationalTax.value = 60;
+            localStorage.setItem('national-tax',tarjetaTax)
+            nationalTax.value = tarjetaTax;
             break;
 
         case "steamcito-cotizacion-crypto": 
-            localStorage.setItem('national-tax',0)
-            nationalTax.value = 0;
+            localStorage.setItem('national-tax',cryptoTax)
+            nationalTax.value = cryptoTax;
             break;            
  
         case "steamcito-cotizacion-mep": 
-            localStorage.setItem('national-tax',21)
-            nationalTax.value = 21;
+            localStorage.setItem('national-tax',mepTax)
+            nationalTax.value = mepTax;
             break;                    
 
-        default: localStorage.setItem('national-tax',60)
+        default: localStorage.setItem('national-tax',nationalTax)
             break;
     }
 }

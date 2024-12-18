@@ -131,7 +131,7 @@ const getExchangeRate = async () => {
     let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
     let exchangeRateMepDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rateDateProvided;
-    let tarjetaTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).taxAmount || 51
+    let tarjetaTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).taxAmount || 60
     let cryptoTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).taxAmount || 0
     let mepTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).taxAmount || 21
 
@@ -344,7 +344,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                   ${cryptoTax ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateDate}) ` : ""} 
+                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
                     ?
@@ -360,7 +360,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-span">Dólar Bancario: 1 USD ≈ ${exchangeRateMep.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                   ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateDate}) ` : ""} 
+                   ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateMepDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
                     ?

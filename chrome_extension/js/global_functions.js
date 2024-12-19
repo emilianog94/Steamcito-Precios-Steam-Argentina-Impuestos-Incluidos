@@ -230,7 +230,7 @@ async function getOwnedGames(){
 
 
 async function setArgentinaPrice(price){
-    await getUsdExchangeRate();
+    // await getUsdExchangeRate(); Comento esta línea para prevenir actualizaciones innecesarias
     let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
     let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
 
@@ -332,11 +332,14 @@ function switchPrices(selector,first,second,symbol){
 function evaluateDate(localStorageItem, seconds = 1800){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
-
+        console.log(exchangeRateJSON);
         let savedTimestamp = Math.floor(parseInt(exchangeRateJSON.date) / 1000);
+        console.log(savedTimestamp);
         let currentTimestamp = Math.floor(Date.now()/1000);
+        console.log(currentTimestamp);
         let difference = currentTimestamp - savedTimestamp;
-
+        console.log("Difference is " , difference);
+        console.log("Seconds are ", seconds)
         if(difference >= seconds){
             return true;
         } else{

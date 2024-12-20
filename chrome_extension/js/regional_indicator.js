@@ -143,7 +143,6 @@ const getExchangeRate = async () => {
 
 const getAppPricing = async (appInitialData) => {
     await getUsdExchangeRate();
-    console.log("Corrí getUSDExchangeRate de getapppricing");
     const { type, id } = appInitialData;
     let appEndpoint = `/api/appdetails?appids=${id}`;
     let subEndpoint = `/api/packagedetails?packageids=${id}`

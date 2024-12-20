@@ -125,15 +125,20 @@ const criticizePublisher = (margin,publisher) => {
 
 const getExchangeRate = async () => {
     await getUsdExchangeRate();
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
-    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rateDateProvided;
-    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
-    let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rateDateProvided;
-    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
-    let exchangeRateMepDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rateDateProvided;
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    let exchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rateDateProvided;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.rate;
+    let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.rateDateProvided;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rate;
+    let exchangeRateMepDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rateDateProvided;
+    let tarjetaTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.taxAmount || 60
+    let cryptoTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.taxAmount || 0
+    let mepTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.taxAmount || 21
 
-    renderExchangeIndicator(exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate)
-    
+
+    if(exchangeRate && exchangeRateDate && exchangeRateCrypto && exchangeRateCryptoDate && exchangeRateMep && exchangeRateMepDate && tarjetaTax && cryptoTax && mepTax){
+        renderExchangeIndicator(exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax)
+    }
 }
 
 const getAppPricing = async (appInitialData) => {
@@ -146,7 +151,7 @@ const getAppPricing = async (appInitialData) => {
 
     const appIdFetchArg = await fetch(`${type == "app" ? `${appEndpoint}&cc=ar` : `${subEndpoint}&cc=ar`}`, { credentials: 'omit' })
 
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
 
 
     let appIdResponse = await appIdFetch.json();
@@ -228,14 +233,17 @@ const getAppPricing = async (appInitialData) => {
 
 
 
-const renderCryptoPrice = (appData) => {
+const renderCryptoPrice = async (appData) => {
+    await getUsdExchangeRate();
     let cryptoPriceHidden = localStorage.getItem('ocultar-crypto');
     if (cryptoPriceHidden == "ocultar") {
         return;
     }
 
-    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
-
+    let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    if(!exchangeRate){
+        return
+    }
     let staticExchangeRate = exchangeRate;
 
     provinceTaxes &&
@@ -304,7 +312,7 @@ const renderCryptoPrice = (appData) => {
 
    }
 
-const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate) => {
+const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax) => {
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let staticExchangeRate = exchangeRate;
@@ -325,7 +333,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-span">Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Incluye 60% de impuestos (${exchangeRateDate})
+                   ${tarjetaTax ? `Incluye ${tarjetaTax}% de impuestos (${exchangeRateDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-tarjeta"
                     ?
@@ -340,7 +348,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Libre de impuestos (${exchangeRateCryptoDate})
+                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
                     ?
@@ -356,7 +364,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 <span class="name-span">Dólar Bancario: 1 USD ≈ ${exchangeRateMep.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                    Incluye 21% de impuestos (${exchangeRateMepDate})
+                   ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateMepDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
                     ?

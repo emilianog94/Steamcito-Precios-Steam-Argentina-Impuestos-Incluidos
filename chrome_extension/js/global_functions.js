@@ -48,10 +48,13 @@ function setPaymentMethodName(){
 
 function renderCart(){
     let paymentMethod = setPaymentMethodName();
-    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
-    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
-    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
+    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.rate;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rate;
 
+    if(!exchangeRateTarjeta || !exchangeRateMep || !exchangeRateCrypto){
+        return;
+    }
 
     let staticExchangeRate = exchangeRateTarjeta;
     if(paymentMethod == "Belo"){

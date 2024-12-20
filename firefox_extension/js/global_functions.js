@@ -51,9 +51,13 @@ function setPaymentMethodName(){
 
 function renderCart(){
     let paymentMethod = setPaymentMethodName();
-    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta')).rate;
-    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto')).rate;
-    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep')).rate;
+    let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.rate;
+    let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rate;
+
+    if(!exchangeRateTarjeta || !exchangeRateMep || !exchangeRateCrypto){
+        return;
+    }
 
 
     let staticExchangeRate = exchangeRateTarjeta;
@@ -230,12 +234,12 @@ async function getOwnedGames(){
 }
 
 async function setArgentinaPrice(price){
-    await getUsdExchangeRate();
+    // await getUsdExchangeRate(); Comento esta línea para prevenir actualizaciones innecesarias
     let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
-    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
+    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod))?.rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
-        if(price.innerText.includes('$')){
+        if(price.innerText.includes('$') && exchangeRate){
             let baseNumericPrice = extractNumberFromString(price.innerText)
             price.dataset.originalPrice = baseNumericPrice;
             price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
@@ -344,123 +348,79 @@ function evaluateDate(localStorageItem,seconds = 1800){
     return true;
 }
 
-async function getUsdExchangeRate(){
 
-    let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
-    if(shouldGetNewRateDolarTarjeta){
-        try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolar/oficial/variacion');
-            let exchangeRateJson = await exchangeRateResponse.json();
-            let exchangeRate = exchangeRateJson.venta;
-            let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.6);
-            
-            let exchangeRateJSON = {
-                rate : exchangeRate,
-                rateDateProvided: exchangeRateDate,
-                date: Date.now()
-            }
+async function processExchangeRate(type,localStorageItemKey,defaultValue){
+    try{
+        let exchangeRateResponse = await fetch('https://store.steampowered.com/curator/45349538/ajaxgetfilteredrecommendations/?query&start=0&count=10')
+        let exchangeRateJson = await exchangeRateResponse.json();
+        if(exchangeRateJson.results_html){
+            let sanitizedDOM = exchangeRateJson.results_html.replace(/[\r\n\t]/g, '');
+            let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
+            let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
+            if(gamesElements.length){
 
-        localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify(exchangeRateJSON));
-        }
-        catch(err){
-            if(!localStorage.getItem('steamcito-cotizacion-tarjeta')){
-                localStorage.setItem('steamcito-cotizacion-tarjeta', JSON.stringify({
-                    rate:1500.00,
-                    rateDateProvided:"11/06/2024 - 16:00",
+                let element = Array.from(gamesElements).find( (gameElement,index) => {
+                    let domElement = gamesElements[index].querySelector('.recommendation_desc');
+                    let rateData = domElement.innerText.split('|'); // RateData String Format: Rate|Tax|Name|Timestamp
+                    return rateData[2].includes(type)
+                })
+
+                element = element.querySelector('.recommendation_desc');
+                let rateData = element.innerText.split('|'); // RateData String Format: Rate|Tax|Name|Timestamp
+
+                const taxAmount = rateData[1]
+
+                const formattedDate = new Date(parseInt(rateData[3])).toLocaleString("es-AR", {
+                day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false 
+                }).replace(",", " -");
+
+
+                let exchangeRateJSON = {
+                    rate : parseFloat(rateData[0]),
+                    taxAmount: taxAmount,
+                    rateDateProvided: formattedDate,
                     date: Date.now()
-                }));
-            } else{
-                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'));
-                currentRateValue.date = Date.now();
-                localStorage.setItem('steamcito-cotizacion-tarjeta',JSON.stringify(currentRateValue));
+                }
+
+                localStorage.setItem(localStorageItemKey, JSON.stringify(exchangeRateJSON));
             }
+        }
+    } 
+    catch(err){
+        console.log(err);
+        if(!localStorage.getItem(localStorageItemKey)){
+            localStorage.setItem(localStorageItemKey, JSON.stringify({
+                rate: defaultValue,
+                rateDateProvided:"11/06/2024 - 16:00",
+                date:Date.now()
+            }));
+        } else{
+            let currentRateValue = JSON.parse(localStorage.getItem(localStorageItemKey));
+            currentRateValue.date = Date.now();
+            localStorage.setItem(localStorageItemKey,JSON.stringify(currentRateValue));                
         }
     }
+}
 
+async function getUsdExchangeRate(){
+    let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
+    if(shouldGetNewRateDolarTarjeta){
+        processExchangeRate('Tarjeta','steamcito-cotizacion-tarjeta',1600)
+    }
 
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){
-        try{
-            let exchangeRateResponse = await fetch('https://store.steampowered.com/curator/45295693/ajaxgetfilteredrecommendations/?query&start=0&count=10')
-            let exchangeRateJson = await exchangeRateResponse.json();
-            if(exchangeRateJson.results_html){
-                let sanitizedDOM = exchangeRateJson.results_html.replace(/[\r\n\t]/g, '');
-                let steamGeneratedDOM = new DOMParser().parseFromString(sanitizedDOM, 'text/html').body.childNodes[0]
-                let gamesElements = steamGeneratedDOM.querySelectorAll('div.recommendation');
-                if(gamesElements.length){
-                    let element = gamesElements[0].querySelector('.recommendation_desc');
-                    console.log(element.innerText);
-                    let rateData = element.innerText.split('|');
-
-                    const formattedDate = new Date(parseInt(rateData[1])).toLocaleString("es-AR", {
-                    day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false 
-                    }).replace(",", " -");
-
-                    let exchangeRateJSON = {
-                        rate : parseFloat(rateData[0] * 1.01),
-                        rateDateProvided: formattedDate,
-                        date: Date.now()
-                    }
-
-                    localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify(exchangeRateJSON));
-                }
-            }
-        } 
-        catch(err){
-            if(!localStorage.getItem('steamcito-cotizacion-crypto')){
-                localStorage.setItem('steamcito-cotizacion-crypto', JSON.stringify({
-                    rate:1300.00,
-                    rateDateProvided:"11/06/2024 - 16:00",
-                    date:Date.now()
-                }));
-            } else{
-                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
-                currentRateValue.date = Date.now();
-                localStorage.setItem('steamcito-cotizacion-crypto',JSON.stringify(currentRateValue));                
-            }
-        }
+        processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
     }
-
+        
     let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
     if(shouldGetNewRateDolarMep){
-        try{
-            let exchangeRateResponse = await fetch('https://mercados.ambito.com/dolarrava/mep/variacion');
-            let exchangeRateJson = await exchangeRateResponse.json();
-            let exchangeRate = exchangeRateJson.venta;
-            let exchangeRateDate = exchangeRateJson.fecha
-            exchangeRate = parseFloat(exchangeRate.replace(',','.') * 1.21);
-            
-            let exchangeRateJSON = {
-                rate : exchangeRate,
-                rateDateProvided: exchangeRateDate,
-                date: Date.now()
-            }
-
-        localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify(exchangeRateJSON));
-        }
-        catch(err){
-            if(!localStorage.getItem('steamcito-cotizacion-mep')){
-                localStorage.setItem('steamcito-cotizacion-mep', JSON.stringify({
-                    rate:1550.00,
-                    rateDateProvided:"11/06/2024 - 16:00",
-                    date:Date.now()
-                }));
-            } else{
-                let currentRateValue = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'));
-                currentRateValue.date = Date.now();
-                localStorage.setItem('steamcito-cotizacion-mep',JSON.stringify(currentRateValue));                           
-            }
-        }
+        processExchangeRate('Bancario','steamcito-cotizacion-mep',1400)
     }
-
 }
 
 
-
-
-
-
+// Legacy function: not used!
 async function getBnaExchangeRate(){
 
     let shouldGetNewRate = evaluateDate('steamcito-cotizacion-bna');

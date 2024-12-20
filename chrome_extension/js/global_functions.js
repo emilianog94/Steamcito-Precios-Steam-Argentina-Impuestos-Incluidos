@@ -165,7 +165,7 @@ function renderCart(){
     }
     else{
         return;
-    }86400
+    }
 
 }
 

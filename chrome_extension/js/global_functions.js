@@ -231,11 +231,12 @@ async function getOwnedGames(){
 
 async function setArgentinaPrice(price){
     // await getUsdExchangeRate(); Comento esta línea para prevenir actualizaciones innecesarias
+
     let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
-    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod)).rate;
+    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod))?.rate;
 
         // Ignoro los juegos sin precio (Ejemplo: F2Ps)
-        if(price.innerText.includes('$')){
+        if(price.innerText.includes('$') && exchangeRate){
             let baseNumericPrice = extractNumberFromString(price.innerText)
             price.dataset.originalPrice = baseNumericPrice;
             price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);

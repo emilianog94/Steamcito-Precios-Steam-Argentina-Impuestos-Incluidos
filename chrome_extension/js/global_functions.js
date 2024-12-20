@@ -170,7 +170,7 @@ function renderCart(){
 }
 
 async function getArgentinaGames(){
-    let shouldRefreshArgentinaList = evaluateDate('steamcito-argentina-games',);
+    let shouldRefreshArgentinaList = evaluateDate('steamcito-argentina-games',86400);
 
     if(shouldRefreshArgentinaList){
         try{

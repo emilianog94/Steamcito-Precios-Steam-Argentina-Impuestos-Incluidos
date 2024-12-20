@@ -409,12 +409,12 @@ async function getUsdExchangeRate(){
 
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){
-        processExchangeRate('Crypto','steamcito-cotizacion-crypto',1100)
+        processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
     }
         
     let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
     if(shouldGetNewRateDolarMep){
-        processExchangeRate('Bancario','steamcito-cotizacion-mep',1600)
+        processExchangeRate('Bancario','steamcito-cotizacion-mep',1400)
     }
 }
 

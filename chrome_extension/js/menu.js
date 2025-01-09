@@ -103,7 +103,6 @@ function createMenus(){
                         <a href="https://steamcito.com.ar" target="_blank">Web de Steamcito 🧉</a>
                         <a href="https://steamcito.com.ar/changelog" target="_blank">Historial de Actualizaciones 📄</a>
                         <a href="https://github.com/emilianog94/Steamcito-Precios-Steam-Argentina-Impuestos-Incluidos/issues" target="_blank">Reportar un bug 🐛</a>
-                        <a href="https://store.steampowered.com/account/history/">Calcular devolución de impuestos anual 🧾</a>
                         ${getReviewLink()} 
                     </div>
                 </div>

@@ -1128,6 +1128,7 @@ body.menu-enabled .responsive_page_frame {
 
 .store_nav .tab > span {
   padding: 0 7px !important;
+  line-height: 33px !important;
 }
 
 .store_nav .tab-videojuegos-argentinos span {

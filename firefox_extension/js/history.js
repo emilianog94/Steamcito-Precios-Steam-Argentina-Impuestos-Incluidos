@@ -309,6 +309,7 @@ const showDevolucionHtml = () => {
     botonCalcular2 && botonCalcular2.addEventListener('click', totalByYear);
 }
 
-showDevolucionHtml();
+// Función deshabilitada.
+// showDevolucionHtml();
 
 

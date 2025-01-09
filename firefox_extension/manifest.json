@@ -1,7 +1,7 @@
  {
- 	"name": "Steamcito: Steam con impuestos Argentina 2024",
- 	"version": "3.90",
- 	"description": "Muestra todos los productos de la tienda de Steam con todos los impuestos de Argentina incluidos",
+ 	"name": "Steamcito: Steam con impuestos Argentina 2025",
+ 	"version": "3.91",
+ 	"description": "Muestra todos los productos de la tienda de Steam en pesos argentinos con impuestos incluidos",
  	"manifest_version": 2,
  	"background": {
  		"scripts": ["js/background.js"],
@@ -90,7 +90,7 @@
  		{
  			"matches": ["https://store.steampowered.com/account/history*"],
  			"run_at": "document_idle",
- 			"js": ["js/purify.min.js", "js/history.js"]
+ 			"js": ["js/purify.min.js"]
  		}
 
  	]

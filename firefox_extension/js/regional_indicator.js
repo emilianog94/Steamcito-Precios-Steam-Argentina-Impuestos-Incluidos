@@ -273,7 +273,7 @@ const renderCryptoPrice = async (appData) => {
 
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    <span class="steamcito_saving_tip_green">Precio pagando con Dólar Crypto: ${numberToString(cryptoPrice)}</span>
+                    <span class="steamcito_saving_tip_green">Precio pagando con Belo: ${numberToString(cryptoPrice)}</span>
                     <br>
                     <span class="steamcito_saving_tip_amount">
                         Ahorro total: ${numberToString(difference)}
@@ -338,7 +338,7 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             <br>
 
             <p class="reason for dolar_crypto">
-                <span class="name-span">Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                    ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""}                 </span><br>

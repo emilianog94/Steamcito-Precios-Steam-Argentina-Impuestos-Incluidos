@@ -335,6 +335,21 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                     ""
                 }
             </p>
+
+            <p class="reason for dolar_mep">
+                <span class="name-span">Dólar Bancario: 1 USD ≈ ${exchangeRateMep.toFixed(2)} ARS</span>
+                <br>
+                <span class="name-smaller">
+                   ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateMepDate}) ` : ""}                 </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
+
+            </p>
+
             <br>
 
             <p class="reason for dolar_crypto">
@@ -351,20 +366,6 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
             </p>
             <br>
-
-            <p class="reason for dolar_mep">
-                <span class="name-span">Dólar Bancario: 1 USD ≈ ${exchangeRateMep.toFixed(2)} ARS</span>
-                <br>
-                <span class="name-smaller">
-                   ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateMepDate}) ` : ""}                 </span><br>
-                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
-                    ?
-                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
-                    :
-                    ""
-                }
-
-            </p>
 
             <div class="DRM_notice">
                 <div>

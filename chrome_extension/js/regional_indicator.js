@@ -342,22 +342,8 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                     ""
                 }
             </p>
-            <br>
 
-            <p class="reason for dolar_crypto">
-                <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
-                <br>
-                <span class="name-smaller">
-                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
-                </span><br>
-                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
-                    ?
-                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
-                    :
-                    ""
-                }
 
-            </p>
             <br>
 
             <p class="reason for dolar_mep">
@@ -374,6 +360,22 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                 }
 
             </p>
+            <br>
+            <p class="reason for dolar_crypto">
+                <span class="name-span">Belo: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                <br>
+                <span class="name-smaller">
+                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
+                </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
+
+            </p>
+
 
             <div class="DRM_notice">
                 <div>

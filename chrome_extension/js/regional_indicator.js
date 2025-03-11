@@ -272,7 +272,7 @@ const renderCryptoPrice = async (appData) => {
 
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    <span class="steamcito_saving_tip_green">Precio pagando con Dólar Crypto: ${numberToString(cryptoPrice)}</span>
+                    <span class="steamcito_saving_tip_green">Precio con Dólar Crypto (Belo): ${numberToString(cryptoPrice)}</span>
                     <br>
                     <span class="steamcito_saving_tip_amount">
                         Ahorro total: ${numberToString(difference)}

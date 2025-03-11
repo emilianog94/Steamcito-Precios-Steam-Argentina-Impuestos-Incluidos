@@ -420,7 +420,7 @@ function renderArgentinaShortcut(){
 
         if(navbar && navbarFirstItem){
             let argentinaShortcut = `
-            <a class="tab tab-videojuegos-argentinos" href="https://steamcito.com.ar/videojuegos-argentinos" target="_blank">
+            <a class="tab tab-videojuegos-argentinos" href="https://videojuegosargentinos.com.ar/" target="_blank">
                 <span> <img src="${chrome.runtime.getURL("emojis/argentina-flag-ico.png")}"/> Juegos Argentinos </span>
             </a>
             `    

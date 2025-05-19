@@ -23,7 +23,7 @@
  		"storage"
  	],
  	"content_scripts": [{
- 			"matches": ["https://store.steampowered.com/*", "https://steamcommunity.com/*"],
+ 			"matches": ["https://store.steampowered.com/*", "https://steamcommunity.com/app*"],
  			"exclude_matches": ["https://store.steampowered.com/steamaccount/addfunds*", "https://store.steampowered.com/digitalgiftcards*", "https://store.steampowered.com/bundle/*"],
  			"run_at": "document_idle",
  			"js": ["js/helpers.js", "js/menu.js", "js/global_functions.js", "js/trigger.js"],

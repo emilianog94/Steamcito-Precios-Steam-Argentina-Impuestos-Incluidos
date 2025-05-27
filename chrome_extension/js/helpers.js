@@ -92,7 +92,7 @@ let regionalPricingChartLatam = [
     {
         usdPrice: 17.99,
         argPrice: 9.29
-    },
+    },6
     {
         usdPrice: 18.99,
         argPrice: 9.89
@@ -315,7 +315,7 @@ function getBalance() {
     // fallback por xpath para cuando no se encuentra el contenedor de saldo (por ejemplo, en la wishlist)
     if (!walletBalanceContainer) {
         const xpath =
-            "//a[contains(text(), 'Cartera') and contains(@href, 'store.steampowered.com/account')]/b";
+            "//a[(starts-with(text(), 'Cartera') or starts-with(text(), 'Wallet')) and contains(@href, 'store.steampowered.com/account')]/b";
         const result = document.evaluate(
             xpath,
             document,

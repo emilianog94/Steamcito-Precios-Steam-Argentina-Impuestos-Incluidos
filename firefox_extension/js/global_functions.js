@@ -328,7 +328,7 @@ function switchPrices(selector,first,second,symbol){
     },250);
 }
 
-function evaluateDate(localStorageItem,seconds = 1800){
+function evaluateDate(localStorageItem,seconds = 900){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
 

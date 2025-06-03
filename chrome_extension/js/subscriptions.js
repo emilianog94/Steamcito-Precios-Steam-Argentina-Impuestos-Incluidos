@@ -1,7 +1,5 @@
 let precios = document.querySelectorAll(".updateSubscriptionOptionPrice,.transactionRowAmountDue,.itemSubtext,.game_area_purchase_game_dropdown_menu_item_text,.game_area_purchase_game_dropdown_selection span");
 
-console.log("Subscription spans are", precios);
-
 precios.forEach(precio => {
     
     precio.innerHTML = precio.innerHTML + " &nbsp;"; // Previene errores
@@ -23,17 +21,12 @@ spans.forEach(span => {
 })
 
 function check(element,start = 0){
-    console.log("CHECKING");
     if(element.innerText.indexOf("$",start) != -1)
     {
         let inicioNumero = element.innerHTML.indexOf("$",start) + 1;
-        console.log("Inicio numero",inicioNumero);
         let finNumero = element.innerHTML.indexOf(" ",inicioNumero);
-        console.log("Fin numero",finNumero);
         let numeroOriginal = element.innerHTML.substring(inicioNumero,finNumero);
-        console.log("Numero original",numeroOriginal);
         let numeroArgentino = calculateTaxesAndExchange(numeroOriginal);
-        console.log("Numero argentino",numeroArgentino);
 
         element.innerHTML = element.innerHTML.replace(
             numeroOriginal,`<span class="suscription-price" data-argentina-price="${numeroArgentino}" data-original-price="${numeroOriginal}">${numeroOriginal}</span>`

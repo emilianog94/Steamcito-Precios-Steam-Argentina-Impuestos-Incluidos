@@ -653,11 +653,6 @@ body .responsive_page_frame {
   font-weight: 400;
   opacity: 0.75;
 }
-.menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones option, .menu-steamcito .internal-menu .opciones-avanzadas-steamcito #metodo-de-pago-opciones,
-.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones option,
-.menu-steamcito .internal-menu .ayuda-steamcito #metodo-de-pago-opciones {
-  font-family: "steamcito-emojis-noto", sans-serif;
-}
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones {
   margin: 2em 0;
@@ -706,12 +701,40 @@ body .responsive_page_frame {
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div {
-  display: block;
+  display: block label;
+  display-color: #c6d4df;
+  display-min-width: 125px;
 }
-.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div label,
-.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div label {
-  color: #c6d4df;
-  min-width: 125px;
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div .input-container,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div .input-container {
+  display: flex;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 3px;
+  box-shadow: 1px 1px 0px #45556c;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin-left: 0;
+  padding: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+  font-size: 0.9rem;
+  width: 50px;
+}
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div .input-container input,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div .input-container input {
+  color: #fff;
+  border-radius: 3px;
+  margin-left: 0;
+  font-size: 16px;
+  font-size: 0.9rem;
+  background: none;
+  border: none;
+  width: 100%;
+  -moz-appearance: textfield;
+}
+.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div .input-container span,
+.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div .input-container span {
+  color: #aaa;
 }
 .menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div select,
 .menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div select {
@@ -727,22 +750,6 @@ body .responsive_page_frame {
   font-size: 16px;
   line-height: 21px;
   width: 100%;
-  font-size: 0.9rem;
-}
-.menu-steamcito .internal-menu .opciones-avanzadas-steamcito .grupo-opciones .opcion > div input,
-.menu-steamcito .internal-menu .ayuda-steamcito .grupo-opciones .opcion > div input {
-  background-color: rgba(0, 0, 0, 0.4);
-  display: block;
-  color: #fff;
-  border: 1px solid #000;
-  border-radius: 3px;
-  box-shadow: 1px 1px 0px #45556c;
-  margin-left: 0;
-  padding: 5px;
-  margin-top: 5px;
-  font-size: 16px;
-  line-height: 21px;
-  width: 40px;
   font-size: 0.9rem;
 }
 .menu-steamcito .internal-menu .ayuda-steamcito {

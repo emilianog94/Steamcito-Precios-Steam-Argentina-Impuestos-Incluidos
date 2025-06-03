@@ -1,37 +1,41 @@
 let precios = document.querySelectorAll(".updateSubscriptionOptionPrice,.transactionRowAmountDue,.itemSubtext,.game_area_purchase_game_dropdown_menu_item_text,.game_area_purchase_game_dropdown_selection span");
-// Desactivo función temporalmente
-// precios.forEach(precio => {
-//     precio.innerHTML = DOMPurify.sanitize(precio.innerHTML + " &nbsp;"); // Previene errores
-//     check(precio);
-// });
+
+precios.forEach(precio => {
+    precio.innerHTML = DOMPurify.sanitize(precio.innerHTML + " &nbsp;"); // Previene errores
+    precio.innerText = precio.innerText.replace("USD","");
+    check(precio);
+});
+
 let spans = document.querySelectorAll(".suscription-price");
 spans.forEach(span => {
-    if (walletBalance < span.innerText) {
-        span.innerText = span.dataset.argentinaPrice + emojiMate;
+    if(walletBalance < span.innerText){
+        span.innerHTML = DOMPurify.sanitize(span.dataset.argentinaPrice + emojiMate);
         span.classList.add("argentina");
-    } else {
-        span.innerText += emojiWallet;
+    } else{
+        span.innerHTML += DOMPurify.sanitize(emojiWallet);
         span.classList.add("original");
     }
-    if (!span.parentElement.classList.contains("game_area_purchase_game_dropdown_menu_item_text")) {
-        span.addEventListener('click', showSecondaryPrice);
+    if(!span.parentElement.classList.contains("game_area_purchase_game_dropdown_menu_item_text")){
+        span.addEventListener('click',showSecondaryPrice);
     }
 })
 
-function check(element, start = 0) {
-    if (element.innerText.indexOf("ARS$ ", start) != -1) {
-        let inicioNumero = element.innerHTML.indexOf("ARS$ ", start) + 5;
-        let finNumero = element.innerHTML.indexOf(" ", inicioNumero);
-        let numeroOriginal = element.innerHTML.substring(inicioNumero, finNumero);
-        let numeroWallet = sanitize(element.innerHTML.substring(inicioNumero, finNumero));
-        let numeroArgentino = calcularImpuestos(stringToNumber(numeroWallet, "none") / 100);
+
+function check(element,start = 0){
+    if(element.innerText.indexOf("$",start) != -1)
+    {
+        let inicioNumero = element.innerHTML.indexOf("$",start) + 1;
+        let finNumero = element.innerHTML.indexOf(" ",inicioNumero);
+        let numeroOriginal = element.innerHTML.substring(inicioNumero,finNumero);
+        let numeroArgentino = calculateTaxesAndExchange(numeroOriginal);
 
         element.innerHTML = DOMPurify.sanitize(element.innerHTML.replace(
-            numeroOriginal, `<span class="suscription-price" data-argentina-price="${numeroArgentino}" data-original-price="${numeroWallet}">${numeroWallet}</span>`)
-        );
+            numeroOriginal,`<span class="suscription-price" data-argentina-price="${numeroArgentino}" data-original-price="${numeroOriginal}">${numeroOriginal}</span>`
+        ));
 
-        check(element, finNumero); // Hago un chequeo recursivo para verificar si hay más strings de ARS$
-    }
+        check(element,finNumero); // Hago un chequeo recursivo para verificar si hay más strings de ARS$
+
+    } 
 }
 
 function sanitize(numero) {

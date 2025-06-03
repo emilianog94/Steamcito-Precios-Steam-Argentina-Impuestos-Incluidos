@@ -1,6 +1,6 @@
  {
  	"name": "Steamcito: Steam con impuestos Argentina 2025",
- 	"version": "4.0",
+ 	"version": "3.96",
  	"description": "Muestra todos los productos de la tienda de Steam en pesos argentinos con impuestos incluidos",
  	"manifest_version": 3,
  	"background": {

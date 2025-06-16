@@ -312,6 +312,21 @@ function calculateTaxesAndExchangeBna(initialPrice,exchangeRate = "unset") {
 
 function getBalance() {
     let walletBalanceContainer = document.querySelector("#header_wallet_balance");
+
+    // fallback por xpath para cuando no se encuentra el contenedor de saldo (por ejemplo, en la wishlist)
+    if (!walletBalanceContainer) {
+        const xpath =
+            "//a[(starts-with(text(), 'Cartera') or starts-with(text(), 'Wallet')) and contains(@href, 'store.steampowered.com/account')]/b";
+        const result = document.evaluate(
+            xpath,
+            document,
+            null,
+            XPathResult.FIRST_ORDERED_NODE_TYPE,
+            null
+        );
+        walletBalanceContainer = result.singleNodeValue;
+    }
+    
     if (localStorage.getItem('manual-mode') == "wallet") {
         return 9999999;
     } else if (localStorage.getItem('manual-mode') == "mate") {

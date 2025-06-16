@@ -39,7 +39,7 @@ function setPaymentMethodName(){
     if(paymentMethod == "steamcito-cotizacion-tarjeta"){
         return "Tarjeta"
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return "Dólar Crypto" 
+        return "Astropay" 
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
         return "Dólar Bancario"   
     } 
@@ -57,7 +57,7 @@ function renderCart(){
     }
 
     let staticExchangeRate = exchangeRateTarjeta;
-    if(paymentMethod == "Dólar Crypto"){
+    if(paymentMethod == "Astropay"){
         staticExchangeRate = exchangeRateCrypto
     } else if(paymentMethod == "Dólar Bancario"){
         staticExchangeRate = exchangeRateMep
@@ -131,21 +131,21 @@ function renderCart(){
             
             if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
                 cryptoSavingsContainer.style.display="block";
-                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Dólar Crypto.` 
+                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Astropay.` 
             }
             else{
                 cryptoSavingsContainer.style.display="none";
             }
 
-            // if(neededWalletAmount >= 0 && paymentMethod == "Dólar Crypto"){
+            // if(neededWalletAmount >= 0 && paymentMethod == "Astropay"){
             //     paymentAlertContainer.style.display="block";
-            //     paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} en tu cartera de Steam para completar la compra.\r\n\r\n Necesitás cargar ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) usando Dólar Crypto para avanzar.` 
+            //     paymentAlertContainer.innerText = `Te faltan ${numberToStringUsd(neededWalletAmount.toFixed(2))} en tu cartera de Steam para completar la compra.\r\n\r\n Necesitás cargar ${getNeededWalletAmount(neededWalletAmount)} USD (${numberToString((getNeededWalletAmount(neededWalletAmount) * exchangeRateCrypto).toFixed(2))}) usando Astropay para avanzar.` 
             // }
             // else{
             //     paymentAlertContainer.style.display="none";
             // }
 
-            if(totalMixedDisplay == "hide" || paymentMethod == "Dólar Crypto" ){
+            if(totalMixedDisplay == "hide" || paymentMethod == "Astropay" ){
                 mixedWrapper.style.display = "none";
             } else{
                 mixedWrapper.style.display = "block";
@@ -330,7 +330,7 @@ function switchPrices(selector,first,second,symbol){
 
 
 
-function evaluateDate(localStorageItem, seconds = 1800){
+function evaluateDate(localStorageItem, seconds = 900){
     if(localStorage.getItem(localStorageItem)){
         let exchangeRateJSON = JSON.parse(localStorage.getItem(localStorageItem))
         let savedTimestamp = Math.floor(parseInt(exchangeRateJSON.date) / 1000);

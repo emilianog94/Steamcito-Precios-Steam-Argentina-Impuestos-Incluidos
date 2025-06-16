@@ -23,31 +23,36 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjetas</option>
-                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar:Crypto</option>
-                                    <option value="steamcito-cotizacion-mep">💸 Dólar:Bancario</option>
+                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjeta en pesos</option>
+                                    <option value="steamcito-cotizacion-mep">💸 Tarjeta en dólares</option>
+                                    <option value="steamcito-cotizacion-crypto">🚀 Astropay</option>
+
                                 </select>
                             </div>
-                            <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Clickeá acá para ver cuál es el método de pago más conveniente al día de hoy.</a></small>
+                            <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Ver listado de medios de pago.</a></small>
                         </div>
 
                         <div class="opcion">
                             <div>
                                 <label for="national-tax">Impuestos nacionales</label>
-                                <input id="national-tax" type="number" name="national-tax" disabled placeholder="60"/>
+                                <div class="input-container">
+                                    <input id="national-tax" type="number" name="national-tax" disabled placeholder="21"/>
+                                    <span> % </span>
+                                </div>
                             </div>
-                            <small>Se carga automáticamente de acuerdo al método de pago seleccionado. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
+                            <small>Basado en tu método de pago. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">
                             <div>
                                 <label for="province-tax">Impuestos provinciales</label>
+                            <div class="input-container">
                                 <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
-                            </div>
-                            <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
+                                <span> % </span>
+                            </div>    
+                        </div>
+                        <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
                         </div>   
-
-                        <a class="refresher btnv6_green_white_innerfade" onClick="window.location.reload();">Aplicar cambios</a> 
 
                     </div>
 
@@ -56,14 +61,14 @@ function createMenus(){
 
                         <div class="opcion" id="preferencia-de-precios">
                             <div>
-                                <label for="modo-manual">Preferencia de precios</label>
+                                <label for="modo-manual">Preferencia de visualización de precios</label>
                                 <select name="" id="modo-manual">
-                                    <option value="">Recomendado</option>
-                                    <option value="mate">Forzar precio con mate</option>
-                                    <option value="wallet">Forzar precio con saldo</option>
+                                    <option value="">Modo inteligente (Recomendado)</option>
+                                    <option value="mate">Por defecto en pesos</option>
+                                    <option value="wallet">Por defecto en dólares</option>
                                 </select>
                             </div>
-                            <small>El modo recomendado te muestra de manera inteligente aquellos juegos que podés comprar usando tu saldo.</small>
+                            <small>El modo inteligente te muestra el precio en función de tu saldo si estás logueado.</small>
                         </div>
 
                         <div class="opcion" id="tips-de-ahorro">
@@ -208,7 +213,7 @@ function setEmojis(){
     if(paymentMethod == "steamcito-cotizacion"){
         return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>']
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return ['<span class="emojis">🪙</span>','<span class="emojis">💲</span>']
+        return ['<span class="emojis">🚀</span>','<span class="emojis">💲</span>']
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
         return ['<span class="emojis">💸</span>','<span class="emojis">💲</span>']   
     } 

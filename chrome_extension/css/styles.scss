@@ -875,7 +875,7 @@ body {
     .ayuda-steamcito {
 
       #metodo-de-pago-opciones option, #metodo-de-pago-opciones{
-        font-family: 'steamcito-emojis-noto',sans-serif;
+        // font-family: 'steamcito-emojis-noto',sans-serif;
       }
 
       .grupo-opciones {
@@ -930,6 +930,38 @@ body {
               min-width: 125px;
             }
 
+            .input-container{
+              display: flex;
+              color: #fff;
+              border: 1px solid #000;
+              border-radius: 3px;
+              box-shadow: 1px 1px 0px #45556c;
+              background-color: rgba(0, 0, 0, 0.4);
+              margin-left: 0;
+              padding: 5px;
+              margin-top: 5px;
+              font-size: 16px;
+              font-size: 0.9rem;
+              width: 50px;
+
+              input {
+                color: #fff;
+                border-radius: 3px;
+                margin-left: 0;
+                font-size: 16px;
+                font-size: 0.9rem;
+                background:none;
+                border:none;
+                width: 100%;
+              }
+
+              span{
+                color: #aaa;
+              }
+
+
+            }
+
             select {
               // margin-left: 1em;
               // padding:5px;
@@ -952,21 +984,7 @@ body {
               font-size: 0.9rem;
             }
 
-            input {
-              background-color: rgba(0, 0, 0, 0.4);
-              display: block;
-              color: #fff;
-              border: 1px solid #000;
-              border-radius: 3px;
-              box-shadow: 1px 1px 0px #45556c;
-              margin-left: 0;
-              padding: 5px;
-              margin-top: 5px;
-              font-size: 16px;
-              line-height: 21px;
-              width: 40px;
-              font-size: 0.9rem;
-            }
+
           }
         }
       }
@@ -1409,7 +1427,7 @@ body {
 
       &.dolar_crypto:before{
         font-family: 'steamcito-emojis-noto',sans-serif;
-        content:'🪙'
+        content:'🚀'
       }
 
       &.dolar_mep:before{

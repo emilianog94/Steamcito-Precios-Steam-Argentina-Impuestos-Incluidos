@@ -26,7 +26,7 @@ function createMenus() {
                                 <select name="" id="metodo-de-pago-opciones">
                                     <option value="steamcito-cotizacion-tarjeta">🧉 Tarjeta en pesos</option>
                                     <option value="steamcito-cotizacion-mep">💸 Tarjeta en dólares</option>
-                                    <option value="steamcito-cotizacion-crypto">🪙 Dólar Crypto</option>
+                                    <option value="steamcito-cotizacion-crypto">🚀 Astropay</option>
 
                                 </select>
                             </div>
@@ -213,7 +213,7 @@ function setEmojis(){
     if(paymentMethod == "steamcito-cotizacion"){
         return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>']
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return ['<span class="emojis">🪙</span>','<span class="emojis">💲</span>']
+        return ['<span class="emojis">🚀</span>','<span class="emojis">💲</span>']
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
         return ['<span class="emojis">💸</span>','<span class="emojis">💲</span>']   
     } 

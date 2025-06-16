@@ -272,7 +272,7 @@ const renderCryptoPrice = async (appData) => {
 
             <div class="steamcito_saving_tip_text">
                 <p class="steamcito_saving_tip_text_main">
-                    <span class="steamcito_saving_tip_green">Precio con Dólar Crypto (Belo): ${numberToString(cryptoPrice)}</span>
+                    <span class="steamcito_saving_tip_green">Precio con Astropay: ${numberToString(cryptoPrice)}</span>
                     <br>
                     <span class="steamcito_saving_tip_amount">
                         Ahorro total: ${numberToString(difference)}
@@ -329,6 +329,22 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
 
+            <p class="reason for dolar_crypto">
+                <span class="name-span">Astropay: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
+                <br>
+                <span class="name-smaller">
+                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
+                </span><br>
+                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
+                    ?
+                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
+                    :
+                    ""
+                }
+
+            </p>
+            <br>
+            
             <p class="reason for dolar_tarjeta">
                 <span class="name-span">Tarjeta en pesos: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
@@ -351,22 +367,6 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
                    ${mepTax ? `Incluye ${mepTax}% de impuestos (${exchangeRateMepDate}) ` : ""} 
                 </span><br>
                 ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-mep"
-                    ?
-                    `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
-                    :
-                    ""
-                }
-
-            </p>
-            <br>
-
-            <p class="reason for dolar_crypto">
-                <span class="name-span">Dólar Crypto: 1 USD ≈ ${exchangeRateCrypto.toFixed(2)} ARS</span>
-                <br>
-                <span class="name-smaller">
-                   ${cryptoTax || cryptoTax == 0 ? `Incluye ${cryptoTax}% de impuestos (${exchangeRateCryptoDate}) ` : ""} 
-                </span><br>
-                ${localStorage.getItem('metodo-de-pago') == "steamcito-cotizacion-crypto"
                     ?
                     `<span class="name-smaller name-smaller-green">Método de pago seleccionado</span>`
                     :

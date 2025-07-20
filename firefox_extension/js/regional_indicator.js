@@ -36,6 +36,11 @@ const isFromArgentina = () => {
 }
 
 const renderArgentinaIndicator = (matchingGame) => {
+    let orgulloArgentinoHidden = localStorage.getItem('ocultar-orgullo-argentino');
+    if (orgulloArgentinoHidden == "ocultar") {
+        return;
+    }
+
     let gameName = document.querySelector('#appHubAppName');
     let targetContainer = document.querySelector('.leftcol.game_description_column');
 
@@ -307,6 +312,10 @@ const renderCryptoPrice = async (appData) => {
    }
 
 const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax) => {
+    if (indicatorStyle == "barra-oculta") {
+        return;
+    }
+    
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let staticExchangeRate = exchangeRate;
@@ -431,6 +440,10 @@ const renderPriceIndicators = (appData) => {
 }
 
 const renderRegionalIndicator = (appData, exchangeRate) => {
+    if (indicatorStyle == "barra-oculta") {
+        return;
+    }
+    
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let container =

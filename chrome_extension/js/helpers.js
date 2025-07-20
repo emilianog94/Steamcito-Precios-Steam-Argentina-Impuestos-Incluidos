@@ -429,6 +429,11 @@ function steamizar(contenedor, emoji = true) {
 
 
 function renderArgentinaShortcut(){
+    let orgulloArgentinoHidden = localStorage.getItem('ocultar-orgullo-argentino');
+    if (orgulloArgentinoHidden == "ocultar") {
+        return;
+    }
+    
     let navbar = document.querySelector('.store_nav');
     if(navbar){
         let navbarFirstItem = navbar.querySelector('div:first-child');

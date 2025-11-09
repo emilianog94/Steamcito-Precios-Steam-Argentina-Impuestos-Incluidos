@@ -88,9 +88,21 @@ function createMenus(){
                                 <select name="estilo-barra" id="estilo-barra">
                                     <option value="barra-normal">Normal</option>
                                     <option value="barra-minificada">Minificada</option>
+                                    <option value="barra-oculta">Ocultar</option>
                                 </select>
                             </div>
                             <small>Seleccioná "Minificada" para que la información de cotización del dólar y precios regionales ocupe menos espacio.</small>
+                        </div>
+
+                        <div class="opcion" id="orgullo-argentino">
+                            <div>
+                                <label for="ocultar-orgullo-argentino">Juegos Argentinos</label>
+                                <select name="ocultar-orgullo-argentino" id="ocultar-orgullo-argentino">
+                                    <option value="mostrar">Mostrar</option>
+                                    <option value="ocultar">Ocultar</option>
+                                </select>
+                            </div>
+                            <small>Agrega insignias a juegos desarrollados en Argentina y detecta los juegos argentinos en tu biblioteca.</small>
                         </div>
 
                     </div>
@@ -132,12 +144,17 @@ function setInitialLocalStates(){
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
     localStorage.getItem('metodo-de-pago') ? selectPaymentMethod.value=localStorage.getItem('metodo-de-pago') : localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
+    localStorage.getItem('ocultar-orgullo-argentino') ? checkboxOrgulloArgentino.value=localStorage.getItem('ocultar-orgullo-argentino') : localStorage.removeItem('ocultar-orgullo-argentino');
 }
 
 
 
 function changeBarStyleState(){
     selectBarStyle.value == 'barra-normal' ? localStorage.setItem('estilo-barra','barra-normal') : localStorage.setItem('estilo-barra','barra-minificada');
+    let style = selectBarStyle.value;
+    if (style == 'barra-normal') localStorage.setItem('estilo-barra','barra-normal');
+    if (style == 'barra-oculta') localStorage.setItem('estilo-barra','barra-oculta');
+    if (style == 'barra-minificada') localStorage.setItem('estilo-barra','barra-minificada');
 }
 
 function changePaymentMethodState(e){
@@ -171,6 +188,10 @@ function changePaymentMethodState(e){
 
 function changeDolarCryptoVisibility() {
     checkboxDolarCrypto.value == 'mostrar' ? localStorage.setItem('ocultar-crypto','mostrar') : localStorage.setItem('ocultar-crypto','ocultar');
+}
+
+function changeJuegosArgentinosVisibility() {
+    checkboxOrgulloArgentino.value == 'mostrar' ? localStorage.setItem('ocultar-orgullo-argentino','mostrar') : localStorage.setItem('ocultar-orgullo-argentino','ocultar');
 }
 
 function changeManualModeState(){
@@ -232,11 +253,13 @@ let selectManualMode = document.querySelector("#modo-manual");
 let selectBarStyle = document.querySelector("#estilo-barra");
 let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
+let checkboxOrgulloArgentino = document.querySelector("#ocultar-orgullo-argentino");
 
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
 selectPaymentMethod.addEventListener('input', changePaymentMethodState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
+checkboxOrgulloArgentino.addEventListener('change', changeJuegosArgentinosVisibility);
 
 let nationalTax = document.querySelector("#national-tax");
 nationalTax.addEventListener('input',changeNationalTax);

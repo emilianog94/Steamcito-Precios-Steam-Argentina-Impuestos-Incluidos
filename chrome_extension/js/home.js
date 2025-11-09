@@ -23,6 +23,11 @@ function shuffleArray(array) {
   }; 
 
 function renderOwnedArgentinaGames(gamesIds){
+    let orgulloArgentinoHidden = localStorage.getItem('ocultar-orgullo-argentino');
+    if (orgulloArgentinoHidden == "ocultar") {
+        return;
+    }
+
     gamesIds = shuffleArray(gamesIds)
     let targetItem = document.querySelector('.home_ctn.tab_container')
     if(targetItem){

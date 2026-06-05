@@ -3,33 +3,13 @@ const totalTaxes = getTotalTaxes();
 
 let _cachedExchangeRate = null;
 
-// IntersectionObserver singleton: procesa precios solo cuando entran al viewport.
-// Evita bloquear el hilo principal procesando todo el DOM de una sola vez.
-let _priceIO = null;
-
-function getPriceIO() {
-    if (_priceIO) return _priceIO;
-    _priceIO = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                _priceIO.unobserve(entry.target);
-                setArgentinaPrice(entry.target);
-            }
-        });
-    }, { rootMargin: '400px 0px' }); // precarga 400px antes de que sean visibles
-    return _priceIO;
-}
-
 function getPrices(type){
     if (type == "standard"){
-        const io = getPriceIO();
         // Fix DLCs sin descuento
         document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`).forEach(dlcPrice => {
-            if(!dlcPrice.querySelector("div")) io.observe(dlcPrice);
+            if(!dlcPrice.querySelector("div")) setArgentinaPrice(dlcPrice);
         });
-        // observe() es casi gratuito (~0ms): registra el elemento y lo procesa
-        // solo cuando entra al viewport. Sin bloqueo del hilo principal.
-        document.querySelectorAll(priceContainers).forEach(price => io.observe(price));
+        document.querySelectorAll(priceContainers).forEach(price => setArgentinaPrice(price));
     } else if(type == "cart"){
         setTimeout(() => {
             return renderCart();

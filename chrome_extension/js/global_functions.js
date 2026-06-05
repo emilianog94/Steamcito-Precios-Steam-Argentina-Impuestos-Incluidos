@@ -1,25 +1,40 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
-function getPrices(type){
-    let prices;
-    if (type == "standard"){
-        prices = document.querySelectorAll(priceContainers);
-        // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
-        let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
-        standardDlcPrices.forEach(dlcPrice => { 
-            if(!dlcPrice.querySelector("div")){
-                setArgentinaPrice(dlcPrice);
+let _cachedExchangeRate = null;
+
+// IntersectionObserver singleton: procesa precios solo cuando entran al viewport.
+// Evita bloquear el hilo principal procesando todo el DOM de una sola vez.
+let _priceIO = null;
+
+function getPriceIO() {
+    if (_priceIO) return _priceIO;
+    _priceIO = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                _priceIO.unobserve(entry.target);
+                setArgentinaPrice(entry.target);
             }
         });
-        prices.forEach(price => {
-            setArgentinaPrice(price)
-        } );
+    }, { rootMargin: '400px 0px' }); // precarga 400px antes de que sean visibles
+    return _priceIO;
+}
+
+function getPrices(type){
+    if (type == "standard"){
+        const io = getPriceIO();
+        // Fix DLCs sin descuento
+        document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`).forEach(dlcPrice => {
+            if(!dlcPrice.querySelector("div")) io.observe(dlcPrice);
+        });
+        // observe() es casi gratuito (~0ms): registra el elemento y lo procesa
+        // solo cuando entra al viewport. Sin bloqueo del hilo principal.
+        document.querySelectorAll(priceContainers).forEach(price => io.observe(price));
     } else if(type == "cart"){
         setTimeout(() => {
             return renderCart();
         },1000)
-    } 
+    }
     else if(type == "search"){
         const divs = findPricesInSearch();
         divs.forEach(div => setArgentinaPrice(div));
@@ -236,18 +251,17 @@ async function getOwnedGames(){
 
 
 async function setArgentinaPrice(price){
-    // await getUsdExchangeRate(); Comento esta línea para prevenir actualizaciones innecesarias
+    if (_cachedExchangeRate === null) {
+        const paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+        _cachedExchangeRate = JSON.parse(localStorage.getItem(paymentMethod))?.rate || null;
+    }
 
-    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
-    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod))?.rate;
-
-        // Ignoro los juegos sin precio (Ejemplo: F2Ps)
-        if(price.innerText.includes('$') && exchangeRate){
-            let baseNumericPrice = extractNumberFromString(price.innerText)
-            price.dataset.originalPrice = baseNumericPrice;
-            price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
-            renderPrices(price);
-        }
+    if(price.innerText.includes('$') && _cachedExchangeRate){
+        let baseNumericPrice = extractNumberFromString(price.innerText)
+        price.dataset.originalPrice = baseNumericPrice;
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice, _cachedExchangeRate);
+        renderPrices(price);
+    }
 }
 
 function sanitizePromoLists(){
@@ -259,27 +273,30 @@ function renderPrices(price){
 
     let argentinaPrice = numberToString(price.dataset.argentinaPrice);
     let originalPrice = numberToStringUsd(price.dataset.originalPrice);
-    price.addEventListener('click',showSecondaryPrice); 
+    price.addEventListener('click',showSecondaryPrice);
     price.style.cursor="pointer";
 
-    // Fix para contenedores que intercalan un BR entre precio original y precio en oferta 
+    // Fix para contenedores que intercalan un BR entre precio original y precio en oferta
     price.classList.contains("was") && sanitizePromoLists();
-    
+
     // Los precios del bloque regional siempre se muestran inicialmente en USD
     let forceUsd = price.classList.contains("regional-meter-price");
+
+    // PRE-LECTURA: capturar el hermano antes de cualquier escritura al DOM para
+    // evitar forced layout (leer innerText después de escribir innerHTML fuerza
+    // al browser a recalcular el layout sincrónicamente para cada precio)
+    let sibling = price.previousElementSibling;
+    let siblingHasPrice = sibling && isInsideString(sibling, "$");
 
     // Si el saldo te alcanza para comprar el juego
     if(forceUsd || walletBalance > parseFloat(price.dataset.originalPrice)){
         price.innerHTML = originalPrice + (forceUsd ? "" : emojiWallet);
         price.classList.add("original");
 
-        // Si tiene un descuento
-        if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"$")){
-                price.previousElementSibling.classList.add('original');
-                price.previousElementSibling.classList.remove('argentina');
-                price.previousElementSibling.innerText = numberToStringUsd(price.previousElementSibling.dataset.originalPrice);
-            }
+        if(siblingHasPrice){
+            sibling.classList.add('original');
+            sibling.classList.remove('argentina');
+            sibling.innerText = numberToStringUsd(sibling.dataset.originalPrice);
         }
     }
 
@@ -288,12 +305,10 @@ function renderPrices(price){
         price.innerHTML = argentinaPrice + emojiMate;
         price.classList.add("argentina");
 
-        if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"$")){
-                price.previousElementSibling.classList.remove('original');
-                price.previousElementSibling.classList.add('argentina');
-                price.previousElementSibling.innerText = numberToString(price.previousElementSibling.dataset.argentinaPrice); 
-            }
+        if(siblingHasPrice){
+            sibling.classList.remove('original');
+            sibling.classList.add('argentina');
+            sibling.innerText = numberToString(sibling.dataset.argentinaPrice);
         }
     }
 
@@ -408,6 +423,7 @@ async function processExchangeRate(type,localStorageItemKey,defaultValue){
 }
 
 async function getUsdExchangeRate(){
+    _cachedExchangeRate = null;
     let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
     if(shouldGetNewRateDolarTarjeta){
         processExchangeRate('Tarjeta','steamcito-cotizacion-tarjeta',1600)

@@ -111,6 +111,38 @@ body.menu-enabled .responsive_page_frame {
 .steamcito_saving_tip:hover {
   background-color: #4c6b22;
 }
+.steamcito_saving_tip.steamcito_saving_tip--compact {
+  background-color: rgba(255, 255, 255, 0.04);
+  padding: 4px 16px;
+}
+.steamcito_saving_tip.steamcito_saving_tip--compact .steamcito_saving_tip_arq_logo {
+  width: 20px;
+  height: 20px;
+}
+.steamcito_saving_tip.steamcito_saving_tip--compact .steamcito_saving_tip_arq_logo img {
+  width: 12px;
+}
+.steamcito_saving_tip.steamcito_saving_tip--minified {
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 6px 16px;
+}
+.steamcito_saving_tip.steamcito_saving_tip--minified .steamcito_saving_tip_text_main--minified {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+.steamcito_saving_tip.steamcito_saving_tip--minified .steamcito_saving_tip_text_main--minified .steamcito_saving_tip_green,
+.steamcito_saving_tip.steamcito_saving_tip--minified .steamcito_saving_tip_text_main--minified .steamcito_saving_tip_amount {
+  color: #8f98a0;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+.steamcito_saving_tip.steamcito_saving_tip--minified .steamcito_saving_tip_gift_pill {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #8f98a0;
+}
 .steamcito_saving_tip .steamcito_saving_tip_close {
   color: rgb(172, 178, 184);
   position: absolute;
@@ -123,6 +155,22 @@ body.menu-enabled .responsive_page_frame {
 .steamcito_saving_tip .steamcito_saving_tip_icon {
   font-size: 1.75rem;
   transition: all 0.25s ease;
+}
+.steamcito_saving_tip .steamcito_saving_tip_arq_logo {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #1c2e0d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.steamcito_saving_tip .steamcito_saving_tip_arq_logo img {
+  width: 20px;
+  height: auto;
+  display: block;
 }
 .steamcito_saving_tip .steamcito_saving_tip_text_main {
   color: #BEEE11;
@@ -182,6 +230,43 @@ body.menu-enabled .responsive_page_frame {
   font-weight: 700;
 }
 
+.steamcito_saving_tip_best_label {
+  color: #8f98a0;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.steamcito_saving_tip_gift_pill {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 6px 10px;
+  background-color: #a4d007;
+  color: #1c2e0d;
+  font-weight: 700;
+  font-size: 0.65rem;
+  line-height: 1.25;
+  text-align: center;
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  border-radius: 4px;
+}
+
+.steamcito-cheapest-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 1px 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #1b2838 !important;
+  background-color: #BEEE11;
+  border-radius: 3px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .game_area_purchase_game_dropdown_subscription .game_purchase_action .btn_packageinfo span {
   max-width: 110px;
   text-overflow: ellipsis;
@@ -205,13 +290,70 @@ body.menu-enabled .responsive_page_frame {
 }
 
 .steamcito_crypto_savings {
-  max-width: fit-content;
+  max-width: 100%;
   margin-bottom: 1rem;
   padding: 15px;
-  background-color: #4c6b22;
+  background-color: #1c2e0d;
+  border-left: 3px solid #a4d007;
   color: #fff;
 }
+.steamcito_crypto_savings strong {
+  color: #a4d007;
+}
 .steamcito_crypto_savings:hover {
+  color: #fff;
+}
+
+.steamcito_arq_welcome_banner {
+  display: none;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  padding: 15px;
+  background-color: #1c2e0d;
+  border-left: 3px solid #a4d007;
+  color: #fff;
+}
+.steamcito_arq_welcome_banner strong {
+  color: #a4d007;
+}
+
+.steamcito_arq_welcome_actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.steamcito_arq_welcome_cta {
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #a4d007;
+  color: #1c2e0d;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.steamcito_arq_welcome_cta:hover {
+  background-color: #beee11;
+  color: #1c2e0d;
+}
+
+.steamcito_arq_welcome_dismiss {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #acb2b8;
+  font-size: 0.65rem;
+  font-family: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.steamcito_arq_welcome_dismiss:hover {
   color: #fff;
 }
 
@@ -1128,6 +1270,15 @@ body.menu-enabled .responsive_page_frame {
 }
 .rightcol.game_meta_data .heading_steamcito_3 {
   order: -2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rightcol.game_meta_data .heading_steamcito_3 span {
+  opacity: 0.5;
+  font-family: "Motiva Sans", Sans-serif;
+  font-weight: 300;
+  font-size: 10px;
 }
 .rightcol.game_meta_data .content_steamcito_3 {
   order: -1;
@@ -1141,6 +1292,9 @@ body.menu-enabled .responsive_page_frame {
 .rightcol.game_meta_data .content_steamcito_3 .for:before {
   background-image: none;
 }
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_arq {
+  margin-top: 20px;
+}
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_tarjeta:before {
   font-family: "steamcito-emojis-noto", sans-serif;
   content: "🧉";
@@ -1152,6 +1306,10 @@ body.menu-enabled .responsive_page_frame {
 .rightcol.game_meta_data .content_steamcito_3 .for.dolar_mep:before {
   font-family: "steamcito-emojis-noto", sans-serif;
   content: "💸";
+}
+.rightcol.game_meta_data .content_steamcito_3 .for.dolar_arq:before {
+  font-family: "steamcito-emojis-noto", sans-serif;
+  content: "💵";
 }
 
 .store_nav {
@@ -1242,4 +1400,6 @@ body.menu-enabled .responsive_page_frame {
 }
 .regional-meter-container > :not(.regional-meter-bar--selected) {
   opacity: 0.25;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */

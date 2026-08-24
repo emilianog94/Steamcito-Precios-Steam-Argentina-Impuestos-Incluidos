@@ -1,5 +1,8 @@
 const attributeName = "data-original-price";
 
+// Cotización hardcodeada para el método de pago ARQ (no se obtiene de forma dinámica)
+const ARQ_EXCHANGE_RATE = 1536;
+
 let standardTaxes = [
     {
         name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5463/2023",

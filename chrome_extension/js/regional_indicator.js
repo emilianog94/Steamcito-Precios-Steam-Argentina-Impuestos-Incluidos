@@ -153,13 +153,14 @@ const getExchangeRate = async () => {
     let exchangeRateCryptoDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.rateDateProvided;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rate;
     let exchangeRateMepDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.rateDateProvided;
+    let exchangeRateArq = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rate;
     let tarjetaTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.taxAmount || 21
     let cryptoTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'))?.taxAmount || 0
     let mepTax = JSON.parse(localStorage.getItem('steamcito-cotizacion-mep'))?.taxAmount || 21
 
 
-    if(exchangeRate && exchangeRateDate && exchangeRateCrypto && exchangeRateCryptoDate && exchangeRateMep && exchangeRateMepDate && tarjetaTax && cryptoTax && mepTax){
-        renderExchangeIndicator(exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax)
+    if(exchangeRate && exchangeRateDate && exchangeRateCrypto && exchangeRateCryptoDate && exchangeRateMep && exchangeRateMepDate && exchangeRateArq && tarjetaTax && cryptoTax && mepTax){
+        renderExchangeIndicator(exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax,exchangeRateArq)
     }
 }
 
@@ -293,102 +294,166 @@ const renderCryptoPrice = async (appData) => {
     let cryptoPrice = (appData.arsPrice * cryptoExchangeRate).toFixed(2)
     let difference = (appData.arsPrice * exchangeRate - appData.arsPrice * cryptoExchangeRate).toFixed(2);
 
+    let arqExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rateDateProvided;
+    let arqExchangeRate = ARQ_EXCHANGE_RATE;
+    let staticArqExchangeRate = arqExchangeRate;
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        arqExchangeRate += parseFloat((staticArqExchangeRate * tax.value / 100).toFixed(2));
+    })
+    let isUsingArq = (localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta") == "steamcito-cotizacion-arq";
+
     if(cryptoExchangeRate > exchangeRate){
         // console.log("Retorno");
         return;
     }
 
-    let gamePurchaseArea = document.querySelector('.game_area_purchase_game_wrapper .game_area_purchase_game');
-    let CryptoPriceContainer = 
-    `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
+    let gamePurchaseAreas = document.querySelectorAll('.game_area_purchase_game_wrapper .game_area_purchase_game');
+    if(!gamePurchaseAreas.length){
+        return;
+    }
 
-        <div class="steamcito_saving_tip">
-            <span class="steamcito_saving_tip_close">X</span>
+    gamePurchaseAreas.forEach((gamePurchaseArea, index) => {
+        let isFirstEdition = index === 0;
+
+        let editionPriceElement = gamePurchaseArea.querySelector('[data-price-final]');
+        let editionArsPrice = editionPriceElement ? parseFloat(editionPriceElement.dataset.priceFinal) / 100 : appData.arsPrice;
+        let editionCardPrice = (editionArsPrice * exchangeRate).toFixed(2);
+        let arqPrice = (editionArsPrice * arqExchangeRate).toFixed(2);
+        let arqSavings = (editionCardPrice - arqPrice).toFixed(2);
+
+        let CryptoPriceContainer = isFirstEdition
+        ?
+        `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
+
+            <div class="steamcito_saving_tip ${isUsingArq ? 'steamcito_saving_tip--compact' : ''}">
+                <span class="steamcito_saving_tip_close">X</span>
+
+                <span class="steamcito_saving_tip_arq_logo">
+                    <img src="${chrome.runtime.getURL("emojis/arq-logo.svg")}" alt="ARQ" />
+                </span>
+
+                <div class="steamcito_saving_tip_text">
+
+                    ${isUsingArq
+                        ?
+                        `<p class="steamcito_saving_tip_text_main">
+                            <span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible ✓</span>
+                        </p>`
+                        :
+                        `<p class="steamcito_saving_tip_text_main">
+                            <span class="steamcito_saving_tip_green">Precio pagando con ARQ · ${numberToString(arqPrice)}</span>
+                            <br>
+                            <span class="steamcito_saving_tip_amount">
+                                Ahorrás ${numberToString(arqSavings)}
+                            </span>
+
+                        </p>`
+                    }
+
+                </div>
 
 
-            <div class="steamcito_saving_tip_text">
-                <p class="steamcito_saving_tip_text_main">
-                    <span class="steamcito_saving_tip_green">Precio con Astropay Local: ${numberToString((cardPrice * 0.9).toFixed(2))}</span>
-                    <br>
-                    <span class="steamcito_saving_tip_amount">
-                        Promoción de 10% de reintegro
-                    </span>
 
-                </p>
-
-
-                
+                <span class="steamcito_saving_tip_gift_pill">
+                    🎁 Beneficio extra: 5 USD de regalo
+                </span>
 
             </div>
+        </a>
+        `
+        :
+        `<a class="steamcito_saving_tip_url" href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina" target="_blank">
 
+            <div class="steamcito_saving_tip steamcito_saving_tip--minified">
 
+                <p class="steamcito_saving_tip_text_main steamcito_saving_tip_text_main--minified">
+                    ${isUsingArq
+                        ?
+                        `<span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible ✓</span>`
+                        :
+                        `<span class="steamcito_saving_tip_green">Precio pagando con ARQ · ${numberToString(arqPrice)}</span>
+                        <span class="steamcito_saving_tip_amount">Ahorrás ${numberToString(arqSavings)}</span>`
+                    }
+                </p>
 
-            <span class="steamcito_crypto_exchangerate">
-                1 USD = ${(exchangeRate * 0.9).toFixed(2)} ARS
-                <br>
-                <span class="steamcito_crypto_exchangerate_date">(${cryptoExchangeRateDate})<span>
-            </span>            
-            
-        </div>
-    </a>
-    `;
+                <span class="steamcito_saving_tip_gift_pill">
+                    🎁 Beneficio extra: 5 USD de regalo
+                </span>
 
-    gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
+            </div>
+        </a>
+        `;
+
+        gamePurchaseArea.insertAdjacentHTML('beforebegin', CryptoPriceContainer);
+    });
 
     let savingTipCloseButton = document.querySelector('.steamcito_saving_tip_close');
-    let savingTipElement = document.querySelector('.steamcito_saving_tip_url')
+    let savingTipElements = document.querySelectorAll('.steamcito_saving_tip_url');
     if(savingTipCloseButton){
         savingTipCloseButton.addEventListener('click', (e) =>{
             e.preventDefault();
             localStorage.setItem('ocultar-crypto','ocultar');
-            savingTipElement && savingTipElement.insertAdjacentHTML('beforebegin','<span>Podés habilitar la opción nuevamente desde el Menú de Opciones -> Tips de Ahorro</span><br><br>')
-            savingTipElement && savingTipElement.remove();
+            savingTipElements[0] && savingTipElements[0].insertAdjacentHTML('beforebegin','<span>Podés habilitar la opción nuevamente desde el Menú de Opciones -> Tips de Ahorro</span><br><br>')
+            savingTipElements.forEach(el => el.remove());
         })
     }
 
    }
 
-const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax) => {
+const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypto,exchangeRateCryptoDate,exchangeRateMep,exchangeRateMepDate,tarjetaTax,cryptoTax,mepTax,exchangeRateArq) => {
     if (indicatorStyle == "barra-oculta") {
         return;
     }
-    
+
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
     let staticExchangeRate = exchangeRate;
+    let staticExchangeRateArq = exchangeRateArq;
 
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
         exchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+        exchangeRateArq += parseFloat((staticExchangeRateArq * tax.value / 100).toFixed(2));
     })
 
     let container = `
         <div class="block responsive_apppage_details_right heading heading_steamcito_3">
-            Cotización del dólar
+            <p>Cotización del dólar</p>
+            <span>por Steamcito</span>
         </div>
 
         <div class="block responsive_apppage_details_right recommendation_reasons regional-meter-wrapper cotizacion-wrapper ${indicatorStyle} content_steamcito_3">
 
-            
+
             <p class="reason for dolar_tarjeta">
                 <span class="name-span">Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                   ${tarjetaTax ? `Incluye ${tarjetaTax}% de impuestos (${exchangeRateDate}) ` : ""}  <br>
-                   Aplica a todas las tarjetas emitidas en Argentina.
+                   ${tarjetaTax ? `Incluye ${tarjetaTax}% de cargos extra. (${exchangeRateDate}) ` : ""}  <br>
+                   Aplica a  tarjetas emitidas en Argentina.
+                </span>
+            </p>
+
+            <p class="reason for dolar_arq">
+                <span class="name-span">ARQ: 1 USD ≈ ${exchangeRateArq.toFixed(2)} ARS <span class="steamcito-cheapest-tag">El MEJOR PRECIO</span></span>
+                <br>
+                <span class="name-smaller">
+                   Sin cargos extra <br>
+                   Aplica pagando con tu tarjeta local de ARQ.
                 </span>
             </p>
 
             <div class="DRM_notice">
                 <div>
-                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Ver más información sobre cotizaciones</a>
+                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía paso a paso para pagar sin cargos extra en Steam</a>
                 </div>
             </div>
 
         </div>
 
 
-    
+
     `;
 
     sidebar.insertAdjacentHTML('afterbegin', container);
@@ -396,12 +461,15 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
     let dolarTarjetaItem = document.querySelector('.dolar_tarjeta');
     let dolarCryptoItem = document.querySelector('.dolar_crypto');
     let dolarMepItem = document.querySelector('.dolar_mep');
+    let dolarArqItem = document.querySelector('.dolar_arq');
 
     dolarTarjetaItem && dolarTarjetaItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-tarjeta');window.location.reload()} )
 
     dolarCryptoItem && dolarCryptoItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-crypto');window.location.reload()} )
 
     dolarMepItem && dolarMepItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-mep');window.location.reload()} )
+
+    dolarArqItem && dolarArqItem.addEventListener('click', () => {changePaymentMethodState('steamcito-cotizacion-arq');window.location.reload()} )
 }
 
 

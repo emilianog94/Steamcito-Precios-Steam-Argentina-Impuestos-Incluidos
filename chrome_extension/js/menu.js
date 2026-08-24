@@ -23,7 +23,8 @@ function createMenus(){
                             <div>
                                 <label for="metodo-de-pago-opciones">Tu método de pago</label>
                                 <select name="" id="metodo-de-pago-opciones">
-                                    <option value="steamcito-cotizacion-tarjeta">🧉 Tarjeta emitida en Argentina</option>
+                                    <option value="steamcito-cotizacion-tarjeta">🧉 Otras tarjetas</option>
+                                    <option value="steamcito-cotizacion-arq">💵 Tarjeta local de ARQ</option>
                                 </select>
                             </div>
                             <small><a target="_blank" href='https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-menu' style="display:inline">Ver listado de medios de pago.</a></small>
@@ -31,24 +32,22 @@ function createMenus(){
 
                         <div class="opcion">
                             <div>
-                                <label for="national-tax">Impuestos nacionales</label>
+                                <label for="national-tax">Cargos extra (nacionales)</label>
                                 <div class="input-container">
                                     <input id="national-tax" type="number" name="national-tax" disabled placeholder="21"/>
                                     <span> % </span>
                                 </div>
                             </div>
-                            <small>Basado en tu método de pago. <br><a target="_blank" href='https://steamcito.com.ar/impuestos-hoy' style="display:inline">Ver listado de impuestos nacionales.</a></small>
                         </div>                    
 
                         <div class="opcion">
                             <div>
-                                <label for="province-tax">Impuestos provinciales</label>
+                                <label for="province-tax">Cargos extra (provinciales)</label>
                             <div class="input-container">
                                 <input id="province-tax" type="number" name="province-tax" placeholder="0"/>
                                 <span> % </span>
                             </div>    
                         </div>
-                        <small> <a target="_blank" href='https://steamcito.com.ar/impuestos-hoy#impuestos-provinciales' style="display:inline">Ver listado de impuestos provinciales.</a></small>
                         </div>   
 
                     </div>
@@ -135,11 +134,13 @@ function getReviewLink(){
 }
 
 function setInitialLocalStates(){
-    localStorage.getItem('national-tax') && localStorage.getItem('national-tax') != '0' ? nationalTax.value = localStorage.getItem('national-tax') : localStorage.setItem('national-tax',21);
+    localStorage.getItem('national-tax') !== null ? nationalTax.value = localStorage.getItem('national-tax') : (localStorage.setItem('national-tax',21), nationalTax.value = 21);
     localStorage.getItem('province-tax') ? provinceTax.value=localStorage.getItem('province-tax') : localStorage.removeItem('province-tax');
     localStorage.getItem('manual-mode') ? selectManualMode.value=localStorage.getItem('manual-mode') : localStorage.removeItem('manual-mode');
     localStorage.getItem('estilo-barra') ? selectBarStyle.value=localStorage.getItem('estilo-barra') : localStorage.removeItem('estilo-barra');
-    localStorage.getItem('metodo-de-pago') != "steamcito-cotizacion-tarjeta" ? localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta') : "" ;
+    let validPaymentMethods = ['steamcito-cotizacion-tarjeta','steamcito-cotizacion-arq'];
+    !validPaymentMethods.includes(localStorage.getItem('metodo-de-pago')) ? localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta') : "" ;
+    selectPaymentMethod.value = localStorage.getItem('metodo-de-pago');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
     localStorage.getItem('ocultar-orgullo-argentino') ? checkboxOrgulloArgentino.value=localStorage.getItem('ocultar-orgullo-argentino') : localStorage.removeItem('ocultar-orgullo-argentino');
 }
@@ -168,11 +169,16 @@ function changePaymentMethodState(e){
             nationalTax.value = tarjetaTax;
             break;
 
-        case "steamcito-cotizacion-crypto": 
+        case "steamcito-cotizacion-arq":
+            localStorage.setItem('national-tax',0)
+            nationalTax.value = 0;
+            break;
+
+        case "steamcito-cotizacion-crypto":
             localStorage.setItem('national-tax',tarjetaTax)
             localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta');
             nationalTax.value = tarjetaTax;
-            break;            
+            break;
  
         case "steamcito-cotizacion-mep": 
             localStorage.setItem('national-tax',tarjetaTax)
@@ -231,7 +237,9 @@ function setEmojis(){
 
     let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
 
-    if(paymentMethod == "steamcito-cotizacion"){
+    if(paymentMethod == "steamcito-cotizacion-arq"){
+        return ['<span class="emojis">💵</span>','<span class="emojis">💲</span>']
+    } else if(paymentMethod == "steamcito-cotizacion"){
         return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>']
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
         return ['<span class="emojis">🧉</span>','<span class="emojis">💲</span>']

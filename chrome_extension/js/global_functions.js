@@ -39,11 +39,13 @@ function setPaymentMethodName(){
     let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
     if(paymentMethod == "steamcito-cotizacion-tarjeta"){
         return "Tarjeta"
+    } else if(paymentMethod == "steamcito-cotizacion-arq"){
+        return "ARQ"
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return "Tarjeta" 
+        return "Tarjeta"
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
-        return "Tarjeta"   
-    } 
+        return "Tarjeta"
+    }
     return "Tarjeta";
 }
 
@@ -52,6 +54,7 @@ function renderCart(){
     let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    let exchangeRateArq = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rate || ARQ_EXCHANGE_RATE;
 
     if(!exchangeRateTarjeta || !exchangeRateMep || !exchangeRateCrypto){
         return;
@@ -62,6 +65,8 @@ function renderCart(){
         staticExchangeRate = exchangeRateCrypto
     } else if(paymentMethod == "Dólar Bancario"){
         staticExchangeRate = exchangeRateMep
+    } else if(paymentMethod == "ARQ"){
+        staticExchangeRate = exchangeRateArq
     }
 
     provinceTaxes &&
@@ -106,6 +111,18 @@ function renderCart(){
                 <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_crypto_savings">
                 </a>
 
+                <div class="steamcito_arq_welcome_banner">
+                    <strong>PROMO DE BIENVENIDA STEAMCITO: 5 USD DE REGALO 🎁</strong>
+                    <br>
+                    Registrate en ARQ clickeando acá y recibí 5 USD de regalo cuando gastes 25 USD o más.
+                    <div class="steamcito_arq_welcome_actions">
+                        <a href="https://www.arqfinance.com/referrals/general?referralCode=emilianogioia_pnF&pid=referral&c=general&is_retargeting=true" target="_blank" class="steamcito_arq_welcome_cta">Obtener recompensa de 5 USD</a>
+                        <button type="button" class="steamcito_arq_welcome_dismiss">Ya estoy registrado / no me interesa</button>
+                        <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_arq_welcome_dismiss">Leer más</a>
+
+                    </div>
+                </div>
+
 
                 <div class="steamcito_cart_exchangerate">
                     <p>Cotización aproximada con ${paymentMethod} </p>
@@ -124,15 +141,28 @@ function renderCart(){
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
             let neededWalletAmount = totalWallet - walletBalance;
             let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
-            let cryptoSavings = totalWithCurrentPaymentMethod * 0.1;
-            
+            let arqWelcomeBanner = document.querySelector('.steamcito_arq_welcome_banner');
+            let arqWelcomeDismissButton = document.querySelector('.steamcito_arq_welcome_dismiss');
+            let totalArq = calculateTaxesAndExchange(totalWallet, exchangeRateArq);
+            let arqSavings = totalWithCurrentPaymentMethod - totalArq;
+
+            arqWelcomeBanner.style.display =  localStorage.getItem('ocultar-arq-welcome-banner') != 'ocultar' ? "block" : "none";
+
+            if(arqWelcomeDismissButton && !arqWelcomeDismissButton.dataset.bound){
+                arqWelcomeDismissButton.dataset.bound = "true";
+                arqWelcomeDismissButton.addEventListener('click', () => {
+                    localStorage.setItem('ocultar-arq-welcome-banner','ocultar');
+                    arqWelcomeBanner.style.display = "none";
+                })
+            }
+
             cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
             cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
             cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
-            
+
             if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
                 cryptoSavingsContainer.style.display="block";
-                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Astropay Local.` 
+                cryptoSavingsContainer.innerHTML = `Precio pagando con ARQ<br><strong>${numberToString(totalArq)}</strong><br>Ahorrás ${numberToString(arqSavings.toFixed(2))}`
             }
             else{
                 cryptoSavingsContainer.style.display="none";
@@ -408,6 +438,14 @@ async function getUsdExchangeRate(){
     if(shouldGetNewRateDolarTarjeta){
         processExchangeRate('Tarjeta','steamcito-cotizacion-tarjeta',1600)
     }
+
+    // Cotización de ARQ: es fija, no se obtiene de un feed externo
+    localStorage.setItem('steamcito-cotizacion-arq', JSON.stringify({
+        rate: ARQ_EXCHANGE_RATE,
+        taxAmount: 0,
+        rateDateProvided: "Cotización fija",
+        date: Date.now()
+    }));
 
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){

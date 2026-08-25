@@ -78,6 +78,17 @@ function createMenus(){
                             <small>Los tips de ahorro te indican cuánto podés ahorrarte al pagar con un método de pago alternativo.</small>
                         </div>
 
+                        <div class="opcion" id="beneficios-exclusivos">
+                            <div>
+                                <label for="ocultar-arq-welcome-banner">Beneficios exclusivos</label>
+                                <select name="ocultar-arq-welcome-banner" id="ocultar-arq-welcome-banner">
+                                    <option value="mostrar">Mostrar</option>
+                                    <option value="ocultar">Ocultar</option>
+                                </select>
+                            </div>
+                            <small>Recibí avisos de reintegros y promociones especiales en Steam.</small>
+                        </div>
+
                         <div class="opcion" id="informacion-en-barra-lateral">
                             <div>
                                 <label for="estilo-barra">Información en barra lateral</label>
@@ -142,6 +153,7 @@ function setInitialLocalStates(){
     !validPaymentMethods.includes(localStorage.getItem('metodo-de-pago')) ? localStorage.setItem('metodo-de-pago','steamcito-cotizacion-tarjeta') : "" ;
     selectPaymentMethod.value = localStorage.getItem('metodo-de-pago');
     localStorage.getItem('ocultar-crypto') ? checkboxDolarCrypto.value=localStorage.getItem('ocultar-crypto') : localStorage.removeItem('ocultar-crypto');
+    localStorage.getItem('ocultar-arq-welcome-banner') ? checkboxBeneficiosExclusivos.value=localStorage.getItem('ocultar-arq-welcome-banner') : localStorage.removeItem('ocultar-arq-welcome-banner');
     localStorage.getItem('ocultar-orgullo-argentino') ? checkboxOrgulloArgentino.value=localStorage.getItem('ocultar-orgullo-argentino') : localStorage.removeItem('ocultar-orgullo-argentino');
 }
 
@@ -194,6 +206,10 @@ function changePaymentMethodState(e){
 
 function changeDolarCryptoVisibility() {
     checkboxDolarCrypto.value == 'mostrar' ? localStorage.setItem('ocultar-crypto','mostrar') : localStorage.setItem('ocultar-crypto','ocultar');
+}
+
+function changeBeneficiosExclusivosVisibility() {
+    checkboxBeneficiosExclusivos.value == 'mostrar' ? localStorage.setItem('ocultar-arq-welcome-banner','mostrar') : localStorage.setItem('ocultar-arq-welcome-banner','ocultar');
 }
 
 function changeJuegosArgentinosVisibility() {
@@ -261,12 +277,14 @@ let selectManualMode = document.querySelector("#modo-manual");
 let selectBarStyle = document.querySelector("#estilo-barra");
 let selectPaymentMethod = document.querySelector('#metodo-de-pago-opciones');
 let checkboxDolarCrypto = document.querySelector("#ocultar-crypto");
+let checkboxBeneficiosExclusivos = document.querySelector("#ocultar-arq-welcome-banner");
 let checkboxOrgulloArgentino = document.querySelector("#ocultar-orgullo-argentino");
 
 selectManualMode.addEventListener('input', changeManualModeState);
 selectBarStyle.addEventListener('input',changeBarStyleState);
 selectPaymentMethod.addEventListener('input', changePaymentMethodState);
 checkboxDolarCrypto.addEventListener('change', changeDolarCryptoVisibility);
+checkboxBeneficiosExclusivos.addEventListener('change', changeBeneficiosExclusivosVisibility);
 checkboxOrgulloArgentino.addEventListener('change', changeJuegosArgentinosVisibility);
 
 let nationalTax = document.querySelector("#national-tax");

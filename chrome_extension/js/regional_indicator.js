@@ -302,6 +302,7 @@ const renderCryptoPrice = async (appData) => {
         arqExchangeRate += parseFloat((staticArqExchangeRate * tax.value / 100).toFixed(2));
     })
     let isUsingArq = (localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta") == "steamcito-cotizacion-arq";
+    let showGiftPill = localStorage.getItem('ocultar-arq-welcome-banner') != 'ocultar';
 
     if(cryptoExchangeRate > exchangeRate){
         // console.log("Retorno");
@@ -355,9 +356,14 @@ const renderCryptoPrice = async (appData) => {
 
 
 
-                <span class="steamcito_saving_tip_gift_pill">
-                    🎁 Beneficio extra: 5 USD de regalo
-                </span>
+                ${showGiftPill
+                    ?
+                    `<span class="steamcito_saving_tip_gift_pill">
+                        🎁 Beneficio extra: 5 USD de regalo
+                    </span>`
+                    :
+                    ""
+                }
 
             </div>
         </a>
@@ -377,9 +383,14 @@ const renderCryptoPrice = async (appData) => {
                     }
                 </p>
 
-                <span class="steamcito_saving_tip_gift_pill">
-                    🎁 Beneficio extra: 5 USD de regalo
-                </span>
+                ${showGiftPill
+                    ?
+                    `<span class="steamcito_saving_tip_gift_pill">
+                        🎁 Beneficio extra: 5 USD de regalo
+                    </span>`
+                    :
+                    ""
+                }
 
             </div>
         </a>
@@ -408,6 +419,8 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
     let sidebar = document.querySelector('.rightcol.game_meta_data');
 
+    let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+
     let staticExchangeRate = exchangeRate;
     let staticExchangeRateArq = exchangeRateArq;
 
@@ -427,7 +440,9 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
 
 
             <p class="reason for dolar_tarjeta">
-                <span class="name-span">Tarjeta: 1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
+                <span class="name-span steamcito-dolar-title">Otras tarjetas ${paymentMethod == "steamcito-cotizacion-tarjeta" ? `<span class="steamcito-selected-tag">Seleccionado</span>` : ""}</span>
+                <br>
+                <span class="name-span steamcito-dolar-rate">1 USD ≈ ${exchangeRate.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
                    ${tarjetaTax ? `Incluye ${tarjetaTax}% de cargos extra. (${exchangeRateDate}) ` : ""}  <br>
@@ -436,17 +451,19 @@ const renderExchangeIndicator = (exchangeRate,exchangeRateDate,exchangeRateCrypt
             </p>
 
             <p class="reason for dolar_arq">
-                <span class="name-span">ARQ: 1 USD ≈ ${exchangeRateArq.toFixed(2)} ARS <span class="steamcito-cheapest-tag">El MEJOR PRECIO</span></span>
+                <span class="name-span steamcito-dolar-title">Tarjeta ARQ Local <span class="steamcito-cheapest-tag">Mejor precio</span>${paymentMethod == "steamcito-cotizacion-arq" ? `<span class="steamcito-selected-tag">Seleccionado</span>` : ""}</span>
+                <br>
+                <span class="name-span steamcito-dolar-rate">1 USD ≈ ${exchangeRateArq.toFixed(2)} ARS</span>
                 <br>
                 <span class="name-smaller">
-                   Sin cargos extra <br>
+                   Sin cargos extra. <br>
                    Aplica pagando con tu tarjeta local de ARQ.
                 </span>
             </p>
 
             <div class="DRM_notice">
                 <div>
-                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía paso a paso para pagar sin cargos extra en Steam</a>
+                    <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cotizaciones" target="_blank">Guía paso a paso para pagar sin cargos extra en Steam con tu tarjeta local de ARQ.</a>
                 </div>
             </div>
 

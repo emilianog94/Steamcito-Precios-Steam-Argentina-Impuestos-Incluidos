@@ -1,6 +1,6 @@
 const attributeName = "data-original-price";
 
-// Cotización hardcodeada para el método de pago ARQ (no se obtiene de forma dinámica)
+// Valor de respaldo para ARQ, usado solo si todavía no se obtuvo la cotización de Crypto (que ARQ replica)
 const ARQ_EXCHANGE_RATE = 1536;
 
 let standardTaxes = [

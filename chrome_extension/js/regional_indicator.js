@@ -331,7 +331,7 @@ const renderCryptoPrice = async (appData) => {
                 <span class="steamcito_saving_tip_close">X</span>
 
                 <span class="steamcito_saving_tip_arq_logo">
-                    <img src="${chrome.runtime.getURL("emojis/arq-logo.svg")}" alt="ARQ" />
+                    <img src="${chrome.runtime.getURL("emojis/arq-logo.png")}" alt="ARQ" />
                 </span>
 
                 <div class="steamcito_saving_tip_text">

@@ -11,8 +11,7 @@
  			"emojis/*.woff",
  			"emojis/*.eot",
  			"emojis/*.ttf",
- 			"emojis/*.png",
- 			"emojis/*.svg"
+ 			"emojis/*.png"
  		],
  		"matches": ["<all_urls>"]
  	}],

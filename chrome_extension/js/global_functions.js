@@ -438,19 +438,20 @@ async function getUsdExchangeRate(){
         processExchangeRate('Tarjeta','steamcito-cotizacion-tarjeta',1600)
     }
 
-    // Cotización de ARQ: es fija, no se obtiene de un feed externo
+    let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
+    if(shouldGetNewRateDolarCrypto){
+        await processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
+    }
+
+    // Cotización de ARQ: replica exactamente la cotización de Crypto
+    let cryptoRateData = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
     localStorage.setItem('steamcito-cotizacion-arq', JSON.stringify({
-        rate: ARQ_EXCHANGE_RATE,
+        rate: cryptoRateData.rate,
         taxAmount: 0,
-        rateDateProvided: "Cotización fija",
+        rateDateProvided: cryptoRateData.rateDateProvided,
         date: Date.now()
     }));
 
-    let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
-    if(shouldGetNewRateDolarCrypto){
-        processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
-    }
-        
     let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
     if(shouldGetNewRateDolarMep){
         processExchangeRate('Bancario','steamcito-cotizacion-mep',1400)

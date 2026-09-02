@@ -295,7 +295,7 @@ const renderCryptoPrice = async (appData) => {
     let difference = (appData.arsPrice * exchangeRate - appData.arsPrice * cryptoExchangeRate).toFixed(2);
 
     let arqExchangeRateDate = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rateDateProvided;
-    let arqExchangeRate = ARQ_EXCHANGE_RATE;
+    let arqExchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rate || ARQ_EXCHANGE_RATE;
     let staticArqExchangeRate = arqExchangeRate;
     provinceTaxes &&
     provinceTaxes.forEach(tax => {

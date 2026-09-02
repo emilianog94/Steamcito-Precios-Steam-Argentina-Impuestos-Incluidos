@@ -91,7 +91,7 @@
             </div>
     
             <div class="total_cc">
-                <p>Total aproximado pagando con Tarjeta</p>
+                <p>Total aproximado pagando con otras tarjetas</p>
                 <span>${numberToString(cartTotalCreditCard)} ${emojiMate}</span>        
             </div>
     

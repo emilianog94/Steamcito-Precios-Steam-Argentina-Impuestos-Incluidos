@@ -155,6 +155,50 @@ body {
     background-color: #4c6b22;
   }
 
+  &.steamcito_saving_tip--compact{
+    background-color: rgba(255,255,255,.04);
+    padding: 4px 16px;
+
+    &:hover{
+      
+    }
+
+    .steamcito_saving_tip_arq_logo{
+      width: 20px;
+      height: 20px;
+
+      img{
+        width: 12px;
+      }
+    }
+  }
+
+  &.steamcito_saving_tip--minified{
+    background-color: rgba(255,255,255,.04);
+    padding: 6px 16px;
+
+    .steamcito_saving_tip_text_main--minified{
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin: 0;
+
+      .steamcito_saving_tip_green,
+      .steamcito_saving_tip_amount{
+        color: #8f98a0;
+        font-size: .75rem;
+        font-weight: 400;
+      }
+    }
+
+    .steamcito_saving_tip_gift_pill{
+      background-color: rgba(255,255,255,.06);
+      color: #8f98a0;
+      margin-right: 0;
+    }
+  }
+
   .steamcito_saving_tip_close{
     color: rgb(172, 178, 184);
     position: absolute;
@@ -169,6 +213,24 @@ body {
   .steamcito_saving_tip_icon{
     font-size: 1.75rem;
     transition: all .25s ease;
+  }
+
+  .steamcito_saving_tip_arq_logo{
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #1c2e0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    img{
+      width: 20px;
+      height: auto;
+      display: block;
+    }
   }
 
   .steamcito_saving_tip_text_main{
@@ -194,7 +256,7 @@ body {
   color: #BEEE11;
   font-size: .75rem;
   opacity: .85;
-  
+
 }
 
 .steamcito_saving_tip_white{
@@ -239,6 +301,61 @@ body {
   font-weight: 700;
 }
 
+.steamcito_saving_tip_best_label{
+  color: #8f98a0;
+  font-size: .75rem;
+  font-weight: 400;
+}
+
+.steamcito_saving_tip_gift_pill{
+  flex-shrink: 0;
+  margin-left: auto;
+  // max-width: 130px;
+  padding: 6px 10px;
+  background-color: #a4d007;
+  color: #1c2e0d;
+  font-weight: 700;
+  font-size: .65rem;
+  line-height: 1.25;
+  text-align: center;
+  margin-right: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  border-radius: 4px;
+}
+
+.steamcito-cheapest-tag{
+  display: inline-flex;
+  align-items: center;
+  margin-left: .4rem;
+  padding: 2px 6px;
+  font-size: 11px !important;
+  font-weight: 700;
+  line-height: 1;
+  color: #1b2838 !important;
+  background-color: #BEEE11;
+  border-radius: 3px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.steamcito-selected-tag{
+  display: inline-flex;
+  align-items: center;
+  margin-left: .4rem;
+  padding: 2px 6px;
+  font-size: 11px !important;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff !important;
+  background-color: rgba(255,255,255,.15);
+  border-radius: 3px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
 .game_area_purchase_game_dropdown_subscription{
   .game_purchase_action{
 
@@ -255,30 +372,56 @@ body {
 
 // 2024 React Cart
 
-.steamcito_cart_exchangerate{
+.steamcito_arq_welcome_banner{
+  display: none;
   max-width: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   padding: 15px;
-  color: #ccd5e0;
+  background-color: #1c2e0d;
+  border-left: 3px solid #a4d007;
+  color: #fff;
 
-  p{
-    color: white;
-  }
-
-  span.exchangerate_value{
-    font-weight: 700;
-    color: #fff;
-    font-size: 15px;    
+  strong{
+    color: #a4d007;
   }
 }
 
-.steamcito_crypto_savings{
-  max-width: fit-content;
-  margin-bottom: 1rem;
-  padding: 15px;
-  background-color: #4c6b22;
-  color: #fff;
+.steamcito_arq_welcome_actions{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-top: .75rem;
+}
+
+.steamcito_arq_welcome_cta{
+  display: inline-block;
+  padding: 6px 14px;
+  background-color: #a4d007;
+  color: #1c2e0d;
+  font-weight: 700;
+  font-size: .8rem;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all .2s ease;
+
+  &:hover{
+    background-color: #beee11;
+    color: #1c2e0d;
+  }
+}
+
+.steamcito_arq_welcome_dismiss{
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #acb2b8;
+  font-size: .65rem;
+  font-family: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all .2s ease;
 
   &:hover{
     color: #fff;
@@ -314,6 +457,12 @@ body {
       font-weight: 700;
       color: #fff;
       font-size: 15px;
+
+      .steamcito_cart_rate_hint{
+        font-weight: 400;
+        color: #8f98a0;
+        font-size: 12px;
+      }
     }
   }
 
@@ -1338,7 +1487,19 @@ body {
 
       &.name-span {
         color: #ddd;
-        font-weight: 400;
+        font-weight: 600;
+
+        &.steamcito-dolar-title{
+          color: #66c0f4;
+        }
+
+        &.steamcito-dolar-rate{
+          display: inline-block;
+          margin-top: 3px;
+          color: #fff;
+          font-weight: 400;
+          font-size: 14px;
+        }
       }
 
       &.name-smaller{
@@ -1429,6 +1590,16 @@ body {
 
   .heading_steamcito_3{
     order: -2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span{
+      opacity: 0.5;
+      font-family: "Motiva Sans", Sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+    }
   }
 
   .content_steamcito_3{
@@ -1445,6 +1616,10 @@ body {
         background-image: none;
       }
 
+      &.dolar_arq{
+        margin-top: 20px;
+      }
+
       &.dolar_tarjeta:before{
         font-family: 'steamcito-emojis-noto',sans-serif;
         content:'🧉'
@@ -1458,6 +1633,11 @@ body {
       &.dolar_mep:before{
         font-family: 'steamcito-emojis-noto',sans-serif;
         content: '💸'
+      }
+
+      &.dolar_arq:before{
+        font-family: 'steamcito-emojis-noto',sans-serif;
+        content: '💵'
       }
 
     }

@@ -177,15 +177,23 @@ const getAppPricing = async (appInitialData) => {
     let exchangeRate = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
 
 
-    let appIdResponse = await appIdFetch.json();
-    let appIdArgResponse = await appIdFetchArg.json();
+    // Steam a veces devuelve la respuesta con otra key (ej: el id de un DLC) en vez del id pedido
+    const getEntry = (response) => {
+        if (!response) return undefined;
+        if (response[id]) return response[id];
+        const entries = Object.values(response);
+        return entries.find(entry => entry?.data?.steam_appid == id) || (entries.length == 1 ? entries[0] : undefined);
+    }
 
-    if (appIdResponse[id].success && appIdArgResponse[id].success) {
-        if (appIdResponse[id].data.is_free || !appIdResponse[id].data[type == "sub" ? "price" : "price_overview"]) {
+    let appIdEntry = getEntry(await appIdFetch.json());
+    let appIdArgEntry = getEntry(await appIdFetchArg.json());
+
+    if (appIdEntry?.success && appIdArgEntry?.success) {
+        if (appIdEntry.data.is_free || !appIdEntry.data[type == "sub" ? "price" : "price_overview"]) {
             return;
         }
-        appIdResponse = appIdResponse[id].data;
-        appIdArgResponse = appIdArgResponse[id].data;
+        let appIdResponse = appIdEntry.data;
+        let appIdArgResponse = appIdArgEntry.data;
 
         const appData = {
             name: appIdResponse.name,
@@ -204,7 +212,7 @@ const getAppPricing = async (appInitialData) => {
             regionalStatus: undefined
         }
 
-        if(appData.publisher != "El publisher" && !appData.support_email.includes('@')){
+        if(appData.publisher != "El publisher" && !appData.support_email?.includes('@')){
             // Si el mail no incluye una @, es porque lo cargó mal
             !appData.support_url ? appData.support_url = appData.support_email : ""
             appData.support_email = "";

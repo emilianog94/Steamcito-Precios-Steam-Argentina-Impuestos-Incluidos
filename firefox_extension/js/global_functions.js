@@ -1,20 +1,15 @@
 const walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
+let _cachedExchangeRate = null;
+
 function getPrices(type){
-    let prices;
     if (type == "standard"){
-        prices = document.querySelectorAll(priceContainers);
-
-        // Fix específico para obtener las DLCs sin descuento y que estas no hagan overlap con las DLCs con descuento
-        let standardDlcPrices = document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`);
-        standardDlcPrices.forEach(dlcPrice => { 
-            if(!dlcPrice.querySelector("div")){
-                setArgentinaPrice(dlcPrice);
-            }
+        // Fix DLCs sin descuento
+        document.querySelectorAll(`.game_area_dlc_price:not([${attributeName}]`).forEach(dlcPrice => {
+            if(!dlcPrice.querySelector("div")) setArgentinaPrice(dlcPrice);
         });
-
-        prices.forEach(price => setArgentinaPrice(price));
+        document.querySelectorAll(priceContainers).forEach(price => setArgentinaPrice(price));
     } else if(type == "cart"){
         setTimeout(() => {
             return renderCart();
@@ -44,13 +39,15 @@ function getNeededWalletAmount(currentWalletAmount){
 function setPaymentMethodName(){
     let paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
     if(paymentMethod == "steamcito-cotizacion-tarjeta"){
-        return "Tarjeta"
+        return "Otras tarjetas"
+    } else if(paymentMethod == "steamcito-cotizacion-arq"){
+        return "ARQ"
     } else if(paymentMethod == "steamcito-cotizacion-crypto"){
-        return "Tarjeta" 
+        return "Otras tarjetas"
     } else if(paymentMethod == "steamcito-cotizacion-mep"){
-        return "Tarjeta"   
-    } 
-    return "Tarjeta";
+        return "Otras tarjetas"
+    }
+    return "Otras tarjetas";
 }
 
 function renderCart(){
@@ -58,6 +55,7 @@ function renderCart(){
     let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
     let exchangeRateMep = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
+    let exchangeRateArq = JSON.parse(localStorage.getItem('steamcito-cotizacion-arq'))?.rate || ARQ_EXCHANGE_RATE;
 
     if(!exchangeRateTarjeta || !exchangeRateMep || !exchangeRateCrypto){
         return;
@@ -69,11 +67,20 @@ function renderCart(){
         staticExchangeRate = exchangeRateCrypto
     } else if(paymentMethod == "Dólar Bancario"){
         staticExchangeRate = exchangeRateMep
+    } else if(paymentMethod == "ARQ"){
+        staticExchangeRate = exchangeRateArq
     }
 
     provinceTaxes &&
     provinceTaxes.forEach(tax => {
         staticExchangeRate += parseFloat((staticExchangeRate * tax.value / 100).toFixed(2));
+    })
+
+    let staticArqExchangeRate = exchangeRateArq;
+    let effectiveExchangeRateArq = exchangeRateArq;
+    provinceTaxes &&
+    provinceTaxes.forEach(tax => {
+        effectiveExchangeRateArq += parseFloat((staticArqExchangeRate * tax.value / 100).toFixed(2));
     })
 
     let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
@@ -104,44 +111,61 @@ function renderCart(){
                         <p class="steamcito_cart_currentmethod_label">Total Aproximado pagando con ${paymentMethod} </p>
                         <span class="steamcito_cart_currentmethod_value"></span>
                     </div>
+                    <div class="steamcito_cart_arq">
+                        <p class="steamcito_cart_arq_label">Total Aproximado pagando con ARQ <span class="steamcito-cheapest-tag">El MEJOR PRECIO</span></p>
+                        <span class="steamcito_cart_arq_value"></span>
+                    </div>
                     <div class="steamcito_cart_mixed">
                         <p class="steamcito_cart_mixed_label">Total Pagando con Steam Wallet + ${paymentMethod} </p>
                         <span class="steamcito_cart_mixed_value"></span>
                     </div>
                 </div>
 
-                <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_crypto_savings">
-                </a>
-
-
-                <div class="steamcito_cart_exchangerate">
-                    <p>Cotización aproximada con ${paymentMethod} </p>
-                    <span class="exchangerate_value">1 USD ≈ ${staticExchangeRate.toFixed(2)} ARS ${emojiMate}</span>
+                <div class="steamcito_arq_welcome_banner">
+                    <strong>PROMO DE BIENVENIDA STEAMCITO: 5 USD DE REGALO 🎁</strong>
                     <br>
-                </div>        
+                    Registrate en ARQ clickeando acá y recibí 5 USD de regalo adicionales cuando gastes 30 USD o más en Steam o comercios del exterior.
+                    <div class="steamcito_arq_welcome_actions">
+                        <a href="https://www.arqfinance.com/referrals/general?referralCode=emilianogioia_pnF&pid=referral&c=general&is_retargeting=true" target="_blank" class="steamcito_arq_welcome_cta">Obtener recompensa de 5 USD</a>
+                        <button type="button" class="steamcito_arq_welcome_dismiss">Ya estoy registrado / no me interesa</button>
+                        <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_arq_welcome_dismiss">Leer guía paso a paso</a>
+
+                    </div>
+                </div>
                 `))
             }
 
             let cartTotalWalletContainer = document.querySelector('.steamcito_cart_wallet_value');
             let cartTotalCurrentMethodContainer = document.querySelector('.steamcito_cart_currentmethod_value');
+            let arqWrapper = document.querySelector('.steamcito_cart_arq');
+            let cartTotalArqContainer = document.querySelector('.steamcito_cart_arq_value');
             let mixedWrapper = document.querySelector('.steamcito_cart_mixed');
             let cartTotalMixedContainer = document.querySelector('.steamcito_cart_mixed_value');
             let neededWalletAmount = totalWallet - walletBalance;
-            let cryptoSavingsContainer = document.querySelector('.steamcito_crypto_savings');
-            let cryptoSavings = totalWithCurrentPaymentMethod * 0.1;
+            let arqWelcomeBanner = document.querySelector('.steamcito_arq_welcome_banner');
+            let arqWelcomeDismissButton = document.querySelector('.steamcito_arq_welcome_dismiss');
+            let totalArq = calculateTaxesAndExchange(totalWallet, exchangeRateArq);
 
+            arqWelcomeBanner.style.display =  localStorage.getItem('ocultar-arq-welcome-banner') != 'ocultar' ? "block" : "none";
+
+            if(arqWelcomeDismissButton && !arqWelcomeDismissButton.dataset.bound){
+                arqWelcomeDismissButton.dataset.bound = "true";
+                arqWelcomeDismissButton.addEventListener('click', () => {
+                    localStorage.setItem('ocultar-arq-welcome-banner','ocultar');
+                    arqWelcomeBanner.style.display = "none";
+                })
+            }
 
             cartTotalWalletContainer.innerText = `${numberToStringUsd(totalWallet)}`
-            cartTotalCurrentMethodContainer.innerText = `${numberToString(totalWithCurrentPaymentMethod)}`
+            cartTotalCurrentMethodContainer.innerHTML = DOMPurify.sanitize(`${numberToString(totalWithCurrentPaymentMethod)} <span class="steamcito_cart_rate_hint">(1 USD = ${Math.round(staticExchangeRate)} ARS)</span>`)
             cartTotalMixedContainer.innerText = `${numberToStringUsd(walletBalance)} + ${numberToString(totalMixed)}`
 
-            if(paymentMethod == "Tarjeta" && localStorage.getItem('ocultar-crypto') != "ocultar"){
-                cryptoSavingsContainer.style.display="block";
-                cryptoSavingsContainer.innerText = `Podés ahorrarte ${numberToString(cryptoSavings.toFixed(2))} en tu compra pagando con Astropay Local.` 
-
+            if(paymentMethod == "Otras tarjetas" && localStorage.getItem('ocultar-crypto') != "ocultar"){
+                arqWrapper.style.display="block";
+                cartTotalArqContainer.innerHTML = DOMPurify.sanitize(`${numberToString(totalArq)} <span class="steamcito_cart_rate_hint">(1 USD = ${Math.round(effectiveExchangeRateArq)} ARS)</span>`)
             }
             else{
-                cryptoSavingsContainer.style.display="none";
+                arqWrapper.style.display="none";
             }
 
             if(totalMixedDisplay == "hide" || paymentMethod == "Astropay" ){
@@ -229,17 +253,17 @@ async function getOwnedGames(){
 }
 
 async function setArgentinaPrice(price){
-    // await getUsdExchangeRate(); Comento esta línea para prevenir actualizaciones innecesarias
-    let selectedPaymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
-    let exchangeRate = JSON.parse(localStorage.getItem(selectedPaymentMethod))?.rate;
+    if (_cachedExchangeRate === null) {
+        const paymentMethod = localStorage.getItem('metodo-de-pago') || "steamcito-cotizacion-tarjeta";
+        _cachedExchangeRate = JSON.parse(localStorage.getItem(paymentMethod))?.rate || null;
+    }
 
-        // Ignoro los juegos sin precio (Ejemplo: F2Ps)
-        if(price.innerText.includes('$') && exchangeRate){
-            let baseNumericPrice = extractNumberFromString(price.innerText)
-            price.dataset.originalPrice = baseNumericPrice;
-            price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice,exchangeRate);
-            renderPrices(price);
-        }
+    if(price.innerText.includes('$') && _cachedExchangeRate){
+        let baseNumericPrice = extractNumberFromString(price.innerText)
+        price.dataset.originalPrice = baseNumericPrice;
+        price.dataset.argentinaPrice = calculateTaxesAndExchange(baseNumericPrice, _cachedExchangeRate);
+        renderPrices(price);
+    }
 }
 
 function sanitizePromoLists(){
@@ -260,32 +284,33 @@ function renderPrices(price){
     // Los precios del bloque regional siempre se muestran inicialmente en USD
     let forceUsd = price.classList.contains("regional-meter-price");
 
+    // PRE-LECTURA: capturar el hermano antes de cualquier escritura al DOM para
+    // evitar forced layout (leer innerText después de escribir innerHTML fuerza
+    // al browser a recalcular el layout sincrónicamente para cada precio)
+    let sibling = price.previousElementSibling;
+    let siblingHasPrice = sibling && isInsideString(sibling, "$");
+
     // Si el saldo te alcanza para comprar el juego
     if(forceUsd || walletBalance > parseFloat(price.dataset.originalPrice)){
-        price.innerHTML = DOMPurify.sanitize(originalPrice + (forceUsd ? "" : emojiWallet));   
+        price.innerHTML = DOMPurify.sanitize(originalPrice + (forceUsd ? "" : emojiWallet));
         price.classList.add("original");
 
-        // Si tiene un descuento
-        if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"$")){
-                price.previousElementSibling.classList.add('original');
-                price.previousElementSibling.classList.remove('argentina');
-                price.previousElementSibling.innerText = DOMPurify.sanitize(numberToStringUsd(price.previousElementSibling.dataset.originalPrice)); 
-            }
+        if(siblingHasPrice){
+            sibling.classList.add('original');
+            sibling.classList.remove('argentina');
+            sibling.innerText = DOMPurify.sanitize(numberToStringUsd(sibling.dataset.originalPrice));
         }
-    } 
+    }
 
     // Si el saldo no alcanza
     else{
         price.innerHTML = argentinaPrice + emojiMate;
         price.classList.add("argentina");
 
-        if(price.previousElementSibling){
-            if(isInsideString(price.previousElementSibling,"$")){
-                price.previousElementSibling.classList.remove('original');
-                price.previousElementSibling.classList.add('argentina');
-                price.previousElementSibling.innerText = DOMPurify.sanitize(numberToString(price.previousElementSibling.dataset.argentinaPrice)); 
-            }
+        if(siblingHasPrice){
+            sibling.classList.remove('original');
+            sibling.classList.add('argentina');
+            sibling.innerText = DOMPurify.sanitize(numberToString(sibling.dataset.argentinaPrice));
         }
     }
 
@@ -401,6 +426,7 @@ async function processExchangeRate(type,localStorageItemKey,defaultValue){
 }
 
 async function getUsdExchangeRate(){
+    _cachedExchangeRate = null;
     let shouldGetNewRateDolarTarjeta = evaluateDate('steamcito-cotizacion-tarjeta');
     if(shouldGetNewRateDolarTarjeta){
         processExchangeRate('Tarjeta','steamcito-cotizacion-tarjeta',1600)
@@ -408,9 +434,18 @@ async function getUsdExchangeRate(){
 
     let shouldGetNewRateDolarCrypto = evaluateDate('steamcito-cotizacion-crypto');
     if(shouldGetNewRateDolarCrypto){
-        processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
+        await processExchangeRate('Crypto','steamcito-cotizacion-crypto',1200)
     }
-        
+
+    // Cotización de ARQ: replica exactamente la cotización de Crypto
+    let cryptoRateData = JSON.parse(localStorage.getItem('steamcito-cotizacion-crypto'));
+    localStorage.setItem('steamcito-cotizacion-arq', JSON.stringify({
+        rate: cryptoRateData.rate,
+        taxAmount: 0,
+        rateDateProvided: cryptoRateData.rateDateProvided,
+        date: Date.now()
+    }));
+
     let shouldGetNewRateDolarMep = evaluateDate('steamcito-cotizacion-mep');
     if(shouldGetNewRateDolarMep){
         processExchangeRate('Bancario','steamcito-cotizacion-mep',1400)

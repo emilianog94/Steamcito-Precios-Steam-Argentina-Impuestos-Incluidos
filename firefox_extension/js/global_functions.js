@@ -122,11 +122,11 @@ function renderCart(){
                 </div>
 
                 <div class="steamcito_arq_welcome_banner">
-                    <strong>PROMO DE BIENVENIDA STEAMCITO: 5 USD DE REGALO 🎁</strong>
+                    <strong>PROMO DE BIENVENIDA STEAMCITO: 3 USD DE REGALO 🎁</strong>
                     <br>
-                    Registrate en ARQ clickeando acá y recibí 5 USD de regalo adicionales cuando gastes 30 USD o más en Steam o comercios del exterior.
+                    Registrate en ARQ clickeando acá y recibí 3 USD de regalo adicionales cuando gastes 30 USD o más en Steam o comercios del exterior.
                     <div class="steamcito_arq_welcome_actions">
-                        <a href="https://www.arqfinance.com/referrals/general?referralCode=emilianogioia_pnF&pid=referral&c=general&is_retargeting=true" target="_blank" class="steamcito_arq_welcome_cta">Obtener recompensa de 5 USD</a>
+                        <a href="https://www.arqfinance.com/referrals/general?referralCode=emilianogioia_pnF&pid=referral&c=general&is_retargeting=true" target="_blank" class="steamcito_arq_welcome_cta">Obtener recompensa de 3 USD</a>
                         <button type="button" class="steamcito_arq_welcome_dismiss">Ya estoy registrado / no me interesa</button>
                         <a href="https://steamcito.com.ar/mejor-metodo-de-pago-steam-argentina?ref=steamcito-cart" target="_blank" class="steamcito_arq_welcome_dismiss">Leer guía paso a paso</a>
 

@@ -1,5 +1,8 @@
 const attributeName = "data-original-price";
 
+// Valor de respaldo para ARQ, usado solo si todavía no se obtuvo la cotización de Crypto (que ARQ replica)
+const ARQ_EXCHANGE_RATE = 1536;
+
 let standardTaxes = [
     {
         name: "Percepción de Impuesto a las Ganancias - RG AFIP Nº 5463/2023",

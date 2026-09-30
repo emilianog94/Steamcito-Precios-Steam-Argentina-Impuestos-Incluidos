@@ -367,7 +367,7 @@ const renderCryptoPrice = async (appData) => {
                 ${showGiftPill
                     ?
                     `<span class="steamcito_saving_tip_gift_pill">
-                        🎁 Beneficio extra: 5 USD de regalo
+                        🎁 Beneficio extra: 3 USD de regalo
                     </span>`
                     :
                     ""
@@ -394,7 +394,7 @@ const renderCryptoPrice = async (appData) => {
                 ${showGiftPill
                     ?
                     `<span class="steamcito_saving_tip_gift_pill">
-                        🎁 Beneficio extra: 5 USD de regalo
+                        🎁 Beneficio extra: 3 USD de regalo
                     </span>`
                     :
                     ""

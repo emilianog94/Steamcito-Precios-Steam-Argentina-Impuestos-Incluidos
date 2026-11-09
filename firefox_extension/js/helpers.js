@@ -426,7 +426,8 @@ const priceContainers = `
         .regional-meter-price:not([${attributeName}]),
         .StoreSalePriceWidgetContainer.Discounted >div >div:not([${attributeName}]),
         .StoreSalePriceWidgetContainer:not(.Discounted) >div:not([${attributeName}]),
-        .AppCapsuleCtn >span >span:not([${attributeName}])      
+        .AppCapsuleCtn >span >span:not([${attributeName}]),
+        #module_discounts_and_events div:not(:has(*)):not([${attributeName}])
         `;
 
 

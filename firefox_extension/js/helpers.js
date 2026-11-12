@@ -517,7 +517,8 @@ function getBalance() {
         return 0;
     }
     else if (walletBalanceContainer) {
-        walletBalanceContainer.innerHTML += emojiWallet;
+        // getBalance() ahora se puede llamar varias veces: el emoji se agrega una sola vez
+        if(!walletBalanceContainer.querySelector('.emojis')) walletBalanceContainer.innerHTML += emojiWallet;
         // Fix para resolver problema de detección de saldo cuando tenés un reembolso pendiente
         let walletBalance = document.createElement('p');
         walletBalance.innerText = walletBalanceContainer.innerText;

@@ -378,7 +378,6 @@ body {
   margin-bottom: 1rem;
   padding: 15px;
   background-color: #1c2e0d;
-  border-left: 3px solid #a4d007;
   color: #fff;
 
   strong{
@@ -398,7 +397,7 @@ body {
   display: inline-block;
   padding: 6px 14px;
   background-color: #a4d007;
-  color: #1c2e0d;
+  color: #1c2e0d !important;
   font-weight: 700;
   font-size: .8rem;
   border-radius: 3px;
@@ -407,7 +406,7 @@ body {
 
   &:hover{
     background-color: #beee11;
-    color: #1c2e0d;
+    color: #1c2e0d !important;
   }
 }
 
@@ -442,15 +441,20 @@ body {
 
 .steamcito_cart{
   max-width: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
-  padding: 15px;
 
   div{
     margin-bottom: 1rem;
 
     p{
       color: white;
+
+      &.steamcito_cart_wallet_label,
+      &.steamcito_cart_currentmethod_label,
+      &.steamcito_cart_arq_label,
+      &.steamcito_cart_mixed_label{
+        margin-bottom: 0;
+      }
     }
 
     span{

@@ -295,7 +295,6 @@ body .responsive_page_frame {
   margin-bottom: 1rem;
   padding: 15px;
   background-color: #1c2e0d;
-  border-left: 3px solid #a4d007;
   color: #fff;
 }
 .steamcito_arq_welcome_banner strong {
@@ -314,7 +313,7 @@ body .responsive_page_frame {
   display: inline-block;
   padding: 6px 14px;
   background-color: #a4d007;
-  color: #1c2e0d;
+  color: #1c2e0d !important;
   font-weight: 700;
   font-size: 0.8rem;
   border-radius: 3px;
@@ -323,7 +322,7 @@ body .responsive_page_frame {
 }
 .steamcito_arq_welcome_cta:hover {
   background-color: #beee11;
-  color: #1c2e0d;
+  color: #1c2e0d !important;
 }
 
 .steamcito_arq_welcome_dismiss {
@@ -355,15 +354,19 @@ body .responsive_page_frame {
 
 .steamcito_cart {
   max-width: 280px;
-  background-color: rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
-  padding: 15px;
 }
 .steamcito_cart div {
   margin-bottom: 1rem;
 }
 .steamcito_cart div p {
   color: white;
+}
+.steamcito_cart div p.steamcito_cart_wallet_label,
+.steamcito_cart div p.steamcito_cart_currentmethod_label,
+.steamcito_cart div p.steamcito_cart_arq_label,
+.steamcito_cart div p.steamcito_cart_mixed_label {
+  margin-bottom: 0;
 }
 .steamcito_cart div span {
   font-weight: 700;

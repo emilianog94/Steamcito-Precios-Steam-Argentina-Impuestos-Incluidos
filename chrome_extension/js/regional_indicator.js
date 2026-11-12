@@ -347,7 +347,7 @@ const renderCryptoPrice = async (appData) => {
                     ${isUsingArq
                         ?
                         `<p class="steamcito_saving_tip_text_main">
-                            <span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible ✓</span>
+                            <span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible</span>
                         </p>`
                         :
                         `<p class="steamcito_saving_tip_text_main">
@@ -384,7 +384,7 @@ const renderCryptoPrice = async (appData) => {
                 <p class="steamcito_saving_tip_text_main steamcito_saving_tip_text_main--minified">
                     ${isUsingArq
                         ?
-                        `<span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible ✓</span>`
+                        `<span class="steamcito_saving_tip_best_label">Precio final pagando con ARQ al mejor precio posible</span>`
                         :
                         `<span class="steamcito_saving_tip_green">Precio pagando con ARQ · ${numberToString(arqPrice)}</span>
                         <span class="steamcito_saving_tip_amount">Ahorrás ${numberToString(arqSavings)}</span>`

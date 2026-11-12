@@ -1,4 +1,4 @@
-const walletBalance = getBalance();
+let walletBalance = getBalance();
 const totalTaxes = getTotalTaxes();
 
 let _cachedExchangeRate = null;
@@ -50,7 +50,44 @@ function setPaymentMethodName(){
     return "Otras tarjetas";
 }
 
+// Botón de pago: es un <button> para usuarios anónimos y un <a aria-disabled> para usuarios logueados
+const CART_CHECKOUT_CONTROL = 'button, a[aria-disabled]';
+
+// Devuelve true si el precio está en el resumen del carrito (junto al botón de pago)
+function isCartSummaryPrice(element){
+    if(element.closest('header')) return true;
+    let node = element.parentElement;
+    for(let i = 0; i < 3 && node; i++, node = node.parentElement){
+        if(Array.from(node.querySelectorAll(CART_CHECKOUT_CONTROL)).some(el => !el.closest('[class*="steamcito"]'))) return true;
+    }
+    return false;
+}
+
+// Ubica el resumen del carrito sin depender de clases: es el bloque más cercano al botón
+// de pago que contiene un precio total y ningún enlace a un producto
+function findCartElements(){
+    const root = document.querySelector('#StoreTemplate') || document.body;
+    for(const button of root.querySelectorAll(CART_CHECKOUT_CONTROL)){
+        // El header (con el saldo de la Wallet y las notificaciones) no es parte del carrito
+        if(button.closest('header') || button.closest('dialog')) continue;
+        // Los botones del propio Steamcito (ej: cerrar el banner de ARQ) no son el botón de pago
+        if(button.closest('[class*="steamcito"]')) continue;
+        // Steam renderiza el resumen dos veces y oculta uno con CSS: se usa el visible
+        if(!button.getClientRects().length) continue;
+        const wrapper = button.parentElement;
+        let box = wrapper;
+        for(let i = 0; i < 3 && box && box !== root; i++, box = box.parentElement){
+            if(box.querySelector('a[href*="/app/"], a[href*="/sub/"], a[href*="/bundle/"]')) break;
+            const total = Array.from(box.querySelectorAll('div:not(:has(*))')).find(el => el.innerText[0] == "$");
+            if(total) return { cartContent: root, cartSidebar: wrapper, total };
+        }
+    }
+    return { cartContent: null, cartSidebar: null, total: null };
+}
+
 function renderCart(){
+    // El header de Steam puede renderizarse después de que corre el script: se vuelve a leer el saldo
+    walletBalance = getBalance();
     let paymentMethod = setPaymentMethodName();
     let exchangeRateTarjeta = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
     let exchangeRateCrypto = JSON.parse(localStorage.getItem('steamcito-cotizacion-tarjeta'))?.rate;
@@ -83,13 +120,12 @@ function renderCart(){
         effectiveExchangeRateArq += parseFloat((staticArqExchangeRate * tax.value / 100).toFixed(2));
     })
 
-    let cartContent = document.querySelector('.Panel.Focusable:has(+ .Panel.Focusable)')
-    const cartContentSibling = cartContent.nextElementSibling;
-    let cartSidebar = cartContentSibling && cartContentSibling.querySelector('div:has(> button.Primary)')
-    
+    // Steam usa clases hasheadas que cambian en cada deploy: se ubican los elementos por estructura
+    const { cartContent, cartSidebar, total: cartTotalElement } = findCartElements();
+
     if(cartSidebar && cartContent){
 
-        let total = Array.from(cartSidebar.querySelectorAll('div:not(:has(*))')).find(element => element.innerText[0] == "$")
+        let total = cartTotalElement
         if(total?.innerText){
             let totalWallet = stringToNumber(total)
             let totalWithCurrentPaymentMethod = calculateTaxesAndExchange(totalWallet,staticExchangeRate)
@@ -98,6 +134,10 @@ function renderCart(){
             
             let estimatedTotalDisplay = walletBalance < parseFloat(totalWallet) ? "hide" : "show";
             let totalMixedDisplay = estimatedTotalDisplay == "hide" && walletBalance != 0 ? "show" : "hide";
+
+            document.querySelectorAll('.steamcito_cart, .steamcito_arq_welcome_banner').forEach(el => {
+                if(!cartSidebar.parentElement.contains(el)) el.remove();
+            });
 
             if(!document.querySelector('.steamcito_cart')){
                 cartSidebar.insertAdjacentHTML('beforebegin', DOMPurify.sanitize(`
@@ -122,9 +162,9 @@ function renderCart(){
                 </div>
 
                 <div class="steamcito_arq_welcome_banner">
-                    <strong>PROMO DE BIENVENIDA STEAMCITO: 3 USD DE REGALO 🎁</strong>
+                    <strong>PROMO DE BIENVENIDA STEAMCITO: 3 USD DE REGALO</strong>
                     <br>
-                    Registrate en ARQ clickeando acá y recibí 3 USD de regalo adicionales cuando gastes 30 USD o más en Steam o comercios del exterior.
+                    Registrate en ARQ clickeando acá y recibí 3 USD de reintegro cuando gastes 30 USD o más en Steam o comercios del exterior.
                     <div class="steamcito_arq_welcome_actions">
                         <a href="https://www.arqfinance.com/es-AR/referrals/general?is_retargeting=true&referralCode=emilianogioia_38q&pid=referral&c=general" target="_blank" class="steamcito_arq_welcome_cta">Obtener recompensa de 3 USD</a>
                         <button type="button" class="steamcito_arq_welcome_dismiss">Ya estoy registrado / no me interesa</button>
@@ -177,8 +217,9 @@ function renderCart(){
 
         }
 
+        // Se excluyen los totales del resumen (los que tienen un botón cerca), que ya muestra el bloque de Steamcito
         let dynamicClasses = Array.from(cartContent.querySelectorAll('div:not(:has(*))'));
-        let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$")
+        let filteredDynamicClasses = dynamicClasses.filter(element => element.innerText[0] == "$" && !isCartSummaryPrice(element))
         prices = filteredDynamicClasses
         prices.forEach(price => setArgentinaPrice(price));
         return;

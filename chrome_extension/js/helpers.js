@@ -427,7 +427,8 @@ const priceContainers = `
         .regional-meter-price:not([${attributeName}]),
         .StoreSalePriceWidgetContainer.Discounted >div >div:not([${attributeName}]),
         .StoreSalePriceWidgetContainer:not(.Discounted) >div:not([${attributeName}]),
-        .AppCapsuleCtn >span >span:not([${attributeName}])
+        .AppCapsuleCtn >span >span:not([${attributeName}]),
+        #module_discounts_and_events div:not(:has(*)):not([${attributeName}])
         `;
 
 function getTotalTaxes() {
@@ -515,7 +516,8 @@ function getBalance() {
         return 0;
     }
     else if (walletBalanceContainer) {
-        walletBalanceContainer.innerHTML += emojiWallet;
+        // getBalance() ahora se puede llamar varias veces: el emoji se agrega una sola vez
+        if(!walletBalanceContainer.querySelector('.emojis')) walletBalanceContainer.innerHTML += emojiWallet;
         // Fix para resolver problema de detección de saldo cuando tenés un reembolso pendiente
         let walletBalance = document.createElement('p');
         walletBalance.innerText = walletBalanceContainer.innerText;
